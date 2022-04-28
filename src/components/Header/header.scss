@@ -1,18 +1,49 @@
 header {
   background: #0f2355;
   padding: 18px 23px 19px 19px;
+  color: #FFFFFF;
 }
 
 .header__inner {
   display: flex;
   justify-content: space-between;
-}
 
-.header__logo-1{
-  margin-right: 12px;
-}
+  .header__logo-1 {
+    margin-right: 12px;
+  }
 
-.header__icons{
-  display: flex;
-  align-items: center;
+  .header__icons {
+    display: flex;
+    align-items: center;
+    
+    .icon{
+      font-size: 20px;
+      margin-right: 12px;
+    }
+
+    .header__icons-search {
+      display: flex;
+      align-items: center;
+      border-bottom: 0.5px solid lightgray;
+      padding: 3px;
+      margin-right: 12px;
+
+      input {
+        border: none;
+        outline: none;
+        background-color: transparent;
+
+        &::placeholder {
+          font-size: 12px;
+        }
+      }
+    }
+
+    .item {
+      display: flex;
+      align-items: center;
+      margin-right: 16px;
+      position: relative;
+    }
+  }
 }
