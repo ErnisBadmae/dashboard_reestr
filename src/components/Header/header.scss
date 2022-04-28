@@ -1,7 +1,7 @@
 header {
   background: #0f2355;
   padding: 18px 23px 19px 19px;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 .header__inner {
@@ -11,12 +11,15 @@ header {
   .header__logo-1 {
     margin-right: 12px;
   }
+  .header__logo {
+    cursor: pointer;
+  }
 
   .header__icons {
     display: flex;
     align-items: center;
-    
-    .icon{
+
+    .icon {
       font-size: 20px;
       // margin-right: 2px;
     }
@@ -44,6 +47,7 @@ header {
       align-items: center;
       margin-right: 16px;
       position: relative;
+      cursor: pointer;
     }
   }
 }

@@ -1,5 +1,5 @@
 import logo from '../../assets/img/logo/Logo.svg';
-import descLogo from '../../assets/img/desc/desc.svg';
+import descLogo from '../../assets/img/logo/desc.svg';
 import {
   SearchOutlined,
   NotificationsNoneOutlined,
@@ -13,41 +13,38 @@ import './header.scss';
 
 function Header(props) {
   return (
-    <div>
-      <header className="header">
-        <div className="header__inner">
-          <div className="header__logo">
-            <img className="header__logo-1" src={logo} alt="logo" />
-
-            <img className="header__logo-2" src={descLogo} alt="logo" />
+    <header className="header">
+      <div className="header__inner">
+        <div className="header__logo">
+          <img className="header__logo-1" src={logo} alt="logo" />
+          <img className="header__logo-2" src={descLogo} alt="logo" />
+        </div>
+        <div className="header__icons">
+          <div className="header__icons-search">
+            <input className="header__input" />
+            <SearchOutlined className="icon" />
           </div>
-          <div className="header__icons">
-            <div className="header__icons-search">
-              <input className="header__input" />
-              <SearchOutlined className="icon" />
-            </div>
-            <div className="item">
-              <NotificationsNoneOutlined className="icon" />
-            </div>
-            <div className="item">
-              <ChatBubbleOutlineOutlined className="icon" />
-            </div>
-            <div className="item">
-              <LanguageOutlined className="icon" />
-            </div>
-            <div className="item">
-              <Settings className="icon" />
-            </div>
-            <div className="item">
-              <AccountCircle className="icon" />
-            </div>
-            <div className="item">
-              <PowerSettingsNew className="icon" />
-            </div>
+          <div className="item">
+            <NotificationsNoneOutlined className="icon" />
+          </div>
+          <div className="item">
+            <ChatBubbleOutlineOutlined className="icon" />
+          </div>
+          <div className="item">
+            <LanguageOutlined className="icon" />
+          </div>
+          <div className="item">
+            <Settings className="icon" />
+          </div>
+          <div className="item">
+            <AccountCircle className="icon" />
+          </div>
+          <div className="item">
+            <PowerSettingsNew className="icon" />
           </div>
         </div>
-      </header>
-    </div>
+      </div>
+    </header>
   );
 }
 

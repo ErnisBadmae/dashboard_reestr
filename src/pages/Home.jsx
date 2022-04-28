@@ -1,13 +1,13 @@
+import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
-import Navbar from '../components/Navbar/Navbar';
 import Main from '../components/Main/Main';
 
 function Home(props) {
   return (
     <div>
-      <Navbar />
       <Header />
       <Main />
+      <Footer />
     </div>
   );
 }
