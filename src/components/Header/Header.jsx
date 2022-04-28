@@ -24,7 +24,7 @@ function Header(props) {
           <div className="header__icons">
             <div className="header__icons-search">
               <input className="header__input" />
-              <SearchOutlined className="icon"/>
+              <SearchOutlined className="icon" />
             </div>
             <div className="item">
               <NotificationsNoneOutlined className="icon" />
