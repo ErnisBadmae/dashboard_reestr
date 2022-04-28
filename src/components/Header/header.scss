@@ -1,0 +1,18 @@
+header {
+  background: #0f2355;
+  padding: 18px 23px 19px 19px;
+}
+
+.header__inner {
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__logo-1{
+  margin-right: 12px;
+}
+
+.header__icons{
+  display: flex;
+  align-items: center;
+}
