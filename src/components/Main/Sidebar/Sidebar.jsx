@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './sidebar.scss';
 
 function Sidebar(props) {
@@ -8,7 +9,9 @@ function Sidebar(props) {
           <p className="sidebar__inner-title">Заявления </p>
           <li>
             <div className="sidebar__inner-item" />
-            <span>Заявление СДС</span>
+            <Link to="/registr">
+              <span>Заявление СДС</span>
+            </Link>
           </li>
           <li>
             <div className="sidebar__inner-item" />
