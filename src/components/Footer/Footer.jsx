@@ -1,6 +1,11 @@
 import logo from '../../assets/img/logo/Logo.svg';
 import logo2 from '../../assets/img/logo/logo2.png';
-import icon from '../../assets/img/icons/icon1.png';
+import {
+  LocationOn,
+  AccessTime,
+  MailOutline,
+  Phone,
+} from '@mui/icons-material';
 
 import './footer.scss';
 
@@ -45,19 +50,27 @@ function Footer(props) {
               <div className="footer__address-p">
                 <p>Москва </p>
                 <p>Нахимовский проспект</p>
-                <p>дом 31 корп 2</p>
+                <p>дом 31, корпус 2</p>
               </div>
             </a>
-            <img className="footer__icon-1" src={icon} alt="icon" />
+            <LocationOn className="icon" />
           </div>
           <div className="footer__rasp">
-            <p className='footer__rasp-text'>расписанеи</p>
-            <img className="footer__icon-1" src={icon} alt="icon" />
+            <p className="footer__rasp-text">
+              Понедельник - Пятница 10:00 - 18:00
+            </p>
+            <AccessTime className="icon" />
           </div>
-          {/* <p>Москва Нахимовский проспект</p> */}
-          {/* <p>Москва Нахимовский проспек</p>
-          <p>Москва Нахимовский</p>
-          <p>Москва Нахим</p> */}
+          <div className="footer__email">
+            <p className="footer__email-text">mail@tk066.ru</p>
+            <MailOutline className="icon" />
+          </div>
+          <div className="footer__phone">
+            <a className="footer__phone-text" href="tel:+74951284320">
+              +7(495)128-43-20
+              <Phone />
+            </a>
+          </div>
         </div>
       </div>
     </footer>

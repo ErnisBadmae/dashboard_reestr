@@ -51,7 +51,7 @@ footer {
   .footer__contact {
     // *:not(:last-child){
     //   margin-bottom: 10px;
-    // } 
+    // }
     font-weight: 400;
     font-size: 10px;
     color: #a2afb2;
@@ -60,7 +60,10 @@ footer {
 
     .footer__address-click {
       display: inline-block;
-      margin-right: 16px;
+      margin-right: 10px;
+      font-weight: 400;
+      font-size: 10px;
+      color: #a2afb2;
     }
 
     .footer__address-p {
@@ -68,13 +71,17 @@ footer {
       flex-direction: column;
       align-items: flex-end;
     }
+
+    .icon {
+      font-size: 12px;
+    }
   }
 
-  .footer__rasp{
+  .footer__rasp {
     display: flex;
     justify-content: end;
-    
-    .footer__rasp-text{
+
+    .footer__rasp-text {
       margin-right: 16px;
     }
   }

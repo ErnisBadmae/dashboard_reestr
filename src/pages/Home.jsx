@@ -5,7 +5,7 @@ import Main from '../components/Main/Main';
 function Home(props) {
   return (
     <div>
-      <Header />
+      <Header/>
       <Main />
       <Footer />
     </div>
