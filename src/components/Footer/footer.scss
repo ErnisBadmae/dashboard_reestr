@@ -64,6 +64,7 @@ footer {
       font-weight: 400;
       font-size: 10px;
       color: #a2afb2;
+      margin-bottom: 12px;
     }
 
     .footer__address-p {
@@ -83,6 +84,18 @@ footer {
 
     .footer__rasp-text {
       margin-right: 16px;
+      margin-bottom: 12px;
     }
+  }
+  .footer__email-text {
+    font-weight: 400;
+    font-size: 10px;
+    color: #a2afb2;
+  }
+
+  .footer__phone-text {
+    font-weight: 400;
+    font-size: 10px;
+    color: #a2afb2;
   }
 }

@@ -62,13 +62,15 @@ function Footer(props) {
             <AccessTime className="icon" />
           </div>
           <div className="footer__email">
-            <p className="footer__email-text">mail@tk066.ru</p>
+            <a className="footer__email-text" href="mailto:mail@tk066.ru">
+              mail@tk066.ru
+            </a>
             <MailOutline className="icon" />
           </div>
           <div className="footer__phone">
             <a className="footer__phone-text" href="tel:+74951284320">
               +7(495)128-43-20
-              <Phone />
+              <Phone className="icon" />
             </a>
           </div>
         </div>

@@ -3,4 +3,12 @@
   margin-right: 115px;
   margin-top: 12px;
   min-height: 100vh;
+
+  .main__inner {
+    height: 100%;
+
+    .main__sidebar {
+      height: 100%;
+    }
+  }
 }
