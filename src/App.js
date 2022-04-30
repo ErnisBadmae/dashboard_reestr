@@ -3,6 +3,7 @@ import Home from './pages/home/Home';
 import Registr from './pages/register/Registr'
 import Login from './pages/login/Login'
 import NotFound from './pages/not-found/NotFound'
+import Declaration from './pages/declaration/Declaration';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
             <Route index element={<Home/>} />
             <Route path="login" element={<Login />} />
             <Route path="registr" element={< Registr />} />
+            <Route path="declaration" element={< Declaration />} />
             <Route path="*" element={< NotFound />} />            
           </Route>
         </Routes>

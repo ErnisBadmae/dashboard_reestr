@@ -1,7 +1,7 @@
 // import { useRef } from 'react';
 // import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-
+import './registr.scss';
 // function Registr(props) {
 //   const navigate = useNavigate();
 
@@ -92,39 +92,73 @@ const Registr = () => {
   };
 
   return (
-    <form onSubmit={formHandler}>
-      <div>
-        <input
-          autoComplete="off"
-          name="name"
-          type="text"
-          placeholder="Имя"
-          required
-          autoFocus
-        />
-      </div>
-      <div>
-        <input name="inn" />
-      </div>
-      <div>
-        <input name="func" />
-      </div>
-      <div>
-        <input
-          name="phone"
-          value={phone}
-          placeholder="phone"
-          onChange={(e) => setPhone(e.target.value)}
-        />
-      </div>
-      <div>
-        <input name="mail" />
-      </div>
-      <div>
-        <input name="sds" />
-      </div>
-      <button type="submit">Отправить</button>
-    </form>
+    <>
+      <div className="login__title">Сведения о заявителе</div>
+      <form onSubmit={formHandler} className="login__form">
+        <div>
+          <p>ФИО</p>
+          <input
+            autoComplete="off"
+            name="name"
+            type="text"
+            // placeholder="Имя"
+            required
+            autoFocus
+          />
+          <p>ИНН</p>
+        </div>
+        <div>
+          <input
+            name="inn"
+            autoComplete="off"
+            type="text"
+            // placeholder="Имя"
+            required
+          />
+          <p>Должность</p>
+        </div>
+        <div>
+          <input
+            name="func"
+            autoComplete="off"
+            type="text"
+            // placeholder="Имя"
+            required
+          />
+          <p>Телефон</p>
+        </div>
+        <div>
+          <input
+            name="phone"
+            value={phone}
+            placeholder="  +7"
+            onChange={(e) => setPhone(e.target.value)}
+          />
+          <p>E-mail</p>
+        </div>
+        <div>
+          <input
+            name="mail"
+            autoComplete="off"
+            type="text"
+            placeholder="  .....@....."
+            required
+          />
+          <p>СДС</p>
+        </div>
+        <div>
+          <input
+            name="sds"
+            autoComplete="off"
+            type="text"
+            required
+          />
+        </div>
+        <button className="btn__login" type="submit">
+          Отправить
+        </button>
+      </form>
+    </>
   );
 };
 
