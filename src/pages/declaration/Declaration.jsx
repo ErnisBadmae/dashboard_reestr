@@ -20,30 +20,17 @@ function Declaration(props) {
               autoComplete="off"
               name="name"
               type="text"
-              // placeholder="Имя"
               required
               autoFocus
             />
           </div>
           <div>
             <p>Сокращенное наименование СДС</p>
-            <input
-              name="inn"
-              autoComplete="off"
-              type="text"
-              // placeholder="Имя"
-              required
-            />
+            <input name="inn" autoComplete="off" type="text" required />
           </div>
           <div>
             <p>Регистрационный номер (в реестре СДС Ростандарта)</p>
-            <input
-              name="func"
-              autoComplete="off"
-              type="text"
-              // placeholder="Имя"
-              required
-            />
+            <input name="func" autoComplete="off" type="text" required />
           </div>
           <div>
             <p>Дата регистрации (в реестре СДС Ростандарта)</p>
@@ -77,30 +64,17 @@ function Declaration(props) {
               autoComplete="off"
               name="name"
               type="text"
-              // placeholder="Имя"
               required
               autoFocus
             />
           </div>
           <div>
             <p>ОГРН</p>
-            <input
-              name="inn"
-              autoComplete="off"
-              type="text"
-              // placeholder="Имя"
-              required
-            />
+            <input name="inn" autoComplete="off" type="text" required />
           </div>
           <div>
             <p>Наименование</p>
-            <input
-              name="func"
-              autoComplete="off"
-              type="text"
-              // placeholder="Имя"
-              required
-            />
+            <input name="func" autoComplete="off" type="text" required />
           </div>
           <div>
             <p>Юр. Адрес</p>
@@ -129,8 +103,7 @@ function Declaration(props) {
             Отправить
           </button>
         </div>
-        <div>
-        </div>
+        <div></div>
       </form>
     </>
   );

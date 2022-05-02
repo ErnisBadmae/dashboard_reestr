@@ -9,7 +9,7 @@ function Sidebar(props) {
           <p className="sidebar__inner-title">Заявления </p>
           <li>
             <div className="sidebar__inner-item" />
-            <Link to="/registr">
+            <Link to="/declaration">
               <span>Заявление СДС</span>
             </Link>
           </li>
