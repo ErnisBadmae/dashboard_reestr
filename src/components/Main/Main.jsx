@@ -12,6 +12,7 @@ function Main(props) {
             <Sidebar/>
           </div>
           <div className="main__table">
+               {props.children}
           </div>
         </div>
       </div>

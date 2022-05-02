@@ -1,14 +1,15 @@
 .container {
-  margin-left: 27px;
-  margin-right: 115px;
-  margin-top: 12px;
-  min-height: 100vh;
+    margin-left: 27px;
+    margin-right: 115px;
+    margin-top: 12px;
+    min-height: 100vh;
 
-  .main__inner {
-    height: 100%;
+    .main__inner {
+        height: 100%;
+        display: flex;
 
-    .main__sidebar {
-      height: 100%;
+        .main__sidebar {
+            height: 100%;
+        }
     }
-  }
 }

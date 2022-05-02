@@ -1,15 +1,13 @@
-import Footer from '../../components/Footer/Footer';
-import Header from '../../components/Header/Header';
-import Main from '../../components/Main/Main';
-import { Outlet } from 'react-router-dom';
+// import { Outlet } from 'react-router-dom';
+import Layout from '../../components/Layout/Layout';
 
 function Home(props) {
     return (
         <div>
-            <Header />
-            <Main />
-            <Footer />
-            <Outlet />
+            <Layout> 
+                 Homecontent
+            </Layout>
+            {/* <Outlet /> */}
         </div>
     );
 }
