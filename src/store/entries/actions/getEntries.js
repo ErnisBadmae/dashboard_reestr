@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const getEntries = createAsyncThunk('entries/get', async (dispatch) => {
-  let result = await axios('/table.json'
+  let result= await axios('/table.json'
     // credentials: "include",
 //   }
   );
@@ -10,7 +10,7 @@ export const getEntries = createAsyncThunk('entries/get', async (dispatch) => {
   // result.data.array.forEach(element => {
   //   element
   // });
-  return result.data;
+  return result.data.data
   // console.log('data', data)
   // console.log(dispatch)
   // dispatch({ type: 'GET_DATA', payload: data });

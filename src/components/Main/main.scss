@@ -2,7 +2,7 @@
     margin-left: 27px;
     margin-right: 115px;
     margin-top: 12px;
-    min-height: 100vh;
+    min-height: 100%;
 
     .main__inner {
         height: 100%;
@@ -11,5 +11,8 @@
         .main__sidebar {
             height: 100%;
         }
+    }
+    .main__table {
+        min-width: 100%;
     }
 }

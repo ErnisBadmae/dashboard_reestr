@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Layout from '../../components/Layout/Layout';
+import LayoutContent from '../../components/Layout/Layout';
 import '../register/registr.scss';
 import './declaration.scss'
 
@@ -14,7 +14,7 @@ function Declaration(props) {
       //    <div className="overlay">
       //        <div className="modal">
     return (
-     <Layout>
+     <LayoutContent>
           
  
                 <div className="login__title">Подача Заявления СДС</div>
@@ -147,7 +147,7 @@ function Declaration(props) {
                     </div>
                     <div></div>
                 </form>
-     </Layout>
+     </LayoutContent>
     );
     //        </div>
     //    </div>

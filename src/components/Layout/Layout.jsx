@@ -3,7 +3,7 @@ import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 
-function Layout(props) {
+function LayoutContent(props) {
     return (
         <>
             <Header />
@@ -13,4 +13,4 @@ function Layout(props) {
     );
 }
 
-export default Layout;
+export default LayoutContent;

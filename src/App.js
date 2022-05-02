@@ -5,6 +5,7 @@ import Registr from './pages/register/Registr';
 import NotFound from './pages/not-found/NotFound';
 import Declaration from './pages/declaration/Declaration';
 import Login from './pages/test-register/Signin';
+import { TableRegistry } from './components/TableRegistry/TableRegistry';
 
 function App() {
     return (
@@ -15,10 +16,9 @@ function App() {
                     {/* <Route path="login" element={<Login />} /> */}
                     <Route path="registr" element={<Registr />} />
                     <Route path="declaration" element={<Declaration />} />
-                    <Route path="" element={}
+                    <Route path="sds" element={<TableRegistry />} />
                     <Route path="*" element={<NotFound />} />
-                    <Route path="login" element={< Login/>} />
-
+                    <Route path="login" element={<Login />} />
                 </Routes>
             </BrowserRouter>
         </div>

@@ -34,7 +34,9 @@ function Sidebar(props) {
 
           <li>
             <div className="sidebar__inner-item" />
+            <Link to='/sds'>
             <span>Реестр СДС</span>
+            </Link>
           </li>
           <li>
             <div className="sidebar__inner-item" />
