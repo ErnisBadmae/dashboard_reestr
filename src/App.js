@@ -15,6 +15,7 @@ function App() {
                     {/* <Route path="login" element={<Login />} /> */}
                     <Route path="registr" element={<Registr />} />
                     <Route path="declaration" element={<Declaration />} />
+                    <Route path="" element={}
                     <Route path="*" element={<NotFound />} />
                     <Route path="login" element={< Login/>} />
 
