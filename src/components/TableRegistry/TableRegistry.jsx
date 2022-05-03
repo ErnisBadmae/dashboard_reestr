@@ -1,10 +1,12 @@
-import { Table, Layout, Row, Col } from 'antd';
+import { Table, Layout } from 'antd';
 import React, { useEffect } from 'react';
 import { getEntries } from '../../store/entries/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { entriesTableColumns } from '../../helpers/entriesTableConstants';
 import LayoutContent from '../../components/Layout/Layout';
+import { Filter } from '../Filter/Filter';
+
 import './tableRegistry.scss';
 
 const { Content } = Layout;
@@ -34,9 +36,12 @@ export const TableRegistry = () => {
 
     return (
         <LayoutContent>
-            <Content style={{ padding: '0 100px' }}>
+            <Content style={{ padding: '0 40px' }}>
                 {/* <Col xs={12} md={{ span: 1, offset: 1 }}> */}
+                <div className="registry-sro__drawer-wrapper">
+                    <Filter />
                     <Table
+                        // bordered={false}
                         columns={entriesTableColumns}
                         dataSource={dataSource}
                         className="registry-sro__table"
@@ -51,7 +56,8 @@ export const TableRegistry = () => {
                         }}
                         onRow={(record) => relocateToCard(record)}
                     />
-                {/* </Col> */}
+                    {/* </Col> */}
+                </div>
             </Content>
         </LayoutContent>
     );
