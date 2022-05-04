@@ -1,7 +1,5 @@
 .container {
-    margin-left: 27px;
-    margin-right: 115px;
-    margin-top: 12px;
+    margin: 12px auto 0px;
     min-height: 100%;
 
     .main__inner {
@@ -13,6 +11,6 @@
         }
     }
     .main__table {
-        min-width: 100%;
+        flex: 1;
     }
 }

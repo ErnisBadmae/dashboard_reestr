@@ -1,8 +1,8 @@
 import { FilterFilled } from '@ant-design/icons';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Select, Form, Drawer, Button, Input } from 'antd';
 import './filter.scss';
-// import { Search } from '../Search/Search';
+import { Search } from '../Search/Search';
 
 const { Option } = Select;
 
@@ -28,7 +28,7 @@ export const Filter = () => {
     return (
         <>
             <div className="registry-sro__filter-wrapper">
-                {/* <Search className="registry-sro__title-search" /> */}
+                <Search className="registry-sro__title-search" />
                 <div className="registry-sro__name-registry">РЕЕСТР СДС</div>
                 <FilterFilled
                     className="registry-sro__filter-icon"
