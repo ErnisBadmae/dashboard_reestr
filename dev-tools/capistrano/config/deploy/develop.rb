@@ -1,4 +1,4 @@
-set :deploy_to, "/var/www/front_open_profsdc"
+set :deploy_to, "/var/www/front_crm_profsdc"
 #!!
 
 # server-based syntax

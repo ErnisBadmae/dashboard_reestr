@@ -2,11 +2,11 @@
 lock ">=3.6"
 
 #!!!
-set :application, "front_open_profsdc"
-set :repo_url, "git@git.nms:prof_sdc/front_open_profsdc.git"
+set :application, "front_crm_profsdc"
+set :repo_url, "git@git.nms:prof_sdc/front_crm_profsdc.git"
 
 # Default deploy_to directory is /var/www/my_app_name
-set :tmp_dir, "/tmp/open-reestr-nopriz"
+set :tmp_dir, "/tmp/crm-reestr-nopriz"
 
 # Branch
 set :branch, ENV['BRANCH'] if ENV['BRANCH']
