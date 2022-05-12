@@ -2020,3 +2020,210 @@ Search for the keywords to learn more about each warning.
   INFO [c4ceeb55] Running /usr/bin/env echo "Branch dev (at 95ee7c86f4ed44ef5c899ae1c663a7fe03f95d7e) deployed as release 20220511150009 by ernis" >> /var/www/front_crm_profsdc/revisions.log as deploy@10.102.55.48
  DEBUG [c4ceeb55] Command: cd /var/www/front_crm_profsdc/releases && /usr/bin/env echo "Branch dev (at 95ee7c86f4ed44ef5c899ae1c663a7fe03f95d7e) deployed as release 20220511150009 by ernis" >> /var/www/front_crm_profsdc/revisions.log
   INFO [c4ceeb55] Finished in 0.092 seconds with exit status 0 (successful).
+  INFO ---------------------------------------------------------------------------
+  INFO START 2022-05-11 22:32:58 +0300 cap develop deploy BRANCH=dev
+  INFO ---------------------------------------------------------------------------
+  INFO [c98040d6] Running /usr/bin/env mkdir -p /tmp/crm-reestr-nopriz as deploy@10.102.55.48
+ DEBUG [c98040d6] Command: /usr/bin/env mkdir -p /tmp/crm-reestr-nopriz
+  INFO [c98040d6] Finished in 0.727 seconds with exit status 0 (successful).
+ DEBUG Uploading /tmp/crm-reestr-nopriz/git-ssh-front_crm_profsdc-develop-ernis.sh 0.0%
+  INFO Uploading /tmp/crm-reestr-nopriz/git-ssh-front_crm_profsdc-develop-ernis.sh 100.0%
+  INFO [d62051c4] Running /usr/bin/env chmod 700 /tmp/crm-reestr-nopriz/git-ssh-front_crm_profsdc-develop-ernis.sh as deploy@10.102.55.48
+ DEBUG [d62051c4] Command: /usr/bin/env chmod 700 /tmp/crm-reestr-nopriz/git-ssh-front_crm_profsdc-develop-ernis.sh
+  INFO [d62051c4] Finished in 0.050 seconds with exit status 0 (successful).
+  INFO [bf7b291e] Running /usr/bin/env git ls-remote git@git.nms:prof_sdc/front_crm_profsdc.git HEAD as deploy@10.102.55.48
+ DEBUG [bf7b291e] Command: ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/crm-reestr-nopriz/git-ssh-front_crm_profsdc-develop-ernis.sh" ; /usr/bin/env git ls-remote git@git.nms:prof_sdc/front_crm_profsdc.git HEAD )
+ DEBUG [bf7b291e] 	f12a137fe472f033db89d6c185bbac6fea0bf2b3	HEAD
+  INFO [bf7b291e] Finished in 0.951 seconds with exit status 0 (successful).
+  INFO [b2011376] Running /usr/bin/env mkdir -p /var/www/front_crm_profsdc/shared /var/www/front_crm_profsdc/releases as deploy@10.102.55.48
+ DEBUG [b2011376] Command: /usr/bin/env mkdir -p /var/www/front_crm_profsdc/shared /var/www/front_crm_profsdc/releases
+  INFO [b2011376] Finished in 0.039 seconds with exit status 0 (successful).
+  INFO [506d2cd2] Running /usr/bin/env mkdir -p /var/www/front_crm_profsdc/shared/node_modules as deploy@10.102.55.48
+ DEBUG [506d2cd2] Command: /usr/bin/env mkdir -p /var/www/front_crm_profsdc/shared/node_modules
+  INFO [506d2cd2] Finished in 0.049 seconds with exit status 0 (successful).
+  INFO [47d58f7b] Running /usr/bin/env mkdir -p /var/www/front_crm_profsdc/shared as deploy@10.102.55.48
+ DEBUG [47d58f7b] Command: /usr/bin/env mkdir -p /var/www/front_crm_profsdc/shared
+  INFO [47d58f7b] Finished in 0.089 seconds with exit status 0 (successful).
+ DEBUG [07037dcf] Running [ -f /var/www/front_crm_profsdc/shared/.env ] as deploy@10.102.55.48
+ DEBUG [07037dcf] Command: [ -f /var/www/front_crm_profsdc/shared/.env ]
+ DEBUG [07037dcf] Finished in 0.047 seconds with exit status 0 (successful).
+ DEBUG [54dac774] Running [ -f /var/www/front_crm_profsdc/shared/.env.production ] as deploy@10.102.55.48
+ DEBUG [54dac774] Command: [ -f /var/www/front_crm_profsdc/shared/.env.production ]
+ DEBUG [54dac774] Finished in 0.088 seconds with exit status 0 (successful).
+ DEBUG [25166f43] Running [ -f /var/www/front_crm_profsdc/current/REVISION ] as deploy@10.102.55.48
+ DEBUG [25166f43] Command: [ -f /var/www/front_crm_profsdc/current/REVISION ]
+ DEBUG [25166f43] Finished in 0.045 seconds with exit status 0 (successful).
+ DEBUG [6ee37cbb] Running /usr/bin/env cat /var/www/front_crm_profsdc/current/REVISION 2>/dev/null as deploy@10.102.55.48
+ DEBUG [6ee37cbb] Command: /usr/bin/env cat /var/www/front_crm_profsdc/current/REVISION 2>/dev/null
+ DEBUG [6ee37cbb] 	95ee7c86f4ed44ef5c899ae1c663a7fe03f95d7e
+ DEBUG [6ee37cbb] Finished in 0.090 seconds with exit status 0 (successful).
+ DEBUG [25c39c9f] Running [ -f /var/www/front_crm_profsdc/repo/HEAD ] as deploy@10.102.55.48
+ DEBUG [25c39c9f] Command: [ -f /var/www/front_crm_profsdc/repo/HEAD ]
+ DEBUG [25c39c9f] Finished in 0.045 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /var/www/front_crm_profsdc/repo
+ DEBUG [b5412b81] Running if test ! -d /var/www/front_crm_profsdc/repo; then echo "Directory does not exist '/var/www/front_crm_profsdc/repo'" 1>&2; false; fi as deploy@10.102.55.48
+ DEBUG [b5412b81] Command: if test ! -d /var/www/front_crm_profsdc/repo; then echo "Directory does not exist '/var/www/front_crm_profsdc/repo'" 1>&2; false; fi
+ DEBUG [b5412b81] Finished in 0.035 seconds with exit status 0 (successful).
+  INFO [029d116a] Running /usr/bin/env git remote set-url origin git@git.nms:prof_sdc/front_crm_profsdc.git as deploy@10.102.55.48
+ DEBUG [029d116a] Command: cd /var/www/front_crm_profsdc/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/crm-reestr-nopriz/git-ssh-front_crm_profsdc-develop-ernis.sh" ; /usr/bin/env git remote set-url origin git@git.nms:prof_sdc/front_crm_profsdc.git )
+  INFO [029d116a] Finished in 0.048 seconds with exit status 0 (successful).
+  INFO [917b0b8d] Running /usr/bin/env git remote update --prune as deploy@10.102.55.48
+ DEBUG [917b0b8d] Command: cd /var/www/front_crm_profsdc/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/crm-reestr-nopriz/git-ssh-front_crm_profsdc-develop-ernis.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [917b0b8d] 	Fetching origin
+ DEBUG [917b0b8d] 	From git.nms:prof_sdc/front_crm_profsdc
+   95ee7c8..f12a137  dev        -> dev
+  INFO [917b0b8d] Finished in 0.879 seconds with exit status 0 (successful).
+ DEBUG [923e049d] Running if test ! -d /var/www/front_crm_profsdc/repo; then echo "Directory does not exist '/var/www/front_crm_profsdc/repo'" 1>&2; false; fi as deploy@10.102.55.48
+ DEBUG [923e049d] Command: if test ! -d /var/www/front_crm_profsdc/repo; then echo "Directory does not exist '/var/www/front_crm_profsdc/repo'" 1>&2; false; fi
+ DEBUG [923e049d] Finished in 0.033 seconds with exit status 0 (successful).
+  INFO [5225d2fe] Running /usr/bin/env mkdir -p /var/www/front_crm_profsdc/releases/20220511193306 as deploy@10.102.55.48
+ DEBUG [5225d2fe] Command: cd /var/www/front_crm_profsdc/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/crm-reestr-nopriz/git-ssh-front_crm_profsdc-develop-ernis.sh" ; /usr/bin/env mkdir -p /var/www/front_crm_profsdc/releases/20220511193306 )
+  INFO [5225d2fe] Finished in 0.051 seconds with exit status 0 (successful).
+  INFO [5bec00c8] Running /usr/bin/env git archive dev | /usr/bin/env tar -x -f - -C /var/www/front_crm_profsdc/releases/20220511193306 as deploy@10.102.55.48
+ DEBUG [5bec00c8] Command: cd /var/www/front_crm_profsdc/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/crm-reestr-nopriz/git-ssh-front_crm_profsdc-develop-ernis.sh" ; /usr/bin/env git archive dev | /usr/bin/env tar -x -f - -C /var/www/front_crm_profsdc/releases/20220511193306 )
+  INFO [5bec00c8] Finished in 0.107 seconds with exit status 0 (successful).
+ DEBUG [781c12b6] Running if test ! -d /var/www/front_crm_profsdc/repo; then echo "Directory does not exist '/var/www/front_crm_profsdc/repo'" 1>&2; false; fi as deploy@10.102.55.48
+ DEBUG [781c12b6] Command: if test ! -d /var/www/front_crm_profsdc/repo; then echo "Directory does not exist '/var/www/front_crm_profsdc/repo'" 1>&2; false; fi
+ DEBUG [781c12b6] Finished in 0.034 seconds with exit status 0 (successful).
+ DEBUG [6badeb5c] Running /usr/bin/env git rev-list --max-count=1 dev as deploy@10.102.55.48
+ DEBUG [6badeb5c] Command: cd /var/www/front_crm_profsdc/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/tmp/crm-reestr-nopriz/git-ssh-front_crm_profsdc-develop-ernis.sh" ; /usr/bin/env git rev-list --max-count=1 dev )
+ DEBUG [6badeb5c] 	f12a137fe472f033db89d6c185bbac6fea0bf2b3
+ DEBUG [6badeb5c] Finished in 0.092 seconds with exit status 0 (successful).
+ DEBUG [a8e06cbb] Running if test ! -d /var/www/front_crm_profsdc/releases/20220511193306; then echo "Directory does not exist '/var/www/front_crm_profsdc/releases/20220511193306'" 1>&2; false; fi as deploy@10.102.55.48
+ DEBUG [a8e06cbb] Command: if test ! -d /var/www/front_crm_profsdc/releases/20220511193306; then echo "Directory does not exist '/var/www/front_crm_profsdc/releases/20220511193306'" 1>&2; false; fi
+ DEBUG [a8e06cbb] Finished in 0.033 seconds with exit status 0 (successful).
+  INFO [6f37785a] Running /usr/bin/env echo "f12a137fe472f033db89d6c185bbac6fea0bf2b3" > REVISION as deploy@10.102.55.48
+ DEBUG [6f37785a] Command: cd /var/www/front_crm_profsdc/releases/20220511193306 && /usr/bin/env echo "f12a137fe472f033db89d6c185bbac6fea0bf2b3" > REVISION
+  INFO [6f37785a] Finished in 0.091 seconds with exit status 0 (successful).
+  INFO [60f35527] Running /usr/bin/env mkdir -p /var/www/front_crm_profsdc/releases/20220511193306 as deploy@10.102.55.48
+ DEBUG [60f35527] Command: /usr/bin/env mkdir -p /var/www/front_crm_profsdc/releases/20220511193306
+  INFO [60f35527] Finished in 0.045 seconds with exit status 0 (successful).
+ DEBUG [d37b5ac9] Running [ -L /var/www/front_crm_profsdc/releases/20220511193306/.env ] as deploy@10.102.55.48
+ DEBUG [d37b5ac9] Command: [ -L /var/www/front_crm_profsdc/releases/20220511193306/.env ]
+ DEBUG [d37b5ac9] Finished in 0.085 seconds with exit status 1 (failed).
+ DEBUG [942f71fa] Running [ -f /var/www/front_crm_profsdc/releases/20220511193306/.env ] as deploy@10.102.55.48
+ DEBUG [942f71fa] Command: [ -f /var/www/front_crm_profsdc/releases/20220511193306/.env ]
+ DEBUG [942f71fa] Finished in 0.046 seconds with exit status 1 (failed).
+  INFO [564682da] Running /usr/bin/env ln -s /var/www/front_crm_profsdc/shared/.env /var/www/front_crm_profsdc/releases/20220511193306/.env as deploy@10.102.55.48
+ DEBUG [564682da] Command: /usr/bin/env ln -s /var/www/front_crm_profsdc/shared/.env /var/www/front_crm_profsdc/releases/20220511193306/.env
+  INFO [564682da] Finished in 0.087 seconds with exit status 0 (successful).
+ DEBUG [6db888b9] Running [ -L /var/www/front_crm_profsdc/releases/20220511193306/.env.production ] as deploy@10.102.55.48
+ DEBUG [6db888b9] Command: [ -L /var/www/front_crm_profsdc/releases/20220511193306/.env.production ]
+ DEBUG [6db888b9] Finished in 0.046 seconds with exit status 1 (failed).
+ DEBUG [bab311d2] Running [ -f /var/www/front_crm_profsdc/releases/20220511193306/.env.production ] as deploy@10.102.55.48
+ DEBUG [bab311d2] Command: [ -f /var/www/front_crm_profsdc/releases/20220511193306/.env.production ]
+ DEBUG [bab311d2] Finished in 0.090 seconds with exit status 1 (failed).
+  INFO [c3d700aa] Running /usr/bin/env ln -s /var/www/front_crm_profsdc/shared/.env.production /var/www/front_crm_profsdc/releases/20220511193306/.env.production as deploy@10.102.55.48
+ DEBUG [c3d700aa] Command: /usr/bin/env ln -s /var/www/front_crm_profsdc/shared/.env.production /var/www/front_crm_profsdc/releases/20220511193306/.env.production
+  INFO [c3d700aa] Finished in 0.047 seconds with exit status 0 (successful).
+  INFO [79efe6c0] Running /usr/bin/env mkdir -p /var/www/front_crm_profsdc/releases/20220511193306 as deploy@10.102.55.48
+ DEBUG [79efe6c0] Command: /usr/bin/env mkdir -p /var/www/front_crm_profsdc/releases/20220511193306
+  INFO [79efe6c0] Finished in 0.089 seconds with exit status 0 (successful).
+ DEBUG [dc0212fa] Running [ -L /var/www/front_crm_profsdc/releases/20220511193306/node_modules ] as deploy@10.102.55.48
+ DEBUG [dc0212fa] Command: [ -L /var/www/front_crm_profsdc/releases/20220511193306/node_modules ]
+ DEBUG [dc0212fa] Finished in 0.045 seconds with exit status 1 (failed).
+ DEBUG [573c373f] Running [ -d /var/www/front_crm_profsdc/releases/20220511193306/node_modules ] as deploy@10.102.55.48
+ DEBUG [573c373f] Command: [ -d /var/www/front_crm_profsdc/releases/20220511193306/node_modules ]
+ DEBUG [573c373f] Finished in 0.089 seconds with exit status 1 (failed).
+  INFO [b8b93023] Running /usr/bin/env ln -s /var/www/front_crm_profsdc/shared/node_modules /var/www/front_crm_profsdc/releases/20220511193306/node_modules as deploy@10.102.55.48
+ DEBUG [b8b93023] Command: /usr/bin/env ln -s /var/www/front_crm_profsdc/shared/node_modules /var/www/front_crm_profsdc/releases/20220511193306/node_modules
+  INFO [b8b93023] Finished in 0.047 seconds with exit status 0 (successful).
+  INFO [79046bef] Running /usr/bin/env ln -s /var/www/front_crm_profsdc/releases/20220511193306 /var/www/front_crm_profsdc/releases/current as deploy@10.102.55.48
+ DEBUG [79046bef] Command: /usr/bin/env ln -s /var/www/front_crm_profsdc/releases/20220511193306 /var/www/front_crm_profsdc/releases/current
+  INFO [79046bef] Finished in 0.088 seconds with exit status 0 (successful).
+  INFO [d7fcf0d6] Running /usr/bin/env mv /var/www/front_crm_profsdc/releases/current /var/www/front_crm_profsdc as deploy@10.102.55.48
+ DEBUG [d7fcf0d6] Command: /usr/bin/env mv /var/www/front_crm_profsdc/releases/current /var/www/front_crm_profsdc
+  INFO [d7fcf0d6] Finished in 0.048 seconds with exit status 0 (successful).
+ DEBUG [0e0d50f9] Running [ -d /var/www/front_crm_profsdc/releases/20220511193306 ] as deploy@10.102.55.48
+ DEBUG [0e0d50f9] Command: [ -d /var/www/front_crm_profsdc/releases/20220511193306 ]
+ DEBUG [0e0d50f9] Finished in 0.088 seconds with exit status 0 (successful).
+  INFO [0dc47ea1] Running cd '/var/www/front_crm_profsdc/releases/20220511193306'; as deploy@10.102.55.48
+ DEBUG [0dc47ea1] Command: cd '/var/www/front_crm_profsdc/releases/20220511193306';
+  INFO [0dc47ea1] Finished in 0.046 seconds with exit status 0 (successful).
+  INFO [6aec500f] Running cd '/var/www/front_crm_profsdc/releases/20220511193306'; npm install; as deploy@10.102.55.48
+ DEBUG [6aec500f] Command: cd '/var/www/front_crm_profsdc/releases/20220511193306'; npm install;
+ DEBUG [6aec500f] 	npm
+ DEBUG [6aec500f] 	 
+ DEBUG [6aec500f] 	WARN
+ DEBUG [6aec500f] 	 
+ DEBUG [6aec500f] 	reify
+ DEBUG [6aec500f] 	 Removing non-directory /var/www/front_crm_profsdc/releases/20220511193306/node_modules
+ DEBUG [6aec500f] 	npm
+ DEBUG [6aec500f] 	 
+ DEBUG [6aec500f] 	WARN
+ DEBUG [6aec500f] 	 
+ DEBUG [6aec500f] 	deprecated
+ DEBUG [6aec500f] 	 source-map-resolve@0.6.0: See https://github.com/lydell/source-map-resolve#deprecated
+ DEBUG [6aec500f] 	npm
+ DEBUG [6aec500f] 	 
+ DEBUG [6aec500f] 	WARN
+ DEBUG [6aec500f] 	 
+ DEBUG [6aec500f] 	deprecated
+ DEBUG [6aec500f] 	 svgo@1.3.2: This SVGO version is no longer supported. Upgrade to v2.x.x.
+ DEBUG [6aec500f] 	
+added 1539 packages, and audited 1540 packages in 27s
+ DEBUG [6aec500f] 	
+ DEBUG [6aec500f] 	186 packages are looking for funding
+ DEBUG [6aec500f] 	  run `npm fund` for details
+ DEBUG [6aec500f] 	
+6 moderate severity vulnerabilities
+
+To address all issues (including breaking changes), run:
+  npm audit fix --force
+
+Run `npm audit` for details.
+  INFO [6aec500f] Finished in 27.144 seconds with exit status 0 (successful).
+  INFO [7762d6a6] Running cd '/var/www/front_crm_profsdc/releases/20220511193306'; npm run build; as deploy@10.102.55.48
+ DEBUG [7762d6a6] Command: cd '/var/www/front_crm_profsdc/releases/20220511193306'; npm run build;
+ DEBUG [7762d6a6] 	
+> non-published-prof@0.1.0 build
+> react-scripts build
+
+ DEBUG [7762d6a6] 	Creating an optimized production build...
+ DEBUG [7762d6a6] 	Compiled with warnings.
+
+ DEBUG [7762d6a6] 	src/components/Footer/Footer.jsx
+  Line 57:25:  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+
+src/components/TableRegistry/TableRegistry.jsx
+  Line 20:8:  React Hook useEffect has a missing dependency: 'dispatch'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
+
+src/pages/home/Home.jsx
+  Line 9:11:  'dispatch' is assigned a value but never used                                                                             no-unused-vars
+  Line 17:8:  React Hook useEffect has missing dependencies: 'navigate' and 'user'. Either include them or remove the dependency array  react-hooks/exhaustive-deps
+
+src/pages/login/Login.jsx
+  Line 17:19:  'isLoading' is assigned a value but never used  no-unused-vars
+ DEBUG [7762d6a6] 	
+Search for the keywords to learn more about each warning.
+ DEBUG [7762d6a6] 	To ignore, add // eslint-disable-next-line to the line before.
+
+ DEBUG [7762d6a6] 	File sizes after gzip:
+
+ DEBUG [7762d6a6] 	  253.7 kB  build/static/js/main.3209679a.js
+ DEBUG [7762d6a6] 	  68.21 kB  build/static/css/main.19ebf086.css
+ DEBUG [7762d6a6] 	
+ DEBUG [7762d6a6] 	The project was built assuming it is hosted at /.
+ DEBUG [7762d6a6] 	You can control this with the homepage field in your package.json.
+ DEBUG [7762d6a6] 	
+ DEBUG [7762d6a6] 	The build folder is ready to be deployed.
+ DEBUG [7762d6a6] 	You may serve it with a static server:
+ DEBUG [7762d6a6] 	
+ DEBUG [7762d6a6] 	  npm install -g serve
+ DEBUG [7762d6a6] 	  serve -s build
+ DEBUG [7762d6a6] 	
+ DEBUG [7762d6a6] 	Find out more about deployment here:
+ DEBUG [7762d6a6] 	
+ DEBUG [7762d6a6] 	  https://cra.link/deployment
+ DEBUG [7762d6a6] 	
+  INFO [7762d6a6] Finished in 96.023 seconds with exit status 0 (successful).
+ DEBUG [6ac77a3a] Running /usr/bin/env ls -x /var/www/front_crm_profsdc/releases as deploy@10.102.55.48
+ DEBUG [6ac77a3a] Command: /usr/bin/env ls -x /var/www/front_crm_profsdc/releases
+ DEBUG [6ac77a3a] 	20220511150009	20220511193306
+ DEBUG [6ac77a3a] Finished in 0.227 seconds with exit status 0 (successful).
+ DEBUG [85b2c4d4] Running if test ! -d /var/www/front_crm_profsdc/releases; then echo "Directory does not exist '/var/www/front_crm_profsdc/releases'" 1>&2; false; fi as deploy@10.102.55.48
+ DEBUG [85b2c4d4] Command: if test ! -d /var/www/front_crm_profsdc/releases; then echo "Directory does not exist '/var/www/front_crm_profsdc/releases'" 1>&2; false; fi
+ DEBUG [85b2c4d4] Finished in 0.045 seconds with exit status 0 (successful).
+  INFO [9f5f8adf] Running /usr/bin/env echo "Branch dev (at f12a137fe472f033db89d6c185bbac6fea0bf2b3) deployed as release 20220511193306 by ernis" >> /var/www/front_crm_profsdc/revisions.log as deploy@10.102.55.48
+ DEBUG [9f5f8adf] Command: cd /var/www/front_crm_profsdc/releases && /usr/bin/env echo "Branch dev (at f12a137fe472f033db89d6c185bbac6fea0bf2b3) deployed as release 20220511193306 by ernis" >> /var/www/front_crm_profsdc/revisions.log
+  INFO [9f5f8adf] Finished in 0.112 seconds with exit status 0 (successful).

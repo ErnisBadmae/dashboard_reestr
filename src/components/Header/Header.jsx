@@ -10,8 +10,19 @@ import {
     PowerSettingsNew,
 } from '@mui/icons-material';
 import './header.scss';
+import {
+    useNavigate,
+} from 'react-router-dom';
 
 function Header(props) {
+    const navigate = useNavigate()
+    const logout = ()=> {
+   
+    localStorage.removeItem('user')
+    navigate('/login');
+    window.location.reload();
+
+    }
     return (
         <header className="header">
             <div className="header__container">
@@ -47,7 +58,7 @@ function Header(props) {
                             <li className="header__icon">
                                 <AccountCircle className="icon" />
                             </li>
-                            <li className="header__icon">
+                            <li className="header__icon" onClick={logout}>
                                 <PowerSettingsNew className="icon" />
                             </li>
                         </ul>
