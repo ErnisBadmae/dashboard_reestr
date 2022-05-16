@@ -28,10 +28,7 @@ function Sidebar(props) {
                         <div className="sidebar__inner-item" />
                         <span>Аттестация Эксперта</span>
                     </li>
-                    <li>
-                        <div className="sidebar__inner-item" />ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss
-                        <span>Аттестация Эксперта</span>
-                    </li>
+                   
 
                     <p className="sidebar__inner-title">Реестры</p>
 
@@ -43,7 +40,7 @@ function Sidebar(props) {
                             <div className="sidebar__inner-item" />
                             <span>Реестр СДС</span>
                         </Link>
-                    </li>sssssssssssssssssssssssssssssssssssssssssssssssssss
+                    </li>
                     <li>
                         <div className="sidebar__inner-item" />
                         <span>Реестр ОС</span>
