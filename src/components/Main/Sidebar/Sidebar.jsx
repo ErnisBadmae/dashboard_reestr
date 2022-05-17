@@ -57,7 +57,7 @@ function Sidebar(props) {
                         <span>Реестр Экспертов</span>
                     </li>
                     <p className="sidebar__inner-title">
-                        ПОЛЬЗОВАТЕЛЬСКИЙ ИНТЕРФЕЙС
+                        Пользовательский интерфейс
                     </p>
 
                     <li>
@@ -68,7 +68,7 @@ function Sidebar(props) {
                         <div className="sidebar__inner-item" />
                         <span>Пользователи</span>
                     </li>
-                    <p className="sidebar__inner-title">СЕРВИСЫ</p>
+                    <p className="sidebar__inner-title">Сервисы</p>
 
                     <li>
                         <div className="sidebar__inner-item" />
