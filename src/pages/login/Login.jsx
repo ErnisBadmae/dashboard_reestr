@@ -61,6 +61,7 @@ function Login(props) {
                         autoFocus
                         onChange={onChange}
                     />
+                    <p>Пароль</p>
                     {/* <p>ИНН</p> */}
                 </div>
                 <div>
@@ -72,7 +73,6 @@ function Login(props) {
                         required
                         onChange={onChange}
                     />
-                    <p>Пароль</p>
                 </div>
                 <button className="btn__login" type="submit">
                     Отправить
