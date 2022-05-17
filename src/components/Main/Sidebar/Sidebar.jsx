@@ -29,6 +29,8 @@ function Sidebar(props) {
                         <span>Аттестация Эксперта</span>
                     </li>
 
+
+
                     <p className="sidebar__inner-title">Реестры</p>
 
                     <li>
@@ -39,7 +41,7 @@ function Sidebar(props) {
                             <div className="sidebar__inner-item" />
                             <span>Реестр СДС</span>
                         </Link>
-                    </li>
+                    </li>sssssssssssssssssssssssssssssssssssssssssssssssssss
                     <li>
                         <div className="sidebar__inner-item" />
                         <span>Реестр ОС</span>
@@ -53,7 +55,9 @@ function Sidebar(props) {
                         <span>Реестр Экспертов</span>
                     </li>
                     <p className="sidebar__inner-title">
+
                         Пользовательский интерфейс
+
                     </p>
 
                     <li>
