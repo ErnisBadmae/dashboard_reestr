@@ -38,7 +38,6 @@ function Sidebar(props) {
                             <span>Реестр СДС</span>
                         </Link>
                     </li>
-                    sssssssssssssssssssssssssssssssssssssssssssssssssss
                     <li>
                         <div className="sidebar__inner-item" />
                         <span>Реестр ОС</span>
