@@ -28,13 +28,7 @@ function Sidebar(props) {
                         <div className="sidebar__inner-item" />
                         <span>Аттестация Эксперта</span>
                     </li>
-                    <li>
-                        <div className="sidebar__inner-item" />
-                        <span>Аттестация Эксперта</span>
-                    </li>
-
                     <p className="sidebar__inner-title">Реестры</p>
-
                     <li>
                         <Link
                             style={{ width: '100%', height: '100%' }}
@@ -44,6 +38,7 @@ function Sidebar(props) {
                             <span>Реестр СДС</span>
                         </Link>
                     </li>
+                    sssssssssssssssssssssssssssssssssssssssssssssssssss
                     <li>
                         <div className="sidebar__inner-item" />
                         <span>Реестр ОС</span>
@@ -59,7 +54,6 @@ function Sidebar(props) {
                     <p className="sidebar__inner-title">
                         Пользовательский интерфейс
                     </p>
-
                     <li>
                         <div className="sidebar__inner-item" />
                         <span>Сообщения</span>
@@ -69,12 +63,10 @@ function Sidebar(props) {
                         <span>Пользователи</span>
                     </li>
                     <p className="sidebar__inner-title">Сервисы</p>
-
                     <li>
                         <div className="sidebar__inner-item" />
                         <span>Отчеты </span>
                     </li>
-
                     <li>
                         <div className="sidebar__inner-item" />
                         <span>Настройки </span>

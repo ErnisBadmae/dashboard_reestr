@@ -1,4 +1,4 @@
-// import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import Layout from '../../components/Layout/Layout';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -10,15 +10,17 @@ function Home(props) {
 
     const { user } = useSelector((state) => state.auth);
 
-    useEffect(() => {
-        if (!user) {
-            navigate('/login');
-        }
-    }, []);
+    //     useEffect(() => {
+    //         if (!user) {
+    //             navigate('/login');
+    //         }
+    //     }, []);
     return (
         <div>
-            <Layout></Layout>
-            {/* <Outlet /> */}
+            {/* <Layout> */}
+
+            <Outlet />
+            {/* </Layout> */}
         </div>
     );
 }

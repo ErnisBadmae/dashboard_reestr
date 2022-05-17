@@ -1,28 +1,17 @@
 import logo from '../../assets/img/logo/Logo.svg';
 import descLogo from '../../assets/img/logo/desc.svg';
-import {
-    SearchOutlined,
-    NotificationsNoneOutlined,
-    ChatBubbleOutlineOutlined,
-    LanguageOutlined,
-    Settings,
-    AccountCircle,
-    PowerSettingsNew,
-} from '@mui/icons-material';
+// import {
+//     SearchOutlined,
+//     NotificationsNoneOutlined,
+//     ChatBubbleOutlineOutlined,
+//     LanguageOutlined,
+//     Settings,
+//     AccountCircle,
+//     PowerSettingsNew,
+// } from '@mui/icons-material';
 import './header.scss';
-import {
-    useNavigate,
-} from 'react-router-dom';
 
-function Header(props) {
-    const navigate = useNavigate()
-    const logout = ()=> {
-   
-    localStorage.removeItem('user')
-    navigate('/login');
-    window.location.reload();
-
-    }
+function AuthHeader(props) {
     return (
         <header className="header">
             <div className="header__container">
@@ -36,12 +25,12 @@ function Header(props) {
                         />
                     </div>
                     <nav className="header__nav">
-                        <div className="header__icons-search">
+                        {/* <div className="header__icons-search">
                             <input className="header__input" />
                             <SearchOutlined className="icon" />
-                        </div>
+                        </div> */}
 
-                        <ul className="header__icons">
+                        {/* <ul className="header__icons">
                          
                             <li className="header__icon">
                                 <NotificationsNoneOutlined className="icon" />
@@ -58,10 +47,10 @@ function Header(props) {
                             <li className="header__icon">
                                 <AccountCircle className="icon" />
                             </li>
-                            <li className="header__icon" onClick={logout}>
+                            <li className="header__icon">
                                 <PowerSettingsNew className="icon" />
                             </li>
-                        </ul>
+                        </ul> */}
                     </nav>
                 </div>
             </div>
@@ -69,4 +58,4 @@ function Header(props) {
     );
 }
 
-export default Header;
+export default AuthHeader;

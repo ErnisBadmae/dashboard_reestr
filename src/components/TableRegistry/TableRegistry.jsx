@@ -4,7 +4,7 @@ import { getEntries } from '../../store/entries/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { entriesTableColumns } from '../../helpers/entriesTableConstants';
-import LayoutContent from '../../components/Layout/Layout';
+import { LayoutContent } from '../../components/Layout/Layout';
 import { Filter } from '../Filter/Filter';
 
 import './tableRegistry.scss';
@@ -35,7 +35,8 @@ export const TableRegistry = () => {
     };
 
     return (
-        <LayoutContent>
+        <>
+            {/* <LayoutContent> */}
             <Content style={{ padding: '0 40px' }}>
                 {/* <Col xs={12} md={{ span: 1, offset: 1 }}> */}
                 <div className="registry-sro__drawer-wrapper">
@@ -59,6 +60,8 @@ export const TableRegistry = () => {
                     {/* </Col> */}
                 </div>
             </Content>
-        </LayoutContent>
+
+            {/* </LayoutContent> */}
+        </>
     );
 };
