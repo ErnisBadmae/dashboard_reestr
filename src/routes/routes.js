@@ -17,7 +17,7 @@ function RoutesComponent(props) {
                     <Route path="declaration" element={<Declaration />} />
                     <Route path="sds" element={<TableRegistry />} />
                     {/* <Route path="auth" element={<Wrapper />}> */}
-                    <Route path="*" element={<NotFound />} />
+                    {/* <Route path="*" element={<NotFound />} /> */}
                 </Route>
             </Routes>
         </>
