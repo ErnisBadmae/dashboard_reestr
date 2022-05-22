@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { LayoutContent } from '../../components/Layout/Layout';
+import { LayoutContent } from '../../components/Layout/LayoutContent';
 import '../register/registr.scss';
 import './declaration.scss';
 

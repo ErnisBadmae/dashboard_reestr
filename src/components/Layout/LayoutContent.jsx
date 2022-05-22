@@ -9,8 +9,10 @@ export const LayoutContent = (props) => {
     return (
         <>
             <Header />
-            <Main>{props.children}</Main>
-            <Outlet />
+            <Main>
+                <Outlet />
+            </Main>
+
             <Footer />
         </>
     );
