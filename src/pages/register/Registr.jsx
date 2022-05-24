@@ -9,9 +9,9 @@ const Registr = () => {
         firstname: '',
         secondname: '',
         lastname: '',
-        orgInn: '',
-        orgOgrn: '',
-        orgShortName: '',
+        org_inn: '',
+        org_ogrn: '',
+        org_short_name: '',
         post: '',
         phone: '',
         userRole: '2',
@@ -23,9 +23,9 @@ const Registr = () => {
         firstname,
         secondname,
         lastname,
-        orgInn,
-        orgOgrn,
-        orgShortName,
+        org_inn,
+        org_ogrn,
+        org_short_name,
         post,
         phone,
         userRole,
@@ -46,9 +46,9 @@ const Registr = () => {
             firstname,
             secondname,
             lastname,
-            orgInn,
-            orgOgrn,
-            orgShortName,
+            org_inn,
+            org_ogrn,
+            org_short_name,
             post,
             phone,
             userRole: '2',
@@ -111,7 +111,7 @@ const Registr = () => {
                     <p>ИНН</p>
                     <input
                         className="form__input"
-                        name="orgInn"
+                        name="org_inn"
                         autoComplete="off"
                         type="text"
                         required
@@ -122,7 +122,7 @@ const Registr = () => {
                     <p>ОГРН</p>
                     <input
                         className="form__input"
-                        name="orgOgrn"
+                        name="org_ogrn"
                         autoComplete="off"
                         type="text"
                         required
@@ -133,7 +133,7 @@ const Registr = () => {
                     <p>Сокращенное название организации</p>
                     <input
                         className="form__input"
-                        name="orgShortName"
+                        name="org_short_name"
                         autoComplete="off"
                         type="text"
                         required

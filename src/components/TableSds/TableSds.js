@@ -25,39 +25,25 @@ function TableSds(props) {
         return {
             onClick: (e) => {
                 e.preventDefault();
-                navigate('/entry/' + record.id);
+                navigate('/requests-sds/' + record.id);
             },
         };
     };
 
     return (
         <>
-            {/* <LayoutContent> */}
             <Content style={{ padding: '0 40px' }}>
-                {/* <Col xs={12} md={{ span: 1, offset: 1 }}> */}
                 <div className="registry-sro__drawer-wrapper">
-                    {/* <Filter /> */}
                     <Table
                         // bordered={false}
                         columns={requestsSdsTableColumns}
                         dataSource={dataSource}
                         className="registry-sro__table"
                         size="medium"
-                        //   filterSearch={true}
-                        //     pagination={{
-                        //         defaultPageSize: '15',
-                        //         showSizeChanger: true,
-                        //         // itemRender: itemRender
-                        //         total: dataSource.length,
-                        //         pageSizeOptions: [15, 30, 50],
-                        //     }}
                         onRow={(record) => relocateToCard(record)}
                     />
-                    {/* </Col> */}
                 </div>
             </Content>
-
-            {/* </LayoutContent> */}
         </>
     );
 }

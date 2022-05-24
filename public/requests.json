@@ -1,38 +1,20 @@
 {
     "data": [
         {
-            "id_sds": "1",
-            "full_name": "Компания 1",
-            "short_name": "Комп1",
-            "reg_no": "123123",
-            "reg_date": "24.03.12",
-            "reg_comp": "compnay2",
-            "site": "www.12.com",
-            "area": "lorem ipsum info",
-            "status": "active"
-        },
-        {
-            "id_sds": "2",
-            "full_name": "Компания 2",
-            "short_name": "Комп2",
-            "reg_no": "321321",
-            "reg_date": "24.03.11",
-            "reg_comp": "compnay21",
-            "site": "www.12.12.com",
-            "area": "lorem ipsum info2",
-            "status": "active"
-        },
-        {
-            "id_sds": "3",
-            "full_name": "companyaslkdlasjdlkas1",
-            "short_name": "fullnameasdklasdjaslkdjCompnay",
-            "reg_no": "1231211312323",
-            "reg_date": "24.03as.12",
-            "reg_comp": "compnayasd;lkasdl;21",
-            "site": "www.12.12.com",
-            "area": "loremasd;laipsum",
-            "logo": "loremipsum зasd;kads;lasнака",
-            "status": "inactive"
+            "id": 2,
+            "username": "username",
+            "email": "email",
+            "firstname": "firstname",
+            "secondname": "secondname",
+            "lastname": "lastname",
+            "org_inn": "org_inn",
+            "org_ogrn": "org_ogrn",
+            "org_short_name": "org_short_name",
+            "post": "post",
+            "phone": "phone",
+            "dttm_created": "2022-05-24T10:55:24+00:00",
+            "dttm_desicion": null,
+            "comment_decision_admin": null
         }
     ]
 }
