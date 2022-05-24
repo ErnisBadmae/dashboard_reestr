@@ -4,7 +4,7 @@ import { getEntries } from '../../store/entries/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { entriesTableColumns } from '../../helpers/entriesTableConstants';
-import { LayoutContent } from '../../components/Layout/Layout';
+
 import { Filter } from '../Filter/Filter';
 
 import './tableRegistry.scss';

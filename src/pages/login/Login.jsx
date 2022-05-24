@@ -9,11 +9,11 @@ function Login(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({
-        email: '',
+        username: '',
         password: '',
     });
 
-    const { email, password } = formData;
+    const { username, password } = formData;
     const { user, isLoading, isError, isSuccess, message } = useSelector(
         (state) => state.auth
     );
@@ -27,8 +27,8 @@ function Login(props) {
             navigate('/');
         }
 
-        dispatch(reset());
-    }, [user, isError, isSuccess, message, navigate, dispatch]);
+        // dispatch(reset());
+    }, [user]);
 
     const onChange = (e) => {
         setFormData((prevState) => ({
@@ -36,18 +36,19 @@ function Login(props) {
             [e.target.name]: e.target.value,
         }));
     };
-    const formHandler = (e) => {
+    const formHandler = async (e) => {
         e.preventDefault();
-        console.log(e.target.name.value, 'etargetnameval');
+
         const userData = {
-            email,
+            username,
             password,
         };
         dispatch(login(userData));
+        //    navigate('/admin');
     };
 
     return (
-        <>
+        <section>
             <div className="login__title">Войти в систему</div>
             <form onSubmit={formHandler} className="login__form">
                 <div>
@@ -55,14 +56,13 @@ function Login(props) {
                     <input
                         className="form__input"
                         autoComplete="off"
-                        name="name"
+                        name="username"
                         type="text"
                         required
                         autoFocus
                         onChange={onChange}
                     />
                     <p>Пароль</p>
-                    {/* <p>ИНН</p> */}
                 </div>
                 <div>
                     <input
@@ -73,12 +73,20 @@ function Login(props) {
                         required
                         onChange={onChange}
                     />
+                    <p>
+                        Нет аккаунта? Зарегистрируйтесь
+                        <br />
+                        <span className="line">
+                            <a href="/register">Зарегистрироваться</a>
+                        </span>
+                    </p>
                 </div>
+
                 <button className="btn__login" type="submit">
                     Отправить
                 </button>
             </form>
-        </>
+        </section>
     );
 }
 

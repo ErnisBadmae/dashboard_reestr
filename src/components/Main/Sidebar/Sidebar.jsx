@@ -1,25 +1,60 @@
 import { Link } from 'react-router-dom';
 import './sidebar.scss';
+import { useSelector } from 'react-redux';
 
 function Sidebar(props) {
+    const { roles } = useSelector((state) => state.auth.user);
+    const sidebarButtons = [
+        {
+            role: 'ROLE_USER',
+            href: '/declaration',
+            text: 'Заявление СДС',
+            id: 0,
+        },
+        {
+            role: 'ROLE_DICTIONARY_EDITOR',
+            href: '/declarations',
+            text: 'Список заявлений СДС',
+            id: 1,
+        },
+        {
+            role: 'ROLE_DICTIONARY_EDITOR_NEWEWE',
+            href: '/declaration',
+            text: 'Тест кнопка',
+            id: 2,
+        },
+        {
+            role: 'ROLE_DICTIONARY_REQUEST_STATUS_EDITOR',
+            href: '/declaration',
+            text: 'Тест кнопка2',
+            id: 3,
+        },
+    ];
     return (
         <section className="sidebar">
             <div className="sidebar__inner">
                 <ul>
                     <p className="sidebar__inner-title">Заявления </p>
-                    <li>
-                        <Link
-                            to="/declaration"
-                            style={{ width: '100%', height: '100%' }}
-                        >
-                            <div className="sidebar__inner-item" />
-                            <span>Заявление СДС</span>
-                        </Link>
-                    </li>
-                    <li>
-                        <div className="sidebar__inner-item" />
-                        <span>Заявление ОС</span>
-                    </li>
+
+                    {sidebarButtons.map((btn) => {
+                        return (
+                            roles?.includes(btn.role) && (
+                                <li key={btn.id}>
+                                    <Link
+                                        to={btn.href}
+                                        style={{
+                                            width: '100%',
+                                            height: '100%',
+                                        }}
+                                    >
+                                        <div className="sidebar__inner-item" />
+                                        <span>{btn.text}</span>
+                                    </Link>
+                                </li>
+                            )
+                        );
+                    })}
+
                     <li>
                         <div className="sidebar__inner-item" />
                         <span>Сертификация</span>

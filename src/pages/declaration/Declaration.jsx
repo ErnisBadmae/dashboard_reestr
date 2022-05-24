@@ -1,20 +1,75 @@
 import { useState } from 'react';
-import { LayoutContent } from '../../components/Layout/Layout';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
 import '../register/registr.scss';
 import './declaration.scss';
 
 function Declaration(props) {
-    const [phone, setPhone] = useState('');
+    const dispatch = useDispatch();
+
+    const [formData, setFormData] = useState({
+        full: '',
+        short: '',
+        func: '',
+        date: '',
+        mail: '',
+        sds: '',
+        inn: '',
+        ogrn: '',
+        description: '',
+        phone: '',
+        email: '',
+    });
+
+    const {
+        full,
+        short,
+        func,
+        date,
+        mail,
+        sds,
+        inn,
+        ogrn,
+        description,
+        phone,
+        email,
+    } = formData;
+
+    const onChange = (e) => {
+        setFormData((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.value,
+        }));
+    };
 
     const formHandler = (e) => {
         e.preventDefault();
-        console.log(e.target.inn.value);
-        console.log(phone);
+
+        const declarationSdsData = {
+            full,
+            short,
+            func,
+            date,
+            mail,
+            sds,
+            inn,
+            ogrn,
+            description,
+            phone,
+            email,
+        };
+        //    dispatch(login(userData));
+        axios
+            .post('http://localhost:3000/declaration', declarationSdsData)
+            .then((res) => {
+                console.log('fromDeclaration___res', res);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     };
-    //    <div className="overlay">
-    //        <div className="modal">
+
     return (
-        //    <LayoutContent>
         <>
             <div className="login__title">Подача Заявления СДС</div>
             <form onSubmit={formHandler} className="declaration__form">
@@ -24,20 +79,22 @@ function Declaration(props) {
                         <input
                             className="form__input"
                             autoComplete="off"
-                            name="name"
+                            name="full"
                             type="text"
                             required
                             autoFocus
+                            onChange={onChange}
                         />
                     </div>
                     <div>
                         <p>Сокращенное наименование СДС</p>
                         <input
                             className="form__input"
-                            name="inn"
+                            name="short"
                             autoComplete="off"
                             type="text"
                             required
+                            onChange={onChange}
                         />
                     </div>
                     <div>
@@ -48,16 +105,20 @@ function Declaration(props) {
                             autoComplete="off"
                             type="text"
                             required
+                            onChange={onChange}
                         />
                     </div>
                     <div>
                         <p>Дата регистрации (в реестре СДС Ростандарта)</p>
                         <input
                             className="form__input"
-                            name="phone"
-                            value={phone}
+                            name="date"
+                            autoComplete="off"
+                            required
+                            type="text"
+                            //    value={phone}
                             placeholder="  +7"
-                            onChange={(e) => setPhone(e.target.value)}
+                            onChange={onChange}
                         />
                     </div>
                     <div>
@@ -72,6 +133,7 @@ function Declaration(props) {
                             type="text"
                             placeholder="  .....@....."
                             required
+                            onChange={onChange}
                         />
                     </div>
                     <div>
@@ -82,6 +144,7 @@ function Declaration(props) {
                             autoComplete="off"
                             type="text"
                             required
+                            onChange={onChange}
                         />
                     </div>
                 </div>
@@ -92,30 +155,33 @@ function Declaration(props) {
                         <input
                             className="form__input"
                             autoComplete="off"
-                            name="name"
+                            name="inn"
                             type="text"
                             required
                             autoFocus
+                            onChange={onChange}
                         />
                     </div>
                     <div>
                         <p>ОГРН</p>
                         <input
                             className="form__input"
-                            name="inn"
+                            name="ogrn"
                             autoComplete="off"
                             type="text"
                             required
+                            onChange={onChange}
                         />
                     </div>
                     <div>
                         <p>Наименование</p>
                         <input
                             className="form__input"
-                            name="func"
+                            name="description"
                             autoComplete="off"
                             type="text"
                             required
+                            onChange={onChange}
                         />
                     </div>
                     <div>
@@ -125,28 +191,30 @@ function Declaration(props) {
                             name="phone"
                             value={phone}
                             placeholder="  +7"
-                            onChange={(e) => setPhone(e.target.value)}
+                            onChange={onChange}
                         />
                     </div>
                     <div>
                         <p>Телефон</p>
                         <input
                             className="form__input"
-                            name="mail"
+                            name="phone"
                             autoComplete="off"
                             type="text"
                             placeholder="  .....@....."
                             required
+                            onChange={onChange}
                         />
                     </div>
                     <div>
                         <p>E-mail</p>
                         <input
                             className="form__input"
-                            name="sds"
+                            name="email"
                             autoComplete="off"
                             type="text"
                             required
+                            onChange={onChange}
                         />
                     </div>
                     <button className="btn__login" type="submit">
@@ -155,7 +223,6 @@ function Declaration(props) {
                 </div>
                 <div></div>
             </form>
-            {/* </LayoutContent> */}
         </>
     );
 }
