@@ -7,6 +7,7 @@ import Login from './pages/login/Login';
 import { TableRegistry } from './components/TableRegistry/TableRegistry';
 import RequireAuth from './components/RequireAuth/RequireAuth';
 import NotFound from './pages/not-found/NotFound';
+import TableSds from './components/TableSds/TableSds';
 
 function App() {
     return (
@@ -14,7 +15,6 @@ function App() {
             <Routes>
                 <Route element={<AuthLayout />}>
                     <Route path="/login" element={<Login />} />
-
                     <Route path="/register" element={<Registr />} />
                 </Route>
 
@@ -22,6 +22,7 @@ function App() {
                     <Route
                         element={<RequireAuth allowedRoles={['ROLE_USER']} />}
                     >
+                        <Route path="/declaration" element={<Declaration />} />
                         <Route path="/sds" element={<TableRegistry />} />
                     </Route>
 
@@ -32,7 +33,7 @@ function App() {
                             />
                         }
                     >
-                        <Route path="/declaration" element={<Declaration />} />
+                        <Route path="/declarations" element={<TableSds />} />
                     </Route>
 
                     {/* <Route

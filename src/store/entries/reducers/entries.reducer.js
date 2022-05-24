@@ -1,18 +1,25 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { getEntries } from '../actions';
+import { getEntries, getRequestSds } from '../actions';
 import {
-  getEntriesFail,
-  getEntriesRequest,
-  getEntriesSuccess,
+    getEntriesFail,
+    getEntriesRequest,
+    getEntriesSuccess,
+    getRequestsSdsFail,
+    getRequestsSdsRequest,
+    getRequestsSdsSuccess,
 } from './getEntries';
 
 const initialState = {
-  loading: false,
-  entries: [],
+    loading: false,
+    entries: [],
+    requestsSds: [],
 };
 
 export const entriesReducer = createReducer(initialState, {
-  [getEntries.pending.toString()]: getEntriesRequest,
-  [getEntries.fulfilled.toString()]: getEntriesSuccess,
-  [getEntries.rejected.toString()]: getEntriesFail,
+    [getEntries.pending.toString()]: getEntriesRequest,
+    [getEntries.fulfilled.toString()]: getEntriesSuccess,
+    [getEntries.rejected.toString()]: getEntriesFail,
+    [getRequestSds.pending.toString()]: getRequestsSdsRequest,
+    [getRequestSds.fulfilled.toString()]: getRequestsSdsSuccess,
+    [getRequestSds.rejected.toString()]: getRequestsSdsFail,
 });

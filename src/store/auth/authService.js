@@ -28,28 +28,29 @@ const register = async (userData) => {
 const login = async (userData) => {
     const response =
         //     {
-        //    data: {
-        //        username: 'john@doe.com',
-        //        //сайдбар от данных ролей
-        //        roles: [
-        //            //  'ROLE_USER',
-        //            'ROLE_DICTIONARY_EDITOR',
-        //            //  'ROLE_DICTIONARY_REQUEST_STATUS_EDITOR',
-        //            //  'ROLE_DICTIONARY_ROLES_EDITOR',
-        //            //  'ROLE_USER_ROLES_EDITOR',
-        //        ],
-        //    },
+        //         data: {
+        //             username: 'john@doe.com',
+        //             //сайдбар от данных ролей
+        //             roles: [
+        //                 //  'ROLE_USER',
+        //                 'ROLE_DICTIONARY_EDITOR',
+        //                 //  'ROLE_DICTIONARY_REQUEST_STATUS_EDITOR',
+        //                 //  'ROLE_DICTIONARY_ROLES_EDITOR',
+        //                 //  'ROLE_USER_ROLES_EDITOR',
+        //             ],
+        //         },
         //     };
         await $api.post('/login_check', userData);
     let token = response.data.token;
-    let decoded = jwt_decode(token);
-    console.log(decoded, 'responseDecoded');
+    let user = jwt_decode(token);
+    console.log(user, 'userdecodedtoken');
+
     if (response.data) {
         localStorage.setItem('token', JSON.stringify(response.data.token));
-        localStorage.setItem('user', JSON.stringify(response.data));
+        localStorage.setItem('user', JSON.stringify(user));
     }
 
-    return response.data;
+    return user;
 };
 
 // Logout user

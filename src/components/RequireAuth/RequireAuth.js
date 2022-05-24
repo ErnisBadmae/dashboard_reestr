@@ -6,8 +6,8 @@ const RequireAuth = (props) => {
     //нужно через селектор достать списпок пунктов меню из редакса
 
     const routes = {
-        ROLE_USER: ['/sds'],
-        ROLE_DICTIONARY_EDITOR: ['/declaration'],
+        ROLE_USER: ['/sds', '/declaration'],
+        ROLE_DICTIONARY_EDITOR: ['/declarations'],
     };
 
     const { user } = useSelector((state) => state.auth);
