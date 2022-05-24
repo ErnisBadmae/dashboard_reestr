@@ -9,11 +9,11 @@ function Login(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [formData, setFormData] = useState({
-        email: '',
+        username: '',
         password: '',
     });
 
-    const { email, password } = formData;
+    const { username, password } = formData;
     const { user, isLoading, isError, isSuccess, message } = useSelector(
         (state) => state.auth
     );
@@ -24,11 +24,11 @@ function Login(props) {
         }
 
         if (isSuccess || user) {
-            navigate('/admin');
+            navigate('/');
         }
 
         // dispatch(reset());
-    }, [user, isError, isSuccess, message, navigate, dispatch]);
+    }, [user]);
 
     const onChange = (e) => {
         setFormData((prevState) => ({
@@ -40,7 +40,7 @@ function Login(props) {
         e.preventDefault();
 
         const userData = {
-            email,
+            username,
             password,
         };
         dispatch(login(userData));
@@ -56,14 +56,13 @@ function Login(props) {
                     <input
                         className="form__input"
                         autoComplete="off"
-                        name="email"
+                        name="username"
                         type="text"
                         required
                         autoFocus
                         onChange={onChange}
                     />
                     <p>Пароль</p>
-                    {/* <p>ИНН</p> */}
                 </div>
                 <div>
                     <input
@@ -78,7 +77,6 @@ function Login(props) {
                         Нет аккаунта? Зарегистрируйтесь
                         <br />
                         <span className="line">
-                            {/*put router link here*/}
                             <a href="/register">Зарегистрироваться</a>
                         </span>
                     </p>
