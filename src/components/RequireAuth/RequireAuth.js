@@ -8,13 +8,17 @@ const RequireAuth = (props) => {
     const routes = {
         ROLE_USER: ['/sds', '/declaration'],
         ROLE_DICTIONARY_EDITOR: ['/declarations', '/declaration/view/:id'],
+        ROLE_NEW_USER_STANDARD_CERTIFICATION_DECISION: [
+            '/declarations',
+            '/declaration/view/:id',
+        ],
     };
 
     const { user } = useSelector((state) => state.auth);
-    console.log(user, 'user');
+    //     console.log(user, 'user');
     let allowedRoutes = [];
 
-    console.log(user.roles, 'user roles', props.allowedRoles);
+    //     console.log(user.roles, 'user roles', props.allowedRoles);
 
     user.roles.forEach((role) => {
         switch (role) {
@@ -25,6 +29,12 @@ const RequireAuth = (props) => {
             case 'ROLE_DICTIONARY_EDITOR':
                 props.allowedRoles.includes(role) &&
                     allowedRoutes.push(...routes.ROLE_DICTIONARY_EDITOR);
+                break;
+            case 'ROLE_NEW_USER_STANDARD_CERTIFICATION_DECISION':
+                props.allowedRoles.includes(role) &&
+                    allowedRoutes.push(
+                        ...routes.ROLE_NEW_USER_STANDARD_CERTIFICATION_DECISION
+                    );
                 break;
             default:
                 break;

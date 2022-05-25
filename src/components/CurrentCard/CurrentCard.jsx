@@ -14,7 +14,7 @@ function CurrentCard(props) {
     const dispatch = useDispatch();
 
     const { requestSdsView } = useSelector((state) => state.entries);
-
+    console.log('requestSdsView', requestSdsView);
     useEffect(() => {
         dispatch(getView(pathname));
     }, [pathname, dispatch]);

@@ -30,7 +30,9 @@ function App() {
                     <Route
                         element={
                             <RequireAuth
-                                allowedRoles={['ROLE_DICTIONARY_EDITOR']}
+                                allowedRoles={[
+                                    'ROLE_NEW_USER_STANDARD_CERTIFICATION_DECISION',
+                                ]}
                             />
                         }
                     >
