@@ -38,7 +38,7 @@ function App() {
                     >
                         <Route path="/declarations" element={<TableSds />} />
                         <Route
-                            path="/declaration/view/:id"
+                            path="/declaration/:id"
                             element={<CurrentCard />}
                         />
                     </Route>

@@ -23,8 +23,11 @@ import axios from 'axios';
 //     }
 // );
 
-export const getView = createAsyncThunk('view/getCurrent', async (dispatch) => {
-    let result = await axios('/requestView.json');
-    console.log(result, 'resultView');
-    return result;
-});
+export const getCurrentCard = createAsyncThunk(
+    'view/getCurrent',
+    async (dispatch) => {
+        let result = await axios('/requestView.json');
+        console.log(result, 'resultView');
+        return result;
+    }
+);

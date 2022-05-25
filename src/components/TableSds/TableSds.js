@@ -16,10 +16,8 @@ function TableSds(props) {
     }, []);
 
     const { requestsSds } = useSelector((state) => state.entries);
-    console.log(requestsSds, 'entries');
+    //     console.log(requestsSds, 'entries');
     const dataSource = requestsSds.map((item) => ({ ...item, key: item.id }));
-    // console.log(dataSource, 'datasourec');
-    // console.log(entriesTableColumns, 'tabledata');
 
     const relocateToCard = (record) => {
         return {

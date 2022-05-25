@@ -1,23 +1,20 @@
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getView } from '../../store/entries/actions/getView';
+import { getCurrentCard } from '../../store/entries/actions/getCurrentCard';
 // import { BreadCrumbs } from '../../../components/breadCrumbs/breadCrumbs';
 
 import './card-item.css';
 
 function CurrentCard(props) {
-    const { pathname } = useLocation();
-
-    //     console.log(pathname, 'pathnamefromcardcurrent');
-    //     const { id } = useParams();
     const dispatch = useDispatch();
 
     const { requestSdsView } = useSelector((state) => state.entries);
     console.log('requestSdsView', requestSdsView);
+
     useEffect(() => {
-        dispatch(getView(pathname));
-    }, [pathname, dispatch]);
+        // dispatch(setCurrentCardNumber(id))
+        dispatch(getCurrentCard());
+    }, [dispatch]);
 
     return (
         <div class="card-container">

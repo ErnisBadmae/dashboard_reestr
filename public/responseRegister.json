@@ -1,0 +1,16 @@
+{
+    "data": {
+        "username": "user_sdc5",
+        "email": "user_sdc2@mail.ru",
+        "firstname": "firstnam",
+        "secondname": "secondnam",
+        "lastname": "lastnam",
+        "orgInn": "orgIn",
+        "orgOgrn": "orgOgr",
+        "orgShortName": "orgShortNam",
+        "post": "pos2t",
+        "phone": "phon2e",
+        "userRole": "2",
+        "registrationNumber": 12345678
+    }
+}

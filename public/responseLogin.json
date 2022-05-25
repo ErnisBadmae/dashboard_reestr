@@ -1,0 +1,6 @@
+{
+    "data": {
+        "username": "john@doe.com",
+        "roles": ["ROLE_NEW_USER_STANDARD_CERTIFICATION_DECISION"]
+    }
+}

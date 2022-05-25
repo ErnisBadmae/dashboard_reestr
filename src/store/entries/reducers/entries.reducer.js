@@ -11,22 +11,26 @@ import {
     getViewSdsRequest,
     getViewtsSdsSuccess,
 } from './getEntries';
-import { getView } from '../actions/getView';
+import { getCurrentCard } from '../actions/getCurrentCard';
+
 const initialState = {
     loading: false,
     entries: [],
     requestsSds: [],
-    requestSdsView: {},
+    requestCurrentCardSds: {},
 };
 
 export const entriesReducer = createReducer(initialState, {
+    //получение значений для реестра СДС
     [getEntries.pending.toString()]: getEntriesRequest,
     [getEntries.fulfilled.toString()]: getEntriesSuccess,
     [getEntries.rejected.toString()]: getEntriesFail,
+    //получение знанчений для списка заявок СДС
     [getRequestSds.pending.toString()]: getRequestsSdsRequest,
     [getRequestSds.fulfilled.toString()]: getRequestsSdsSuccess,
     [getRequestSds.rejected.toString()]: getRequestsSdsFail,
-    [getView.pending.toString()]: getViewSdsRequest,
-    [getView.fulfilled.toString()]: getViewtsSdsSuccess,
-    [getView.rejected.toString()]: getViewSdsFail,
+    //получение информации о конкретной заявке
+    [getCurrentCard.pending.toString()]: getViewSdsRequest,
+    [getCurrentCard.fulfilled.toString()]: getViewtsSdsSuccess,
+    [getCurrentCard.rejected.toString()]: getViewSdsFail,
 });

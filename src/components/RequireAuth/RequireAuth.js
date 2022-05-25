@@ -1,21 +1,23 @@
-import { useLocation, Navigate, Outlet } from 'react-router-dom';
+import { useLocation, Navigate, Outlet, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import useAuth from '../../hooks/useAuth';
 
 const RequireAuth = (props) => {
-    //нужно через селектор достать списпок пунктов меню из редакса
+    const { pathname } = useLocation();
+    const { id } = useParams();
 
+    //нужно через селектор достать списпок пунктов меню из редакса
     const routes = {
         ROLE_USER: ['/sds', '/declaration'],
-        ROLE_DICTIONARY_EDITOR: ['/declarations', '/declaration/view/:id'],
+        ROLE_DICTIONARY_EDITOR: ['/declarations', '/declaration/:id'],
         ROLE_NEW_USER_STANDARD_CERTIFICATION_DECISION: [
             '/declarations',
-            '/declaration/view/:id',
+            `/declaration/${id}`,
         ],
     };
 
     const { user } = useSelector((state) => state.auth);
-    //     console.log(user, 'user');
+    console.log(user, 'user');
     let allowedRoutes = [];
 
     //     console.log(user.roles, 'user roles', props.allowedRoles);
@@ -44,7 +46,7 @@ const RequireAuth = (props) => {
     //     console.log(user, 'userFromREquerite');
 
     const isAuth = useAuth();
-    const { pathname } = useLocation();
+
     console.log(
         `allowed routes: ${allowedRoutes}`,
         `pathname: ${pathname}`,
