@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentCard } from '../../store/entries/actions/getCurrentCard';
+import { ButtonRegistry } from '../Buttons/button-registry/button-registry';
 // import { BreadCrumbs } from '../../../components/breadCrumbs/breadCrumbs';
 
 import './card-item.css';
@@ -69,27 +70,13 @@ function CurrentCard(props) {
                     </strong>
                     <br />
                     <p>{requestSdsView?.exclusion || 'нет данных'}</p>
-                    {/* <strong>
-                         <br />
-                         Статус
-                     </strong>
-                     <br />
-                     <p>{currentItem?.status || 'нет данных'}</p>
-                 </div>
-                 {/* <div className="btn__card">
-                     <ButtonRegistry
-                         text="Список членов СДС"
-                         path={'/certificates/list'}
-                     />
-                     <ButtonRegistry
-                         text="Сведения о компенсации"
-                         path={'/certificates/list'}
-                     />
-                     <ButtonRegistry
-                         text="Выгрузить реестр членов СДС"
-                         path={'/certificates/list'}
-                     />
-                 </div> */}
+                </div>
+                <div className="btn__card">
+                    <ButtonRegistry
+                        text="Одобрить заявление на регистрацию"
+                        path={'/'}
+                    />
+                    <ButtonRegistry text="Отклонить заявление" path={'/'} />
                 </div>
             </div>
         </div>

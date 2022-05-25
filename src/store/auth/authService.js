@@ -28,12 +28,12 @@ const register = async (registrData) => {
 
     const responseRegisterUser = await axios('./responseRegister.json');
 
-    if (responseRegisterUser) {
-        localStorage.setItem(
-            'user-reg',
-            JSON.stringify(responseRegisterUser.data.data)
-        );
-    }
+    //     if (responseRegisterUser) {
+    //         localStorage.setItem(
+    //             'user-reg',
+    //             JSON.stringify(responseRegisterUser.data.data)
+    //         );
+    //     }
     return responseRegisterUser.data.data;
 };
 

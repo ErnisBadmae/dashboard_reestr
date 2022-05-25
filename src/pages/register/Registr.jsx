@@ -1,5 +1,5 @@
-import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
+// import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { register } from '../../store/auth/authSlice';
 import './registr.scss';
@@ -185,6 +185,13 @@ const Registr = () => {
                         required
                         onChange={onChange}
                     />
+                    <p>
+                        Уже зарегистрированы?
+                        <br />
+                        <span className="line">
+                            <a href="/login">Войти в систему</a>
+                        </span>
+                    </p>
                 </div>
                 {/* <div>
             <input
