@@ -1,11 +1,14 @@
-import axios from 'axios';
-import { useSelector, useDispatch } from 'react-redux';
+// import axios from 'axios';
+import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { register } from '../../store/auth/authSlice';
 import './registr.scss';
+import RegisterSuccess from './RegisterSuccess';
 
 const Registr = () => {
     const dispatch = useDispatch();
+
+    const [isRegisterSuccess, setIsRegisterSuccess] = useState(false);
 
     const [formData, setFormData] = useState({
         username: '',
@@ -64,9 +67,12 @@ const Registr = () => {
         console.log('registrData', registrData);
         //  axios.post('', registrData);
         dispatch(register(registrData));
+        setIsRegisterSuccess(true);
     };
 
-    return (
+    return isRegisterSuccess ? (
+        <RegisterSuccess />
+    ) : (
         <>
             <div className="login__title">Сведения о заявителе</div>
             <form onSubmit={formHandler} className="login__form">
@@ -179,19 +185,26 @@ const Registr = () => {
                         required
                         onChange={onChange}
                     />
+                    <p>
+                        Уже зарегистрированы?
+                        <br />
+                        <span className="line">
+                            <a href="/login">Войти в систему</a>
+                        </span>
+                    </p>
                 </div>
                 {/* <div>
-                    <input
-                        className="form__input"
-                        name="mail"
-                        autoComplete="off"
-                        type="text"
-                        placeholder="  .....@....."
-                        required
-                        onChange={onChange}
-                    />
-                    <p>Регистрационный номер СДС</p>
-                </div> */}
+            <input
+                className="form__input"
+                name="mail"
+                autoComplete="off"
+                type="text"
+                placeholder="  .....@....."
+                required
+                onChange={onChange}
+            />
+            <p>Регистрационный номер СДС</p>
+        </div> */}
 
                 <button className="btn__login" type="submit">
                     Отправить

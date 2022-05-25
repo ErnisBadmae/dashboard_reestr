@@ -10,7 +10,7 @@ export const getEntriesFail = (state, action) => {
     return { ...state, loading: false };
 };
 
-//RequestsSds
+//Функции по получению данных для списка заявок СДС
 
 export const getRequestsSdsRequest = (state, action) => {
     return { ...state, loading: true };
@@ -24,14 +24,14 @@ export const getRequestsSdsFail = (state, action) => {
     return { ...state, loading: false };
 };
 
-//RequestsSdsView
+//функция по получению данных на конкретную заявку
 
 export const getViewSdsRequest = (state, action) => {
     return { ...state, loading: true };
 };
 
 export const getViewtsSdsSuccess = (state, action) => {
-    return { ...state, loading: false, requestSdsView: action.payload };
+    return { ...state, loading: false, requestCurrentCardSds: action.payload };
 };
 
 export const getViewSdsFail = (state, action) => {
