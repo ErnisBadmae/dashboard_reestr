@@ -8,6 +8,7 @@ import { TableRegistry } from './components/TableRegistry/TableRegistry';
 import RequireAuth from './components/RequireAuth/RequireAuth';
 import NotFound from './pages/not-found/NotFound';
 import TableSds from './components/TableSds/TableSds';
+import CurrentCard from './components/CurrentCard/CurrentCard';
 
 function App() {
     return (
@@ -34,6 +35,10 @@ function App() {
                         }
                     >
                         <Route path="/declarations" element={<TableSds />} />
+                        <Route
+                            path="/declaration/view/:id"
+                            element={<CurrentCard />}
+                        />
                     </Route>
 
                     {/* <Route

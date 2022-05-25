@@ -23,3 +23,17 @@ export const getRequestsSdsSuccess = (state, action) => {
 export const getRequestsSdsFail = (state, action) => {
     return { ...state, loading: false };
 };
+
+//RequestsSdsView
+
+export const getViewSdsRequest = (state, action) => {
+    return { ...state, loading: true };
+};
+
+export const getViewtsSdsSuccess = (state, action) => {
+    return { ...state, loading: false, requestSdsView: action.payload };
+};
+
+export const getViewSdsFail = (state, action) => {
+    return { ...state, loading: false };
+};

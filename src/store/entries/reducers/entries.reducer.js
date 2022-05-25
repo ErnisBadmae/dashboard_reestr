@@ -7,12 +7,16 @@ import {
     getRequestsSdsFail,
     getRequestsSdsRequest,
     getRequestsSdsSuccess,
+    getViewSdsFail,
+    getViewSdsRequest,
+    getViewtsSdsSuccess,
 } from './getEntries';
-
+import { getView } from '../actions/getView';
 const initialState = {
     loading: false,
     entries: [],
     requestsSds: [],
+    requestSdsView: {},
 };
 
 export const entriesReducer = createReducer(initialState, {
@@ -22,4 +26,7 @@ export const entriesReducer = createReducer(initialState, {
     [getRequestSds.pending.toString()]: getRequestsSdsRequest,
     [getRequestSds.fulfilled.toString()]: getRequestsSdsSuccess,
     [getRequestSds.rejected.toString()]: getRequestsSdsFail,
+    [getView.pending.toString()]: getViewSdsRequest,
+    [getView.fulfilled.toString()]: getViewtsSdsSuccess,
+    [getView.rejected.toString()]: getViewSdsFail,
 });

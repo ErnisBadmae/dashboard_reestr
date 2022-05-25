@@ -25,7 +25,7 @@ function TableSds(props) {
         return {
             onClick: (e) => {
                 e.preventDefault();
-                navigate('/requests-sds/' + record.id);
+                navigate('/declaration/' + record.id);
             },
         };
     };

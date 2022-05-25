@@ -7,7 +7,7 @@ const RequireAuth = (props) => {
 
     const routes = {
         ROLE_USER: ['/sds', '/declaration'],
-        ROLE_DICTIONARY_EDITOR: ['/declarations'],
+        ROLE_DICTIONARY_EDITOR: ['/declarations', '/declaration/view/:id'],
     };
 
     const { user } = useSelector((state) => state.auth);
