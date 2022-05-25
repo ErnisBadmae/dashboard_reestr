@@ -14,19 +14,22 @@ $api.interceptors.request.use((config) => {
 });
 
 // Register
-const register = async (userData) => {
-    const response = await axios.post('/login_check', userData);
+const register = async (registrData) => {
+    const responseRegisterUser = await $api.post(
+        '/user/user_standard_certification/addInclusionRequest',
+        registrData
+    );
+    console.log(responseRegisterUser, 'responseRegisterUser');
+    //     if (response.data) {
+    //         localStorage.setItem('token', JSON.stringify(response.data.token));
+    //     }
 
-    if (response.data) {
-        localStorage.setItem('token', JSON.stringify(response.data.token));
-    }
-
-    return response.data;
+    return responseRegisterUser.data;
 };
 
 // Login user
 const login = async (userData) => {
-    const response =
+    const responseLoginUser =
         //     {
         //         data: {
         //             username: 'john@doe.com',
@@ -41,12 +44,15 @@ const login = async (userData) => {
         //         },
         //     };
         await $api.post('/login_check', userData);
-    let token = response.data.token;
+    let token = responseLoginUser.data.token;
     let user = jwt_decode(token);
     console.log(user, 'userdecodedtoken');
 
-    if (response.data) {
-        localStorage.setItem('token', JSON.stringify(response.data.token));
+    if (responseLoginUser.data) {
+        localStorage.setItem(
+            'token',
+            JSON.stringify(responseLoginUser.data.token)
+        );
         localStorage.setItem('user', JSON.stringify(user));
     }
 

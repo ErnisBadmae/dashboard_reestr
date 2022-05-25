@@ -8,6 +8,7 @@ import { TableRegistry } from './components/TableRegistry/TableRegistry';
 import RequireAuth from './components/RequireAuth/RequireAuth';
 import NotFound from './pages/not-found/NotFound';
 import TableSds from './components/TableSds/TableSds';
+import CurrentCard from './components/CurrentCard/CurrentCard';
 
 function App() {
     return (
@@ -29,11 +30,17 @@ function App() {
                     <Route
                         element={
                             <RequireAuth
-                                allowedRoles={['ROLE_DICTIONARY_EDITOR']}
+                                allowedRoles={[
+                                    'ROLE_NEW_USER_STANDARD_CERTIFICATION_DECISION',
+                                ]}
                             />
                         }
                     >
                         <Route path="/declarations" element={<TableSds />} />
+                        <Route
+                            path="/declaration/view/:id"
+                            element={<CurrentCard />}
+                        />
                     </Route>
 
                     {/* <Route

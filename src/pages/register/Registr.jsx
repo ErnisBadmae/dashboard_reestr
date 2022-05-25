@@ -1,20 +1,25 @@
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
 import { useState } from 'react';
+import { register } from '../../store/auth/authSlice';
 import './registr.scss';
 
 const Registr = () => {
+    const dispatch = useDispatch();
+
     const [formData, setFormData] = useState({
         username: '',
         email: '',
         firstname: '',
         secondname: '',
         lastname: '',
-        org_inn: '',
-        org_ogrn: '',
-        org_short_name: '',
+        orgInn: '',
+        orgOgrn: '',
+        orgShortName: '',
         post: '',
         phone: '',
         userRole: '2',
+        registrationNumber: '',
     });
 
     const {
@@ -23,12 +28,13 @@ const Registr = () => {
         firstname,
         secondname,
         lastname,
-        org_inn,
-        org_ogrn,
-        org_short_name,
+        orgInn,
+        orgOgrn,
+        orgShortName,
         post,
         phone,
         userRole,
+        registrationNumber,
     } = formData;
 
     const onChange = (e) => {
@@ -42,19 +48,22 @@ const Registr = () => {
         e.preventDefault();
 
         const registrData = {
+            username: 'user_sdc3',
             email,
             firstname,
             secondname,
             lastname,
-            org_inn,
-            org_ogrn,
-            org_short_name,
+            orgInn,
+            orgOgrn,
+            orgShortName,
             post,
             phone,
             userRole: '2',
+            registrationNumber,
         };
         console.log('registrData', registrData);
         //  axios.post('', registrData);
+        dispatch(register(registrData));
     };
 
     return (
@@ -111,7 +120,7 @@ const Registr = () => {
                     <p>ИНН</p>
                     <input
                         className="form__input"
-                        name="org_inn"
+                        name="orgInn"
                         autoComplete="off"
                         type="text"
                         required
@@ -122,7 +131,7 @@ const Registr = () => {
                     <p>ОГРН</p>
                     <input
                         className="form__input"
-                        name="org_ogrn"
+                        name="orgOgrn"
                         autoComplete="off"
                         type="text"
                         required
@@ -133,7 +142,7 @@ const Registr = () => {
                     <p>Сокращенное название организации</p>
                     <input
                         className="form__input"
-                        name="org_short_name"
+                        name="orgShortName"
                         autoComplete="off"
                         type="text"
                         required
@@ -160,18 +169,17 @@ const Registr = () => {
                         onChange={onChange}
                     />
                 </div>
-                {/* <div>
+                <div>
+                    <p>Регистрационный номер</p>
                     <input
                         className="form__input"
-                        name="mail"
+                        name="registrationNumber"
                         autoComplete="off"
                         type="text"
-                        placeholder="  .....@....."
                         required
                         onChange={onChange}
                     />
-                    <p>Наименование СДС</p>
-                </div> */}
+                </div>
                 {/* <div>
                     <input
                         className="form__input"
