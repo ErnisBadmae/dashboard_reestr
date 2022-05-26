@@ -2,13 +2,20 @@
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { register } from '../../store/auth/authSlice';
-import './registr.scss';
+import ReactDadataBox from 'react-dadata-box';
 import RegisterSuccess from './RegisterSuccess';
 
+import './registr.scss';
+
 const Registr = () => {
+    const testToken = 'aa29b21595947db61a4e85cd92ad24cf5877542f';
+
     const dispatch = useDispatch();
 
     const [isRegisterSuccess, setIsRegisterSuccess] = useState(false);
+
+    const [valueDaData, setValueDaData] = useState({});
+    const [ogrn, setOgrn] = useState('');
 
     const [formData, setFormData] = useState({
         username: '',
@@ -123,14 +130,16 @@ const Registr = () => {
                     />
                 </div>
                 <div>
-                    <p>ИНН</p>
-                    <input
+                    <p>ИНН или наименование организации</p>
+                    <ReactDadataBox
+                        token={testToken}
+                        type="party"
+                        value={valueDaData}
                         className="form__input"
-                        name="orgInn"
-                        autoComplete="off"
-                        type="text"
-                        required
-                        onChange={onChange}
+                        onChange={(suggestion) => {
+                            setValueDaData(suggestion);
+                            setOgrn(suggestion?.data?.ogrn || '');
+                        }}
                     />
                 </div>
                 <div>
@@ -140,8 +149,9 @@ const Registr = () => {
                         name="orgOgrn"
                         autoComplete="off"
                         type="text"
+                        value={ogrn}
                         required
-                        onChange={onChange}
+                        onChange={(e) => setOgrn(e.target.value)}
                     />
                 </div>
                 <div>
@@ -193,18 +203,6 @@ const Registr = () => {
                         </span>
                     </p>
                 </div>
-                {/* <div>
-            <input
-                className="form__input"
-                name="mail"
-                autoComplete="off"
-                type="text"
-                placeholder="  .....@....."
-                required
-                onChange={onChange}
-            />
-            <p>Регистрационный номер СДС</p>
-        </div> */}
 
                 <button className="btn__login" type="submit">
                     Отправить
