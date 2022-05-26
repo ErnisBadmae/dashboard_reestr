@@ -9,8 +9,8 @@ import './card-item.css';
 function CurrentCard(props) {
     const dispatch = useDispatch();
 
-    const { requestSdsView } = useSelector((state) => state.entries);
-    console.log('requestSdsView', requestSdsView);
+    const { requestCurrentCardSds } = useSelector((state) => state.entries);
+    //     console.log('requestSdsView', requestCurrentCardSds);
 
     useEffect(() => {
         // dispatch(setCurrentCardNumber(id))
@@ -25,52 +25,85 @@ function CurrentCard(props) {
             </BreadCrumbs> */}
             <div className="card">
                 <div className="card__title">
-                    <strong>{requestSdsView?.expert_name}</strong>
+                    <strong>{requestCurrentCardSds?.username}</strong>
                 </div>
                 <div className="card__body">
-                    <strong>№ аттестата</strong>
+                    <strong>Электронная почта</strong>
                     <br />
-                    <p>{requestSdsView?.certificate_number}</p>
+                    <p className="text__current-card">
+                        {requestCurrentCardSds?.email}
+                    </p>
                     <br />
-                    <strong>Область специализации</strong>
+
+                    <strong>Имя</strong>
                     <br />
-                    <p>{requestSdsView?.area}</p>
+                    <p className="text__current-card">
+                        {requestCurrentCardSds?.firstname}
+                    </p>
+
                     <strong>
                         <br />
-                        Сертификат (скан)
+                        Фамилия
                     </strong>
-                    <p>{requestSdsView?.certificate_scan}</p>
+                    <p className="text__current-card">
+                        {requestCurrentCardSds?.secondname}
+                    </p>
+
                     <strong>
                         <br />
-                        Действителен до
+                        Отчество
                     </strong>
                     <br />
-                    <p>{requestSdsView?.valid}</p>
+                    <p className="text__current-card">
+                        {requestCurrentCardSds?.lastname}
+                    </p>
+
                     <strong>
                         <br />
-                        Дата вступления в организацию
+                        Инн организации
                     </strong>
                     <br />
-                    <p>{'нет данных'}</p>
+                    <p className="text__current-card">
+                        {requestCurrentCardSds?.org_inn}
+                    </p>
+
                     <strong>
                         <br />
-                        Дата исключения
+                        Огрн организации
                     </strong>
                     <br />
-                    <p>{requestSdsView?.exclusion || 'нет данных'}</p>
+                    <p className="text__current-card">
+                        {requestCurrentCardSds?.org_ogrn || 'нет данных'}
+                    </p>
+
+                    <strong>
+                        <br />
+                        Сокращенное наименование
+                    </strong>
+                    <br />
+                    <p className="text__current-card">
+                        {requestCurrentCardSds?.org_short_name}
+                    </p>
+
                     <strong>
                         <br />
                         Должность
                     </strong>
                     <br />
-                    <p>{requestSdsView?.exclusion_position}</p>
+                    <p className="text__current-card">
+                        {requestCurrentCardSds?.post || 'нет данных'}
+                    </p>
+
                     <strong>
                         <br />
-                        Основание для привлечения личного труда
+                        Контактный номер телефона
                     </strong>
                     <br />
-                    <p>{requestSdsView?.exclusion || 'нет данных'}</p>
+                    <p className="text__current-card">
+                        {requestCurrentCardSds?.phone || 'нет данных'}
+                    </p>
                 </div>
+
                 <div className="btn__card">
                     <ButtonRegistry
                         text="Одобрить заявление на регистрацию"

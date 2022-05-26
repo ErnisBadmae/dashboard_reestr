@@ -28,6 +28,6 @@ export const getCurrentCard = createAsyncThunk(
     async (dispatch) => {
         let result = await axios('/requestView.json');
         console.log(result, 'resultView');
-        return result;
+        return result.data.data;
     }
 );
