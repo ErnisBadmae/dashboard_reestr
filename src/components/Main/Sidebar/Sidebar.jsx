@@ -21,7 +21,7 @@ function Sidebar(props) {
         {
             role: 'ROLE_NEW_USER_STANDARD_CERTIFICATION_DECISION',
             href: '/declarations',
-            text: 'Список заявлений Оператора Сдс',
+            text: 'Список заявлений',
             id: 2,
         },
         {

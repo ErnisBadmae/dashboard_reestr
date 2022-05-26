@@ -1,6 +1,10 @@
-p {
+.text__current-card {
     padding: 1px;
     margin: 1px;
+    font-size: medium;
+}
+strong {
+    color: #0f2355;
 }
 .card {
     /* border: 5px solid black; */
