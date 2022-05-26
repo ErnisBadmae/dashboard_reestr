@@ -1,5 +1,5 @@
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
+// import jwt_decode from 'jwt-decode';
 
 const API_URL = 'http://api-prof-sdc.anonamis.ru/api';
 
@@ -19,10 +19,10 @@ const register = async (registrData) => {
             '/user/user_standard_certification/addInclusionRequest',
             registrData
         );
-        console.log(responseRegisterUser, 'responseRegisterUser');
-        if (response.data) {
-            localStorage.setItem('token', JSON.stringify(response.data.token));
-        }
+        // console.log(responseRegisterUser, 'responseRegisterUser');
+        // if (responseRegisterUser.data) {
+        //     localStorage.setItem('token', JSON.stringify(response.data.token));
+        // }
 
         return responseRegisterUser.data;
 
@@ -34,7 +34,7 @@ const register = async (registrData) => {
     //             JSON.stringify(responseRegisterUser.data.data)
     //         );
     //     }
-    return responseRegisterUser.data.data;
+    // return responseRegisterUser.data.data;
 };
 
 // Login user
