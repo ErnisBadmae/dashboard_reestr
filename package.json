@@ -2,6 +2,7 @@
   "name": "non-published-prof",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://api-prof-sdc.anonamis.ru/api/",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@emotion/react": "^11.9.0",
