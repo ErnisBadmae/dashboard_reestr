@@ -15,18 +15,21 @@ $api.interceptors.request.use((config) => {
 
 // Register
 const register = async (registrData) => {
-    //     const responseRegisterUser = await $api.post(
-    //         '/user/user_standard_certification/addInclusionRequest',
-    //         registrData
-    //     );
-    //     console.log(responseRegisterUser, 'responseRegisterUser');
-    //     if (response.data) {
-    //         localStorage.setItem('token', JSON.stringify(response.data.token));
-    //     }
+    const responseRegisterUser = await $api.post(
+        '/user/user_standard_certification/addInclusionRequest',
+        registrData
+    );
+    console.log(responseRegisterUser, 'responseRegisterUser');
+    if (responseRegisterUser.data) {
+        localStorage.setItem(
+            'token',
+            JSON.stringify(responseRegisterUser.data.token)
+        );
+    }
 
-    //     return responseRegisterUser.data;
+    return responseRegisterUser.data;
 
-    const responseRegisterUser = await axios('./responseRegister.json');
+    //     const responseRegisterUser = await axios('./responseRegister.json');
 
     //     if (responseRegisterUser) {
     //         localStorage.setItem(
@@ -34,7 +37,7 @@ const register = async (registrData) => {
     //             JSON.stringify(responseRegisterUser.data.data)
     //         );
     //     }
-    return responseRegisterUser.data.data;
+    //     return responseRegisterUser.data.data;
 };
 
 // Login user
