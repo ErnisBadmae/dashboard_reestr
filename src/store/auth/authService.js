@@ -4,7 +4,7 @@ import jwt_decode from 'jwt-decode';
 const API_URL = 'http://api-prof-sdc.anonamis.ru/api';
 
 const $api = axios.create({
-    withCredentials: true,
+    //     withCredentials: true,
     baseURL: API_URL,
 });
 
@@ -15,9 +15,18 @@ $api.interceptors.request.use((config) => {
 
 // Register
 const register = async (registrData) => {
-    const responseRegisterUser = await $api.post(
-        '/user/user_standard_certification/addInclusionRequest',
-        registrData
+    const responseRegisterUser = await axios.post(
+        'http://api-prof-sdc.anonamis.ru/api/user/user_standard_certification/addInclusionRequest',
+        registrData,
+        {
+            mode: 'no-cors',
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Content-Type': 'application/json',
+            },
+            withCredentials: true,
+            credentials: 'same-origin',
+        }
     );
     console.log(responseRegisterUser, 'responseRegisterUser');
     if (responseRegisterUser.data) {
@@ -42,16 +51,32 @@ const register = async (registrData) => {
 
 // Login user
 const login = async (userData) => {
-    const responseLoginUser = await axios('./responseLogin.json');
-    //  'ROLE_USER',
-    //     'ROLE_DICTIONARY_EDITOR',
-    //  'ROLE_DICTIONARY_REQUEST_STATUS_EDITOR',
-    //  'ROLE_DICTIONARY_ROLES_EDITOR',
-    //  'ROLE_USER_ROLES_EDITOR',
-    //   await $api.post('/', userData);
+    const reqBody = {
+        username: 'admin@mail.com',
+        password: '12345',
+    };
+    const responseLoginUser =
+        //  await axios('./responseLogin.json');
+        //  'ROLE_USER',
+        //     'ROLE_DICTIONARY_EDITOR',
+        //  'ROLE_DICTIONARY_REQUEST_STATUS_EDITOR',
+        //  'ROLE_DICTIONARY_ROLES_EDITOR',
+        //  'ROLE_USER_ROLES_EDITOR',
+
+        await fetch(
+            'http://api-prof-sdc.anonamis.ru/api/user/user_standard_certification/add-inclusion-request',
+            {
+                //  headers: {
+                //      'Access-Control-Allow-Origin': '*',
+                //      'Content-Type': 'application/x-www-form-urlencoded',
+                //  },
+                method: 'post',
+                body: reqBody,
+            }
+        );
     //     let token = responseLoginUser.data.token;
     //     let user = jwt_decode(token);
-    //     console.log(user, 'userdecodedtoken');
+    //     console.log(responseLoginUser, 'responseLoginUser');
 
     //     if (responseLoginUser.data) {
     //         localStorage.setItem(
@@ -60,14 +85,14 @@ const login = async (userData) => {
     //         );
     //         localStorage.setItem('user', JSON.stringify(user));
     //     }
-    if (responseLoginUser) {
-        localStorage.setItem(
-            'user',
-            JSON.stringify(responseLoginUser.data.data)
-        );
-    }
-    console.log(responseLoginUser, 'responseLoginUser');
-    return responseLoginUser.data.data;
+    //     if (responseLoginUser) {
+    //         localStorage.setItem(
+    //             'user',
+    //             JSON.stringify(responseLoginUser.data.data)
+    //         );
+    //     }
+    //     console.log(responseLoginUser, 'responseLoginUser');
+    //     return responseLoginUser.data.data;
 };
 
 // Logout user
