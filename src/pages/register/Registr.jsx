@@ -14,8 +14,11 @@ const Registr = () => {
 
     const [isRegisterSuccess, setIsRegisterSuccess] = useState(false);
 
-    const [valueDaData, setValueDaData] = useState({});
-    const [ogrn, setOgrn] = useState('');
+    //     const [inn, setInn] = useState({});
+    //     const [ogrn, setOgrn] = useState('');
+
+    //     console.log(inn, 'innfromdadata');
+    //     console.log(ogrn, 'ogrnogrn');
 
     const [formData, setFormData] = useState({
         username: '',
@@ -134,11 +137,15 @@ const Registr = () => {
                     <ReactDadataBox
                         token={testToken}
                         type="party"
-                        value={valueDaData}
+                        //     value={orgInn}
+                        name="orgInn"
                         className="form__input"
                         onChange={(suggestion) => {
-                            setValueDaData(suggestion);
-                            setOgrn(suggestion?.data?.ogrn || '');
+                            setFormData({ orgInn: suggestion?.data?.inn });
+                            setFormData({
+                                orgOgrn: suggestion?.data?.ogrn || '',
+                            });
+                            console.log(suggestion, 'suggestion');
                         }}
                     />
                 </div>
@@ -149,9 +156,10 @@ const Registr = () => {
                         name="orgOgrn"
                         autoComplete="off"
                         type="text"
-                        value={ogrn}
+                        value={orgOgrn}
                         required
-                        onChange={(e) => setOgrn(e.target.value)}
+                        onChange={onChange}
+                        //     onChange={(e) => setFormData(e.target.value)}
                     />
                 </div>
                 <div>

@@ -20,8 +20,10 @@ export const getEntries = createAsyncThunk('entries/get', async (dispatch) => {
 export const getRequestSds = createAsyncThunk(
     'requests/get',
     async (dispatch) => {
-        let result = await axios('/requests.json');
-        //    console.log(result.data.data, 'result');
-        return result.data.data;
+        let result = await axios.post(
+            'https://api-prof-sdc.anonamis.ru/api/user/user_standard_certification/inclusion_request/list'
+        );
+        console.log(result.data.data.data, 'result');
+        return result.data.data.data;
     }
 );
