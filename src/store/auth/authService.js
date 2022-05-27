@@ -1,5 +1,5 @@
 import axios from 'axios';
-import jwt_decode from 'jwt-decode';
+// import jwt_decode from 'jwt-decode';
 
 const API_URL = 'http://api-prof-sdc.anonamis.ru/api';
 
@@ -15,30 +15,18 @@ $api.interceptors.request.use((config) => {
 
 // Register
 const register = async (registrData) => {
-    const responseRegisterUser = await axios.post(
-        'http://api-prof-sdc.anonamis.ru/api/user/user_standard_certification/addInclusionRequest',
-        registrData,
-        {
-            mode: 'no-cors',
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Content-Type': 'application/json',
-            },
-            withCredentials: true,
-            credentials: 'same-origin',
-        }
+    const responseRegisterUser = await $api.post(
+        '/user/user_standard_certification/addInclusionRequest',
+        registrData
     );
-    console.log(responseRegisterUser, 'responseRegisterUser');
-    if (responseRegisterUser.data) {
-        localStorage.setItem(
-            'token',
-            JSON.stringify(responseRegisterUser.data.token)
-        );
-    }
+    // console.log(responseRegisterUser, 'responseRegisterUser');
+    // if (responseRegisterUser.data) {
+    //     localStorage.setItem('token', JSON.stringify(response.data.token));
+    // }
 
     return responseRegisterUser.data;
 
-    //     const responseRegisterUser = await axios('./responseRegister.json');
+    // const responseRegisterUser = await axios('./responseRegister.json');
 
     //     if (responseRegisterUser) {
     //         localStorage.setItem(
@@ -46,7 +34,7 @@ const register = async (registrData) => {
     //             JSON.stringify(responseRegisterUser.data.data)
     //         );
     //     }
-    //     return responseRegisterUser.data.data;
+    // return responseRegisterUser.data.data;
 };
 
 // Login user
