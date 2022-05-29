@@ -1,4 +1,3 @@
-// import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 import { register } from '../../store/auth/authSlice';
@@ -14,14 +13,7 @@ const Registr = () => {
 
     const [isRegisterSuccess, setIsRegisterSuccess] = useState(false);
 
-    //     const [inn, setInn] = useState({});
-    //     const [ogrn, setOgrn] = useState('');
-
-    //     console.log(inn, 'innfromdadata');
-    //     console.log(ogrn, 'ogrnogrn');
-
     const [formData, setFormData] = useState({
-        username: '',
         email: '',
         firstname: '',
         secondname: '',
@@ -31,12 +23,11 @@ const Registr = () => {
         orgShortName: '',
         post: '',
         phone: '',
-        userRole: '2',
+        userRole: '',
         registrationNumber: '',
     });
 
     const {
-        username,
         email,
         firstname,
         secondname,
@@ -49,8 +40,13 @@ const Registr = () => {
         userRole,
         registrationNumber,
     } = formData;
+    //     console.log(email, 'email');
 
     const onChange = (e) => {
+        //    console.log(
+        //        { [e.target.name]: e.target.value },
+        //        ' [e.target.name]: e.target.value'
+        //    );
         setFormData((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
@@ -61,7 +57,6 @@ const Registr = () => {
         e.preventDefault();
 
         const registrData = {
-            username: 'user_sdc3',
             email,
             firstname,
             secondname,
@@ -74,8 +69,7 @@ const Registr = () => {
             userRole: '2',
             registrationNumber,
         };
-        console.log('registrData', registrData);
-        //  axios.post('', registrData);
+        //    console.log('registrData', registrData);
         dispatch(register(registrData));
         setIsRegisterSuccess(true);
     };
@@ -92,7 +86,7 @@ const Registr = () => {
                         className="form__input"
                         name="email"
                         autoComplete="off"
-                        type="text"
+                        type="email"
                         placeholder="  .....@....."
                         required
                         autoFocus
@@ -115,7 +109,7 @@ const Registr = () => {
                     <input
                         className="form__input"
                         autoComplete="off"
-                        name="secondtname"
+                        name="secondname"
                         type="text"
                         required
                         onChange={onChange}
@@ -141,11 +135,11 @@ const Registr = () => {
                         name="orgInn"
                         className="form__input"
                         onChange={(suggestion) => {
-                            setFormData({ orgInn: suggestion?.data?.inn });
                             setFormData({
+                                ...formData,
+                                orgInn: suggestion?.data?.inn,
                                 orgOgrn: suggestion?.data?.ogrn || '',
                             });
-                            console.log(suggestion, 'suggestion');
                         }}
                     />
                 </div>
@@ -224,5 +218,4 @@ const Registr = () => {
 export default Registr;
 
 //userRole: 2  - константа
-
 // ответ пришедший в виде уведомления что заявка зарегистрирована, дата заявка така я-то
