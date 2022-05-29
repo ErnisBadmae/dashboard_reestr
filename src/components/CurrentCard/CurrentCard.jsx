@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentCard } from '../../store/entries/actions/getCurrentCard';
 import { ButtonRegistry } from '../Buttons/button-registry/button-registry';
-// import { BreadCrumbs } from '../../../components/breadCrumbs/breadCrumbs';
 
 import './card-item.css';
 
@@ -13,16 +12,11 @@ function CurrentCard(props) {
     //     console.log('requestSdsView', requestCurrentCardSds);
 
     useEffect(() => {
-        // dispatch(setCurrentCardNumber(id))
         dispatch(getCurrentCard());
     }, [dispatch]);
 
     return (
         <div class="card-container">
-            {/* <BreadCrumbs registry="expert-card">
-                <span> {'>'} </span>
-                <span> {currentCard?.expert_name} </span>
-            </BreadCrumbs> */}
             <div className="card">
                 <div className="card__title">
                     <strong>{requestCurrentCardSds?.username}</strong>
@@ -117,3 +111,10 @@ function CurrentCard(props) {
 }
 
 export default CurrentCard;
+
+// async () => {
+//     let res = await $api.post(
+//         '/user/user_standard_certification/inclusion_request_decision/:requestId/:statusId'
+//     );
+//     return res.data;
+// }

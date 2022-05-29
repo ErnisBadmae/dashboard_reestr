@@ -37,3 +37,16 @@ export const getViewtsSdsSuccess = (state, action) => {
 export const getViewSdsFail = (state, action) => {
     return { ...state, loading: false };
 };
+
+//функции по принятию решения на СДС заявки
+// export const getDecisionRequest = (state, action) => {
+//     return { ...state, loading: true };
+// };
+
+// export const getDecisionSdsSuccess = (state, action) => {
+//     return { ...state, loading: false, requestCurrentCardSds: action.payload };
+// };
+
+// export const getDecisionFail = (state, action) => {
+//     return { ...state, loading: false };
+// };

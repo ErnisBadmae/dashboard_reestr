@@ -1,23 +1,12 @@
 import axios from 'axios';
+import $api from '../../http';
 import jwt_decode from 'jwt-decode';
-
-const API_URL = 'https://api-prof-sdc.anonamis.ru/api';
-
-const $api = axios.create({
-    withCredentials: true,
-    baseURL: API_URL,
-});
 
 const headersAxios = {
     headers: {
         'Content-Type': 'application/json',
     },
 };
-
-$api.interceptors.request.use((config) => {
-    config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
-    return config;
-});
 
 // Register
 const register = async (registrData) => {
@@ -51,24 +40,20 @@ const login = async (userData) => {
         userData,
         headersAxios
     );
-
-    let token = responseLoginUser.data.token;
-    let user = jwt_decode(token);
-
-    console.log(user, 'user');
     if (responseLoginUser.data) {
         localStorage.setItem(
             'token',
             JSON.stringify(responseLoginUser.data.token)
         );
-        localStorage.setItem('user', JSON.stringify(user));
     }
-    return user;
+    const value = jwt_decode(responseLoginUser.data.token);
+
+    return value;
 };
 
 // Logout user
 const logout = () => {
-    localStorage.clear();
+    localStorage.removeItem('token');
 };
 
 const authService = {

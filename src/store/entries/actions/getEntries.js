@@ -1,12 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import $api from '../../../http';
 import axios from 'axios';
 
 export const getEntries = createAsyncThunk('entries/get', async (dispatch) => {
-    let result = await axios(
-        '/table.json'
-        // credentials: "include",
-        //   }
-    );
+    let result = await axios.post('/table.json');
     // let result = await res.json();
     // result.data.array.forEach(element => {
     //   element
@@ -20,8 +17,8 @@ export const getEntries = createAsyncThunk('entries/get', async (dispatch) => {
 export const getRequestSds = createAsyncThunk(
     'requests/get',
     async (dispatch) => {
-        let result = await axios.post(
-            'https://api-prof-sdc.anonamis.ru/api/user/user_standard_certification/inclusion_request/list'
+        let result = await $api.post(
+            '/user/user_standard_certification/inclusion_request/list'
         );
         console.log(result.data.data.data, 'result');
         return result.data.data.data;

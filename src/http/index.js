@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const API_URL = '';
+const API_URL = 'https://api-prof-sdc.anonamis.ru/api';
 
 const $api = axios.create({
     withCredentials: true,
