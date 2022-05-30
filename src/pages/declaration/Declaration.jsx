@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import axios from 'axios';
+// import axios from 'axios';
 import '../register/registr.scss';
 import './declaration.scss';
 import { postDeclarations } from '../../store/entries/actions';

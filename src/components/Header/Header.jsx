@@ -10,11 +10,9 @@ import {
     PowerSettingsNew,
 } from '@mui/icons-material';
 import './header.scss';
-import { useNavigate } from 'react-router-dom';
 import authService from '../../store/auth/authService';
 
 function Header(props) {
-    const navigate = useNavigate();
     const logout = () => {
         authService.logout();
         //    navigate('/login');

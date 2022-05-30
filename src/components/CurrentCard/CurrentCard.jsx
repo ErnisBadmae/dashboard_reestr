@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import $api from '../../http';
 import { getCurrentCard } from '../../store/entries/actions/getCurrentCard';
 import { ButtonRegistry } from '../Buttons/button-registry/button-registry';
@@ -10,26 +10,23 @@ import './card-item.css';
 function CurrentCard(props) {
     const dispatch = useDispatch();
     const { id } = useParams();
-    //     const { pathname } = useLocation();
-    //     console.log(pathname, 'pathname');
-    console.log(id, 'id');
 
     const current = useSelector(
         (state) => state.entries.requestCurrentCardSds.inclusionRequest
     );
-    console.log('currentcurrent', current);
-    //     const [message, setMessgage] = useState();
+    //     console.log('currentcurrent', current);
+    const [message, setMessgage] = useState();
 
     useEffect(() => {
         dispatch(getCurrentCard(id));
-    }, []);
+    }, [id, dispatch]);
 
     const acceptStatus = async (id, statusId) => {
         let res = await $api.post(
             `/user/user_standard_certification/inclusion_request_decision/${id}/${statusId}`
         );
-        //    setMessgage(res.data.message);
-        //    console.log(message, 'message');
+        setMessgage(res.data.message);
+        console.log(message, 'message');
     };
 
     return (

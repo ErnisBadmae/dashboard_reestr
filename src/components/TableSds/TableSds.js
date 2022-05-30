@@ -13,7 +13,7 @@ function TableSds(props) {
 
     useEffect(() => {
         dispatch(getRequestSds());
-    }, []);
+    }, [dispatch]);
 
     const { requestsSds } = useSelector((state) => state.entries);
     //     console.log(requestsSds, 'entries');

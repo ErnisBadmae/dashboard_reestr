@@ -30,6 +30,8 @@ strong {
 }
 
 .btn__card {
+    display: flex;
+    justify-content: space-around;
     margin-top: 10px;
     text-align: center;
     padding: 10px;

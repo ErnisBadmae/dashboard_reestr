@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { reset, login } from '../../store/auth/authSlice';
+import { login } from '../../store/auth/authSlice';
 import './login.scss';
 
 function Login(props) {
@@ -14,21 +14,20 @@ function Login(props) {
     });
 
     const { username, password } = formData;
-    const { user, isLoading, isError, isSuccess, message } = useSelector(
+    const { user, isError, isSuccess, message } = useSelector(
         (state) => state.auth
     );
 
     useEffect(() => {
-        if (isError) {
-            console.log('ошибка авторизации');
-        }
-
+        //     if(isError) {
+        //           message
+        //     }
         if (isSuccess || user) {
             navigate('/');
         }
 
         // dispatch(reset());
-    }, [user]);
+    }, [user, isSuccess, navigate]);
 
     const onChange = (e) => {
         setFormData((prevState) => ({
@@ -51,6 +50,7 @@ function Login(props) {
             <div className="login__title">Войти в систему</div>
             <form onSubmit={formHandler} className="login__form">
                 <div>
+                    <div className="error-text">{message}</div>
                     <p>Электронная почта</p>
                     <input
                         className="form__input"

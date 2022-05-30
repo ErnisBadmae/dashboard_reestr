@@ -37,8 +37,6 @@ const login = async (userData) => {
             user,
         };
     }
-
-    // return value;
 };
 
 const logout = () => {
@@ -54,17 +52,3 @@ const authService = {
 };
 
 export default authService;
-
-export const authCheck = () => {
-    //     try {
-    const decodeToken = jwt_decode(localStorage.getItem('token'));
-    console.log(decodeToken, 'decodeTokendecodeTokendecodeToken');
-    //    const value = {
-    //        user: decodeToken,
-    //        token: localStorage.getItem('token'),
-    //    };
-    //         return value;
-    //     } catch (err) {
-    //         console.log(err);
-    //     }
-};

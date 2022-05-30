@@ -9,23 +9,22 @@ import RequireAuth from './components/RequireAuth/RequireAuth';
 import NotFound from './pages/not-found/NotFound';
 import TableSds from './components/TableSds/TableSds';
 import CurrentCard from './components/CurrentCard/CurrentCard';
-// import { authCheck } from './store/auth/authService';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 function App() {
-    const user = useSelector((state) => state.auth.user);
-    //     const dispatch = useDispatch();
-    const { pathname } = useLocation();
     const navigate = useNavigate();
+    const { pathname } = useLocation();
+
+    const user = useSelector((state) => state.auth.user);
+    //проверяю, если юзера нет и текущее место не совпадает с перечисленными, то редирект
     useEffect(() => {
         if (!user) {
             if (!['/login', '/register'].includes(pathname)) {
                 navigate('/login');
             }
         }
-        // dispatch(authCheck());
-    }, [user]);
+    }, [user, pathname, navigate]);
 
     return (
         <div className="App">

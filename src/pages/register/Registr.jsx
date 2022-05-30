@@ -37,7 +37,7 @@ const Registr = () => {
         orgShortName,
         post,
         phone,
-        userRole,
+        //    userRole,
         registrationNumber,
     } = formData;
     //     console.log(email, 'email');

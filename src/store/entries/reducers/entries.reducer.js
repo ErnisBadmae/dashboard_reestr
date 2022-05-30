@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { getEntries, getRequestSds, postDeclarations } from '../actions';
+import { getEntries, getRequestSds } from '../actions';
 import {
     getEntriesFail,
     getEntriesRequest,
