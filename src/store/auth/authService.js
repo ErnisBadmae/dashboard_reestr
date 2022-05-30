@@ -24,15 +24,27 @@ const login = async (userData) => {
         headersAxios
     );
     if (responseLoginUser.data) {
-        localStorage.setItem('token', responseLoginUser.data.token);
+        const value = jwt_decode(responseLoginUser.data.token);
+        const token = responseLoginUser.data.token;
+        const user = {
+            username: value.username,
+            roles: value.roles,
+        };
+        localStorage.setItem('token', token);
+        localStorage.setItem('user-info', JSON.stringify(user));
+        return {
+            token,
+            user,
+        };
     }
-    const value = jwt_decode(responseLoginUser.data.token);
 
-    return value;
+    // return value;
 };
 
 const logout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('user-info');
+    // @todo: remove from store
 };
 
 const authService = {

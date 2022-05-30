@@ -25,18 +25,3 @@ export const login = createAsyncThunk(
         return value;
     }
 );
-
-export const authCheck = () => {
-    try {
-        const decodeToken = jwt_decode(localStorage.getItem('token'));
-
-        const value = {
-            user: decodeToken,
-            token: localStorage.getItem('token'),
-        };
-
-        return value;
-    } catch (err) {
-        console.log(err);
-    }
-};

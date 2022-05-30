@@ -1,5 +1,5 @@
 import { AuthLayout } from './components/Layout/AuthLayout';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { LayoutContent } from './components/Layout/LayoutContent';
 import Declaration from './pages/declaration/Declaration';
 import Registr from './pages/register/Registr';
@@ -10,15 +10,22 @@ import NotFound from './pages/not-found/NotFound';
 import TableSds from './components/TableSds/TableSds';
 import CurrentCard from './components/CurrentCard/CurrentCard';
 // import { authCheck } from './store/auth/authService';
-// import { useEffect } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 function App() {
+    const user = useSelector((state) => state.auth.user);
     //     const dispatch = useDispatch();
-
-    //     useEffect(() => {
-    //         dispatch(authCheck());
-    //     }, []);
+    const { pathname } = useLocation();
+    const navigate = useNavigate();
+    useEffect(() => {
+        if (!user) {
+            if (!['/login', '/register'].includes(pathname)) {
+                navigate('/login');
+            }
+        }
+        // dispatch(authCheck());
+    }, [user]);
 
     return (
         <div className="App">
@@ -28,31 +35,40 @@ function App() {
                     <Route path="/register" element={<Registr />} />
                 </Route>
 
-                <Route path="/" element={<LayoutContent />}>
-                    <Route
-                        element={<RequireAuth allowedRoles={['ROLE_USER']} />}
-                    >
-                        <Route path="/declaration" element={<Declaration />} />
-                        <Route path="/sds" element={<TableRegistry />} />
-                    </Route>
-
-                    <Route
-                        element={
-                            <RequireAuth
-                                allowedRoles={[
-                                    'ROLE_NEW_USER_STANDARD_CERTIFICATION_DECISION',
-                                ]}
-                            />
-                        }
-                    >
-                        <Route path="/declarations" element={<TableSds />} />
+                {!!user && (
+                    <Route path="/" element={<LayoutContent />}>
                         <Route
-                            path="/declaration/:id"
-                            element={<CurrentCard />}
-                        />
-                    </Route>
+                            element={
+                                <RequireAuth allowedRoles={['ROLE_USER']} />
+                            }
+                        >
+                            <Route
+                                path="/declaration"
+                                element={<Declaration />}
+                            />
+                            <Route path="/sds" element={<TableRegistry />} />
+                        </Route>
 
-                    {/* <Route
+                        <Route
+                            element={
+                                <RequireAuth
+                                    allowedRoles={[
+                                        'ROLE_NEW_USER_STANDARD_CERTIFICATION_DECISION',
+                                    ]}
+                                />
+                            }
+                        >
+                            <Route
+                                path="/declarations"
+                                element={<TableSds />}
+                            />
+                            <Route
+                                path="/declaration/:id"
+                                element={<CurrentCard />}
+                            />
+                        </Route>
+
+                        {/* <Route
                     element={
                         <RequireAuth
                             allowedRoles={['ROLE_DICTIONARY_REQUEST_STATUS_EDITOR']}
@@ -64,8 +80,9 @@ function App() {
                     </Route>
                 </Route> */}
 
-                    <Route path="*" element={<NotFound />} />
-                </Route>
+                        <Route path="*" element={<NotFound />} />
+                    </Route>
+                )}
             </Routes>
         </div>
     );

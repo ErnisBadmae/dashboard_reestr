@@ -14,8 +14,10 @@ function CurrentCard(props) {
     //     console.log(pathname, 'pathname');
     console.log(id, 'id');
 
-    //     const { requestCurrentCardSds } = useSelector((state) => state.entries);
-    //     console.log('requestSdsView', requestCurrentCardSds);
+    const current = useSelector(
+        (state) => state.entries.requestCurrentCardSds.inclusionRequest
+    );
+    console.log('currentcurrent', current);
     //     const [message, setMessgage] = useState();
 
     useEffect(() => {
@@ -33,48 +35,38 @@ function CurrentCard(props) {
     return (
         <div class="card-container">
             <div className="card">
-                {/* <div className="card__title">
-                    <strong>{requestCurrentCardSds?.username}</strong>
+                <div className="card__title">
+                    <strong>{current?.email}</strong>
                 </div>
                 <div className="card__body">
                     <strong>Электронная почта</strong>
                     <br />
-                    <p className="text__current-card">
-                        {requestCurrentCardSds?.email}
-                    </p>
+                    <p className="text__current-card">{current?.email}</p>
                     <br />
 
                     <strong>Имя</strong>
                     <br />
-                    <p className="text__current-card">
-                        {requestCurrentCardSds?.firstname}
-                    </p>
+                    <p className="text__current-card">{current?.firstname}</p>
 
                     <strong>
                         <br />
                         Фамилия
                     </strong>
-                    <p className="text__current-card">
-                        {requestCurrentCardSds?.secondname}
-                    </p>
+                    <p className="text__current-card">{current?.secondname}</p>
 
                     <strong>
                         <br />
                         Отчество
                     </strong>
                     <br />
-                    <p className="text__current-card">
-                        {requestCurrentCardSds?.lastname}
-                    </p>
+                    <p className="text__current-card">{current?.lastname}</p>
 
                     <strong>
                         <br />
                         Инн организации
                     </strong>
                     <br />
-                    <p className="text__current-card">
-                        {requestCurrentCardSds?.org_inn}
-                    </p>
+                    <p className="text__current-card">{current?.org_inn}</p>
 
                     <strong>
                         <br />
@@ -82,7 +74,7 @@ function CurrentCard(props) {
                     </strong>
                     <br />
                     <p className="text__current-card">
-                        {requestCurrentCardSds?.org_ogrn || 'нет данных'}
+                        {current?.org_ogrn || 'нет данных'}
                     </p>
 
                     <strong>
@@ -91,7 +83,7 @@ function CurrentCard(props) {
                     </strong>
                     <br />
                     <p className="text__current-card">
-                        {requestCurrentCardSds?.org_short_name}
+                        {current?.org_short_name}
                     </p>
 
                     <strong>
@@ -100,7 +92,7 @@ function CurrentCard(props) {
                     </strong>
                     <br />
                     <p className="text__current-card">
-                        {requestCurrentCardSds?.post || 'нет данных'}
+                        {current?.post || 'нет данных'}
                     </p>
 
                     <strong>
@@ -109,9 +101,9 @@ function CurrentCard(props) {
                     </strong>
                     <br />
                     <p className="text__current-card">
-                        {requestCurrentCardSds?.phone || 'нет данных'}
+                        {current?.phone || 'нет данных'}
                     </p>
-                </div> */}
+                </div>
 
                 <div className="btn__card">
                     <ButtonRegistry

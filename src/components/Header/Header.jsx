@@ -10,19 +10,16 @@ import {
     PowerSettingsNew,
 } from '@mui/icons-material';
 import './header.scss';
-import {
-    useNavigate,
-} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import authService from '../../store/auth/authService';
 
 function Header(props) {
-    const navigate = useNavigate()
-    const logout = ()=> {
-   
-    localStorage.removeItem('user')
-    navigate('/login');
-    window.location.reload();
-
-    }
+    const navigate = useNavigate();
+    const logout = () => {
+        authService.logout();
+        //    navigate('/login');
+        window.location.reload();
+    };
     return (
         <header className="header">
             <div className="header__container">
@@ -42,7 +39,6 @@ function Header(props) {
                         </div>
 
                         <ul className="header__icons">
-                         
                             <li className="header__icon">
                                 <NotificationsNoneOutlined className="icon" />
                             </li>

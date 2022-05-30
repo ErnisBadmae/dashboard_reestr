@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import axios from 'axios';
 import '../register/registr.scss';
 import './declaration.scss';
+import { postDeclarations } from '../../store/entries/actions';
 
 function Declaration(props) {
     const dispatch = useDispatch();
@@ -58,15 +59,7 @@ function Declaration(props) {
             phone,
             email,
         };
-        //    dispatch(login(userData));
-        axios
-            .post('http://localhost:3000/declaration', declarationSdsData)
-            .then((res) => {
-                console.log('fromDeclaration___res', res);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        dispatch(postDeclarations(declarationSdsData));
     };
 
     return (
