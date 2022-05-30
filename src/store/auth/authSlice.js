@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import authService from './authService';
 
-const token = JSON.parse(localStorage.getItem('token'));
+const token = localStorage.getItem('token');
 
 const initialState = {
     user: null,
@@ -84,6 +84,7 @@ export const authSlice = createSlice({
             .addCase(login.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
+                state.isError = false;
                 state.user = action.payload;
                 state.token = token;
             })

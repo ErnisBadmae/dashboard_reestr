@@ -1,5 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useParams, useLocation } from 'react-router-dom';
+import $api from '../../http';
 import { getCurrentCard } from '../../store/entries/actions/getCurrentCard';
 import { ButtonRegistry } from '../Buttons/button-registry/button-registry';
 
@@ -7,18 +9,31 @@ import './card-item.css';
 
 function CurrentCard(props) {
     const dispatch = useDispatch();
+    const { id } = useParams();
+    //     const { pathname } = useLocation();
+    //     console.log(pathname, 'pathname');
+    console.log(id, 'id');
 
-    const { requestCurrentCardSds } = useSelector((state) => state.entries);
+    //     const { requestCurrentCardSds } = useSelector((state) => state.entries);
     //     console.log('requestSdsView', requestCurrentCardSds);
+    //     const [message, setMessgage] = useState();
 
     useEffect(() => {
-        dispatch(getCurrentCard());
-    }, [dispatch]);
+        dispatch(getCurrentCard(id));
+    }, []);
+
+    const acceptStatus = async (id, statusId) => {
+        let res = await $api.post(
+            `/user/user_standard_certification/inclusion_request_decision/${id}/${statusId}`
+        );
+        //    setMessgage(res.data.message);
+        //    console.log(message, 'message');
+    };
 
     return (
         <div class="card-container">
             <div className="card">
-                <div className="card__title">
+                {/* <div className="card__title">
                     <strong>{requestCurrentCardSds?.username}</strong>
                 </div>
                 <div className="card__body">
@@ -96,14 +111,19 @@ function CurrentCard(props) {
                     <p className="text__current-card">
                         {requestCurrentCardSds?.phone || 'нет данных'}
                     </p>
-                </div>
+                </div> */}
 
                 <div className="btn__card">
                     <ButtonRegistry
                         text="Одобрить заявление на регистрацию"
-                        path={'/'}
+                        //     path={'/'}
+                        onClick={() => acceptStatus(id, 2)}
                     />
-                    <ButtonRegistry text="Отклонить заявление" path={'/'} />
+                    <ButtonRegistry
+                        text="Отклонить заявление"
+                        // path={'/'}
+                        onClick={() => acceptStatus(id, 3)}
+                    />
                 </div>
             </div>
         </div>
@@ -111,10 +131,3 @@ function CurrentCard(props) {
 }
 
 export default CurrentCard;
-
-// async () => {
-//     let res = await $api.post(
-//         '/user/user_standard_certification/inclusion_request_decision/:requestId/:statusId'
-//     );
-//     return res.data;
-// }

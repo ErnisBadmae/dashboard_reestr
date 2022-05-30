@@ -39,6 +39,7 @@ function TableSds(props) {
                         className="registry-sro__table"
                         size="medium"
                         onRow={(record) => relocateToCard(record)}
+                        rowKey={(obj) => obj.id}
                     />
                 </div>
             </Content>

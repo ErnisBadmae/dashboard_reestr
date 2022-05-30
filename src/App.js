@@ -9,8 +9,17 @@ import RequireAuth from './components/RequireAuth/RequireAuth';
 import NotFound from './pages/not-found/NotFound';
 import TableSds from './components/TableSds/TableSds';
 import CurrentCard from './components/CurrentCard/CurrentCard';
+// import { authCheck } from './store/auth/authService';
+// import { useEffect } from 'react';
+// import { useDispatch } from 'react-redux';
 
 function App() {
+    //     const dispatch = useDispatch();
+
+    //     useEffect(() => {
+    //         dispatch(authCheck());
+    //     }, []);
+
     return (
         <div className="App">
             <Routes>

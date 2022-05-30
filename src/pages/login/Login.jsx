@@ -44,7 +44,6 @@ function Login(props) {
             password,
         };
         dispatch(login(userData));
-        //    navigate('/admin');
     };
 
     return (

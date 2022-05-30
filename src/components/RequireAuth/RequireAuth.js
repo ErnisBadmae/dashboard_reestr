@@ -6,10 +6,9 @@ const RequireAuth = (props) => {
     const { pathname } = useLocation();
     const { id } = useParams();
 
-    //нужно через селектор достать списпок пунктов меню из редакса
     const routes = {
         ROLE_USER: ['/sds', '/declaration'],
-        ROLE_DICTIONARY_EDITOR: ['/declarations', '/declaration/:id'],
+        ROLE_DICTIONARY_EDITOR: ['/declarations'],
         ROLE_NEW_USER_STANDARD_CERTIFICATION_DECISION: [
             '/declarations',
             `/declaration/${id}`,
@@ -17,10 +16,8 @@ const RequireAuth = (props) => {
     };
 
     const { user } = useSelector((state) => state.auth);
-    console.log(user, 'user');
-    let allowedRoutes = [];
 
-    //     console.log(user.roles, 'user roles', props.allowedRoles);
+    let allowedRoutes = [];
 
     user.roles.forEach((role) => {
         switch (role) {
@@ -42,8 +39,6 @@ const RequireAuth = (props) => {
                 break;
         }
     });
-
-    //     console.log(user, 'userFromREquerite');
 
     const isAuth = useAuth();
 

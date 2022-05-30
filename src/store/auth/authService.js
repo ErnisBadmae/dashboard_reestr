@@ -8,32 +8,15 @@ const headersAxios = {
     },
 };
 
-// Register
 const register = async (registrData) => {
     const responseRegisterUser = await axios.post(
         'https://api-prof-sdc.anonamis.ru/api/user/user_standard_certification/add_inclusion_request',
         registrData,
         headersAxios
     );
-    console.log(responseRegisterUser, 'responseRegisterUser');
-    // if (responseRegisterUser.data) {
-    //     localStorage.setItem('token', JSON.stringify(response.data.token));
-    // }
-
     return responseRegisterUser.data;
-
-    // const responseRegisterUser = await axios('./responseRegister.json');
-
-    //     if (responseRegisterUser) {
-    //         localStorage.setItem(
-    //             'user-reg',
-    //             JSON.stringify(responseRegisterUser.data.data)
-    //         );
-    //     }
-    // return responseRegisterUser.data.data;
 };
 
-// Login user
 const login = async (userData) => {
     const responseLoginUser = await $api.post(
         '/login_check',
@@ -41,17 +24,13 @@ const login = async (userData) => {
         headersAxios
     );
     if (responseLoginUser.data) {
-        localStorage.setItem(
-            'token',
-            JSON.stringify(responseLoginUser.data.token)
-        );
+        localStorage.setItem('token', responseLoginUser.data.token);
     }
     const value = jwt_decode(responseLoginUser.data.token);
 
     return value;
 };
 
-// Logout user
 const logout = () => {
     localStorage.removeItem('token');
 };
@@ -63,3 +42,17 @@ const authService = {
 };
 
 export default authService;
+
+export const authCheck = () => {
+    //     try {
+    const decodeToken = jwt_decode(localStorage.getItem('token'));
+    console.log(decodeToken, 'decodeTokendecodeTokendecodeToken');
+    //    const value = {
+    //        user: decodeToken,
+    //        token: localStorage.getItem('token'),
+    //    };
+    //         return value;
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+};
