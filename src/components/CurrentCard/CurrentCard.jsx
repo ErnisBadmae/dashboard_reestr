@@ -14,7 +14,7 @@ function CurrentCard(props) {
     const current = useSelector(
         (state) => state.entries.requestCurrentCardSds.inclusionRequest
     );
-    //     console.log('currentcurrent', current);
+    console.log('ididididididid', id);
     const [message, setMessgage] = useState();
 
     useEffect(() => {
@@ -26,7 +26,7 @@ function CurrentCard(props) {
             `/user/user_standard_certification/inclusion_request_decision/${id}/${statusId}`
         );
         setMessgage(res.data.message);
-        console.log(message, 'message');
+        console.log(res, 'resres');
     };
 
     return (

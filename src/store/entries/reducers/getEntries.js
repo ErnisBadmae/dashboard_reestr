@@ -38,15 +38,16 @@ export const getViewSdsFail = (state, action) => {
     return { ...state, loading: false };
 };
 
-//функции по принятию решения на СДС заявки
-// export const getDecisionRequest = (state, action) => {
-//     return { ...state, loading: true };
-// };
+//Функции по получению данных для списка сдс-holders
 
-// export const getDecisionSdsSuccess = (state, action) => {
-//     return { ...state, loading: false, requestCurrentCardSds: action.payload };
-// };
+export const getRequestsSdsHolderRequest = (state, action) => {
+    return { ...state, loading: true };
+};
 
-// export const getDecisionFail = (state, action) => {
-//     return { ...state, loading: false };
-// };
+export const getRequestsSdsHolderSuccess = (state, action) => {
+    return { ...state, loading: false, requestsSds: action.payload };
+};
+
+export const getRequestsSdsHolderFail = (state, action) => {
+    return { ...state, loading: false };
+};

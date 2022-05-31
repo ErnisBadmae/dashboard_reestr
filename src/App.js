@@ -7,7 +7,8 @@ import Login from './pages/login/Login';
 import { TableRegistry } from './components/TableRegistry/TableRegistry';
 import RequireAuth from './components/RequireAuth/RequireAuth';
 import NotFound from './pages/not-found/NotFound';
-import TableSds from './components/TableSds/TableSds';
+import { TableSds } from './components/TableSds/TableSds';
+import { TableSdsOperator } from './components/TableSds/TableSdsOperator';
 import CurrentCard from './components/CurrentCard/CurrentCard';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
@@ -67,10 +68,30 @@ function App() {
                             />
                         </Route>
 
+                        <Route
+                            element={
+                                <RequireAuth
+                                    allowedRoles={[
+                                        'ROLE_REQUEST_STANDARD_CERTIFICATION_VIEW',
+                                    ]}
+                                />
+                            }
+                        >
+                            <Route
+                                path="/requests_sdc"
+                                element={<TableSdsOperator />}
+                            />
+                            <Route
+                                path="/request_sdc/:id"
+                                element={<CurrentCard />}
+                            />
+                        </Route>
+
                         {/* <Route
                     element={
                         <RequireAuth
                             allowedRoles={['ROLE_DICTIONARY_REQUEST_STATUS_EDITOR']}
+                          
                         />
                     }
                 >

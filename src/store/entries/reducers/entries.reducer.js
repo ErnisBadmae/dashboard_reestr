@@ -10,6 +10,9 @@ import {
     getViewSdsFail,
     getViewSdsRequest,
     getViewtsSdsSuccess,
+    getRequestsSdsHolderFail,
+    getRequestsSdsHolderRequest,
+    getRequestsSdsHolderSuccess,
 } from './getEntries';
 import { getCurrentCard } from '../actions/getCurrentCard';
 
@@ -18,6 +21,7 @@ const initialState = {
     entries: [],
     requestsSds: [],
     requestCurrentCardSds: {},
+    requestsSdcCertifHolder: [],
 };
 
 export const entriesReducer = createReducer(initialState, {
@@ -33,4 +37,8 @@ export const entriesReducer = createReducer(initialState, {
     [getCurrentCard.pending.toString()]: getViewSdsRequest,
     [getCurrentCard.fulfilled.toString()]: getViewtsSdsSuccess,
     [getCurrentCard.rejected.toString()]: getViewSdsFail,
+    //получение знанчений для списка заявок СДС-holders
+    [getRequestSds.pending.toString()]: getRequestsSdsHolderRequest,
+    [getRequestSds.fulfilled.toString()]: getRequestsSdsHolderSuccess,
+    [getRequestSds.rejected.toString()]: getRequestsSdsHolderFail,
 });

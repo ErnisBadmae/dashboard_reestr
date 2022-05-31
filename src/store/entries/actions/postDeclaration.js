@@ -9,13 +9,13 @@ const headersAxios = {
 
 export const postDeclarations = createAsyncThunk(
     'declaration/post',
-    async (payload, dispatch) => {
+    async (id, payload) => {
         let result = await $api.post(
-            '/request/request_sdc_standard_certification/add',
+            `/request/request_sdc_standard_certification_holder/add/${id}`,
             payload,
             headersAxios
         );
-        console.log(result.data.data.data, 'result');
-        return result.data.data.data;
+        console.log(result, 'result');
+        return result;
     }
 );

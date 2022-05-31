@@ -15,12 +15,26 @@ export const getEntries = createAsyncThunk('entries/get', async (dispatch) => {
 });
 
 export const getRequestSds = createAsyncThunk(
-    'requests/get',
+    'getRequestSds/get',
     async (dispatch) => {
         let result = await $api.post(
             '/user/user_standard_certification/inclusion_request/list'
         );
-        console.log(result.data.data.data, 'result');
+        //    console.log(result.data.data.data, 'result');
         return result.data.data.data;
+    }
+);
+
+export const getRequestSdcCertifHolder = createAsyncThunk(
+    'getRequestSdcCertifHolder/get',
+    async (dispatch) => {
+        let result = await $api.post(
+            '/request/request_sdc_standard_certification/get_request_sdc_header_list'
+        );
+        console.log(
+            result,
+            'getRequestSdcCertifHoldergetRequestSdcCertifHolder'
+        );
+        return result.data;
     }
 );

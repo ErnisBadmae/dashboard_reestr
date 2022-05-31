@@ -49,3 +49,34 @@ export const requestsSdsTableColumns = [
         number_in_row: 1,
     },
 ];
+
+export const requestSdcCertifHolderTableColumn = [
+    {
+        title: '',
+        dataIndex: 'id',
+        data_type: 'string',
+        is_sort: true,
+        number_in_row: 2,
+    },
+    {
+        title: 'Дата создания ',
+        dataIndex: 'dttm_created',
+        data_type: 'string',
+        is_sort: true,
+        number_in_row: 1,
+    },
+    {
+        title: 'Дата обновления',
+        dataIndex: 'dttm_updated',
+        data_type: 'string',
+        is_sort: true,
+        number_in_row: 1,
+    },
+    {
+        title: 'Дата принятия решения',
+        dataIndex: 'dttm_decision',
+        data_type: 'string',
+        is_sort: true,
+        number_in_row: 1,
+    },
+];

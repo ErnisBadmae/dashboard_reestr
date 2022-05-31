@@ -9,29 +9,35 @@ function Declaration(props) {
     const dispatch = useDispatch();
 
     const [formData, setFormData] = useState({
-        full: '',
-        short: '',
-        func: '',
-        date: '',
-        mail: '',
-        sds: '',
+        fullName: '',
+        shortName: '',
         inn: '',
         ogrn: '',
-        description: '',
+        registrationNumber: '',
+        registrationDate: '',
+        exclusionDate: '',
+        area: '',
+        managerName: '',
+        managerPosition: '',
+        address: '',
         phone: '',
         email: '',
+        site: '',
     });
 
     const {
-        full,
-        short,
-        func,
-        date,
-        mail,
-        sds,
+        fullName,
+        shortName,
         inn,
         ogrn,
-        description,
+        registrationNumber,
+        registrationDate,
+        exclusionDate,
+        area,
+        managerName,
+        managerPosition,
+        address,
+        site,
         phone,
         email,
     } = formData;
@@ -47,17 +53,20 @@ function Declaration(props) {
         e.preventDefault();
 
         const declarationSdsData = {
-            full,
-            short,
-            func,
-            date,
-            mail,
-            sds,
+            fullName,
             inn,
             ogrn,
-            description,
+            shortName,
+            registrationNumber,
+            registrationDate,
+            exclusionDate,
+            area,
+            managerName,
+            managerPosition,
+            address,
             phone,
             email,
+            site,
         };
         dispatch(postDeclarations(declarationSdsData));
     };
@@ -72,7 +81,7 @@ function Declaration(props) {
                         <input
                             className="form__input"
                             autoComplete="off"
-                            name="full"
+                            name="fullName"
                             type="text"
                             required
                             autoFocus
@@ -83,7 +92,7 @@ function Declaration(props) {
                         <p>Сокращенное наименование СДС</p>
                         <input
                             className="form__input"
-                            name="short"
+                            name="shortName"
                             autoComplete="off"
                             type="text"
                             required
@@ -91,67 +100,13 @@ function Declaration(props) {
                         />
                     </div>
                     <div>
-                        <p>Регистрационный номер (в реестре СДС Ростандарта)</p>
+                        <p>Инн</p>
                         <input
                             className="form__input"
-                            name="func"
-                            autoComplete="off"
-                            type="text"
-                            required
-                            onChange={onChange}
-                        />
-                    </div>
-                    <div>
-                        <p>Дата регистрации (в реестре СДС Ростандарта)</p>
-                        <input
-                            className="form__input"
-                            name="date"
-                            autoComplete="off"
-                            required
-                            type="text"
-                            //    value={phone}
-                            placeholder="  +7"
-                            onChange={onChange}
-                        />
-                    </div>
-                    <div>
-                        <p>
-                            Область распространения системы (обьекты
-                            сертификации)
-                        </p>
-                        <input
-                            className="form__input"
-                            name="mail"
-                            autoComplete="off"
-                            type="text"
-                            placeholder="  .....@....."
-                            required
-                            onChange={onChange}
-                        />
-                    </div>
-                    <div>
-                        <p>сайт СДС</p>
-                        <input
-                            className="form__input"
-                            name="sds"
-                            autoComplete="off"
-                            type="text"
-                            required
-                            onChange={onChange}
-                        />
-                    </div>
-                </div>
-
-                <div className="group__input">
-                    <div>
-                        <p>ИНН</p>
-                        <input
-                            className="form__input"
-                            autoComplete="off"
                             name="inn"
+                            autoComplete="off"
                             type="text"
                             required
-                            autoFocus
                             onChange={onChange}
                         />
                     </div>
@@ -167,10 +122,76 @@ function Declaration(props) {
                         />
                     </div>
                     <div>
-                        <p>Наименование</p>
+                        <p>Регистрационный номер (в реестре СДС Ростандарта)</p>
                         <input
                             className="form__input"
-                            name="description"
+                            name="registrationNumber"
+                            autoComplete="off"
+                            type="text"
+                            required
+                            onChange={onChange}
+                        />
+                    </div>
+                    <div>
+                        <p>Дата регистрации (в реестре СДС Ростандарта)</p>
+                        <input
+                            className="form__input"
+                            name="registrationDate"
+                            autoComplete="off"
+                            required
+                            type="text"
+                            //    value={phone}
+                            placeholder="  +7"
+                            onChange={onChange}
+                        />
+                    </div>
+                    <div>
+                        <p>exclusionDate</p>
+                        <input
+                            className="form__input"
+                            name="exclusionDate"
+                            autoComplete="off"
+                            type="text"
+                            placeholder="  .....@....."
+                            required
+                            onChange={onChange}
+                        />
+                    </div>
+                </div>
+
+                <div className="group__input">
+                    <div>
+                        <p>managerName</p>
+                        <input
+                            className="form__input"
+                            autoComplete="off"
+                            name="managerName"
+                            type="text"
+                            required
+                            autoFocus
+                            onChange={onChange}
+                        />
+                    </div>
+                    <div>
+                        <p>
+                            Область распространения системы (объекты
+                            сертификации)
+                        </p>
+                        <input
+                            className="form__input"
+                            name="area"
+                            autoComplete="off"
+                            type="text"
+                            required
+                            onChange={onChange}
+                        />
+                    </div>
+
+                    <div>
+                        <p>managerPosition</p>
+                        <input
+                            className="form__input"
+                            name="managerPosition"
                             autoComplete="off"
                             type="text"
                             required
@@ -181,9 +202,8 @@ function Declaration(props) {
                         <p>Юр. Адрес</p>
                         <input
                             className="form__input"
-                            name="phone"
+                            name="address"
                             value={phone}
-                            placeholder="  +7"
                             onChange={onChange}
                         />
                     </div>
@@ -194,7 +214,6 @@ function Declaration(props) {
                             name="phone"
                             autoComplete="off"
                             type="text"
-                            placeholder="  .....@....."
                             required
                             onChange={onChange}
                         />
@@ -204,6 +223,18 @@ function Declaration(props) {
                         <input
                             className="form__input"
                             name="email"
+                            autoComplete="off"
+                            type="text"
+                            placeholder="  .....@....."
+                            required
+                            onChange={onChange}
+                        />
+                    </div>
+                    <div>
+                        <p>Сайт</p>
+                        <input
+                            className="form__input"
+                            name="site"
                             autoComplete="off"
                             type="text"
                             required

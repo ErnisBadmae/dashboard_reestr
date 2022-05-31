@@ -13,6 +13,10 @@ const RequireAuth = (props) => {
             '/declarations',
             `/declaration/${id}`,
         ],
+        ROLE_REQUEST_STANDARD_CERTIFICATION_VIEW: [
+            '/requests_sdc',
+            `/request_sdc/${id}`,
+        ],
     };
 
     const { user } = useSelector((state) => state.auth);
@@ -33,6 +37,12 @@ const RequireAuth = (props) => {
                 props.allowedRoles.includes(role) &&
                     allowedRoutes.push(
                         ...routes.ROLE_NEW_USER_STANDARD_CERTIFICATION_DECISION
+                    );
+                break;
+            case 'ROLE_REQUEST_STANDARD_CERTIFICATION_VIEW:':
+                props.allowedRoles.includes(role) &&
+                    allowedRoutes.push(
+                        ...routes.ROLE_REQUEST_STANDARD_CERTIFICATION_VIEW
                     );
                 break;
             default:

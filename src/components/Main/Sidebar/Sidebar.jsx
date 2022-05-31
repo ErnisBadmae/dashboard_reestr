@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 
 function Sidebar(props) {
     const { roles } = useSelector((state) => state.auth.user);
-    //     console.log(roles, 'rolesSidebar');
     const sidebarButtons = [
         {
             role: 'ROLE_USER',
@@ -12,12 +11,12 @@ function Sidebar(props) {
             text: 'Заявление СДС',
             id: 0,
         },
-        //    {
-        //        role: 'ROLE_DICTIONARY_EDITOR',
-        //        href: '/declarations',
-        //        text: 'Список заявлений СДС',
-        //        id: 1,
-        //    },
+        {
+            role: 'ROLE_REQUEST_STANDARD_CERTIFICATION_VIEW',
+            href: '/requests_sdc',
+            text: 'Заявления оператора СДС',
+            id: 1,
+        },
         {
             role: 'ROLE_NEW_USER_STANDARD_CERTIFICATION_DECISION',
             href: '/declarations',
