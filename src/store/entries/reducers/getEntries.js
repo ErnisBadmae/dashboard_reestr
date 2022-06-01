@@ -24,20 +24,6 @@ export const getRequestsSdsFail = (state, action) => {
     return { ...state, loading: false };
 };
 
-//функция по получению данных на конкретную заявку
-
-export const getViewSdsRequest = (state, action) => {
-    return { ...state, loading: true };
-};
-
-export const getViewtsSdsSuccess = (state, action) => {
-    return { ...state, loading: false, requestCurrentCardSds: action.payload };
-};
-
-export const getViewSdsFail = (state, action) => {
-    return { ...state, loading: false };
-};
-
 //Функции по получению данных для списка сдс-holders
 
 export const getRequestsSdsProposalRequest = (state, action) => {
@@ -49,19 +35,6 @@ export const getRequestsSdsProposalSuccess = (state, action) => {
 };
 
 export const getRequestsSdsProposalFail = (state, action) => {
-    return { ...state, loading: false };
-};
-
-//Функции по получению данных для конкретной заявки оператору СДС
-export const getViewSdcProposalRequest = (state, action) => {
-    return { ...state, loading: true };
-};
-
-export const getViewtsSdcProposalSuccess = (state, action) => {
-    return { ...state, loading: false, proposalSdc: action.payload };
-};
-
-export const getViewSdcProposalFail = (state, action) => {
     return { ...state, loading: false };
 };
 

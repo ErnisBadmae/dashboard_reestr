@@ -12,8 +12,9 @@ import { TableSdsOperator } from './components/TableSds/TableSdsOperator';
 import CurrentCard from './components/CurrentCard/CurrentCard';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { TableWrapper } from './components/TableWrapper/tableWrapper';
+// import { TableWrapper } from './components/TableWrapper/tableWrapper';
 import FormSdc from './components/FormSdc/FormSdc';
+import CurrentProposalSdc from './components/CurrentCard/CurrentProposalSdc';
 
 function App() {
     const navigate = useNavigate();
@@ -80,7 +81,7 @@ function App() {
                             {/* </Route> */}
                             <Route
                                 path="/request_sdc/:id"
-                                element={<CurrentCard />}
+                                element={<CurrentProposalSdc />}
                             />
                             <Route
                                 path="/new-request-sdc"

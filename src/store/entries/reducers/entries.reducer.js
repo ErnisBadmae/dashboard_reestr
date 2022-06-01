@@ -3,35 +3,42 @@ import {
     getEntries,
     getCurrentCard,
     getCurrentProposalSdc,
-    getRequestSdcProposal,
-    getRequestSds,
+    getProposalSdcList,
+    getRequestSdsList,
     postSdcRequest,
 } from '../actions';
 import {
     getEntriesFail,
     getEntriesRequest,
     getEntriesSuccess,
+
     //получение списка для заявок юзерСДС
     getRequestsSdsFail,
     getRequestsSdsRequest,
     getRequestsSdsSuccess,
-    //получение объекта - заявка юзерСДС
-    getViewSdsFail,
-    getViewSdsRequest,
-    getViewtsSdsSuccess,
+
     //получение списка holders
     getRequestsSdsProposalFail,
     getRequestsSdsProposalRequest,
     getRequestsSdsProposalSuccess,
-    //получение объекта - заявка на вступление СДС
-    getViewSdcProposalFail,
-    getViewSdcProposalRequest,
-    getViewtsSdcProposalSuccess,
+
     //сетаем заявку оператора СДС
     setProposalSdcFail,
     setProposalSdcRequest,
     setProposalSdcSuccess,
 } from './getEntries';
+
+import {
+    //получение объекта - заявка юзерСДС
+    viewSdsFail,
+    viewSdsRequest,
+    viewSdsSuccess,
+
+    //получение объекта - заявка на вступление СДС
+    viewSdcProposalFail,
+    viewSdcProposalRequest,
+    viewsSdcProposalSuccess,
+} from './viewCurrent';
 
 const initialState = {
     loading: false,
@@ -48,25 +55,25 @@ export const entriesReducer = createReducer(initialState, {
     [getEntries.fulfilled.toString()]: getEntriesSuccess,
     [getEntries.rejected.toString()]: getEntriesFail,
 
-    //получение знанчений для списка заявок СДС
-    [getRequestSds.pending.toString()]: getRequestsSdsRequest,
-    [getRequestSds.fulfilled.toString()]: getRequestsSdsSuccess,
-    [getRequestSds.rejected.toString()]: getRequestsSdsFail,
+    //получение знанчений для списка заявок на вступление в систему(регистрация юзеров)
+    [getRequestSdsList.pending.toString()]: getRequestsSdsRequest,
+    [getRequestSdsList.fulfilled.toString()]: getRequestsSdsSuccess,
+    [getRequestSdsList.rejected.toString()]: getRequestsSdsFail,
 
-    //получение информации о конкретной заявке
-    [getCurrentCard.pending.toString()]: getViewSdsRequest,
-    [getCurrentCard.fulfilled.toString()]: getViewtsSdsSuccess,
-    [getCurrentCard.rejected.toString()]: getViewSdsFail,
+    //получение информации о конкретной заявке на вступление в систему(юзер)
+    [getCurrentCard.pending.toString()]: viewSdsRequest,
+    [getCurrentCard.fulfilled.toString()]: viewSdsSuccess,
+    [getCurrentCard.rejected.toString()]: viewSdsFail,
 
     //получение знанчений для списка заявок СДС-holders
-    [getRequestSdcProposal.pending.toString()]: getRequestsSdsProposalRequest,
-    [getRequestSdcProposal.fulfilled.toString()]: getRequestsSdsProposalSuccess,
-    [getRequestSdcProposal.rejected.toString()]: getRequestsSdsProposalFail,
+    [getProposalSdcList.pending.toString()]: getRequestsSdsProposalRequest,
+    [getProposalSdcList.fulfilled.toString()]: getRequestsSdsProposalSuccess,
+    [getProposalSdcList.rejected.toString()]: getRequestsSdsProposalFail,
 
     //получение информации о конкретной заявке оператору СДС(holders?)
-    [getCurrentProposalSdc.pending.toString()]: getViewSdcProposalRequest,
-    [getCurrentProposalSdc.fulfilled.toString()]: getViewtsSdcProposalSuccess,
-    [getCurrentProposalSdc.rejected.toString()]: getViewSdcProposalFail,
+    [getCurrentProposalSdc.pending.toString()]: viewSdcProposalRequest,
+    [getCurrentProposalSdc.fulfilled.toString()]: viewsSdcProposalSuccess,
+    [getCurrentProposalSdc.rejected.toString()]: viewSdcProposalFail,
 
     //получение информации о конкретной заявке оператору СДС(holders?)
     [postSdcRequest.pending.toString()]: setProposalSdcRequest,

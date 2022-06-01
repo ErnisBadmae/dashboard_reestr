@@ -41,11 +41,11 @@ function FormSdc(props) {
 
     return (
         <>
-            <div className="login__title">Подача Заявления СДС</div>
+            <div className="login__title">Подача Заявления</div>
             <form onSubmit={formHandler} className="declaration__form">
                 <div className="group__input">
                     <div>
-                        <p>Полное наименование СДС</p>
+                        <p>Полное наименование </p>
                         <input
                             className="form__input"
                             autoComplete="off"
@@ -57,7 +57,7 @@ function FormSdc(props) {
                         />
                     </div>
                     <div>
-                        <p>Сокращенное наименование СДС</p>
+                        <p>Сокращенное наименование </p>
                         <input
                             className="form__input"
                             name="shortName"
@@ -68,7 +68,7 @@ function FormSdc(props) {
                         />
                     </div>
                     <div>
-                        <p>Инн</p>
+                        <p>registrationNumber</p>
                         <input
                             className="form__input"
                             name="registrationNumber"
@@ -91,7 +91,7 @@ function FormSdc(props) {
                     </div>
 
                     <div>
-                        <p>Сайт</p>
+                        <p>area</p>
                         <input
                             className="form__input"
                             name="area"

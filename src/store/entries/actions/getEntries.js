@@ -14,7 +14,7 @@ export const getEntries = createAsyncThunk('entries/get', async (dispatch) => {
     // dispatch({ type: 'GET_DATA', payload: data });
 });
 
-export const getRequestSds = createAsyncThunk(
+export const getRequestSdsList = createAsyncThunk(
     'getRequestSds/get',
     async (dispatch) => {
         let result = await $api.post(
@@ -25,19 +25,13 @@ export const getRequestSds = createAsyncThunk(
     }
 );
 
-export const getRequestSdcProposal = createAsyncThunk(
+export const getProposalSdcList = createAsyncThunk(
     'getRequestSdcCertifHolder/get',
     async (dispatch) => {
         let result = await $api.post(
             '/request/request_sdc_standard_certification/get_request_sdc_header_list'
         );
 
-        const value = result.data.data.data.map((el) => {
-            return {
-                ...el,
-                ...el.status,
-            };
-        });
-        return value;
+        return result.data.data.data;
     }
 );

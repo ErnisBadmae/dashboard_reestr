@@ -1,8 +1,8 @@
-import { Table, Layout, Button } from 'antd';
+import { Table, Layout } from 'antd';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { getRequestSdcProposal } from '../../store/entries/actions/getEntries';
+import { useNavigate } from 'react-router-dom';
+import { getProposalSdcList } from '../../store/entries/actions/getEntries';
 import { requestSdcCertifHolderTableColumn } from '../../helpers/requestsSds';
 import { ButtonRegistry } from '../Buttons/button-registry/button-registry';
 
@@ -15,7 +15,7 @@ export const TableSdsOperator = (props) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getRequestSdcProposal());
+        dispatch(getProposalSdcList());
     }, [dispatch]);
 
     const { proposalSdc } = useSelector((state) => state.entries);
@@ -40,10 +40,10 @@ export const TableSdsOperator = (props) => {
         <>
             <Content style={{ padding: '0 40px' }}>
                 <div className="buttons__request">
-                    <ButtonRegistry
+                    {/* <ButtonRegistry
                         text="Добавить заявку"
                         path={'/new-request-sdc'}
-                    />
+                    /> */}
                 </div>
                 <div className="registry-sro__drawer-wrapper">
                     <Table
