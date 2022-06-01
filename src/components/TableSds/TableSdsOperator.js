@@ -18,9 +18,10 @@ export const TableSdsOperator = (props) => {
         dispatch(getProposalSdcList());
     }, [dispatch]);
 
-    const { proposalSdc } = useSelector((state) => state.entries);
+    const { proposalSdcList } = useSelector((state) => state.proposal);
+    console.log(proposalSdcList, 'proposalSdc');
 
-    const dataSource = proposalSdc.map((item) => ({
+    const dataSource = proposalSdcList.map((item) => ({
         ...item,
         //@todo:забрать статус из объекта
         //    status:title,

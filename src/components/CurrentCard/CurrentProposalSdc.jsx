@@ -9,9 +9,8 @@ function CurrentProposalSdc(props) {
     const dispatch = useDispatch();
     const { id } = useParams();
 
-    const { requestSdcStandardCertification } = useSelector(
-        (state) => state.entries.proposalSdc
-    );
+    const { currentProposalSdc } = useSelector((state) => state.proposal);
+    console.log(currentProposalSdc, 'currentProposalSdc');
 
     useEffect(() => {
         dispatch(getCurrentProposalSdc(id));
@@ -21,22 +20,20 @@ function CurrentProposalSdc(props) {
         <div className="card-container">
             <div className="card">
                 <div className="card__title">
-                    <strong>
-                        {requestSdcStandardCertification?.full_name}
-                    </strong>
+                    <strong>{currentProposalSdc?.full_name}</strong>
                 </div>
                 <div className="card__body">
                     <strong>Полное имя</strong>
                     <br />
                     <p className="text__current-card">
-                        {requestSdcStandardCertification?.short_name}
+                        {currentProposalSdc?.short_name}
                     </p>
                     <br />
 
                     <strong>Регистрационный номер</strong>
                     <br />
                     <p className="text__current-card">
-                        {requestSdcStandardCertification?.registration_number}
+                        {currentProposalSdc?.registration_number}
                     </p>
 
                     <strong>
@@ -44,7 +41,7 @@ function CurrentProposalSdc(props) {
                         Дата регистрации
                     </strong>
                     <p className="text__current-card">
-                        {requestSdcStandardCertification?.registration_date}
+                        {currentProposalSdc?.registration_date}
                     </p>
 
                     <strong>
@@ -53,7 +50,7 @@ function CurrentProposalSdc(props) {
                     </strong>
                     <br />
                     <p className="text__current-card">
-                        {requestSdcStandardCertification?.registration_company}
+                        {currentProposalSdc?.registration_company}
                     </p>
 
                     <strong>
@@ -62,7 +59,7 @@ function CurrentProposalSdc(props) {
                     </strong>
                     <br />
                     <p className="text__current-card">
-                        {requestSdcStandardCertification?.site}
+                        {currentProposalSdc?.site}
                     </p>
 
                     <strong>
@@ -71,7 +68,7 @@ function CurrentProposalSdc(props) {
                     </strong>
                     <br />
                     <p className="text__current-card">
-                        {requestSdcStandardCertification?.area || 'нет данных'}
+                        {currentProposalSdc?.area || 'нет данных'}
                     </p>
 
                     <strong>
@@ -80,7 +77,7 @@ function CurrentProposalSdc(props) {
                     </strong>
                     <br />
                     <p className="text__current-card">
-                        {requestSdcStandardCertification?.logo}
+                        {currentProposalSdc?.logo}
                     </p>
                 </div>
             </div>

@@ -53,11 +53,7 @@ function App() {
 
                         <Route
                             element={
-                                <RequireAuth
-                                    allowedRoles={[
-                                        'ROLE_NEW_USER_STANDARD_CERTIFICATION_DECISION',
-                                    ]}
-                                />
+                                <RequireAuth allowedRoles={'user_admin'} />
                             }
                         >
                             <Route

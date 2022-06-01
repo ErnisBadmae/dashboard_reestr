@@ -31,7 +31,7 @@ export const getRequestsSdsProposalRequest = (state, action) => {
 };
 
 export const getRequestsSdsProposalSuccess = (state, action) => {
-    return { ...state, loading: false, proposalSdc: action.payload };
+    return { ...state, loading: false, proposalSdcList: action.payload };
 };
 
 export const getRequestsSdsProposalFail = (state, action) => {
@@ -44,7 +44,7 @@ export const setProposalSdcRequest = (state, action) => {
 };
 
 export const setProposalSdcSuccess = (state, action) => {
-    return { ...state, loading: false, currentProposalSdc: action.payload };
+    return { ...state, loading: false, fromPostProposalSdc: action.payload };
 };
 
 export const setProposalSdcFail = (state, action) => {

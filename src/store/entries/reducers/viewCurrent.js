@@ -18,7 +18,7 @@ export const viewSdcProposalRequest = (state, action) => {
 };
 
 export const viewsSdcProposalSuccess = (state, action) => {
-    return { ...state, loading: false, proposalSdc: action.payload };
+    return { ...state, loading: false, currentProposalSdc: action.payload };
 };
 
 export const viewSdcProposalFail = (state, action) => {

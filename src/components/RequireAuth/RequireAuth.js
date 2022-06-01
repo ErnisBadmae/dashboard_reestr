@@ -9,10 +9,7 @@ const RequireAuth = (props) => {
     const routes = {
         ROLE_USER: ['/sds', '/declaration'],
         ROLE_DICTIONARY_EDITOR: ['/declarations'],
-        ROLE_NEW_USER_STANDARD_CERTIFICATION_DECISION: [
-            '/declarations',
-            `/declaration/${id}`,
-        ],
+        user_admin: ['/declarations', `/declaration/${id}`],
         user_sdc: ['/requests_sdc', `/request_sdc/${id}`, '/new-request-sdc'],
     };
 
@@ -20,7 +17,6 @@ const RequireAuth = (props) => {
 
     let allowedRoutes = [];
 
-    //     user.roles.forEach((role) => {
     switch (roles) {
         case 'ROLE_USER':
             props.allowedRoles.includes(roles) &&
@@ -30,11 +26,9 @@ const RequireAuth = (props) => {
             props.allowedRoles.includes(roles) &&
                 allowedRoutes.push(...routes.ROLE_DICTIONARY_EDITOR);
             break;
-        case 'ROLE_NEW_USER_STANDARD_CERTIFICATION_DECISION':
+        case 'user_admin':
             props.allowedRoles.includes(roles) &&
-                allowedRoutes.push(
-                    ...routes.ROLE_NEW_USER_STANDARD_CERTIFICATION_DECISION
-                );
+                allowedRoutes.push(...routes.user_admin);
             break;
         case 'user_sdc':
             props.allowedRoles.includes(roles) &&
@@ -43,7 +37,6 @@ const RequireAuth = (props) => {
         default:
             break;
     }
-    //     });
 
     const isAuth = useAuth();
 

@@ -17,11 +17,6 @@ import {
     getRequestsSdsRequest,
     getRequestsSdsSuccess,
 
-    //получение списка holders
-    getRequestsSdsProposalFail,
-    getRequestsSdsProposalRequest,
-    getRequestsSdsProposalSuccess,
-
     //сетаем заявку оператора СДС
     setProposalSdcFail,
     setProposalSdcRequest,
@@ -33,11 +28,6 @@ import {
     viewSdsFail,
     viewSdsRequest,
     viewSdsSuccess,
-
-    //получение объекта - заявка на вступление СДС
-    viewSdcProposalFail,
-    viewSdcProposalRequest,
-    viewsSdcProposalSuccess,
 } from './viewCurrent';
 
 const initialState = {
@@ -45,8 +35,6 @@ const initialState = {
     entries: [],
     requestsSds: [],
     requestCurrentCardSds: {},
-    proposalSdc: [],
-    currentProposalSdc: {},
 };
 
 export const entriesReducer = createReducer(initialState, {
@@ -64,16 +52,6 @@ export const entriesReducer = createReducer(initialState, {
     [getCurrentCard.pending.toString()]: viewSdsRequest,
     [getCurrentCard.fulfilled.toString()]: viewSdsSuccess,
     [getCurrentCard.rejected.toString()]: viewSdsFail,
-
-    //получение знанчений для списка заявок СДС-holders
-    [getProposalSdcList.pending.toString()]: getRequestsSdsProposalRequest,
-    [getProposalSdcList.fulfilled.toString()]: getRequestsSdsProposalSuccess,
-    [getProposalSdcList.rejected.toString()]: getRequestsSdsProposalFail,
-
-    //получение информации о конкретной заявке оператору СДС(holders?)
-    [getCurrentProposalSdc.pending.toString()]: viewSdcProposalRequest,
-    [getCurrentProposalSdc.fulfilled.toString()]: viewsSdcProposalSuccess,
-    [getCurrentProposalSdc.rejected.toString()]: viewSdcProposalFail,
 
     //получение информации о конкретной заявке оператору СДС(holders?)
     [postSdcRequest.pending.toString()]: setProposalSdcRequest,

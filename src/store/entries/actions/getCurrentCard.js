@@ -19,6 +19,6 @@ export const getCurrentProposalSdc = createAsyncThunk(
             `/request/request_sdc_standard_certification/${cardId}`
         );
         console.log(result, 'resultView');
-        return result.data.data;
+        return result.data.data?.requestSdcStandardCertification;
     }
 );

@@ -18,16 +18,10 @@ function Sidebar(props) {
             id: 1,
         },
         {
-            role: 'ROLE_NEW_USER_STANDARD_CERTIFICATION_DECISION',
+            role: 'user_admin',
             href: '/declarations',
             text: 'Список заявлений',
             id: 2,
-        },
-        {
-            role: 'ROLE_DICTIONARY_REQUEST_STATUS_EDITOR',
-            href: '/declaration',
-            text: 'Тест кнопка2',
-            id: 3,
         },
     ];
     return (
