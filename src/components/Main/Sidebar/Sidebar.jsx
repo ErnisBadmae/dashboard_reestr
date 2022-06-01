@@ -12,7 +12,7 @@ function Sidebar(props) {
             id: 0,
         },
         {
-            role: 'ROLE_REQUEST_STANDARD_CERTIFICATION_VIEW',
+            role: 'user_sdc',
             href: '/requests_sdc',
             text: 'Заявления оператора СДС',
             id: 1,

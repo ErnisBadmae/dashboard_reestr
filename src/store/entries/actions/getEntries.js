@@ -25,16 +25,19 @@ export const getRequestSds = createAsyncThunk(
     }
 );
 
-export const getRequestSdcCertifHolder = createAsyncThunk(
+export const getRequestSdcProposal = createAsyncThunk(
     'getRequestSdcCertifHolder/get',
     async (dispatch) => {
         let result = await $api.post(
             '/request/request_sdc_standard_certification/get_request_sdc_header_list'
         );
-        console.log(
-            result,
-            'getRequestSdcCertifHoldergetRequestSdcCertifHolder'
-        );
-        return result.data;
+
+        const value = result.data.data.data.map((el) => {
+            return {
+                ...el,
+                ...el.status,
+            };
+        });
+        return value;
     }
 );

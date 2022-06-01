@@ -13,42 +13,37 @@ const RequireAuth = (props) => {
             '/declarations',
             `/declaration/${id}`,
         ],
-        ROLE_REQUEST_STANDARD_CERTIFICATION_VIEW: [
-            '/requests_sdc',
-            `/request_sdc/${id}`,
-        ],
+        user_sdc: ['/requests_sdc', `/request_sdc/${id}`, '/new-request-sdc'],
     };
 
-    const { user } = useSelector((state) => state.auth);
+    const { roles } = useSelector((state) => state.auth.user);
 
     let allowedRoutes = [];
 
-    user.roles.forEach((role) => {
-        switch (role) {
-            case 'ROLE_USER':
-                props.allowedRoles.includes(role) &&
-                    allowedRoutes.push(...routes.ROLE_USER);
-                break;
-            case 'ROLE_DICTIONARY_EDITOR':
-                props.allowedRoles.includes(role) &&
-                    allowedRoutes.push(...routes.ROLE_DICTIONARY_EDITOR);
-                break;
-            case 'ROLE_NEW_USER_STANDARD_CERTIFICATION_DECISION':
-                props.allowedRoles.includes(role) &&
-                    allowedRoutes.push(
-                        ...routes.ROLE_NEW_USER_STANDARD_CERTIFICATION_DECISION
-                    );
-                break;
-            case 'ROLE_REQUEST_STANDARD_CERTIFICATION_VIEW:':
-                props.allowedRoles.includes(role) &&
-                    allowedRoutes.push(
-                        ...routes.ROLE_REQUEST_STANDARD_CERTIFICATION_VIEW
-                    );
-                break;
-            default:
-                break;
-        }
-    });
+    //     user.roles.forEach((role) => {
+    switch (roles) {
+        case 'ROLE_USER':
+            props.allowedRoles.includes(roles) &&
+                allowedRoutes.push(...routes.ROLE_USER);
+            break;
+        case 'ROLE_DICTIONARY_EDITOR':
+            props.allowedRoles.includes(roles) &&
+                allowedRoutes.push(...routes.ROLE_DICTIONARY_EDITOR);
+            break;
+        case 'ROLE_NEW_USER_STANDARD_CERTIFICATION_DECISION':
+            props.allowedRoles.includes(roles) &&
+                allowedRoutes.push(
+                    ...routes.ROLE_NEW_USER_STANDARD_CERTIFICATION_DECISION
+                );
+            break;
+        case 'user_sdc':
+            props.allowedRoles.includes(roles) &&
+                allowedRoutes.push(...routes.user_sdc);
+            break;
+        default:
+            break;
+    }
+    //     });
 
     const isAuth = useAuth();
 

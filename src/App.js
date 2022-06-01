@@ -12,6 +12,8 @@ import { TableSdsOperator } from './components/TableSds/TableSdsOperator';
 import CurrentCard from './components/CurrentCard/CurrentCard';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { TableWrapper } from './components/TableWrapper/tableWrapper';
+import FormSdc from './components/FormSdc/FormSdc';
 
 function App() {
     const navigate = useNavigate();
@@ -38,14 +40,13 @@ function App() {
                 {!!user && (
                     <Route path="/" element={<LayoutContent />}>
                         <Route
-                            element={
-                                <RequireAuth allowedRoles={['ROLE_USER']} />
-                            }
+                            element={<RequireAuth allowedRoles={'user_sdc'} />}
                         >
                             <Route
                                 path="/declaration"
                                 element={<Declaration />}
                             />
+
                             <Route path="/sds" element={<TableRegistry />} />
                         </Route>
 
@@ -69,21 +70,21 @@ function App() {
                         </Route>
 
                         <Route
-                            element={
-                                <RequireAuth
-                                    allowedRoles={[
-                                        'ROLE_REQUEST_STANDARD_CERTIFICATION_VIEW',
-                                    ]}
-                                />
-                            }
+                            element={<RequireAuth allowedRoles={'user_sdc'} />}
                         >
+                            {/* <Route element={<TableWrapper />}> */}
                             <Route
                                 path="/requests_sdc"
                                 element={<TableSdsOperator />}
                             />
+                            {/* </Route> */}
                             <Route
                                 path="/request_sdc/:id"
                                 element={<CurrentCard />}
+                            />
+                            <Route
+                                path="/new-request-sdc"
+                                element={<FormSdc />}
                             />
                         </Route>
 

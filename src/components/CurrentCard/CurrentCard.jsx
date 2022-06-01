@@ -105,12 +105,10 @@ function CurrentCard(props) {
                 <div className="btn__card">
                     <ButtonRegistry
                         text="Одобрить заявление на регистрацию"
-                        //     path={'/'}
                         onClick={() => acceptStatus(id, 2)}
                     />
                     <ButtonRegistry
                         text="Отклонить заявление"
-                        // path={'/'}
                         onClick={() => acceptStatus(id, 3)}
                     />
                 </div>

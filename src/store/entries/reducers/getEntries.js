@@ -40,14 +40,40 @@ export const getViewSdsFail = (state, action) => {
 
 //Функции по получению данных для списка сдс-holders
 
-export const getRequestsSdsHolderRequest = (state, action) => {
+export const getRequestsSdsProposalRequest = (state, action) => {
     return { ...state, loading: true };
 };
 
-export const getRequestsSdsHolderSuccess = (state, action) => {
-    return { ...state, loading: false, requestsSds: action.payload };
+export const getRequestsSdsProposalSuccess = (state, action) => {
+    return { ...state, loading: false, proposalSdc: action.payload };
 };
 
-export const getRequestsSdsHolderFail = (state, action) => {
+export const getRequestsSdsProposalFail = (state, action) => {
+    return { ...state, loading: false };
+};
+
+//Функции по получению данных для конкретной заявки оператору СДС
+export const getViewSdcProposalRequest = (state, action) => {
+    return { ...state, loading: true };
+};
+
+export const getViewtsSdcProposalSuccess = (state, action) => {
+    return { ...state, loading: false, proposalSdc: action.payload };
+};
+
+export const getViewSdcProposalFail = (state, action) => {
+    return { ...state, loading: false };
+};
+
+//Функции отправления данных по заявке СДС
+export const setProposalSdcRequest = (state, action) => {
+    return { ...state, loading: true };
+};
+
+export const setProposalSdcSuccess = (state, action) => {
+    return { ...state, loading: false, currentProposalSdc: action.payload };
+};
+
+export const setProposalSdcFail = (state, action) => {
     return { ...state, loading: false };
 };

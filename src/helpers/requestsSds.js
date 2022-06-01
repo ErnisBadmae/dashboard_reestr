@@ -79,4 +79,11 @@ export const requestSdcCertifHolderTableColumn = [
         is_sort: true,
         number_in_row: 1,
     },
+    {
+        title: 'Статус',
+        dataIndex: 'status',
+        data_type: 'string',
+        is_sort: true,
+        number_in_row: 1,
+    },
 ];

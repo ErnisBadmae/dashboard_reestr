@@ -1,6 +1,6 @@
 import axios from 'axios';
 import $api from '../../http';
-import jwt_decode from 'jwt-decode';
+// import jwt_decode from 'jwt-decode';
 
 const headersAxios = {
     headers: {
@@ -23,14 +23,23 @@ const login = async (userData) => {
         userData,
         headersAxios
     );
+
     if (responseLoginUser.data) {
-        const value = jwt_decode(responseLoginUser.data.token);
+        //    const value = jwt_decode(responseLoginUser.data.token);
         const token = responseLoginUser.data.token;
-        const user = {
-            username: value.username,
-            roles: value.roles,
-        };
+
         localStorage.setItem('token', token);
+
+        const responseCurrentUser = await $api.get(
+            '/user/user_standard_certification/get/current_user'
+        );
+        const value = responseCurrentUser.data.data.user.user_role;
+
+        const user = {
+            username: value.description,
+            roles: value.user_type,
+        };
+
         localStorage.setItem('user-info', JSON.stringify(user));
         return {
             token,
