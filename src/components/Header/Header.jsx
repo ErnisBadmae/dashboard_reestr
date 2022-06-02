@@ -15,7 +15,6 @@ import authService from '../../store/auth/authService';
 function Header(props) {
     const logout = () => {
         authService.logout();
-        //    navigate('/login');
         window.location.reload();
     };
     return (

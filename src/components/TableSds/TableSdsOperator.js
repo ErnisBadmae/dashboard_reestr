@@ -23,12 +23,12 @@ export const TableSdsOperator = (props) => {
     }, [dispatch]);
 
     const { proposalSdcList } = useSelector((state) => state.proposal);
-    //     console.log(proposalSdcList, 'proposalSdc');
+    //    console.log(proposalSdcList, 'proposalSdc');
 
     const dataSource = proposalSdcList.map((item) => ({
         ...item,
-        //@todo:забрать статус из объекта
-        //    status:title,
+        //копируем и перезаписываем поля у объектов
+        status: item.status.title,
         key: item.id,
     }));
 
@@ -45,8 +45,8 @@ export const TableSdsOperator = (props) => {
         let res = await $api.get(
             '/request/request_sdc_standard_certification/get/active_request_sdc_header'
         );
-        //    console.log(res, 'responseFromcheckstatus');
-        if (res.data.data.data) {
+        console.log(res, 'responseFromcheckstatus');
+        if (res.data.data?.requestSdcHeader?.status.code === 'created') {
             setCheckRequest(true);
         } else {
             navigate('/new-request-sdc');
@@ -54,18 +54,20 @@ export const TableSdsOperator = (props) => {
     };
 
     return (
-        //     checkRequest
         <>
             <Content style={{ padding: '0 40px' }}>
                 <div className="buttons__request">
-                    ? {message} : (
-                    <ButtonRegistry
-                        text="Добавить заявку"
-                        //     path={'/new-request-sdc'}
-                        onClick={() => checkStatus()}
-                    />
+                    {checkRequest ? (
+                        message
+                    ) : (
+                        <ButtonRegistry
+                            text="Добавить заявку"
+                            //     path={'/new-request-sdc'}
+                            onClick={() => checkStatus()}
+                        />
+                    )}
                 </div>
-                )
+
                 <div className="registry-sro__drawer-wrapper">
                     <Table
                         // bordered={false}

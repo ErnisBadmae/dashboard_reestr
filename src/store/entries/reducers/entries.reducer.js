@@ -1,10 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import {
-    getEntries,
-    getCurrentCard,
-    getRequestSdsList,
-    postSdcRequest,
-} from '../actions';
+import { getEntries, getCurrentCard, getRequestSdsList } from '../actions';
 import {
     getEntriesFail,
     getEntriesRequest,
@@ -14,11 +9,6 @@ import {
     getRequestsSdsFail,
     getRequestsSdsRequest,
     getRequestsSdsSuccess,
-
-    //сетаем заявку оператора СДС
-    setProposalSdcFail,
-    setProposalSdcRequest,
-    setProposalSdcSuccess,
 } from './getEntries';
 
 import {
@@ -50,9 +40,4 @@ export const entriesReducer = createReducer(initialState, {
     [getCurrentCard.pending.toString()]: viewSdsRequest,
     [getCurrentCard.fulfilled.toString()]: viewSdsSuccess,
     [getCurrentCard.rejected.toString()]: viewSdsFail,
-
-    //получение информации о конкретной заявке оператору СДС(holders?)
-    [postSdcRequest.pending.toString()]: setProposalSdcRequest,
-    [postSdcRequest.fulfilled.toString()]: setProposalSdcSuccess,
-    [postSdcRequest.rejected.toString()]: setProposalSdcFail,
 });

@@ -1,12 +1,15 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import axios from 'axios';
 import '../../pages/register/registr.scss';
 import './form-sdc.scss';
-import { postSdcRequest } from '../../store/entries/actions';
+import { postSdcRequest } from '../../store/proposal/actions';
+import { useNavigate } from 'react-router-dom';
 
 function FormSdc(props) {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { id } = useSelector((state) => state.proposal.currentProposalSdc);
 
     const [formData, setFormData] = useState({
         fullName: '',
@@ -45,6 +48,9 @@ function FormSdc(props) {
             area,
         };
         dispatch(postSdcRequest(declarationSdsData));
+        setTimeout(() => {
+            navigate(`/request_sdc/${id}`);
+        }, 100);
     };
 
     return (

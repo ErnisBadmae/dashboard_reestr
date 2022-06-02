@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
-import './sidebar.scss';
 import { useSelector } from 'react-redux';
+import './sidebar.scss';
 
 function Sidebar(props) {
     const { roles } = useSelector((state) => state.auth.user);

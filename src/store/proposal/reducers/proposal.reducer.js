@@ -2,6 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import {
     getCurrentProposalSdc,
     getProposalSdcList,
+    postSdcRequest,
 } from '../../proposal/actions';
 
 import {
@@ -9,6 +10,9 @@ import {
     viewSdcProposalFail,
     viewSdcProposalRequest,
     viewsSdcProposalSuccess,
+    setProposalSdcFail,
+    setProposalSdcRequest,
+    setProposalSdcSuccess,
 } from './viewCurrent';
 
 import {
@@ -20,7 +24,6 @@ import {
 const initialState = {
     proposalSdcList: [],
     currentProposalSdc: {},
-    fromPostProposalSdc: {},
 };
 
 export const proposalReducer = createReducer(initialState, {
@@ -33,4 +36,9 @@ export const proposalReducer = createReducer(initialState, {
     [getCurrentProposalSdc.pending.toString()]: viewSdcProposalRequest,
     [getCurrentProposalSdc.fulfilled.toString()]: viewsSdcProposalSuccess,
     [getCurrentProposalSdc.rejected.toString()]: viewSdcProposalFail,
+
+    //получение информации о конкретной заявке оператору СДС(holders?)
+    [postSdcRequest.pending.toString()]: setProposalSdcRequest,
+    [postSdcRequest.fulfilled.toString()]: setProposalSdcSuccess,
+    [postSdcRequest.rejected.toString()]: setProposalSdcFail,
 });

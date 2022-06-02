@@ -19,16 +19,3 @@ export const postDeclarations = createAsyncThunk(
         return result;
     }
 );
-
-export const postSdcRequest = createAsyncThunk(
-    'requestSdc/post',
-    async (payload) => {
-        let result = await $api.post(
-            '/request/request_sdc_standard_certification/add',
-            payload,
-            headersAxios
-        );
-
-        return result.data.data.requestSdcStandardCertification;
-    }
-);
