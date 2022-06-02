@@ -28,7 +28,7 @@ export const postSdcRequest = createAsyncThunk(
             payload,
             headersAxios
         );
-        console.log(result, 'result');
-        return result;
+
+        return result.data.data.requestSdcStandardCertification;
     }
 );

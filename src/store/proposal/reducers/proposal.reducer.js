@@ -1,11 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { getCurrentProposalSdc, getProposalSdcList } from '../actions';
 import {
-    //получение списка holders
-    getRequestsSdsProposalFail,
-    getRequestsSdsProposalRequest,
-    getRequestsSdsProposalSuccess,
-} from './getEntries';
+    getCurrentProposalSdc,
+    getProposalSdcList,
+} from '../../proposal/actions';
 
 import {
     //получение объекта - заявка на вступление СДС
@@ -13,6 +10,12 @@ import {
     viewSdcProposalRequest,
     viewsSdcProposalSuccess,
 } from './viewCurrent';
+
+import {
+    getRequestsSdsProposalFail,
+    getRequestsSdsProposalRequest,
+    getRequestsSdsProposalSuccess,
+} from './getProposalType';
 
 const initialState = {
     proposalSdcList: [],

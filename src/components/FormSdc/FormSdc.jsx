@@ -12,12 +12,19 @@ function FormSdc(props) {
         fullName: '',
         shortName: '',
         registrationNumber: '',
-        registrationData: '',
+        registrationDate: '',
+        registrationCompany: '',
         area: '',
     });
 
-    const { fullName, shortName, registrationNumber, registrationData, area } =
-        formData;
+    const {
+        fullName,
+        shortName,
+        registrationNumber,
+        registrationDate,
+        registrationCompany,
+        area,
+    } = formData;
 
     const onChange = (e) => {
         setFormData((prevState) => ({
@@ -33,7 +40,8 @@ function FormSdc(props) {
             fullName,
             shortName,
             registrationNumber,
-            registrationData,
+            registrationDate,
+            registrationCompany,
             area,
         };
         dispatch(postSdcRequest(declarationSdsData));
@@ -79,10 +87,21 @@ function FormSdc(props) {
                         />
                     </div>
                     <div>
-                        <p>ОГРН</p>
+                        <p>registrationDate</p>
                         <input
                             className="form__input"
-                            name="registrationData"
+                            name="registrationDate"
+                            autoComplete="off"
+                            type="text"
+                            required
+                            onChange={onChange}
+                        />
+                    </div>
+                    <div>
+                        <p>registrationCompany</p>
+                        <input
+                            className="form__input"
+                            name="registrationCompany"
                             autoComplete="off"
                             type="text"
                             required

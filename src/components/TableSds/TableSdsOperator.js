@@ -1,10 +1,11 @@
 import { Table, Layout } from 'antd';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getProposalSdcList } from '../../store/entries/actions/getEntries';
+import { getProposalSdcList } from '../../store/proposal/actions';
 import { requestSdcCertifHolderTableColumn } from '../../helpers/requestsSds';
 import { ButtonRegistry } from '../Buttons/button-registry/button-registry';
+import $api from '../../http';
 
 import './table.scss';
 
@@ -13,13 +14,16 @@ const { Content } = Layout;
 export const TableSdsOperator = (props) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const message =
+        'У вас имеется активная заявка, Вы пока не можете добавить заявку';
+    const [checkRequest, setCheckRequest] = useState(false);
 
     useEffect(() => {
         dispatch(getProposalSdcList());
     }, [dispatch]);
 
     const { proposalSdcList } = useSelector((state) => state.proposal);
-    console.log(proposalSdcList, 'proposalSdc');
+    //     console.log(proposalSdcList, 'proposalSdc');
 
     const dataSource = proposalSdcList.map((item) => ({
         ...item,
@@ -37,15 +41,31 @@ export const TableSdsOperator = (props) => {
         };
     };
 
+    const checkStatus = async () => {
+        let res = await $api.get(
+            '/request/request_sdc_standard_certification/get/active_request_sdc_header'
+        );
+        //    console.log(res, 'responseFromcheckstatus');
+        if (res.data.data.data) {
+            setCheckRequest(true);
+        } else {
+            navigate('/new-request-sdc');
+        }
+    };
+
     return (
+        //     checkRequest
         <>
             <Content style={{ padding: '0 40px' }}>
                 <div className="buttons__request">
-                    {/* <ButtonRegistry
+                    ? {message} : (
+                    <ButtonRegistry
                         text="Добавить заявку"
-                        path={'/new-request-sdc'}
-                    /> */}
+                        //     path={'/new-request-sdc'}
+                        onClick={() => checkStatus()}
+                    />
                 </div>
+                )
                 <div className="registry-sro__drawer-wrapper">
                     <Table
                         // bordered={false}

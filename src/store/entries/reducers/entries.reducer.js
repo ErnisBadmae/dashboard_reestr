@@ -2,8 +2,6 @@ import { createReducer } from '@reduxjs/toolkit';
 import {
     getEntries,
     getCurrentCard,
-    getCurrentProposalSdc,
-    getProposalSdcList,
     getRequestSdsList,
     postSdcRequest,
 } from '../actions';
@@ -28,7 +26,7 @@ import {
     viewSdsFail,
     viewSdsRequest,
     viewSdsSuccess,
-} from './viewCurrent';
+} from '../reducers/viewCurrent';
 
 const initialState = {
     loading: false,

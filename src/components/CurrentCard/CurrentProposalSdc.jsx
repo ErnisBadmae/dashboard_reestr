@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getCurrentProposalSdc } from '../../store/entries/actions/getCurrentCard';
+import { getCurrentProposalSdc } from '../../store/proposal/actions';
 
 import './card-item.css';
 
