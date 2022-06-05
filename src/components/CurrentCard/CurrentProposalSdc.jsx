@@ -107,62 +107,61 @@ function CurrentProposalSdc(props) {
     };
 
     return (
-        <div className="card-container">
-            <div className="card">
-                <div className="card__title">
-                    <strong>{currentProposalSdc?.full_name}</strong>
-                </div>
-                <form
-                    id="editForm"
-                    className="card__body"
-                    onSubmit={formHandler}
-
-                    // encType="multipart/form-data"
-                >
-                    {cardData.map((field) => {
-                        return (
-                            <div key={field.id}>
-                                <strong>{field.title}</strong>
-                                {editMode === field.id ? (
-                                    <input
-                                        className="current__input"
-                                        defaultValue={field.value}
-                                        name={field.name}
-                                        onChange={onChange}
-                                    />
-                                ) : (
-                                    <div className="text__current-card">
-                                        {field.value}
-                                    </div>
-                                )}
-                                {editMode === field.id ? (
-                                    <div className="btn__edit">
-                                        <ButtonRegistry
-                                            className="btn__edit"
-                                            text={'Сохранить'}
-                                            onClick={() => {
-                                                // dispatch(changeFieldSdc())
-                                                setEditMode(0);
-                                            }}
-                                        />
-                                    </div>
-                                ) : (
-                                    <div className="btn__edit">
-                                        <ButtonRegistry
-                                            text={'Редактировать'}
-                                            onClick={() =>
-                                                setEditMode(field.id)
-                                            }
-                                        />
-                                    </div>
-                                )}
-                            </div>
-                        );
-                    })}
-                </form>
+        //    <div className="card-container">
+        //    <div className="card">
+        <>
+            <div className="card__title">
+                <strong>{currentProposalSdc?.full_name}</strong>
             </div>
-            {/* <Test /> */}
-        </div>
+            <form
+                id="editForm"
+                className="card__body"
+                onSubmit={formHandler}
+
+                // encType="multipart/form-data"
+            >
+                {cardData.map((field) => {
+                    return (
+                        <div key={field.id}>
+                            <strong>{field.title}</strong>
+                            {editMode === field.id ? (
+                                <input
+                                    className="current__input"
+                                    defaultValue={field.value}
+                                    name={field.name}
+                                    onChange={onChange}
+                                />
+                            ) : (
+                                <div className="text__current-card">
+                                    {field.value}
+                                </div>
+                            )}
+                            {editMode === field.id ? (
+                                <div className="btn__edit">
+                                    <ButtonRegistry
+                                        className="btn__edit"
+                                        text={'Сохранить'}
+                                        onClick={() => {
+                                            // dispatch(changeFieldSdc())
+                                            setEditMode(0);
+                                        }}
+                                    />
+                                </div>
+                            ) : (
+                                <div className="btn__edit">
+                                    <ButtonRegistry
+                                        text={'Редактировать'}
+                                        onClick={() => setEditMode(field.id)}
+                                    />
+                                </div>
+                            )}
+                        </div>
+                    );
+                })}
+            </form>
+        </>
+
+        //    </div>
     );
 }
 

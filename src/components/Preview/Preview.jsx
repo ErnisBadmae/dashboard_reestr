@@ -45,12 +45,13 @@ function PreviewCardSdc(props) {
     ];
 
     return (
-        <div className="card-container">
-            <div className="card">
-                <div className="card__title">
-                    <strong>{currentProposalSdc?.full_name}</strong>
-                </div>
-
+        //    <div className="card-container">
+        //   <div className="card">
+        <>
+            <div className="card__title">
+                <strong>{currentProposalSdc?.full_name}</strong>
+            </div>
+            <div className="card__body">
                 {cardData.map((field) => {
                     return (
                         <div key={field.id}>
@@ -63,8 +64,10 @@ function PreviewCardSdc(props) {
                     );
                 })}
             </div>
-            {/* <Test /> */}
-        </div>
+            {/* </div> */}
+        </>
+
+        //    </div>
     );
 }
 

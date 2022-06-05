@@ -4,18 +4,35 @@ import { ButtonRegistry } from '../../components/Buttons/button-registry/button-
 import CurrentProposalSdc from '../../components/CurrentCard/CurrentProposalSdc';
 import PreviewCardSdc from '../../components/Preview/Preview';
 
+import './proposalSdc.scss';
+
 function ProposalSdc(props) {
     const [isPreviewInfoMode, setIsPreviewInfoMode] = useState(true);
+    const [activeBtn, setActiveBtn] = useState(false);
 
     return (
         <>
-            {isPreviewInfoMode ? <PreviewCardSdc /> : <CurrentProposalSdc />}
-            <ButtonRegistry
-                text="Preview mode"
-                onClick={() => {
-                    setIsPreviewInfoMode(!isPreviewInfoMode);
-                }}
-            />
+            <div className="card-container">
+                <div className="card">
+                    <ButtonRegistry
+                        text={
+                            activeBtn
+                                ? 'Скрыть подробности'
+                                : 'Смотреть подробнее'
+                        }
+                        onClick={() => {
+                            setIsPreviewInfoMode(!isPreviewInfoMode);
+                            setActiveBtn(!activeBtn);
+                        }}
+                    />
+
+                    {isPreviewInfoMode ? (
+                        <PreviewCardSdc />
+                    ) : (
+                        <CurrentProposalSdc />
+                    )}
+                </div>
+            </div>
         </>
     );
 }
