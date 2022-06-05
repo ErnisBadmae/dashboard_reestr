@@ -15,6 +15,8 @@ import { useSelector } from 'react-redux';
 // import { TableWrapper } from './components/TableWrapper/tableWrapper';
 import FormSdc from './components/FormSdc/FormSdc';
 import CurrentProposalSdc from './components/CurrentCard/CurrentProposalSdc';
+import CurrentTest from './components/CurrentCard/CurrentTest';
+import ProposalSdc from './pages/proposalSdc/proposalSdc';
 
 function App() {
     const navigate = useNavigate();
@@ -77,7 +79,8 @@ function App() {
                             {/* </Route> */}
                             <Route
                                 path="/request_sdc/:id"
-                                element={<CurrentProposalSdc />}
+                                element={<ProposalSdc />}
+                                //   element={<CurrentTest />}
                             />
                             <Route
                                 path="/new-request-sdc"

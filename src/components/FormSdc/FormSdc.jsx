@@ -51,6 +51,7 @@ function FormSdc(props) {
         setTimeout(() => {
             navigate(`/request_sdc/${id}`);
         }, 100);
+        //todo: переделать
     };
 
     return (

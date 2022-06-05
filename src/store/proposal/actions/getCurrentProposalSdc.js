@@ -7,6 +7,7 @@ const headersAxios = {
     },
 };
 
+//получение текущей заявки
 export const getCurrentProposalSdc = createAsyncThunk(
     'view/getCurrentRequestSdc',
     async (cardId, dispatch) => {
@@ -15,6 +16,18 @@ export const getCurrentProposalSdc = createAsyncThunk(
         );
         console.log(result, 'resultView');
         return result.data.data?.requestSdcStandardCertification;
+    }
+);
+
+//препросмотр текущей карточки СДС
+export const getPreviewCurrentProposalSdc = createAsyncThunk(
+    'view/getCurrentRequestSdc',
+    async (cardId, dispatch) => {
+        let result = await $api.get(
+            `request/request_sdc_standard_certification/get_request_sdc_header/${cardId}`
+        );
+        console.log(result, 'resultPreview');
+        return result.data.data?.requestSdcHeader;
     }
 );
 

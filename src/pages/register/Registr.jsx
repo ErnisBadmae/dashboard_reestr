@@ -40,13 +40,8 @@ const Registr = () => {
         //    userRole,
         registrationNumber,
     } = formData;
-    //     console.log(email, 'email');
 
     const onChange = (e) => {
-        //    console.log(
-        //        { [e.target.name]: e.target.value },
-        //        ' [e.target.name]: e.target.value'
-        //    );
         setFormData((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
