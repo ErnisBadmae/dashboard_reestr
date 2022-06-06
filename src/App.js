@@ -9,13 +9,13 @@ import RequireAuth from './components/RequireAuth/RequireAuth';
 import NotFound from './pages/not-found/NotFound';
 import { TableSds } from './components/TableSds/TableSds';
 import { TableSdsOperator } from './components/TableSds/TableSdsOperator';
-import CurrentCard from './components/CurrentCard/CurrentCard';
+import CurrentCard from './components/CurrentCard/Current/CurrentCard';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 // import { TableWrapper } from './components/TableWrapper/tableWrapper';
 import FormSdc from './components/FormSdc/FormSdc';
-import CurrentProposalSdc from './components/CurrentCard/CurrentProposalSdc';
-import CurrentTest from './components/CurrentCard/CurrentTest';
+
+// import CurrentTest from './components/CurrentCard/CurrentTest';
 import ProposalSdc from './pages/proposalSdc/proposalSdc';
 
 function App() {

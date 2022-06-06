@@ -1,22 +1,22 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import $api from '../../http';
+// import $api from '../../../http';
 // import Test from '../../pages/test/test';
-import { getCurrentProposalSdc } from '../../store/proposal/actions';
+import { getCurrentProposalSdc } from '../../../store/proposal/actions';
 // import { editProposalCurrent } from '../../store/proposal/reducers/viewCurrent';
-import { ButtonRegistry } from '../Buttons/button-registry/button-registry';
+import { ButtonRegistry } from '../../Buttons/button-registry/button-registry';
 
-import './card-item.css';
-import './current-card.scss';
+import '../card-item.scss';
 
-const headersAxios = {
-    headers: {
-        'Content-Type': 'application/json',
-    },
-};
+// const headersAxios = {
+//     headers: {
+//         'Content-Type': 'application/json',
+//         //    'Access-Control-Allow-Origin': '*',
+//     },
+// };
 
-function CurrentProposalSdc(props) {
+function EditProposalCurrentSdc(props) {
     const dispatch = useDispatch();
     const { id } = useParams();
     const [editMode, setEditMode] = useState(0);
@@ -82,7 +82,7 @@ function CurrentProposalSdc(props) {
         },
     ];
 
-    const formHandler = (e) => {
+    const formHandler = async (e) => {
         e.preventDefault();
         const registrData = {
             short_name: short_name ?? currentProposalSdc.short_name,
@@ -96,14 +96,28 @@ function CurrentProposalSdc(props) {
             area: area ?? currentProposalSdc.area,
         };
         console.log('registrData', registrData);
-        const res = $api.patch(
-            `/request/request_sdc_standard_certification/edit/${id}`,
-            registrData,
-            headersAxios
-        );
+        //    const res = await $api.patch(
+        //    const res = await fetch.putch(
+        //        `/request/request_sdc_standard_certification/edit/${id}`,
+        //        myInit,
+        //        registrData
+        //        //   headersAxios
+        //    );
         //    console.log(res, 'resresres');
         //на апи,
         //    dispatch(editProposalCurrent(registrData));
+
+        const res = await fetch(
+            `/request/request_sdc_standard_certification/edit/${id}`,
+            {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+            }
+        );
+        console.log(res, 'resresres');
     };
 
     return (
@@ -165,4 +179,4 @@ function CurrentProposalSdc(props) {
     );
 }
 
-export default CurrentProposalSdc;
+export default EditProposalCurrentSdc;

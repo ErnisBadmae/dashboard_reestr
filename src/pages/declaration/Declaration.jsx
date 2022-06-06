@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import '../register/registr.scss';
 import { postDeclarations } from '../../store/entries/actions';
 import './declaration.scss';
+import { FileUploadInput } from '../../components/FileUploadInput/FileUploadInput';
 
 function Declaration(props) {
     const dispatch = useDispatch();
@@ -23,6 +24,7 @@ function Declaration(props) {
         phone: '',
         email: '',
         site: '',
+        myFile: null,
     });
 
     const {
@@ -40,6 +42,7 @@ function Declaration(props) {
         site,
         phone,
         email,
+        myFile,
     } = formData;
 
     const onChange = (e) => {

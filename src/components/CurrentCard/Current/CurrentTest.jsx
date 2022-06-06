@@ -1,13 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import Test from '../../pages/test/test';
+import Test from '../../../pages/test/test';
 import { useForm } from 'react-hook-form';
-import { getCurrentProposalSdc } from '../../store/proposal/actions';
-import './current-card.scss';
+import { getCurrentProposalSdc } from '../../../store/proposal/actions';
+import './card-item.scss';
 
 function CurrentTest(props) {
-     const [editMode, setEditMode] = useState(0);
+    const [editMode, setEditMode] = useState(0);
     const { register, handleSubmit, reset } = useForm();
     const dispatch = useDispatch();
     const { id } = useParams();

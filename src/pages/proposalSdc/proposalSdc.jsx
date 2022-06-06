@@ -1,7 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import { ButtonRegistry } from '../../components/Buttons/button-registry/button-registry';
-import CurrentProposalSdc from '../../components/CurrentCard/CurrentProposalSdc';
+import FileUploadInput from '../../components/FileUploadInput/FileUploadInput';
+
 import PreviewCardSdc from '../../components/Preview/Preview';
 
 import './proposalSdc.scss';
@@ -14,7 +15,7 @@ function ProposalSdc(props) {
         <>
             <div className="card-container">
                 <div className="card">
-                    <ButtonRegistry
+                    {/* <ButtonRegistry
                         text={
                             activeBtn
                                 ? 'Скрыть подробности'
@@ -24,13 +25,14 @@ function ProposalSdc(props) {
                             setIsPreviewInfoMode(!isPreviewInfoMode);
                             setActiveBtn(!activeBtn);
                         }}
-                    />
+                    /> */}
 
-                    {isPreviewInfoMode ? (
-                        <PreviewCardSdc />
-                    ) : (
+                    {/* {isPreviewInfoMode ? ( */}
+                    <PreviewCardSdc />
+
+                    {/* ) : (
                         <CurrentProposalSdc />
-                    )}
+                    )} */}
                 </div>
             </div>
         </>

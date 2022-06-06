@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import $api from '../../http';
-import { getCurrentCard } from '../../store/entries/actions/getCurrentCard';
-import { ButtonRegistry } from '../Buttons/button-registry/button-registry';
+import $api from '../../../http';
+import { getCurrentCard } from '../../../store/entries/actions/getCurrentCard';
+import { ButtonRegistry } from '../../Buttons/button-registry/button-registry';
 
-import './card-item.css';
+import '../card-item.scss';
 
 function CurrentCard(props) {
     const dispatch = useDispatch();

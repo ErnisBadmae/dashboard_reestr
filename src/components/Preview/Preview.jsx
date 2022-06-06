@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Collapse } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
@@ -6,8 +7,10 @@ import { getPreviewCurrentProposalSdc } from '../../store/proposal/actions';
 
 import './card-item.css';
 import './current-card.scss';
+import EditProposalCurrentSdc from '../CurrentCard/EditCard/EditProposalCurrentSdc';
 
 function PreviewCardSdc(props) {
+    const { Panel } = Collapse;
     const dispatch = useDispatch();
     const { id } = useParams();
 
@@ -63,6 +66,11 @@ function PreviewCardSdc(props) {
                         </div>
                     );
                 })}
+                <Collapse accordion>
+                    <Panel header="Смотреть подробнее" key="1" bordered={false}>
+                        <p>{<EditProposalCurrentSdc />}</p>
+                    </Panel>
+                </Collapse>
             </div>
             {/* </div> */}
         </>

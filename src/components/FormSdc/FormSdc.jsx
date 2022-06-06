@@ -5,6 +5,7 @@ import '../../pages/register/registr.scss';
 import './form-sdc.scss';
 import { postSdcRequest } from '../../store/proposal/actions';
 import { useNavigate } from 'react-router-dom';
+import { FileUploadInput } from '../FileUploadInput/FileUploadInput';
 
 function FormSdc(props) {
     const navigate = useNavigate();
@@ -27,6 +28,7 @@ function FormSdc(props) {
         registrationDate,
         registrationCompany,
         area,
+        myFile,
     } = formData;
 
     const onChange = (e) => {
@@ -46,7 +48,9 @@ function FormSdc(props) {
             registrationDate,
             registrationCompany,
             area,
+            myFile,
         };
+        console.log(declarationSdsData, 'declarationSdsData');
         dispatch(postSdcRequest(declarationSdsData));
         setTimeout(() => {
             navigate(`/request_sdc/${id}`);
@@ -70,6 +74,15 @@ function FormSdc(props) {
                             autoFocus
                             onChange={onChange}
                         />
+                    </div>
+                    <div>
+                        <FileUploadInput
+                            multiple
+                            extensions={['.jpg', '.png']}
+                            name={'myFile'}
+                            onChange={onChange}
+                        />
+                        <div>Hello</div>
                     </div>
                     <div>
                         <p>Сокращенное наименование </p>
