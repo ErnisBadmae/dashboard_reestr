@@ -1,10 +1,10 @@
 .text__current-card {
-    margin-top: 10px;
+    margin: 15px, 0, 5px;
     font-size: medium;
 }
-strong {
+.strong-title {
     color: #0f2355;
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .card__title {
@@ -43,12 +43,6 @@ strong {
     justify-content: space-between;
 }
 
-.btn__edit {
-    padding: 3px;
-    margin-bottom: 25px;
-    margin-top: 3px;
-}
-
 .current__input {
     &::placeholder {
         color: #a2afb2;
@@ -75,4 +69,10 @@ strong {
     font-weight: 400;
     text-align: center;
     margin-top: 40px;
+}
+.btn__edit {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    margin-right: 34px;
 }

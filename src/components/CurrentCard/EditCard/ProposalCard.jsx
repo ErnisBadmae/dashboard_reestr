@@ -66,7 +66,7 @@ function ProposalCard(props) {
                 {cardData.map((field) => {
                     return (
                         <div key={field.id}>
-                            <strong>{field.title}</strong>
+                            <div className="strong-title">{field.title}</div>
 
                             <div className="text__current-card">
                                 {field.value}
@@ -74,10 +74,12 @@ function ProposalCard(props) {
                         </div>
                     );
                 })}
-                <ButtonRegistry
-                    text={'Редактировать заявку'}
-                    onClick={() => navigate(`/edit-card/${id}`)}
-                />
+                <div className="btn__edit">
+                    <ButtonRegistry
+                        text={'Редактировать заявку'}
+                        onClick={() => navigate(`/edit-card/${id}`)}
+                    />
+                </div>
             </div>
         </>
     );

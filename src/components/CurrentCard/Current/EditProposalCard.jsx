@@ -37,7 +37,7 @@ function EditProposalCard(props) {
                 },
             }
         );
-        if (res.status == 403) {
+        if (res.status === 403) {
             setMessage('Ошибка! Редактирование заявки запрещено.');
             setIsEditSuccess(true);
         }
