@@ -61,4 +61,6 @@ export const proposalReducer = createReducer(initialState, {
     [postSdcRequest.pending.toString()]: setProposalSdcRequest,
     [postSdcRequest.fulfilled.toString()]: setProposalSdcSuccess,
     [postSdcRequest.rejected.toString()]: setProposalSdcFail,
+
+    //обновление стэйта
 });

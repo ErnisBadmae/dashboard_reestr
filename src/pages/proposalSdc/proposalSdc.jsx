@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import { ButtonRegistry } from '../../components/Buttons/button-registry/button-registry';
+import EditProposalCurrentSdc from '../../components/CurrentCard/EditCard/EditProposalCurrentSdc';
 import FileUploadInput from '../../components/FileUploadInput/FileUploadInput';
 
 import PreviewCardSdc from '../../components/Preview/Preview';
@@ -28,7 +29,8 @@ function ProposalSdc(props) {
                     /> */}
 
                     {/* {isPreviewInfoMode ? ( */}
-                    <PreviewCardSdc />
+                    {/* <PreviewCardSdc /> */}
+                    {<EditProposalCurrentSdc />}
 
                     {/* ) : (
                         <CurrentProposalSdc />

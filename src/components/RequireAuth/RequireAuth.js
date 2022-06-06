@@ -10,7 +10,12 @@ const RequireAuth = (props) => {
         ROLE_USER: ['/sds', '/declaration'],
         ROLE_DICTIONARY_EDITOR: ['/declarations'],
         user_admin: ['/declarations', `/declaration/${id}`],
-        user_sdc: ['/requests_sdc', `/request_sdc/${id}`, '/new-request-sdc'],
+        user_sdc: [
+            '/requests_sdc',
+            `/request_sdc/${id}`,
+            '/new-request-sdc',
+            `/edit-card/${id}`,
+        ],
     };
 
     const { roles } = useSelector((state) => state.auth.user);

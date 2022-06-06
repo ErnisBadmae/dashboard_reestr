@@ -17,6 +17,7 @@ import FormSdc from './components/FormSdc/FormSdc';
 
 // import CurrentTest from './components/CurrentCard/CurrentTest';
 import ProposalSdc from './pages/proposalSdc/proposalSdc';
+import CurrentTest from './components/CurrentCard/Current/CurrentTest';
 
 function App() {
     const navigate = useNavigate();
@@ -85,6 +86,10 @@ function App() {
                             <Route
                                 path="/new-request-sdc"
                                 element={<FormSdc />}
+                            />
+                            <Route
+                                path="/edit-card/:id"
+                                element={<CurrentTest />}
                             />
                         </Route>
 

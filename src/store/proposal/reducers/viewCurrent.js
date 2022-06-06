@@ -24,7 +24,6 @@ export const setProposalSdcFail = (state, action) => {
     return { ...state, loading: false };
 };
 
-// export const editProposalCurrent = (state, action) => {
-
-//     return { ...state, currentProposalSdc: action.payload };
-// };
+export const editProposalCurrent = (action) => {
+    return { currentProposalSdc: action.payload };
+};
