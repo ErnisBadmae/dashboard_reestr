@@ -2,12 +2,11 @@ import React, { useEffect } from 'react';
 import { Collapse } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-
+import EditProposalCurrentSdc from '../CurrentCard/EditCard/ProposalCard';
 import { getPreviewCurrentProposalSdc } from '../../store/proposal/actions';
 
 import './card-item.css';
 import './current-card.scss';
-import EditProposalCurrentSdc from '../CurrentCard/EditCard/EditProposalCurrentSdc';
 
 function PreviewCardSdc(props) {
     const { Panel } = Collapse;

@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-
 import { getCurrentProposalSdc } from '../../../store/proposal/actions';
 import { ButtonRegistry } from '../../Buttons/button-registry/button-registry';
 
 import '../card-item.scss';
 
-function EditProposalCurrentSdc(props) {
+function ProposalCard(props) {
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
@@ -84,4 +83,4 @@ function EditProposalCurrentSdc(props) {
     );
 }
 
-export default EditProposalCurrentSdc;
+export default ProposalCard;

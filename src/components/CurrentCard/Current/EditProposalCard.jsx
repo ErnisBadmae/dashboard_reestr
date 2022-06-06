@@ -4,10 +4,11 @@ import { useParams } from 'react-router-dom';
 // import Test from '../../../pages/test/test';
 import { useForm } from 'react-hook-form';
 import { getCurrentProposalSdc } from '../../../store/proposal/actions';
-import '../card-item.scss';
-import { editProposalCurrent } from '../../../store/proposal/reducers/viewCurrent';
+// import { editProposalCurrent } from '../../../store/proposal/reducers/viewCurrent';
 
-function CurrentTest(props) {
+import '../card-item.scss';
+
+function EditProposalCard(props) {
     const { register, handleSubmit, reset } = useForm();
     const [isEditSuccess, setIsEditSuccess] = useState(false);
     const [message, setMessage] = useState('');
@@ -113,9 +114,8 @@ function CurrentTest(props) {
                     </button>
                 </form>
             </div>
-            {/* <Test /> */}
         </div>
     );
 }
 
-export default CurrentTest;
+export default EditProposalCard;

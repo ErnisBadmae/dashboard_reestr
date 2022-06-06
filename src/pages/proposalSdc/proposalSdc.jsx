@@ -1,16 +1,16 @@
 import React from 'react';
-import { useState } from 'react';
-import { ButtonRegistry } from '../../components/Buttons/button-registry/button-registry';
-import EditProposalCurrentSdc from '../../components/CurrentCard/EditCard/EditProposalCurrentSdc';
-import FileUploadInput from '../../components/FileUploadInput/FileUploadInput';
-
-import PreviewCardSdc from '../../components/Preview/Preview';
+import ProposalCard from '../../components/CurrentCard/EditCard/ProposalCard';
+// import { useState } from 'react';
+// import { ButtonRegistry } from '../../components/Buttons/button-registry/button-registry';
+// import EditProposalCurrentSdc from '../../components/CurrentCard/EditCard/ProposalCard';
+// import FileUploadInput from '../../components/FileUploadInput/FileUploadInput';
+// import PreviewCardSdc from '../../components/Preview/Preview';
 
 import './proposalSdc.scss';
 
 function ProposalSdc(props) {
-    const [isPreviewInfoMode, setIsPreviewInfoMode] = useState(true);
-    const [activeBtn, setActiveBtn] = useState(false);
+    //     const [isPreviewInfoMode, setIsPreviewInfoMode] = useState(true);
+    //     const [activeBtn, setActiveBtn] = useState(false);
 
     return (
         <>
@@ -30,7 +30,7 @@ function ProposalSdc(props) {
 
                     {/* {isPreviewInfoMode ? ( */}
                     {/* <PreviewCardSdc /> */}
-                    {<EditProposalCurrentSdc />}
+                    {<ProposalCard />}
 
                     {/* ) : (
                         <CurrentProposalSdc />

@@ -14,17 +14,15 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 // import { TableWrapper } from './components/TableWrapper/tableWrapper';
 import FormSdc from './components/FormSdc/FormSdc';
-
-// import CurrentTest from './components/CurrentCard/CurrentTest';
 import ProposalSdc from './pages/proposalSdc/proposalSdc';
-import CurrentTest from './components/CurrentCard/Current/CurrentTest';
+import EditProposalCard from './components/CurrentCard/Current/EditProposalCard';
 
 function App() {
     const navigate = useNavigate();
     const { pathname } = useLocation();
 
     const user = useSelector((state) => state.auth.user);
-    //проверяю, если юзера нет и текущее место не совпадает с перечисленными, то редирект
+
     useEffect(() => {
         if (!user) {
             if (!['/login', '/register'].includes(pathname)) {
@@ -77,11 +75,9 @@ function App() {
                                 path="/requests_sdc"
                                 element={<TableSdsOperator />}
                             />
-                            {/* </Route> */}
                             <Route
                                 path="/request_sdc/:id"
                                 element={<ProposalSdc />}
-                                //   element={<CurrentTest />}
                             />
                             <Route
                                 path="/new-request-sdc"
@@ -89,23 +85,9 @@ function App() {
                             />
                             <Route
                                 path="/edit-card/:id"
-                                element={<CurrentTest />}
+                                element={<EditProposalCard />}
                             />
                         </Route>
-
-                        {/* <Route
-                    element={
-                        <RequireAuth
-                            allowedRoles={['ROLE_DICTIONARY_REQUEST_STATUS_EDITOR']}
-                          
-                        />
-                    }
-                >
-                    <Route element={<LayoutContent />}>
-                        <Route path="/editor/sds" element={<TableRegistry />} /> 
-                    </Route>
-                </Route> */}
-
                         <Route path="*" element={<NotFound />} />
                     </Route>
                 )}
