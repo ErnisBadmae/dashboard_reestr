@@ -6,64 +6,59 @@ import './form-sdc.scss';
 import { postSdcRequest } from '../../store/proposal/actions';
 import { useNavigate } from 'react-router-dom';
 import { FileUploadInput } from '../FileUploadInput/FileUploadInput';
+import { useForm, Controller } from 'react-hook-form';
+import DatePicker from 'react-datepicker';
+
+import 'react-datepicker/dist/react-datepicker.css';
 
 function FormSdc(props) {
+    const [selectedDate, setSelectedDate] = useState(new Date());
+
+    const {
+        register,
+        control,
+        formState: { errors },
+        handleSubmit,
+    } = useForm();
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { id } = useSelector((state) => state.proposal.currentProposalSdc);
 
-    const [formData, setFormData] = useState({
-        fullName: '',
-        shortName: '',
-        registrationNumber: '',
-        registrationDate: '',
-        registrationCompany: '',
-        area: '',
-    });
-
-    const {
-        fullName,
-        shortName,
-        registrationNumber,
-        registrationDate,
-        registrationCompany,
-        area,
-        myFile,
-    } = formData;
-
-    const onChange = (e) => {
-        setFormData((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value,
-        }));
-    };
-
-    const formHandler = (e) => {
-        e.preventDefault();
-
+    const formHandler = (data) => {
         const declarationSdsData = {
-            fullName,
-            shortName,
-            registrationNumber,
-            registrationDate,
-            registrationCompany,
-            area,
-            myFile,
+            fullName: data.fullName,
+            shortName: data.shortName,
+            registrationNumber: data.registrationNumber,
+            registrationDate: data.registrationDate,
+            registrationCompany: data.registrationCompany,
+            area: data.area,
+            ReactDatepicker: data.ReactDatepicker,
+            //   myFile,
         };
         console.log(declarationSdsData, 'declarationSdsData');
-        dispatch(postSdcRequest(declarationSdsData));
-        setTimeout(() => {
-            navigate(`/request_sdc/${id}`);
-        }, 100);
+        //    dispatch(postSdcRequest(declarationSdsData));
+        //    setTimeout(() => {
+        //        navigate(`/request_sdc/${id}`);
+        //    }, 200);
         //todo: переделать
     };
 
     return (
         <>
             <div className="login__title">Подача Заявления</div>
-            <form onSubmit={formHandler} className="declaration__form">
+            <form
+                onSubmit={handleSubmit(formHandler)}
+                className="declaration__form"
+            >
                 <div className="group__input">
                     <div>
+                        {errors?.fullName && (
+                            <div className="error-message">
+                                {errors?.fullName?.message ||
+                                    'Полное наименование должно быть на кириллице, не должно содержать цифр и спецсимволов'}
+                            </div>
+                        )}
                         <p>Полное наименование </p>
                         <input
                             className="form__input"
@@ -72,7 +67,11 @@ function FormSdc(props) {
                             type="text"
                             required
                             autoFocus
-                            onChange={onChange}
+                            id="fullName"
+                            {...register('fullName', {
+                                required: true,
+                                pattern: /[а-яА-ЯёЁ]/,
+                            })}
                         />
                     </div>
                     {/* <div>
@@ -85,6 +84,12 @@ function FormSdc(props) {
                         <div>Hello</div>
                     </div> */}
                     <div>
+                        {errors?.shortName && (
+                            <div className="error-message">
+                                {errors?.shortName?.message ||
+                                    'Полное наименование должно быть на кириллице, не должно содержать цифр и спецсимволов'}
+                            </div>
+                        )}
                         <p>Сокращенное наименование </p>
                         <input
                             className="form__input"
@@ -92,10 +97,19 @@ function FormSdc(props) {
                             autoComplete="off"
                             type="text"
                             required
-                            onChange={onChange}
+                            {...register('shortName', {
+                                required: true,
+                                pattern: /[а-яА-ЯёЁ]/,
+                            })}
                         />
                     </div>
                     <div>
+                        {errors?.registrationNumber && (
+                            <div className="error-message">
+                                {errors?.registrationNumber?.message ||
+                                    'Регистрационный номер должен состоять только из цифр'}
+                            </div>
+                        )}
                         <p>registrationNumber</p>
                         <input
                             className="form__input"
@@ -103,18 +117,37 @@ function FormSdc(props) {
                             autoComplete="off"
                             type="text"
                             required
-                            onChange={onChange}
+                            {...register('registrationNumber', {
+                                required: true,
+                                pattern: /^\d+$/,
+                                minLength: {
+                                    value: 7,
+                                    message:
+                                        'Вы вводите некорректное количество цифр',
+                                },
+                            })}
                         />
+                        {errors?.registrationNumber && (
+                            <div className="error-message">
+                                {errors?.registrationNumber?.message ||
+                                    'Введите корректные данные'}
+                            </div>
+                        )}
                     </div>
                     <div>
                         <p>registrationDate</p>
-                        <input
-                            className="form__input"
+                        <Controller
+                            control={control}
                             name="registrationDate"
-                            autoComplete="off"
-                            type="text"
-                            required
-                            onChange={onChange}
+                            render={({ field }) => (
+                                <DatePicker
+                                    className="form__input"
+                                    required
+                                    placeholderText="Select date"
+                                    onChange={(e) => field.onChange(e)}
+                                    selected={field.value}
+                                />
+                            )}
                         />
                     </div>
                     <div>
@@ -125,8 +158,20 @@ function FormSdc(props) {
                             autoComplete="off"
                             type="text"
                             required
-                            onChange={onChange}
+                            {...register('registrationCompany', {
+                                required: true,
+                                minLength: {
+                                    value: 4,
+                                    message: 'Введите корректные данные',
+                                },
+                            })}
                         />
+                        {errors?.registrationCompany && (
+                            <div className="error-message">
+                                {errors?.registrationCompany?.message ||
+                                    'Введите корректные данные'}
+                            </div>
+                        )}
                     </div>
 
                     <div>
@@ -137,10 +182,26 @@ function FormSdc(props) {
                             autoComplete="off"
                             type="text"
                             required
-                            onChange={onChange}
+                            {...register('area', {
+                                required: true,
+                                minLength: {
+                                    value: 4,
+                                    message: 'Введите корректные данные',
+                                },
+                            })}
                         />
+                        {errors?.area && (
+                            <div className="error-message">
+                                {errors?.area?.message ||
+                                    'Введите корректные данные'}
+                            </div>
+                        )}
                     </div>
-                    <button className="btn__login" type="submit">
+                    <button
+                        className="btn__login"
+                        type="submit"
+                        //     disabled={!isValid}
+                    >
                         Отправить
                     </button>
                 </div>
