@@ -75,7 +75,7 @@ function FormSdc(props) {
                             onChange={onChange}
                         />
                     </div>
-                    <div>
+                    {/* <div>
                         <FileUploadInput
                             multiple
                             extensions={['.jpg', '.png']}
@@ -83,7 +83,7 @@ function FormSdc(props) {
                             onChange={onChange}
                         />
                         <div>Hello</div>
-                    </div>
+                    </div> */}
                     <div>
                         <p>Сокращенное наименование </p>
                         <input

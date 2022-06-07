@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import $api from '../../../http';
+import { correctlyDate } from '../../../helpers/utils';
 
 const headersAxios = {
     headers: {
@@ -11,11 +12,15 @@ const headersAxios = {
 export const getCurrentProposalSdc = createAsyncThunk(
     'view/getCurrentRequestSdc',
     async (cardId, dispatch) => {
-        let result = await $api.get(
+        const result = await $api.get(
             `/request/request_sdc_standard_certification/${cardId}`
         );
-        console.log(result, 'resultView');
-        return result.data.data?.requestSdcStandardCertification;
+        const value = result.data.data?.requestSdcStandardCertification;
+
+        return {
+            ...value,
+            registration_date: correctlyDate(value.registration_date),
+        };
     }
 );
 
