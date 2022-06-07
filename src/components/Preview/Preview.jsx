@@ -56,7 +56,7 @@ function PreviewCardSdc(props) {
             <div className="card__body">
                 {cardData.map((field) => {
                     return (
-                        <div key={field.id}>
+                        <div className="card__field" key={field.id}>
                             <strong>{field.title}</strong>
                             <div className="text__current-card">
                                 {field.value}

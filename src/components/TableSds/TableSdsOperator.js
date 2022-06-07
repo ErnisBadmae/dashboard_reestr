@@ -58,7 +58,7 @@ export const TableSdsOperator = (props) => {
             <Content style={{ padding: '0 40px' }}>
                 <div className="buttons__request">
                     {checkRequest ? (
-                        message
+                        <div className="check-error"> {message} </div>
                     ) : (
                         <ButtonRegistry
                             text="Добавить заявку"

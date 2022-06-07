@@ -15,7 +15,10 @@
     display: grid;
     grid-template-columns: 2fr 1fr;
     padding: 10px 0;
-    border-top: 1px solid gray;
+    border-top: 2px solid #f5f5f5;
+    &:first-child {
+        border: none;
+    }
 }
 
 .card__title {
@@ -122,5 +125,5 @@
     justify-content: flex-start;
     margin-left: 35vmin;
     padding: 15px;
-    font-size: x-large;
+    font-size: 400;
 }
