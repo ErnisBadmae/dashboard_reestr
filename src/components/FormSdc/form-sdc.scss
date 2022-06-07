@@ -18,3 +18,32 @@
     color: red;
     font-size: small;
 }
+
+.declaration__form__request {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+}
+
+.declaration__buttons {
+    grid-column: 1/3;
+    display: flex;
+    justify-content: space-between;
+    width: 30%;
+}
+.card__edit__input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.card__edit__input .card__edit__input__element {
+    width: 90%;
+    
+}
+
+.current__input {
+    &.date {
+        width: 100%;
+    }
+}

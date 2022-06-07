@@ -59,13 +59,13 @@ function ProposalCard(props) {
 
     return (
         <>
-            <div className="card__title">
-                <strong>{currentProposalSdc?.full_name}</strong>
-            </div>
             <div className="card__body">
+                <div className="card__title">
+                    <strong>Заявление</strong>
+                </div>
                 {cardData.map((field) => {
                     return (
-                        <div key={field.id}>
+                        <div className="card__field" key={field.id}>
                             <div className="strong-title">{field.title}</div>
 
                             <div className="text__current-card">

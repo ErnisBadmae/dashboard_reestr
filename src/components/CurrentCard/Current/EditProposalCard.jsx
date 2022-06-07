@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 // import Test from '../../../pages/test/test';
 import { useForm } from 'react-hook-form';
 import { getCurrentProposalSdc } from '../../../store/proposal/actions';
@@ -9,6 +9,7 @@ import { getCurrentProposalSdc } from '../../../store/proposal/actions';
 import '../card-item.scss';
 
 function EditProposalCard(props) {
+    const navigate = useNavigate();
     const { register, handleSubmit, reset } = useForm();
     const [isEditSuccess, setIsEditSuccess] = useState(false);
     const [message, setMessage] = useState('');
@@ -89,14 +90,18 @@ function EditProposalCard(props) {
     ) : (
         <div className="card-container">
             <div className="card">
-                <div className="card__title">
-                    <strong>{currentProposalSdc?.full_name}</strong>
+                <div className="edit__card-title">
+                    <strong>
+                        Редактирование заявления {currentProposalSdc?.full_name}
+                    </strong>
                 </div>
                 <form className="edit-form" onSubmit={handleSubmit(onSubmit)}>
                     {cardData.map((field) => {
                         return (
-                            <div key={field.id}>
-                                <strong>{field.title}</strong>
+                            <div className="edit__current-input" key={field.id}>
+                                <div className="edit__title-input">
+                                    {field.title}
+                                </div>
                                 <br />
                                 <input
                                     className="current__input"
@@ -109,9 +114,22 @@ function EditProposalCard(props) {
                         );
                     })}
 
-                    <button className="btn-submit" type="submit">
-                        Сохранить
-                    </button>
+                    <div className="edit__card-buttons">
+                        <button
+                            className="btn__login edit__btn"
+                            //     disabled={!isValid}
+                            onClick={() => navigate(-1)}
+                        >
+                            Отменить
+                        </button>
+                        <button
+                            className="btn__login edit__btn"
+                            type="submit"
+                            //     disabled={!isValid}
+                        >
+                            Отправить
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

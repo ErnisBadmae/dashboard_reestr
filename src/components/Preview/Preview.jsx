@@ -13,7 +13,7 @@ function PreviewCardSdc(props) {
     const dispatch = useDispatch();
     const { id } = useParams();
 
-    const { currentProposalSdc } = useSelector((state) => state.proposal);
+    const { previewProposalSdc } = useSelector((state) => state.proposal);
 
     useEffect(() => {
         dispatch(getPreviewCurrentProposalSdc(id));
@@ -23,25 +23,25 @@ function PreviewCardSdc(props) {
         {
             id: 1,
             title: 'Дата создания',
-            value: currentProposalSdc?.dttm_created,
+            value: previewProposalSdc?.dttm_created,
             name: 'dttm_created',
         },
         {
             id: 2,
-            title: 'Дата обновления номер',
-            value: currentProposalSdc?.dttm_updated,
+            title: 'Дата обновления',
+            value: previewProposalSdc?.dttm_updated,
             name: 'dttm_updated',
         },
         {
             id: 3,
-            title: 'Дата принятия решени',
-            value: currentProposalSdc?.dttm_desicion,
+            title: 'Дата принятия решения',
+            value: previewProposalSdc?.dttm_desicion,
             name: 'dttm_desicion',
         },
         {
             id: 4,
-            title: 'status',
-            value: currentProposalSdc?.status?.title,
+            title: 'Статус заявления',
+            value: previewProposalSdc?.status?.title,
             name: 'status',
         },
     ];
@@ -51,25 +51,24 @@ function PreviewCardSdc(props) {
         //   <div className="card">
         <>
             <div className="card__title">
-                <strong>{currentProposalSdc?.full_name}</strong>
+                <strong>Заявление СДС</strong>
             </div>
             <div className="card__body">
                 {cardData.map((field) => {
                     return (
                         <div key={field.id}>
                             <strong>{field.title}</strong>
-
                             <div className="text__current-card">
                                 {field.value}
                             </div>
                         </div>
                     );
                 })}
-                <Collapse accordion>
+                {/* <Collapse accordion>
                     <Panel header="Смотреть подробнее" key="1" bordered={false}>
                         <p>{<EditProposalCurrentSdc />}</p>
                     </Panel>
-                </Collapse>
+                </Collapse> */}
             </div>
             {/* </div> */}
         </>

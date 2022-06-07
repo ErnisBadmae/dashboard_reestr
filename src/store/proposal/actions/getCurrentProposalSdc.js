@@ -11,12 +11,12 @@ const headersAxios = {
 //получение текущей заявки
 export const getCurrentProposalSdc = createAsyncThunk(
     'view/getCurrentRequestSdc',
-    async (cardId, dispatch) => {
+    async (cardId) => {
         const result = await $api.get(
             `/request/request_sdc_standard_certification/${cardId}`
         );
         const value = result.data.data?.requestSdcStandardCertification;
-
+        console.log(value, 'current proposal request');
         return {
             ...value,
             registration_date: correctlyDate(value.registration_date),
@@ -26,7 +26,7 @@ export const getCurrentProposalSdc = createAsyncThunk(
 
 //препросмотр текущей карточки СДС
 export const getPreviewCurrentProposalSdc = createAsyncThunk(
-    'view/getCurrentRequestSdc',
+    'view/getPreviewCurrentRequestSdc',
     async (cardId, dispatch) => {
         let result = await $api.get(
             `request/request_sdc_standard_certification/get_request_sdc_header/${cardId}`

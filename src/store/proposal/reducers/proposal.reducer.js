@@ -15,6 +15,10 @@ import {
     setProposalSdcFail,
     setProposalSdcRequest,
     setProposalSdcSuccess,
+    //превью
+    setPreviewProposalSdcFail,
+    setPreviewProposalSdcRequest,
+    setPreviewProposalSdcSuccess,
 } from './viewCurrent';
 
 import {
@@ -26,6 +30,7 @@ import {
 const initialState = {
     proposalSdcList: [],
     currentProposalSdc: {},
+    previewProposalSdc: {},
 };
 
 // export const editState = createSlice({
@@ -48,14 +53,17 @@ export const proposalReducer = createReducer(initialState, {
     [getProposalSdcList.rejected.toString()]: getRequestsSdsProposalFail,
 
     //получение информации о конкретной заявке оператору СДС(holders?)
-    [getCurrentProposalSdc.pending.toString()]: viewSdcProposalRequest,
-    [getCurrentProposalSdc.fulfilled.toString()]: viewSdcProposalSuccess,
-    [getCurrentProposalSdc.rejected.toString()]: viewSdcProposalFail,
+    [getCurrentProposalSdc.pending.toString()]: setProposalSdcRequest,
+    [getCurrentProposalSdc.fulfilled.toString()]: setProposalSdcSuccess,
+    [getCurrentProposalSdc.rejected.toString()]: setProposalSdcFail,
 
     //получение краткой информации о заявке
-    [getPreviewCurrentProposalSdc.pending.toString()]: viewSdcProposalRequest,
-    [getPreviewCurrentProposalSdc.fulfilled.toString()]: viewSdcProposalSuccess,
-    [getPreviewCurrentProposalSdc.rejected.toString()]: viewSdcProposalFail,
+    [getPreviewCurrentProposalSdc.pending.toString()]:
+        setPreviewProposalSdcRequest,
+    [getPreviewCurrentProposalSdc.fulfilled.toString()]:
+        setPreviewProposalSdcSuccess,
+    [getPreviewCurrentProposalSdc.rejected.toString()]:
+        setPreviewProposalSdcFail,
 
     //получение информации о конкретной заявке оператору СДС(holders?)
     [postSdcRequest.pending.toString()]: setProposalSdcRequest,
