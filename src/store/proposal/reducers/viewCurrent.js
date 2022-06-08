@@ -12,17 +12,17 @@
 // };
 
 //Функции внесения изменнных данных по заявке СДС
-export const setProposalSdcRequest = (state, action) => {
-    return { ...state, loading: true };
-};
+// export const setProposalSdcRequest = (state, action) => {
+//     return { ...state, loading: true };
+// };
 
-export const setProposalSdcSuccess = (state, action) => {
-    return { ...state, loading: false, currentProposalSdc: action.payload };
-};
+// export const setProposalSdcSuccess = (state, action) => {
+//     return { ...state, loading: false, currentProposalSdc: action.payload };
+// };
 
-export const setProposalSdcFail = (state, action) => {
-    return { ...state, loading: false };
-};
+// export const setProposalSdcFail = (state, action) => {
+//     return { ...state, loading: false };
+// };
 
 //Функции внесения изменнных данных по заявке СДС
 export const setPreviewProposalSdcRequest = (state, action) => {
@@ -38,6 +38,6 @@ export const setPreviewProposalSdcFail = (state, action) => {
 };
 
 //редактирование
-export const editProposalCurrent = (state, action) => {
-    return { ...state, currentProposalSdc: action.payload };
-};
+// export const editProposalCurrent = (state, action) => {
+//     return { ...state, currentProposalSdc: action.payload };
+// };

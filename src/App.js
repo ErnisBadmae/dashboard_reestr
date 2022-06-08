@@ -80,6 +80,11 @@ function App() {
                                 element={<ProposalSdc />}
                             />
                             <Route
+                                path="/current-proposal"
+                                element={<ProposalSdc />}
+                            />
+
+                            <Route
                                 path="/new-request-sdc"
                                 element={<FormSdc />}
                             />

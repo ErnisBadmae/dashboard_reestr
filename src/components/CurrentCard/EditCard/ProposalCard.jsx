@@ -12,7 +12,7 @@ function ProposalCard(props) {
     const dispatch = useDispatch();
     const { id } = useParams();
 
-    const { currentProposalSdc } = useSelector((state) => state.proposal);
+    const { currentProposalSdc } = useSelector((state) => state.proposalTest);
 
     useEffect(() => {
         dispatch(getCurrentProposalSdc(id));

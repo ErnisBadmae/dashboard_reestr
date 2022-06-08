@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-// import Test from '../../../pages/test/test';
 import { useForm } from 'react-hook-form';
 import { getCurrentProposalSdc } from '../../../store/proposal/actions';
-// import { editProposalCurrent } from '../../../store/proposal/reducers/viewCurrent';
+import { editProposalCurrent } from '../../../store/proposal/proposalSlice';
 
 import '../card-item.scss';
 
@@ -17,21 +16,31 @@ function EditProposalCard(props) {
     const dispatch = useDispatch();
     const { id } = useParams();
 
-    const { currentProposalSdc } = useSelector((state) => state.proposal);
+    const { currentProposalSdc } = useSelector((state) => state.proposalTest);
 
     useEffect(() => {
         dispatch(getCurrentProposalSdc(id));
     }, [id, dispatch, message]);
 
-    if (!currentProposalSdc) return <></>;
+    if (!currentProposalSdc) return null;
 
     const onSubmit = async (data) => {
-        console.log(data, 'body');
+        const body = {
+            full_name: data.full_name,
+            short_name: data.short_name,
+            registration_number: data.registration_number,
+            registration_date: data.registration_date,
+            registration_company: data.registration_company,
+            site: data.site,
+            area: data.area,
+            logo: data.logo,
+        };
 
         const res = await fetch(
             `/request/request_sdc_standard_certification/edit/${id}`,
             {
                 method: 'PATCH',
+                body: JSON.stringify(body),
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -42,8 +51,8 @@ function EditProposalCard(props) {
             setMessage('Ошибка! Редактирование заявки запрещено.');
             setIsEditSuccess(true);
         }
-
-        //  dispatch(editProposalCurrent(res));
+        console.log(res, 'resresresres');
+        //    dispatch(editProposalCurrent(res));
     };
 
     const cardData = [
@@ -86,7 +95,18 @@ function EditProposalCard(props) {
     ];
 
     return isEditSuccess ? (
-        <div className="message__error">{message}</div>
+        <>
+            <div className="message__error">{message}</div>
+            <div className="edit__card-buttons">
+                <button
+                    className="btn__login edit__btn"
+                    //     disabled={!isValid}
+                    onClick={() => navigate('/')}
+                >
+                    На главную
+                </button>
+            </div>
+        </>
     ) : (
         <div className="card-container">
             <div className="card">

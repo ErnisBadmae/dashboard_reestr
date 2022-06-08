@@ -1,9 +1,10 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 // import axios from 'axios';
 
 import '../../pages/register/registr.scss';
 import { postSdcRequest } from '../../store/proposal/actions';
+// import { createSdcProposal } from '../../store/proposal/proposalSlice';
 import { useNavigate } from 'react-router-dom';
 import { FileUploadInput } from '../FileUploadInput/FileUploadInput';
 import { useForm, Controller } from 'react-hook-form';
@@ -27,7 +28,6 @@ function FormSdc(props) {
     } = useForm();
 
     const dispatch = useDispatch();
-    const { id } = useSelector((state) => state.proposal.currentProposalSdc);
 
     const formHandler = (data) => {
         const declarationSdsData = {
@@ -37,14 +37,13 @@ function FormSdc(props) {
             registrationDate: data.registrationDate.toLocaleDateString('en-CA'),
             registrationCompany: data.registrationCompany,
             area: data.area,
-
-            //   myFile,
+            myFile: data.myFile,
         };
         //    console.log(declarationSdsData, 'declarationSdsData');
-        dispatch(postSdcRequest(declarationSdsData));
-        setTimeout(() => {
-            navigate(`/request_sdc/${id}`);
-        }, 500);
+        dispatch(postSdcRequest(declarationSdsData))
+            .unwrap()
+            .then(({ id }) => navigate(`/request_sdc/${id}`));
+
         //todo: переделать
     };
 
@@ -77,15 +76,16 @@ function FormSdc(props) {
                         })}
                     />
                 </div>
-                {/* <div>
-                        <FileUploadInput
-                            multiple
-                            extensions={['.jpg', '.png']}
-                            name={'myFile'}
-                            onChange={onChange}
-                        />
-                        <div>Hello</div>
-                    </div> */}
+                <div>
+                    <FileUploadInput
+                        className="current__input card__edit__input__element"
+                        multiple
+                        extensions={['.jpg', '.png']}
+                        name="myFile"
+                        id="myFile"
+                    />
+                    <div>Hello</div>
+                </div>
                 <div className="card__edit__input">
                     {errors?.shortName && (
                         <div className="error-message">

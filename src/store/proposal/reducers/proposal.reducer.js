@@ -1,20 +1,20 @@
 import { createReducer } from '@reduxjs/toolkit';
 // import { createSlice } from '@reduxjs/toolkit';
 import {
-    getCurrentProposalSdc,
+    //     getCurrentProposalSdc,
+    //     postSdcRequest,
     getProposalSdcList,
-    postSdcRequest,
     getPreviewCurrentProposalSdc,
 } from '../../proposal/actions';
 
 import {
     //получение объекта - заявка на вступление СДС
-    viewSdcProposalFail,
-    viewSdcProposalRequest,
-    viewSdcProposalSuccess,
-    setProposalSdcFail,
-    setProposalSdcRequest,
-    setProposalSdcSuccess,
+    //     viewSdcProposalFail,
+    //     viewSdcProposalRequest,
+    //     viewSdcProposalSuccess,
+    //     setProposalSdcFail,
+    //     setProposalSdcRequest,
+    //     setProposalSdcSuccess,
     //превью
     setPreviewProposalSdcFail,
     setPreviewProposalSdcRequest,
@@ -22,6 +22,7 @@ import {
 } from './viewCurrent';
 
 import {
+    //списки заявок СДС
     getRequestsSdsProposalFail,
     getRequestsSdsProposalRequest,
     getRequestsSdsProposalSuccess,
@@ -29,33 +30,15 @@ import {
 
 const initialState = {
     proposalSdcList: [],
-    currentProposalSdc: {},
     previewProposalSdc: {},
+    //     currentProposalSdc: {},
 };
-
-// export const editState = createSlice({
-//     name: 'editProposalSdc',
-//     initialState,
-//     reducers: {
-//         editProposalCurrent: (state, action) => {
-//             state.currentProposalSdc = action.payload;
-//         },
-//     },
-// });
-
-// export const { editProposalCurrent } = editState.actions;
-// export default editState.reducer;
 
 export const proposalReducer = createReducer(initialState, {
     //получение знанчений для списка заявок СДС-holders
     [getProposalSdcList.pending.toString()]: getRequestsSdsProposalRequest,
     [getProposalSdcList.fulfilled.toString()]: getRequestsSdsProposalSuccess,
     [getProposalSdcList.rejected.toString()]: getRequestsSdsProposalFail,
-
-    //получение информации о конкретной заявке оператору СДС(holders?)
-    [getCurrentProposalSdc.pending.toString()]: setProposalSdcRequest,
-    [getCurrentProposalSdc.fulfilled.toString()]: setProposalSdcSuccess,
-    [getCurrentProposalSdc.rejected.toString()]: setProposalSdcFail,
 
     //получение краткой информации о заявке
     [getPreviewCurrentProposalSdc.pending.toString()]:
@@ -66,9 +49,13 @@ export const proposalReducer = createReducer(initialState, {
         setPreviewProposalSdcFail,
 
     //получение информации о конкретной заявке оператору СДС(holders?)
-    [postSdcRequest.pending.toString()]: setProposalSdcRequest,
-    [postSdcRequest.fulfilled.toString()]: setProposalSdcSuccess,
-    [postSdcRequest.rejected.toString()]: setProposalSdcFail,
+    //     [getCurrentProposalSdc.pending.toString()]: setProposalSdcRequest,
+    //     [getCurrentProposalSdc.fulfilled.toString()]: setProposalSdcSuccess,
+    //     [getCurrentProposalSdc.rejected.toString()]: setProposalSdcFail,
+    //получение информации о конкретной заявке оператору СДС(holders?)
+    //     [postSdcRequest.pending.toString()]: setProposalSdcRequest,
+    //     [postSdcRequest.fulfilled.toString()]: setProposalSdcSuccess,
+    //     [postSdcRequest.rejected.toString()]: setProposalSdcFail,
 
     //обновление стэйта
 });

@@ -8,6 +8,32 @@ const headersAxios = {
     },
 };
 
+//создание заявки
+export const postSdcRequest = createAsyncThunk(
+    'requestSdc/post',
+    async (payload) => {
+        let result = await $api.post(
+            '/request/request_sdc_standard_certification/add',
+            payload,
+            headersAxios
+        );
+        console.log(result, 'postSdcRequest');
+        return result.data.data.requestSdcStandardCertification;
+    }
+);
+
+//препросмотр текущей карточки СДС
+export const getPreviewCurrentProposalSdc = createAsyncThunk(
+    'preview/getPreviewCurrentRequestSdc',
+    async (cardId) => {
+        let result = await $api.get(
+            `request/request_sdc_standard_certification/get_request_sdc_header/${cardId}`
+        );
+        console.log(result, 'resultPreview');
+        return result.data.data?.requestSdcHeader;
+    }
+);
+
 //получение текущей заявки
 export const getCurrentProposalSdc = createAsyncThunk(
     'view/getCurrentRequestSdc',
@@ -24,33 +50,9 @@ export const getCurrentProposalSdc = createAsyncThunk(
     }
 );
 
-//препросмотр текущей карточки СДС
-export const getPreviewCurrentProposalSdc = createAsyncThunk(
-    'view/getPreviewCurrentRequestSdc',
-    async (cardId, dispatch) => {
-        let result = await $api.get(
-            `request/request_sdc_standard_certification/get_request_sdc_header/${cardId}`
-        );
-        console.log(result, 'resultPreview');
-        return result.data.data?.requestSdcHeader;
-    }
-);
-
-export const postSdcRequest = createAsyncThunk(
-    'requestSdc/post',
-    async (payload) => {
-        let result = await $api.post(
-            '/request/request_sdc_standard_certification/add',
-            payload,
-            headersAxios
-        );
-
-        return result.data.data.requestSdcStandardCertification;
-    }
-);
-
+//изменение заявки
 export const changeProposal = createAsyncThunk(
-    'changeProposal/post',
+    'changeProposal/edit',
     async (id, payload) => {
         let result = await $api.post(
             `/request/request_sdc_standard_certification/edit/${id}`,
