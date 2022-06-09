@@ -16,6 +16,7 @@ const RequireAuth = (props) => {
             '/new-request-sdc',
             `/edit-card/${id}`,
             '/current-proposal',
+            '/declaration',
         ],
     };
 

@@ -30,7 +30,13 @@ export const getPreviewCurrentProposalSdc = createAsyncThunk(
             `request/request_sdc_standard_certification/get_request_sdc_header/${cardId}`
         );
         console.log(result, 'resultPreview');
-        return result.data.data?.requestSdcHeader;
+        const value = result.data.data?.requestSdcHeader;
+        return {
+            ...value,
+            dttm_created: correctlyDate(value.dttm_created),
+            dttm_updated: correctlyDate(value.dttm_updated),
+            dttm_desicion: correctlyDate(value.dttm_desicion),
+        };
     }
 );
 
@@ -60,6 +66,19 @@ export const changeProposal = createAsyncThunk(
             headersAxios
         );
 
+        return result;
+    }
+);
+
+export const postDeclarationHolder = createAsyncThunk(
+    'declaration/post',
+    async (id, payload) => {
+        let result = await $api.post(
+            `/request/request_sdc_standard_certification_holder/add/${id}`,
+            payload,
+            headersAxios
+        );
+        console.log(result, 'resultfrompostDeclar');
         return result;
     }
 );

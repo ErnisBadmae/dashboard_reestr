@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 // import { Collapse } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 // import EditProposalCurrentSdc from '../CurrentCard/EditCard/ProposalCard';
 import { getPreviewCurrentProposalSdc } from '../../store/proposal/actions';
 
@@ -15,7 +15,7 @@ function PreviewCardSdc(props) {
     const { id } = useSelector(
         (state) => state.proposalTest.currentProposalSdc
     );
-    const { previewProposalSdc } = useSelector((state) => state.proposal);
+    const { previewProposalSdc } = useSelector((state) => state.proposalTest);
 
     useEffect(() => {
         dispatch(getPreviewCurrentProposalSdc(id));

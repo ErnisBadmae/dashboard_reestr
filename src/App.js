@@ -54,23 +54,17 @@ function App() {
 
                         <Route
                             element={
-                                <RequireAuth allowedRoles={'user_admin'} />
+                                <RequireAuth
+                                    allowedRoles={['user_sdc', 'user_admin']}
+                                />
                             }
                         >
-                            <Route
-                                path="/declarations"
-                                element={<TableSds />}
-                            />
-                            <Route
-                                path="/declaration/:id"
-                                element={<CurrentCard />}
-                            />
-                        </Route>
-
-                        <Route
-                            element={<RequireAuth allowedRoles={'user_sdc'} />}
-                        >
                             {/* <Route element={<TableWrapper />}> */}
+
+                            <Route
+                                path="/new-request-sdc"
+                                element={<FormSdc />}
+                            />
                             <Route
                                 path="/requests_sdc"
                                 element={<TableSdsOperator />}
@@ -80,17 +74,12 @@ function App() {
                                 element={<ProposalSdc />}
                             />
                             <Route
-                                path="/current-proposal"
-                                element={<ProposalSdc />}
-                            />
-
-                            <Route
-                                path="/new-request-sdc"
-                                element={<FormSdc />}
-                            />
-                            <Route
                                 path="/edit-card/:id"
                                 element={<EditProposalCard />}
+                            />
+                            <Route
+                                path="/declaration"
+                                element={<Declaration />}
                             />
                         </Route>
                         <Route path="*" element={<NotFound />} />

@@ -4,22 +4,21 @@ import {
     //     getCurrentProposalSdc,
     //     postSdcRequest,
     getProposalSdcList,
-    getPreviewCurrentProposalSdc,
+    //     getPreviewCurrentProposalSdc,
 } from '../../proposal/actions';
 
-import {
-    //получение объекта - заявка на вступление СДС
-    //     viewSdcProposalFail,
-    //     viewSdcProposalRequest,
-    //     viewSdcProposalSuccess,
-    //     setProposalSdcFail,
-    //     setProposalSdcRequest,
-    //     setProposalSdcSuccess,
-    //превью
-    setPreviewProposalSdcFail,
-    setPreviewProposalSdcRequest,
-    setPreviewProposalSdcSuccess,
-} from './viewCurrent';
+import //получение объекта - заявка на вступление СДС
+//     viewSdcProposalFail,
+//     viewSdcProposalRequest,
+//     viewSdcProposalSuccess,
+//     setProposalSdcFail,
+//     setProposalSdcRequest,
+//     setProposalSdcSuccess,
+//превью
+//     setPreviewProposalSdcFail,
+//     setPreviewProposalSdcRequest,
+//     setPreviewProposalSdcSuccess,
+'./viewCurrent';
 
 import {
     //списки заявок СДС
@@ -30,7 +29,7 @@ import {
 
 const initialState = {
     proposalSdcList: [],
-    previewProposalSdc: {},
+    //     previewProposalSdc: {},
     //     currentProposalSdc: {},
 };
 
@@ -41,12 +40,12 @@ export const proposalReducer = createReducer(initialState, {
     [getProposalSdcList.rejected.toString()]: getRequestsSdsProposalFail,
 
     //получение краткой информации о заявке
-    [getPreviewCurrentProposalSdc.pending.toString()]:
-        setPreviewProposalSdcRequest,
-    [getPreviewCurrentProposalSdc.fulfilled.toString()]:
-        setPreviewProposalSdcSuccess,
-    [getPreviewCurrentProposalSdc.rejected.toString()]:
-        setPreviewProposalSdcFail,
+    //     [getPreviewCurrentProposalSdc.pending.toString()]:
+    //         setPreviewProposalSdcRequest,
+    //     [getPreviewCurrentProposalSdc.fulfilled.toString()]:
+    //         setPreviewProposalSdcSuccess,
+    //     [getPreviewCurrentProposalSdc.rejected.toString()]:
+    //         setPreviewProposalSdcFail,
 
     //получение информации о конкретной заявке оператору СДС(holders?)
     //     [getCurrentProposalSdc.pending.toString()]: setProposalSdcRequest,

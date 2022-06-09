@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getCurrentProposalSdc } from '../../../store/proposal/actions';
 import { ButtonRegistry } from '../../Buttons/button-registry/button-registry';
+import Holder from '../../Holders/Holder';
 
 import '../card-item.scss';
 
@@ -39,7 +40,7 @@ function ProposalCard(props) {
         },
         {
             id: 4,
-            title: 'registration_company',
+            title: 'Держатель',
             value: currentProposalSdc?.registration_company,
             name: 'registration_company',
         },
@@ -51,7 +52,7 @@ function ProposalCard(props) {
         },
         {
             id: 6,
-            title: 'Область',
+            title: 'Область распространения',
             value: currentProposalSdc?.area,
             name: 'area',
         },
@@ -76,9 +77,12 @@ function ProposalCard(props) {
                 })}
                 <div className="btn__edit">
                     <ButtonRegistry
-                        text={'Редактировать заявку'}
+                        text={'Редактировать СДС'}
                         onClick={() => navigate(`/edit-card/${id}`)}
                     />
+                </div>
+                <div className="card__field">
+                    <Holder />
                 </div>
             </div>
         </>

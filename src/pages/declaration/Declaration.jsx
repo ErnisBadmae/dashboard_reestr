@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 // import axios from 'axios';
 import '../register/registr.scss';
-import { postDeclarations } from '../../store/entries/actions';
+import { postDeclarationHolder } from '../../store/proposal/actions';
 import './declaration.scss';
-import { FileUploadInput } from '../../components/FileUploadInput/FileUploadInput';
+// import { FileUploadInput } from '../../components/FileUploadInput/FileUploadInput';
 
 function Declaration(props) {
     const dispatch = useDispatch();
@@ -24,7 +24,7 @@ function Declaration(props) {
         phone: '',
         email: '',
         site: '',
-        myFile: null,
+        //    myFile: null,
     });
 
     const {
@@ -42,7 +42,7 @@ function Declaration(props) {
         site,
         phone,
         email,
-        myFile,
+        //    myFile,
     } = formData;
 
     const onChange = (e) => {
@@ -71,7 +71,7 @@ function Declaration(props) {
             email,
             site,
         };
-        dispatch(postDeclarations(declarationSdsData));
+        dispatch(postDeclarationHolder(declarationSdsData));
     };
 
     return (
