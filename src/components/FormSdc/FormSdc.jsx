@@ -1,17 +1,13 @@
-// import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-// import axios from 'axios';
+import { useDispatch } from 'react-redux';
 
-import '../../pages/register/registr.scss';
 import { postSdcRequest } from '../../store/proposal/actions';
-// import { createSdcProposal } from '../../store/proposal/proposalSlice';
 import { useNavigate } from 'react-router-dom';
-import { FileUploadInput } from '../FileUploadInput/FileUploadInput';
+// import { FileUploadInput } from '../FileUploadInput/FileUploadInput';
 import { useForm, Controller } from 'react-hook-form';
 import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
+import ru from 'date-fns/locale/ru';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import ru from 'date-fns/locale/ru';
 import './form-sdc.scss';
 
 registerLocale('ru', ru);
@@ -39,12 +35,10 @@ function FormSdc(props) {
             area: data.area,
             myFile: data.myFile,
         };
-        //    console.log(declarationSdsData, 'declarationSdsData');
+
         dispatch(postSdcRequest(declarationSdsData))
             .unwrap()
             .then(({ id }) => navigate(`/request_sdc/${id}`));
-
-        //todo: переделать
     };
 
     return (
@@ -55,13 +49,7 @@ function FormSdc(props) {
                 className="declaration__form__request"
             >
                 <div className="card__edit__input">
-                    {errors?.fullName && (
-                        <div className="error-message">
-                            {errors?.fullName?.message ||
-                                'Полное наименование должно быть на кириллице'}
-                        </div>
-                    )}
-                    <p>Полное наименование </p>
+                    <p className="input__title">Полное наименование </p>
                     <input
                         className="current__input card__edit__input__element"
                         autoComplete="off"
@@ -70,13 +58,22 @@ function FormSdc(props) {
                         required
                         autoFocus
                         id="fullName"
+                        style={
+                            !errors?.fullName ? {} : { border: '1px solid red' }
+                        }
                         {...register('fullName', {
                             required: true,
                             pattern: /[а-яА-ЯёЁ]/,
                         })}
                     />
+                    {errors?.fullName && (
+                        <div className="error-message">
+                            {errors?.fullName?.message ||
+                                'Полное наименование должно быть на кириллице'}
+                        </div>
+                    )}
                 </div>
-                <div>
+                {/* <div>
                     <FileUploadInput
                         className="current__input card__edit__input__element"
                         multiple
@@ -85,41 +82,45 @@ function FormSdc(props) {
                         id="myFile"
                     />
                     <div>Hello</div>
-                </div>
+                </div> */}
                 <div className="card__edit__input">
-                    {errors?.shortName && (
-                        <div className="error-message">
-                            {errors?.shortName?.message ||
-                                'Сокращенное наименование должно быть на кириллице'}
-                        </div>
-                    )}
-                    <p>Сокращенное наименование </p>
+                    <p className="input__title">Сокращенное наименование </p>
                     <input
                         className="current__input card__edit__input__element"
                         name="shortName"
                         autoComplete="off"
                         type="text"
                         required
+                        style={
+                            !errors?.shortName
+                                ? {}
+                                : { border: '1px solid red' }
+                        }
                         {...register('shortName', {
                             required: true,
                             pattern: /[а-яА-ЯёЁ]/,
                         })}
                     />
-                </div>
-                <div className="card__edit__input">
-                    {errors?.registrationNumber && (
+                    {errors?.shortName && (
                         <div className="error-message">
-                            {errors?.registrationNumber?.message ||
-                                'Регистрационный номер должен состоять только из цифр'}
+                            {errors?.shortName?.message ||
+                                'Сокращенное наименование должно быть на кириллице'}
                         </div>
                     )}
-                    <p>Регистрационный номер</p>
+                </div>
+                <div className="card__edit__input">
+                    <p className="input__title">Регистрационный номер</p>
                     <input
                         className="current__input card__edit__input__element"
                         name="registrationNumber"
                         autoComplete="off"
                         type="text"
                         required
+                        style={
+                            !errors?.registrationNumber
+                                ? {}
+                                : { border: '1px solid red' }
+                        }
                         {...register('registrationNumber', {
                             required: true,
                             pattern: /^\d+$/,
@@ -130,61 +131,69 @@ function FormSdc(props) {
                             },
                         })}
                     />
+                    {errors?.registrationNumber && (
+                        <div className="error-message">
+                            {errors?.registrationNumber?.message ||
+                                'Регистрационный номер должен состоять только из цифр'}
+                        </div>
+                    )}
                 </div>
                 <div className="card__edit__input">
-                    <p>Дата регистрации</p>
+                    <p className="input__title">Дата регистрации</p>
                     <div className="card__edit__input__element">
                         <Controller
                             control={control}
                             name="registrationDate"
                             render={({ field }) => (
                                 <DatePicker
+                                    dateFormat="dd/MM/yyyy"
                                     className="current__input date"
                                     placeholderText="выберите дату"
                                     onChange={(e) => field.onChange(e)}
                                     selected={field.value}
                                     maxDate={new Date()}
                                     showDisabledMonthNavigation
+                                    required
                                 />
                             )}
                         />
                     </div>
                 </div>
                 <div className="card__edit__input">
-                    {errors?.registrationCompany && (
-                        <div className="error-message">
-                            {errors?.registrationCompany?.message ||
-                                'Введите данные на кириллице'}
-                        </div>
-                    )}
-                    <p>Держатель</p>
+                    <p className="input__title">Держатель</p>
                     <input
                         className="current__input card__edit__input__element"
                         name="registrationCompany"
                         autoComplete="off"
                         type="text"
                         required
+                        style={
+                            !errors?.registrationCompany
+                                ? {}
+                                : { border: '1px solid red' }
+                        }
                         {...register('registrationCompany', {
                             required: true,
                             pattern: /[а-яА-ЯёЁ]/,
                         })}
                     />
-                </div>
-
-                <div className="card__edit__input">
-                    {errors?.area && (
+                    {errors?.registrationCompany && (
                         <div className="error-message">
-                            {errors?.area?.message ||
+                            {errors?.registrationCompany?.message ||
                                 'Введите данные на кириллице'}
                         </div>
                     )}
-                    <p>Область распространения</p>
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Область распространения</p>
                     <input
                         className="current__input card__edit__input__element"
                         name="area"
                         autoComplete="off"
                         type="text"
                         required
+                        style={!errors?.area ? {} : { border: '1px solid red' }}
                         {...register('area', {
                             required: true,
                             pattern: /[а-яА-ЯёЁ]/,
@@ -194,6 +203,12 @@ function FormSdc(props) {
                             },
                         })}
                     />
+                    {errors?.area && (
+                        <div className="error-message">
+                            {errors?.area?.message ||
+                                'Введите данные на кириллице'}
+                        </div>
+                    )}
                 </div>
                 <div className="declaration__buttons">
                     <button

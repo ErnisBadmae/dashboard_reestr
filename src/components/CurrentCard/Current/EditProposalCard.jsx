@@ -5,7 +5,8 @@ import { useForm } from 'react-hook-form';
 import { getCurrentProposalSdc } from '../../../store/proposal/actions';
 import { editProposalCurrent } from '../../../store/proposal/proposalSlice';
 
-import '../card-item.scss';
+// import '../card-item.scss';
+import '../../FormSdc/form-sdc.scss';
 
 function EditProposalCard(props) {
     const navigate = useNavigate();
@@ -115,16 +116,19 @@ function EditProposalCard(props) {
                         Редактирование заявления {currentProposalSdc?.full_name}
                     </strong>
                 </div>
-                <form className="edit-form" onSubmit={handleSubmit(onSubmit)}>
+                <form
+                    className="declaration__form__request"
+                    onSubmit={handleSubmit(onSubmit)}
+                >
                     {cardData.map((field) => {
                         return (
-                            <div className="edit__current-input" key={field.id}>
-                                <div className="edit__title-input">
-                                    {field.title}
-                                </div>
+                            //    <div className="edit__current-input" key={field.id}>
+                            <div className="edit__title-input">
+                                {field.title}
+                                {/* </div> */}
                                 <br />
                                 <input
-                                    className="current__input"
+                                    className="card__edit__input "
                                     defaultValue={field.value}
                                     type="text"
                                     id={field.name}

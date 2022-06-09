@@ -12,17 +12,7 @@ export const currentProposalTest = createSlice({
         isLoading: false,
         isSuccess: false,
     },
-    reducers: {
-        createSdcProposal: (state, action) => {
-            state.currentProposalSdc = action.payload;
-        },
-        getCurrentProposal: (state, action) => {
-            state.currentProposalSdc = action.payload;
-        },
-        editProposalCurrent: (state, action) => {
-            state.currentProposalSdc = action.payload;
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(changeProposal.pending, (state) => {

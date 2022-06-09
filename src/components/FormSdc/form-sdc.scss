@@ -17,6 +17,7 @@
 .error-message {
     color: red;
     font-size: small;
+    padding-left: 5%;
 }
 
 .declaration__form__request {
@@ -26,24 +27,32 @@
 }
 
 .declaration__buttons {
-    grid-column: 1/3;
+    grid-column: 2/3;
     display: flex;
     justify-content: space-between;
     width: 30%;
+    margin-left: 59%;
 }
 .card__edit__input {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
     width: 100%;
+    grid-template-rows: 5px 56px 26px;
 }
 .card__edit__input .card__edit__input__element {
     width: 90%;
-    
+    place-self: center;
+    margin-bottom: 0;
 }
 
 .current__input {
     &.date {
         width: 100%;
+        margin-bottom: 0;
     }
+}
+
+.input__title {
+    margin-bottom: 1px;
+    padding-left: 5%;
+    color: #0f2355;
 }
