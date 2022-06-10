@@ -72,13 +72,14 @@ export const changeProposal = createAsyncThunk(
 
 export const postDeclarationHolder = createAsyncThunk(
     'declaration/post',
-    async (id, payload) => {
-        let result = await $api.post(
-            `/request/request_sdc_standard_certification_holder/add/${id}`,
-            payload,
+    async (payload) => {
+        const result = await $api.post(
+            `/request/request_sdc_standard_certification_holder/add/${payload.id}`,
+            payload.declarationSdsData,
             headersAxios
         );
         console.log(result, 'resultfrompostDeclar');
-        return result;
+        const value = result.data.data.holder;
+        return value;
     }
 );

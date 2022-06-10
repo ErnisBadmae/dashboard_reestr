@@ -6,6 +6,7 @@ import { ButtonRegistry } from '../../Buttons/button-registry/button-registry';
 import Holder from '../../Holders/Holder';
 
 import '../card-item.scss';
+import CurrentHolder from '../CurrentHolder/CurrentHolder';
 
 function ProposalCard(props) {
     const navigate = useNavigate();
@@ -14,6 +15,7 @@ function ProposalCard(props) {
     const { id } = useParams();
 
     const { currentProposalSdc } = useSelector((state) => state.proposalTest);
+    const { holders } = useSelector((state) => state.proposalTest);
 
     useEffect(() => {
         dispatch(getCurrentProposalSdc(id));
@@ -83,6 +85,11 @@ function ProposalCard(props) {
                 </div>
                 <div className="card__field">
                     <Holder />
+                    {Object.keys(holders).length === 0 ? (
+                        <></>
+                    ) : (
+                        <CurrentHolder />
+                    )}
                 </div>
             </div>
         </>

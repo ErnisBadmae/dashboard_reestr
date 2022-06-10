@@ -1,5 +1,5 @@
 import { Table, Layout } from 'antd';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getProposalSdcList } from '../../store/proposal/actions';
@@ -12,6 +12,18 @@ import './table.scss';
 const { Content } = Layout;
 
 export const TableSdsOperator = (props) => {
+    const { totalElements } = useSelector(
+        (state) => state.proposal.proposalSdcList
+    );
+
+    const [pagination, setPagination] = useState({
+        pageSizeOptions: ['5', '10', '20', '40', '60'],
+        showSizeChanger: true,
+        pageSize: 10,
+        total: 30,
+        current: 1,
+    });
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const message =
@@ -19,13 +31,18 @@ export const TableSdsOperator = (props) => {
     const [checkRequest, setCheckRequest] = useState(false);
 
     useEffect(() => {
-        dispatch(getProposalSdcList());
-    }, [dispatch]);
+        dispatch(
+            getProposalSdcList({
+                row_page: pagination.pageSize,
+                page: pagination.current,
+            })
+        );
+    }, [dispatch, pagination]);
 
     const { proposalSdcList } = useSelector((state) => state.proposal);
     //    console.log(proposalSdcList, 'proposalSdc');
 
-    const dataSource = proposalSdcList.map((item) => ({
+    const dataSource = proposalSdcList.data?.map((item) => ({
         ...item,
         //копируем и перезаписываем поля у объектов
         status: item.status.title,
@@ -53,6 +70,14 @@ export const TableSdsOperator = (props) => {
         }
     };
 
+    const handleTableChange = (newPagination) => {
+        setPagination({
+            ...pagination,
+            pageSize: newPagination.pageSize,
+            current: newPagination.current,
+        });
+    };
+
     return (
         <>
             <Content style={{ padding: '0 40px' }}>
@@ -77,6 +102,8 @@ export const TableSdsOperator = (props) => {
                         size="medium"
                         onRow={(record) => relocateToCard(record)}
                         rowKey={(obj) => obj.id}
+                        pagination={pagination}
+                        onChange={handleTableChange}
                     />
                 </div>
             </Content>

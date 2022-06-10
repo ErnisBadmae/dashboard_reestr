@@ -1,14 +1,19 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // import axios from 'axios';
 import '../register/registr.scss';
 import { postDeclarationHolder } from '../../store/proposal/actions';
 import './declaration.scss';
+import { useNavigate } from 'react-router-dom';
 // import { FileUploadInput } from '../../components/FileUploadInput/FileUploadInput';
 
 function Declaration(props) {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
-
+    const { id } = useSelector(
+        (state) => state.proposalTest.currentProposalSdc
+    );
+    console.log(id, 'idDeclara');
     const [formData, setFormData] = useState({
         fullName: '',
         shortName: '',
@@ -71,7 +76,9 @@ function Declaration(props) {
             email,
             site,
         };
-        dispatch(postDeclarationHolder(declarationSdsData));
+        console.log(declarationSdsData, 'declarationSdsData');
+        dispatch(postDeclarationHolder({ id, declarationSdsData }));
+        navigate(-1);
     };
 
     return (
