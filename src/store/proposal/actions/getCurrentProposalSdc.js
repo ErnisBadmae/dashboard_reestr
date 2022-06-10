@@ -89,7 +89,34 @@ export const getHolders = createAsyncThunk('holders/get', async (id) => {
     const result = await $api.post(
         `/request/request_sdc_standard_certification_holder/list/${id}`
     );
-    console.log(result, 'holders/get');
-    const value = result.data.data.data;
+
+    const value = result.data.data.data.map((obj) => {
+        return {
+            ...obj,
+            registration_date: correctlyDate(obj.registration_date),
+            exclusion_date: correctlyDate(obj.exclusion_date),
+        };
+    });
+
     return value;
 });
+
+// const arr = [
+//      {
+//           full_name:"неполное",
+//           short_name:"неполное",
+//           registration_date:"2020-12-31T00:00:00+03:00"
+//      },
+//      {
+//           full_name:"неполное",
+//           short_name:"неполное",
+//           registration_date:"2020-12-31T00:00:00+03:00"
+//      }
+// ]
+
+// const val = arr.map((obj) => {
+//      return {
+//           ...obj,registration_date:"nin"
+//      }
+// } )
+// console.log(val);

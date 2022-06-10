@@ -1,5 +1,4 @@
 import { useDispatch } from 'react-redux';
-
 import { postSdcRequest } from '../../store/proposal/actions';
 import { useNavigate } from 'react-router-dom';
 // import { FileUploadInput } from '../FileUploadInput/FileUploadInput';
@@ -15,6 +14,7 @@ setDefaultLocale('ru');
 
 function FormSdc(props) {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const {
         register,
@@ -22,8 +22,6 @@ function FormSdc(props) {
         formState: { errors },
         handleSubmit,
     } = useForm();
-
-    const dispatch = useDispatch();
 
     const formHandler = (data) => {
         const declarationSdsData = {
@@ -108,6 +106,7 @@ function FormSdc(props) {
                         </div>
                     )}
                 </div>
+
                 <div className="card__edit__input">
                     <p className="input__title">Регистрационный номер</p>
                     <input
@@ -138,6 +137,7 @@ function FormSdc(props) {
                         </div>
                     )}
                 </div>
+
                 <div className="card__edit__input">
                     <p className="input__title">Дата регистрации</p>
                     <div className="card__edit__input__element">
@@ -159,6 +159,7 @@ function FormSdc(props) {
                         />
                     </div>
                 </div>
+
                 <div className="card__edit__input">
                     <p className="input__title">Держатель</p>
                     <input

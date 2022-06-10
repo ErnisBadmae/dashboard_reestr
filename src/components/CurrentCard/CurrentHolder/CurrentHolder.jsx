@@ -1,10 +1,9 @@
-import el from 'date-fns/esm/locale/el/index.js';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+// import { useNavigate, useParams } from 'react-router-dom';
 import { getHolders } from '../../../store/proposal/actions';
-import { ButtonRegistry } from '../../Buttons/button-registry/button-registry';
-import Holder from '../../Holders/Holder';
+// import { ButtonRegistry } from '../../Buttons/button-registry/button-registry';
+// import Holder from '../../Holders/Holder';
 
 import '../card-item.scss';
 
@@ -21,8 +20,10 @@ function CurrentHolder(props) {
     const currentHolder = holders?.reduce((acc, el) => {
         return { ...acc, ...el };
     }, {});
+    //TODO: отрисовать каждый объект
 
     //     console.log(card, 'cardcardcard');
+
     useEffect(() => {
         dispatch(getHolders(id));
     }, [id, dispatch]);
@@ -118,16 +119,21 @@ function CurrentHolder(props) {
     return (
         <>
             {/* <div className="card__body"> */}
+            {holders.length === 0 ? (
+                <></>
+            ) : (
+                cardData.map((field) => {
+                    return (
+                        <div className="card__field" key={field.id}>
+                            <div className="strong-title">{field.title}</div>
 
-            {cardData.map((field) => {
-                return (
-                    <div className="card__field" key={field.id}>
-                        <div className="strong-title">{field.title}</div>
-
-                        <div className="text__current-card">{field.value}</div>
-                    </div>
-                );
-            })}
+                            <div className="text__current-card">
+                                {field.value}
+                            </div>
+                        </div>
+                    );
+                })
+            )}
             {/* <div className="btn__edit">
                     <ButtonRegistry
                         text={'Редактировать держателя'}
