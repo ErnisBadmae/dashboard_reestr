@@ -3,6 +3,7 @@ import {
     postDeclarationHolder,
     getCurrentProposalSdc,
     getPreviewCurrentProposalSdc,
+    getHolders,
     changeProposal,
 } from './actions';
 import { createSlice } from '@reduxjs/toolkit';
@@ -12,11 +13,17 @@ export const currentProposalTest = createSlice({
     initialState: {
         currentProposalSdc: {},
         previewProposalSdc: {},
-        holders: {},
+        holders: [],
         isLoading: false,
         isSuccess: false,
     },
-    reducers: {},
+    reducers: {
+        //     holdersAdded: {
+        //          reducer(state, action){
+        //               state.holders.push(action.payload)
+        //          }
+        //     }
+    },
     extraReducers: (builder) => {
         builder
             .addCase(getPreviewCurrentProposalSdc.pending, (state) => {
@@ -78,6 +85,8 @@ export const currentProposalTest = createSlice({
                 state.message = action.payload;
                 state.currentProposalSdc = null;
             })
+
+            //Держатели
             .addCase(postDeclarationHolder.pending, (state) => {
                 state.isLoading = true;
             })
@@ -87,6 +96,20 @@ export const currentProposalTest = createSlice({
                 state.holders = action.payload;
             })
             .addCase(postDeclarationHolder.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                state.holders = null;
+            })
+            .addCase(getHolders.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getHolders.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.holders = action.payload;
+            })
+            .addCase(getHolders.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;

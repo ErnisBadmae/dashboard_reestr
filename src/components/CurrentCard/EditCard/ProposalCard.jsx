@@ -85,11 +85,11 @@ function ProposalCard(props) {
                 </div>
                 <div className="card__field">
                     <Holder />
-                    {Object.keys(holders).length === 0 ? (
-                        <></>
-                    ) : (
-                        <CurrentHolder />
-                    )}
+                    {/* {Object.keys(holders).length === 0 ? ( */}
+                    <></>
+                    {/* ) : ( */}
+                    <CurrentHolder />
+                    {/* )} */}
                 </div>
             </div>
         </>

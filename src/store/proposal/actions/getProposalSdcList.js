@@ -2,16 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { correctlyDate } from '../../../helpers/utils';
 import $api from '../../../http';
 
-// const headersAxios = {
-//     headers: {
-//         'Content-Type': 'application/json',
-//     },
-// };
-
-// const sizePage = {
-//     row_page: 50,
-// };
-
 export const getProposalSdcList = createAsyncThunk(
     'getRequestSdcCertifHolder/get',
     async (payload) => {

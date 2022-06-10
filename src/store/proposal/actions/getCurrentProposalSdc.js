@@ -70,6 +70,7 @@ export const changeProposal = createAsyncThunk(
     }
 );
 
+//добавление держателя
 export const postDeclarationHolder = createAsyncThunk(
     'declaration/post',
     async (payload) => {
@@ -78,8 +79,17 @@ export const postDeclarationHolder = createAsyncThunk(
             payload.declarationSdsData,
             headersAxios
         );
-        console.log(result, 'resultfrompostDeclar');
+        //    console.log(result, 'resultfrompostDeclar');
         const value = result.data.data.holder;
         return value;
     }
 );
+
+export const getHolders = createAsyncThunk('holders/get', async (id) => {
+    const result = await $api.post(
+        `/request/request_sdc_standard_certification_holder/list/${id}`
+    );
+    console.log(result, 'holders/get');
+    const value = result.data.data.data;
+    return value;
+});
