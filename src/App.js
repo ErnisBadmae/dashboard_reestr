@@ -16,6 +16,7 @@ import { useSelector } from 'react-redux';
 import FormSdc from './components/FormSdc/FormSdc';
 import ProposalSdc from './pages/proposalSdc/proposalSdc';
 import EditProposalCard from './components/CurrentCard/Current/EditProposalCard';
+import FormOsSdc from './components/FormSdc/FormOs';
 
 function App() {
     const navigate = useNavigate();
@@ -80,6 +81,11 @@ function App() {
                             <Route
                                 path="/declaration"
                                 element={<Declaration />}
+                            />
+
+                            <Route
+                                path="/form-os-sdc"
+                                element={<FormOsSdc />}
                             />
                         </Route>
                         <Route path="*" element={<NotFound />} />

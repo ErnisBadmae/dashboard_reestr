@@ -5,6 +5,8 @@ import {
     getPreviewCurrentProposalSdc,
     getHolders,
     changeProposal,
+    postOrganSertificationSdc,
+    getOrganSertifications,
 } from './actions';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -14,6 +16,7 @@ export const currentProposalTest = createSlice({
         currentProposalSdc: {},
         previewProposalSdc: {},
         holders: [],
+        organSertificationSdc: [],
         isLoading: false,
         isSuccess: false,
     },
@@ -26,6 +29,8 @@ export const currentProposalTest = createSlice({
     },
     extraReducers: (builder) => {
         builder
+
+            //Работа с основными заявлениями СДС
             .addCase(getPreviewCurrentProposalSdc.pending, (state) => {
                 state.isLoading = true;
             })
@@ -114,6 +119,37 @@ export const currentProposalTest = createSlice({
                 state.isError = true;
                 state.message = action.payload;
                 state.holders = null;
+            })
+
+            //ОС
+            .addCase(postOrganSertificationSdc.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(postOrganSertificationSdc.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.organSertificationSdc = action.payload;
+            })
+            .addCase(postOrganSertificationSdc.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                state.organSertificationSdc = null;
+            })
+            .addCase(getOrganSertifications.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getOrganSertifications.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                //  console.log(action.payload, 'action payload');
+                state.organSertificationSdc = action.payload;
+            })
+            .addCase(getOrganSertifications.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                state.organSertificationSdc = null;
             });
     },
 });

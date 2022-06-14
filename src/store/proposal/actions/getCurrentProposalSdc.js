@@ -79,17 +79,19 @@ export const postDeclarationHolder = createAsyncThunk(
             payload.declarationSdsData,
             headersAxios
         );
-        //    console.log(result, 'resultfrompostDeclar');
+        console.log(result, 'result declaration/post');
         const value = result.data.data.holder;
         return value;
     }
 );
 
+//получение массива держателей
 export const getHolders = createAsyncThunk('holders/get', async (id) => {
     const result = await $api.post(
         `/request/request_sdc_standard_certification_holder/list/${id}`
     );
 
+    console.log(result, 'result holders/getList');
     const value = result.data.data.data.map((obj) => {
         return {
             ...obj,
@@ -101,22 +103,38 @@ export const getHolders = createAsyncThunk('holders/get', async (id) => {
     return value;
 });
 
-// const arr = [
-//      {
-//           full_name:"неполное",
-//           short_name:"неполное",
-//           registration_date:"2020-12-31T00:00:00+03:00"
-//      },
-//      {
-//           full_name:"неполное",
-//           short_name:"неполное",
-//           registration_date:"2020-12-31T00:00:00+03:00"
-//      }
-// ]
+//добавление ОС СДС
 
-// const val = arr.map((obj) => {
-//      return {
-//           ...obj,registration_date:"nin"
-//      }
-// } )
-// console.log(val);
+export const postOrganSertificationSdc = createAsyncThunk(
+    'OrganSertificationSdc/post',
+    async (payload) => {
+        const result = await $api.post(
+            `/request/request_sdc_standard_certification_organ_certification/add/${payload.id}`,
+            payload.osSdsData,
+            headersAxios
+        );
+        //    console.log(result, 'result OrganSertificationSdc/post');
+        const value = result.data.data.organCertification;
+        return value;
+    }
+);
+
+//получение массива ОС СДС
+export const getOrganSertifications = createAsyncThunk(
+    'osSdc/getList',
+    async (id) => {
+        const result = await $api.post(
+            `/request/request_sdc_standard_certification_organ_certification/list/${id}`
+        );
+
+        console.log(result, 'result getOrganSertifications/getList');
+        const value = result.data.data.data.map((obj) => {
+            return {
+                ...obj,
+                certificate_date: correctlyDate(obj.certificate_date),
+            };
+        });
+        console.log(value, 'value from ');
+        return value;
+    }
+);

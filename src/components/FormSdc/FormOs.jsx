@@ -1,26 +1,23 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useForm, Controller } from 'react-hook-form';
-import '../register/registr.scss';
-import { postDeclarationHolder } from '../../store/proposal/actions';
+import { postOrganSertificationSdc } from '../../store/proposal/actions';
 import { useNavigate } from 'react-router-dom';
-// import { FileUploadInput } from '../../components/FileUploadInput/FileUploadInput';
+// import { FileUploadInput } from '../FileUploadInput/FileUploadInput';
+import { useForm, Controller } from 'react-hook-form';
 import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
 
 import 'react-datepicker/dist/react-datepicker.css';
-import '../../components/FormSdc/form-sdc.scss';
-import './declaration.scss';
+import './form-sdc.scss';
 
 registerLocale('ru', ru);
 setDefaultLocale('ru');
 
-function Declaration(props) {
+function FormOsSdc(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { id } = useSelector(
         (state) => state.proposalTest.currentProposalSdc
     );
-
     const {
         register,
         control,
@@ -29,87 +26,213 @@ function Declaration(props) {
     } = useForm();
 
     const formHandler = (data) => {
-        const declarationSdsData = {
-            fullName: data.fullName,
-            shortName: data.shortName,
+        const osSdsData = {
+            fullNameCompany: data.fullNameCompany,
+            fullNameOrganCertification: data.fullNameOrganCertification,
+            shortNameOrganCertification: data.shortNameOrganCertification,
+            certificateNumber: data.certificateNumber,
+            certificateDate: data.certificateDate.toLocaleDateString('en-CA'),
+            decisionNumber: data.decisionNumber,
             inn: data.inn,
             ogrn: data.ogrn,
-            registrationNumber: data.registrationNumber,
-            registrationDate: data.registrationDate,
-            exclusionDate: data.exclusionDate,
-            area: data.area,
             managerName: data.managerName,
-            managerPosition: data.managerPosition,
             address: data.address,
-            phone: data.phone,
             email: data.email,
+            phone: data.phone,
             site: data.site,
+            area: data.area,
         };
-        dispatch(postDeclarationHolder({ id, declarationSdsData }));
-        navigate(-1);
+
+        console.log(osSdsData, 'osSdsData');
+        dispatch(postOrganSertificationSdc({ id, osSdsData }))
+            .unwrap()
+            .then(({ id }) => navigate(`/request_sdc/${id}`));
     };
 
     return (
         <>
-            <div className="login__title">Подача Заявления Держателя</div>
+            <div className="login__title">Подача Заявления</div>
             <form
                 onSubmit={handleSubmit(formHandler)}
                 className="declaration__form__request"
             >
                 <div className="card__edit__input">
-                    <p className="input__title">Полное наименование СДС</p>
+                    <p className="input__title">Полное наименование компании</p>
                     <input
                         className="current__input card__edit__input__element"
                         autoComplete="off"
-                        name="fullName"
+                        name="fullNameCompany"
                         type="text"
                         required
                         autoFocus
-                        id="fullName"
+                        id="fullNameCompany"
                         style={
-                            !errors?.fullName ? {} : { border: '1px solid red' }
+                            !errors?.fullNameCompany
+                                ? {}
+                                : { border: '1px solid red' }
                         }
-                        {...register('fullName', {
+                        {...register('fullNameCompany', {
                             required: true,
                             pattern: /[а-яА-ЯёЁ]/,
                         })}
                     />
-                    {errors?.fullName && (
+                    {errors?.fullNameCompany && (
                         <div className="error-message">
-                            {errors?.fullName?.message ||
+                            {errors?.fullNameCompany?.message ||
                                 'Полное наименование должно быть на кириллице'}
                         </div>
                     )}
                 </div>
 
                 <div className="card__edit__input">
-                    <p className="input__title">Сокращенное наименование</p>
+                    <p className="input__title">Полное наименование ОС</p>
                     <input
                         className="current__input card__edit__input__element"
-                        name="shortName"
                         autoComplete="off"
+                        name="fullNameOrganCertification"
                         type="text"
                         required
+                        autoFocus
+                        id="fullNameOrganCertification"
                         style={
-                            !errors?.shortName
+                            !errors?.fullNameOrganCertification
                                 ? {}
                                 : { border: '1px solid red' }
                         }
-                        {...register('shortName', {
+                        {...register('fullNameOrganCertification', {
                             required: true,
                             pattern: /[а-яА-ЯёЁ]/,
                         })}
                     />
-                    {errors?.shortName && (
+                    {errors?.fullNameOrganCertification && (
                         <div className="error-message">
-                            {errors?.shortName?.message ||
+                            {errors?.fullNameOrganCertification?.message ||
+                                'Полное наименование должно быть на кириллице'}
+                        </div>
+                    )}
+                </div>
+                {/* <div>
+                    <FileUploadInput
+                        className="current__input card__edit__input__element"
+                        multiple
+                        extensions={['.jpg', '.png']}
+                        name="myFile"
+                        id="myFile"
+                    />
+                    <div>Hello</div>
+                </div> */}
+                <div className="card__edit__input">
+                    <p className="input__title">Сокращенное наименование </p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="shortNameOrganCertification"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        style={
+                            !errors?.shortNameOrganCertification
+                                ? {}
+                                : { border: '1px solid red' }
+                        }
+                        {...register('shortNameOrganCertification', {
+                            required: true,
+                            pattern: /[а-яА-ЯёЁ]/,
+                        })}
+                    />
+                    {errors?.shortNameOrganCertification && (
+                        <div className="error-message">
+                            {errors?.shortNameOrganCertification?.message ||
                                 'Сокращенное наименование должно быть на кириллице'}
                         </div>
                     )}
                 </div>
 
                 <div className="card__edit__input">
-                    <p className="input__title">Инн</p>
+                    <p className="input__title">Регистрационный номер</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="certificateNumber"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        style={
+                            !errors?.certificateNumber
+                                ? {}
+                                : { border: '1px solid red' }
+                        }
+                        {...register('certificateNumber', {
+                            required: true,
+                            pattern: /^\d+$/,
+                            minLength: {
+                                value: 7,
+                                message:
+                                    'Вы вводите некорректное количество цифр',
+                            },
+                        })}
+                    />
+                    {errors?.certificateNumber && (
+                        <div className="error-message">
+                            {errors?.certificateNumber?.message ||
+                                'Регистрационный номер должен состоять только из цифр'}
+                        </div>
+                    )}
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Дата регистрации</p>
+                    <div className="card__edit__input__element">
+                        <Controller
+                            control={control}
+                            name="certificateDate"
+                            render={({ field }) => (
+                                <DatePicker
+                                    dateFormat="dd/MM/yyyy"
+                                    className="current__input date"
+                                    placeholderText="выберите дату"
+                                    onChange={(e) => field.onChange(e)}
+                                    selected={field.value}
+                                    maxDate={new Date()}
+                                    showDisabledMonthNavigation
+                                    required
+                                />
+                            )}
+                        />
+                    </div>
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Номер решения</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="decisionNumber"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        style={
+                            !errors?.decisionNumber
+                                ? {}
+                                : { border: '1px solid red' }
+                        }
+                        {...register('decisionNumber', {
+                            required: true,
+                            pattern: /^\d+$/,
+                            minLength: {
+                                value: 4,
+                                message:
+                                    'Вы вводите некорректное количество цифр',
+                            },
+                        })}
+                    />
+                    {errors?.decisionNumber && (
+                        <div className="error-message">
+                            {errors?.decisionNumber?.message ||
+                                'Вы вводите некорректное количество цифр'}
+                        </div>
+                    )}
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">ИНН</p>
                     <input
                         className="current__input card__edit__input__element"
                         name="inn"
@@ -121,7 +244,7 @@ function Declaration(props) {
                             required: true,
                             pattern: /^\d+$/,
                             minLength: {
-                                value: 7,
+                                value: 4,
                                 message:
                                     'Вы вводите некорректное количество цифр',
                             },
@@ -130,13 +253,13 @@ function Declaration(props) {
                     {errors?.inn && (
                         <div className="error-message">
                             {errors?.inn?.message ||
-                                'Регистрационный номер должен состоять только из цифр'}
+                                'Вы вводите некорректное количество цифр'}
                         </div>
                     )}
                 </div>
 
                 <div className="card__edit__input">
-                    <p className="input__title">Огрн </p>
+                    <p className="input__title">ОГРН</p>
                     <input
                         className="current__input card__edit__input__element"
                         name="ogrn"
@@ -148,7 +271,7 @@ function Declaration(props) {
                             required: true,
                             pattern: /^\d+$/,
                             minLength: {
-                                value: 7,
+                                value: 4,
                                 message:
                                     'Вы вводите некорректное количество цифр',
                             },
@@ -157,86 +280,9 @@ function Declaration(props) {
                     {errors?.ogrn && (
                         <div className="error-message">
                             {errors?.ogrn?.message ||
-                                'Регистрационный номер должен состоять только из цифр'}
+                                'Вы вводите некорректное количество цифр'}
                         </div>
                     )}
-                </div>
-
-                <div className="card__edit__input">
-                    <p className="input__title">Регистрационный номер</p>
-                    <input
-                        className="current__input card__edit__input__element"
-                        name="registrationNumber"
-                        autoComplete="off"
-                        type="text"
-                        required
-                        style={
-                            !errors?.registrationNumber
-                                ? {}
-                                : { border: '1px solid red' }
-                        }
-                        {...register('registrationNumber', {
-                            required: true,
-                            pattern: /^\d+$/,
-                            minLength: {
-                                value: 7,
-                                message:
-                                    'Вы вводите некорректное количество цифр',
-                            },
-                        })}
-                    />
-                    {errors?.registrationNumber && (
-                        <div className="error-message">
-                            {errors?.registrationNumber?.message ||
-                                'Регистрационный номер должен состоять только из цифр'}
-                        </div>
-                    )}
-                </div>
-
-                <div className="card__edit__input">
-                    <p className="input__title">
-                        Дата регистрации (в реестре Росстандата)
-                    </p>
-                    <div className="card__edit__input__element">
-                        <Controller
-                            control={control}
-                            name="registrationDate"
-                            render={({ field }) => (
-                                <DatePicker
-                                    dateFormat="dd/MM/yyyy"
-                                    className="current__input date"
-                                    placeholderText="выберите дату"
-                                    onChange={(e) => field.onChange(e)}
-                                    selected={field.value}
-                                    maxDate={new Date()}
-                                    showDisabledMonthNavigation
-                                    required
-                                />
-                            )}
-                        />
-                    </div>
-                </div>
-
-                <div className="card__edit__input">
-                    <p className="input__title">Дата исключения</p>
-                    <div className="card__edit__input__element">
-                        <Controller
-                            control={control}
-                            name="exclusionDate"
-                            render={({ field }) => (
-                                <DatePicker
-                                    dateFormat="dd/MM/yyyy"
-                                    className="current__input date"
-                                    placeholderText="выберите дату"
-                                    onChange={(e) => field.onChange(e)}
-                                    selected={field.value}
-                                    maxDate={new Date()}
-                                    showDisabledMonthNavigation
-                                    required
-                                />
-                            )}
-                        />
-                    </div>
                 </div>
 
                 <div className="card__edit__input">
@@ -260,57 +306,7 @@ function Declaration(props) {
                     {errors?.managerName && (
                         <div className="error-message">
                             {errors?.managerName?.message ||
-                                'Имя должно быть на кириллице'}
-                        </div>
-                    )}
-                </div>
-
-                <div className="card__edit__input">
-                    <p className="input__title">
-                        Область распространения системы (объекты сертификации)
-                    </p>
-                    <input
-                        className="current__input card__edit__input__element"
-                        name="area"
-                        autoComplete="off"
-                        type="text"
-                        required
-                        style={!errors?.area ? {} : { border: '1px solid red' }}
-                        {...register('area', {
-                            required: true,
-                            pattern: /[а-яА-ЯёЁ]/,
-                        })}
-                    />
-                    {errors?.area && (
-                        <div className="error-message">
-                            {errors?.area?.message ||
-                                'Значение должно быть на кириллице'}
-                        </div>
-                    )}
-                </div>
-
-                <div className="card__edit__input">
-                    <p className="input__title">Должность руководителя</p>
-                    <input
-                        className="current__input card__edit__input__element"
-                        name="managerPosition"
-                        autoComplete="off"
-                        type="text"
-                        required
-                        style={
-                            !errors?.managerPosition
-                                ? {}
-                                : { border: '1px solid red' }
-                        }
-                        {...register('managerPosition', {
-                            required: true,
-                            pattern: /[а-яА-ЯёЁ]/,
-                        })}
-                    />
-                    {errors?.managerPosition && (
-                        <div className="error-message">
-                            {errors?.managerPosition?.message ||
-                                'Должность должна быть на кириллице'}
+                                'Введите имя руководителя на кириллице'}
                         </div>
                     )}
                 </div>
@@ -328,42 +324,16 @@ function Declaration(props) {
                         }
                         {...register('address', {
                             required: true,
-                            pattern: /[а-яА-ЯёЁ]/,
+                            minLength: {
+                                value: 5,
+                                message: 'Вы вводите некорректный адрес',
+                            },
                         })}
                     />
                     {errors?.address && (
                         <div className="error-message">
                             {errors?.address?.message ||
-                                'Адрес должен быть на кириллице'}
-                        </div>
-                    )}
-                </div>
-
-                <div className="card__edit__input">
-                    <p className="input__title">Телефон</p>
-                    <input
-                        className="current__input card__edit__input__element"
-                        name="phone"
-                        autoComplete="off"
-                        type="text"
-                        required
-                        style={
-                            !errors?.phone ? {} : { border: '1px solid red' }
-                        }
-                        {...register('phone', {
-                            required: true,
-                            pattern: /^\d+$/,
-                            minLength: {
-                                value: 7,
-                                message:
-                                    'Вы вводите некорректное количество цифр',
-                            },
-                        })}
-                    />
-                    {errors?.phone && (
-                        <div className="error-message">
-                            {errors?.phone?.message ||
-                                'Регистрационный номер должен состоять только из цифр'}
+                                'Введите корректный адрес'}
                         </div>
                     )}
                 </div>
@@ -394,6 +364,35 @@ function Declaration(props) {
                 </div>
 
                 <div className="card__edit__input">
+                    <p className="input__title">Введите телефон</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="phone"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        style={
+                            !errors?.phone ? {} : { border: '1px solid red' }
+                        }
+                        {...register('phone', {
+                            required: true,
+                            pattern: /^\d+$/,
+                            minLength: {
+                                value: 4,
+                                message:
+                                    'Вы вводите некорректное количество цифр',
+                            },
+                        })}
+                    />
+                    {errors?.phone && (
+                        <div className="error-message">
+                            {errors?.phone?.message ||
+                                'Вы вводите некорректное количество цифр'}
+                        </div>
+                    )}
+                </div>
+
+                <div className="card__edit__input">
                     <p className="input__title">Сайт</p>
                     <input
                         className="current__input card__edit__input__element"
@@ -414,6 +413,29 @@ function Declaration(props) {
                         </div>
                     )}
                 </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Область распространения </p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="area"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        style={!errors?.area ? {} : { border: '1px solid red' }}
+                        {...register('area', {
+                            required: true,
+                            pattern: /[а-яА-ЯёЁ]/,
+                        })}
+                    />
+                    {errors?.area && (
+                        <div className="error-message">
+                            {errors?.area?.message ||
+                                'Сокращенное наименование должно быть на кириллице'}
+                        </div>
+                    )}
+                </div>
+
                 <div className="declaration__buttons">
                     <button
                         className="btn__login declaration__btn"
@@ -435,4 +457,4 @@ function Declaration(props) {
     );
 }
 
-export default Declaration;
+export default FormOsSdc;

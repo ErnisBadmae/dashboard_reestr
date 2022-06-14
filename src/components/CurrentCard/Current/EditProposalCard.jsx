@@ -109,54 +109,51 @@ function EditProposalCard(props) {
             </div>
         </>
     ) : (
-        <div className="card-container">
-            <div className="card">
-                <div className="edit__card-title">
-                    <strong>
-                        Редактирование заявления {currentProposalSdc?.full_name}
-                    </strong>
-                </div>
-                <form
-                    className="declaration__form__request"
-                    onSubmit={handleSubmit(onSubmit)}
-                >
-                    {cardData.map((field) => {
-                        return (
-                            //    <div className="edit__current-input" key={field.id}>
-                            <div className="edit__title-input">
-                                {field.title}
-                                {/* </div> */}
-                                <br />
-                                <input
-                                    className="card__edit__input "
-                                    defaultValue={field.value}
-                                    type="text"
-                                    id={field.name}
-                                    {...register(field.name)}
-                                />
-                            </div>
-                        );
-                    })}
-
-                    <div className="edit__card-buttons">
-                        <button
-                            className="btn__login edit__btn"
-                            //     disabled={!isValid}
-                            onClick={() => navigate(-1)}
-                        >
-                            Отменить
-                        </button>
-                        <button
-                            className="btn__login edit__btn"
-                            type="submit"
-                            //     disabled={!isValid}
-                        >
-                            Отправить
-                        </button>
-                    </div>
-                </form>
+        <>
+            {/* <div className="card-container"> */}
+            {/* <div className="card"> */}
+            <div className="login__title">
+                Редактирование заявления {currentProposalSdc?.full_name}
             </div>
-        </div>
+            <form
+                className="declaration__form__request"
+                onSubmit={handleSubmit(onSubmit)}
+            >
+                {cardData.map((field) => {
+                    return (
+                        <div className="card__edit__input" key={field.id}>
+                            <p className="input__title">{field.title}</p>
+                            <input
+                                className="current__input card__edit__input__element"
+                                defaultValue={field.value}
+                                type="text"
+                                id={field.name}
+                                {...register(field.name)}
+                            />
+                        </div>
+                    );
+                })}
+
+                <div className="declaration__buttons">
+                    <button
+                        className="btn__login declaration__btn"
+                        //     disabled={!isValid}
+                        onClick={() => navigate(-1)}
+                    >
+                        Вернуться
+                    </button>
+                    <button
+                        className="btn__login declaration__btn"
+                        type="submit"
+                        //     disabled={!isValid}
+                    >
+                        Сохранить
+                    </button>
+                </div>
+            </form>
+            {/* </div>
+        </div> */}
+        </>
     );
 }
 

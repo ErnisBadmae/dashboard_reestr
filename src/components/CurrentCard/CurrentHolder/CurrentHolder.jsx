@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { useNavigate, useParams } from 'react-router-dom';
 import { getHolders } from '../../../store/proposal/actions';
+// import { useNavigate, useParams } from 'react-router-dom';
 // import { ButtonRegistry } from '../../Buttons/button-registry/button-registry';
 // import Holder from '../../Holders/Holder';
 
 import '../card-item.scss';
 
 function CurrentHolder(props) {
-    //     const navigate = useNavigate();
-
     const dispatch = useDispatch();
     const { id } = useSelector(
         (state) => state.proposalTest.currentProposalSdc
     );
+
+    console.log(id, 'idFromCurrentHolder');
 
     const { holders } = useSelector((state) => state.proposalTest);
 
@@ -26,7 +26,7 @@ function CurrentHolder(props) {
 
     useEffect(() => {
         dispatch(getHolders(id));
-    }, [id, dispatch]);
+    }, [id]);
 
     const cardData = [
         {
@@ -119,7 +119,7 @@ function CurrentHolder(props) {
     return (
         <>
             {/* <div className="card__body"> */}
-            {holders.length === 0 ? (
+            {holders?.length === 0 ? (
                 <></>
             ) : (
                 cardData.map((field) => {
