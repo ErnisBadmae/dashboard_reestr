@@ -4,7 +4,7 @@ import useAuth from '../../hooks/useAuth';
 
 const RequireAuth = (props) => {
     const { pathname } = useLocation();
-    const { id } = useParams();
+    const { id, osId } = useParams();
 
     const routes = {
         ROLE_USER: ['/sds', '/declaration'],
@@ -18,6 +18,8 @@ const RequireAuth = (props) => {
             '/current-proposal',
             '/declaration',
             '/form-os-sdc',
+            `/current-os/${id}`,
+            `/edit-card-os/${id}`,
         ],
     };
 

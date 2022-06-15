@@ -17,6 +17,8 @@ import FormSdc from './components/FormSdc/FormSdc';
 import ProposalSdc from './pages/proposalSdc/proposalSdc';
 import EditProposalCard from './components/CurrentCard/Current/EditProposalCard';
 import FormOsSdc from './components/FormSdc/FormOs';
+import CurrentOsSdc from './components/CurrentCard/CurrentOs/CurrentOs';
+import EditCardOs from './components/CurrentCard/EditCard/EditCardOs';
 
 function App() {
     const navigate = useNavigate();
@@ -86,6 +88,13 @@ function App() {
                             <Route
                                 path="/form-os-sdc"
                                 element={<FormOsSdc />}
+                            />
+                            <Route path="current-os">
+                                <Route path=":id" element={<CurrentOsSdc />} />
+                            </Route>
+                            <Route
+                                path="/edit-card-os/:id"
+                                element={<EditCardOs />}
                             />
                         </Route>
                         <Route path="*" element={<NotFound />} />

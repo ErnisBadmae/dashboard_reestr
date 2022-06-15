@@ -4,9 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getCurrentProposalSdc } from '../../../store/proposal/actions';
 import { ButtonRegistry } from '../../Buttons/button-registry/button-registry';
 import Holder from '../../Holders/Holder';
-import OsSdc from '../../OsSdc/OsSdc';
 import CurrentHolder from '../CurrentHolder/CurrentHolder';
-import CurrentOsSdc from '../CurrentOs/CurrentOs';
 
 import '../card-item.scss';
 
@@ -87,8 +85,6 @@ function ProposalCard(props) {
                 <div className="card__field">
                     <Holder />
                     <CurrentHolder />
-                    <OsSdc />
-                    <CurrentOsSdc />
                 </div>
             </div>
         </>

@@ -15,15 +15,21 @@ export const TableSdsOperator = (props) => {
     const { totalElements } = useSelector(
         (state) => state.proposal.proposalSdcList
     );
+    const totalElementsHelper = totalElements;
+
+    const memoTotalElements = useMemo(
+        () => totalElementsHelper === totalElements && totalElementsHelper,
+        [totalElements, totalElementsHelper]
+    );
 
     const [pagination, setPagination] = useState({
         pageSizeOptions: ['5', '10', '20', '40', '60'],
         showSizeChanger: true,
         pageSize: 10,
-        total: 30,
+        total: 31,
         current: 1,
     });
-
+    // debugger;
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const message =

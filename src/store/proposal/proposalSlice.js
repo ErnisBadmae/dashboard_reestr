@@ -7,6 +7,7 @@ import {
     changeProposal,
     postOrganSertificationSdc,
     getOrganSertifications,
+    getCurrentOsSdc,
 } from './actions';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -17,15 +18,16 @@ export const currentProposalTest = createSlice({
         previewProposalSdc: {},
         holders: [],
         organSertificationSdc: [],
+        currentOsSdcCard: {},
         isLoading: false,
         isSuccess: false,
     },
     reducers: {
-        //     holdersAdded: {
-        //          reducer(state, action){
-        //               state.holders.push(action.payload)
-        //          }
-        //     }
+        //   holdersAdded: {
+        //        reducer(state, action){
+        //             state.holders.push(action.payload)
+        //        }
+        //   }
     },
     extraReducers: (builder) => {
         builder
@@ -144,12 +146,33 @@ export const currentProposalTest = createSlice({
                 state.isSuccess = true;
                 //  console.log(action.payload, 'action payload');
                 state.organSertificationSdc = action.payload;
+                //  Array.prototype.push.apply(
+                //      state.organSertificationSdc,
+                //      action.payload
+                //  );
+                //  state.organSertificationSdc.push({
+                //      test: action.payload,
+                //  });
             })
             .addCase(getOrganSertifications.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
                 state.organSertificationSdc = null;
+            })
+            .addCase(getCurrentOsSdc.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getCurrentOsSdc.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.currentOsSdcCard = action.payload;
+            })
+            .addCase(getCurrentOsSdc.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                state.currentOsSdcCard = null;
             });
     },
 });

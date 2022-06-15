@@ -1,114 +1,107 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getOrganSertifications } from '../../../store/proposal/actions';
+import { getCurrentOsSdc } from '../../../store/proposal/actions';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 
 import '../card-item.scss';
 
 function CurrentOsSdc(props) {
+    //     const { pathname } = useLocation();
+    //     console.log(pathname, ' pathnamse os sdc');
+    const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { id } = useSelector(
-        (state) => state.proposalTest.currentProposalSdc
-    );
+    const { id } = useParams();
 
-    console.log(id, 'idFromCurrentOrganSertificationSdc');
+    console.log(id, 'idididididididi');
 
-    const { organSertificationSdc } = useSelector(
-        (state) => state.proposalTest
-    );
+    const { currentOsSdcCard } = useSelector((state) => state.proposalTest);
 
-    const currentOrganSertificationSdc = organSertificationSdc?.reduce(
-        (acc, el) => {
-            return { ...acc, ...el };
-        },
-        {}
-    );
     //TODO: отрисовать каждый объект
 
     useEffect(() => {
-        dispatch(getOrganSertifications(id));
-    }, [id]);
+        dispatch(getCurrentOsSdc(id));
+    }, [dispatch, id]);
 
     const cardData = [
         {
             id: 1,
             title: 'Номер сертификата',
-            value: currentOrganSertificationSdc?.certificate_number,
+            value: currentOsSdcCard?.certificate_number,
             name: 'certificate_number',
         },
         {
             id: 2,
             title: 'Дата сертификации',
-            value: currentOrganSertificationSdc?.certificate_date,
+            value: currentOsSdcCard?.certificate_date,
             name: 'certificate_date',
         },
         {
             id: 3,
             title: 'Номер решения',
-            value: currentOrganSertificationSdc?.decision_number,
+            value: currentOsSdcCard?.decision_number,
             name: 'decision_number',
         },
         {
             id: 4,
             title: 'Полное наименование ОС',
-            value: currentOrganSertificationSdc?.full_name_organ_certification,
+            value: currentOsSdcCard?.full_name_organ_certification,
             name: 'full_name_organ_certification',
         },
         {
             id: 5,
             title: 'Сокращенное наименование',
-            value: currentOrganSertificationSdc?.short_name_organ_certification,
+            value: currentOsSdcCard?.short_name_organ_certification,
             name: 'short_name_organ_certification',
         },
         {
             id: 6,
             title: 'ИНН',
-            value: currentOrganSertificationSdc?.inn,
+            value: currentOsSdcCard?.inn,
             name: 'inn',
         },
         {
             id: 7,
             title: 'ОГРН',
-            value: currentOrganSertificationSdc?.ogrn,
+            value: currentOsSdcCard?.ogrn,
             name: 'ogrn',
         },
         {
             id: 8,
             title: 'Имя руководителя',
-            value: currentOrganSertificationSdc?.manager_name,
+            value: currentOsSdcCard?.manager_name,
             name: 'manager_name',
         },
         {
             id: 9,
             title: 'Адрес организации',
-            value: currentOrganSertificationSdc?.address,
+            value: currentOsSdcCard?.address,
             name: 'address',
         },
         {
             id: 10,
             title: 'Электронная почта',
-            value: currentOrganSertificationSdc?.email,
+            value: currentOsSdcCard?.email,
             name: 'email',
         },
         {
             id: 11,
             title: 'Сайт',
-            value: currentOrganSertificationSdc?.site,
+            value: currentOsSdcCard?.site,
             name: 'site',
         },
         {
             id: 12,
             title: 'Область распространения',
-            value: currentOrganSertificationSdc?.area,
+            value: currentOsSdcCard?.area,
             name: 'area',
         },
     ];
 
     return (
         <>
-            {organSertificationSdc?.length === 0 ? (
-                <></>
-            ) : (
-                cardData.map((field) => {
+            <div className="login__title">Страница просмотра ОС</div>
+            <div className="card__body">
+                {cardData.map((field) => {
                     return (
                         <div className="card__field" key={field.id}>
                             <div className="strong-title">{field.title}</div>
@@ -118,8 +111,23 @@ function CurrentOsSdc(props) {
                             </div>
                         </div>
                     );
-                })
-            )}
+                })}
+            </div>
+            <div className="declaration__buttons">
+                <button
+                    className="btn__login declaration__btn"
+                    onClick={() => navigate(-1)}
+                >
+                    Назад
+                </button>
+                <button
+                    className="btn__login declaration__btn"
+                    type="submit"
+                    onClick={() => navigate(`/edit-card-os/${id}`)}
+                >
+                    Редактировать
+                </button>
+            </div>
         </>
     );
 }

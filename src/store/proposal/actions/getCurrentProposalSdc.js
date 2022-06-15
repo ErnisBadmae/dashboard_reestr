@@ -17,7 +17,7 @@ export const postSdcRequest = createAsyncThunk(
             payload,
             headersAxios
         );
-        console.log(result, 'postSdcRequest');
+
         return result.data.data.requestSdcStandardCertification;
     }
 );
@@ -29,7 +29,7 @@ export const getPreviewCurrentProposalSdc = createAsyncThunk(
         let result = await $api.get(
             `request/request_sdc_standard_certification/get_request_sdc_header/${cardId}`
         );
-        console.log(result, 'resultPreview');
+
         const value = result.data.data?.requestSdcHeader;
         return {
             ...value,
@@ -48,7 +48,7 @@ export const getCurrentProposalSdc = createAsyncThunk(
             `/request/request_sdc_standard_certification/${cardId}`
         );
         const value = result.data.data?.requestSdcStandardCertification;
-        console.log(value, 'current proposal request');
+
         return {
             ...value,
             registration_date: correctlyDate(value.registration_date),
@@ -79,7 +79,7 @@ export const postDeclarationHolder = createAsyncThunk(
             payload.declarationSdsData,
             headersAxios
         );
-        console.log(result, 'result declaration/post');
+
         const value = result.data.data.holder;
         return value;
     }
@@ -104,7 +104,6 @@ export const getHolders = createAsyncThunk('holders/get', async (id) => {
 });
 
 //добавление ОС СДС
-
 export const postOrganSertificationSdc = createAsyncThunk(
     'OrganSertificationSdc/post',
     async (payload) => {
@@ -127,7 +126,6 @@ export const getOrganSertifications = createAsyncThunk(
             `/request/request_sdc_standard_certification_organ_certification/list/${id}`
         );
 
-        console.log(result, 'result getOrganSertifications/getList');
         const value = result.data.data.data.map((obj) => {
             return {
                 ...obj,
@@ -136,5 +134,21 @@ export const getOrganSertifications = createAsyncThunk(
         });
         console.log(value, 'value from ');
         return value;
+    }
+);
+
+//получение текущей карточки ОС СДС
+export const getCurrentOsSdc = createAsyncThunk(
+    'viewOs/getCurrentOsSdc',
+    async (cardId) => {
+        const result = await $api.get(
+            `/request/request_sdc_standard_certification_organ_certification/${cardId}`
+        );
+
+        const value = result.data.data.organCertification;
+        return {
+            ...value,
+            certificate_date: correctlyDate(value.certificate_date),
+        };
     }
 );
