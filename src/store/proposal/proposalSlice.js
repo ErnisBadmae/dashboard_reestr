@@ -8,6 +8,7 @@ import {
     postOrganSertificationSdc,
     getOrganSertifications,
     getCurrentOsSdc,
+    editCurrentOsSdc,
 } from './actions';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -22,13 +23,7 @@ export const currentProposalTest = createSlice({
         isLoading: false,
         isSuccess: false,
     },
-    reducers: {
-        //   holdersAdded: {
-        //        reducer(state, action){
-        //             state.holders.push(action.payload)
-        //        }
-        //   }
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
 
@@ -173,10 +168,23 @@ export const currentProposalTest = createSlice({
                 state.isError = true;
                 state.message = action.payload;
                 state.currentOsSdcCard = null;
+            })
+            .addCase(editCurrentOsSdc.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(editCurrentOsSdc.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.currentOsSdcCard = action.payload;
+            })
+            .addCase(editCurrentOsSdc.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                state.currentOsSdcCard = null;
             });
     },
 });
 
-// export const { editProposalCurrent, getCurrentProposal, createSdcProposal } =
-//     currentProposalTest.actions;
+// export const { editCurrentOsSdc } = currentProposalTest.actions;
 export default currentProposalTest.reducer;

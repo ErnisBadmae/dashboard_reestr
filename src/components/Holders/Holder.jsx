@@ -6,7 +6,7 @@ function Holder(props) {
     const navigate = useNavigate();
 
     return (
-        <>
+        <div className="card__title__container">
             <div className="card__title">
                 <strong>Держатель</strong>
             </div>
@@ -16,7 +16,7 @@ function Holder(props) {
                     onClick={() => navigate(`/declaration`)}
                 />
             </div>
-        </>
+        </div>
     );
 }
 

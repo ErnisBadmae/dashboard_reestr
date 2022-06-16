@@ -19,7 +19,7 @@ function Sidebar(props) {
         },
         {
             role: 'user_admin',
-            href: '/declarations',
+            href: '/requests-sdc-list',
             text: 'Список заявлений',
             id: 2,
         },

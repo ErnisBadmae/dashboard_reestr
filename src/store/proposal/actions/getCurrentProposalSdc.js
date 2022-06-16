@@ -152,3 +152,28 @@ export const getCurrentOsSdc = createAsyncThunk(
         };
     }
 );
+
+//изменение ОС СДС
+export const editCurrentOsSdc = createAsyncThunk(
+    'viewEditCard/editCurrentOsSdc',
+    async (payload) => {
+        const response = await fetch(
+            `/request/request_sdc_standard_certification_organ_certification/edit/${payload.id}`,
+            {
+                method: 'PATCH',
+                body: JSON.stringify(payload.body),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+            }
+        );
+        //  if (response.status === 403) {
+        //      setMessage('Ошибка! Редактирование заявки запрещено.');
+        //      setIsEditSuccess(true);
+        //  }
+        const value = await response.json();
+        console.log(value, 'value');
+        return value.data.organCertification;
+    }
+);

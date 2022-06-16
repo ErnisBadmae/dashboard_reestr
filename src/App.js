@@ -19,6 +19,7 @@ import EditProposalCard from './components/CurrentCard/Current/EditProposalCard'
 import FormOsSdc from './components/FormSdc/FormOs';
 import CurrentOsSdc from './components/CurrentCard/CurrentOs/CurrentOs';
 import EditCardOs from './components/CurrentCard/EditCard/EditCardOs';
+import { TableSdcAdmin } from './components/TableSds/TableSdcAdmin';
 
 function App() {
     const navigate = useNavigate();
@@ -45,11 +46,17 @@ function App() {
                 {!!user && (
                     <Route path="/" element={<LayoutContent />}>
                         <Route
-                            element={<RequireAuth allowedRoles={'user_sdc'} />}
+                            element={
+                                <RequireAuth allowedRoles={'user_admin'} />
+                            }
                         >
                             <Route
                                 path="/declaration"
                                 element={<Declaration />}
+                            />
+                            <Route
+                                path="/requests-sdc-list"
+                                element={<TableSdcAdmin />}
                             />
 
                             <Route path="/sds" element={<TableRegistry />} />

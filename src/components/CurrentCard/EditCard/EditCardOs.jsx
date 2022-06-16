@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { getCurrentOsSdc } from '../../../store/proposal/actions';
+import { editCurrentOsSdc } from '../../../store/proposal/actions';
 
 import '../../FormSdc/form-sdc.scss';
 
@@ -39,23 +40,7 @@ function EditCardOs(props) {
             area: data.area,
         };
 
-        const res = await fetch(
-            `/request/request_sdc_standard_certification_organ_certification/edit/${id}`,
-            {
-                method: 'PATCH',
-                body: JSON.stringify(body),
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
-                },
-            }
-        );
-        if (res.status === 403) {
-            setMessage('Ошибка! Редактирование заявки запрещено.');
-            setIsEditSuccess(true);
-        }
-        console.log(res, 'resresresres');
-        //    dispatch(editProposalCurrent(res));
+        dispatch(editCurrentOsSdc({ id, body }));
     };
 
     const cardData = [

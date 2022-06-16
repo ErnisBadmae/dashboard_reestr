@@ -82,7 +82,7 @@ function ProposalCard(props) {
                         onClick={() => navigate(`/edit-card/${id}`)}
                     />
                 </div>
-                <div className="card__field">
+                <div className="card__field__container">
                     <Holder />
                     <CurrentHolder />
                 </div>

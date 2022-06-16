@@ -15,18 +15,18 @@ export const TableSdsOperator = (props) => {
     const { totalElements } = useSelector(
         (state) => state.proposal.proposalSdcList
     );
-    const totalElementsHelper = totalElements;
+    //     const totalElementsHelper = totalElements;
 
-    const memoTotalElements = useMemo(
-        () => totalElementsHelper === totalElements && totalElementsHelper,
-        [totalElements, totalElementsHelper]
-    );
+    //     const memoTotalElements = useMemo(
+    //         () => totalElementsHelper === totalElements && totalElementsHelper,
+    //         [totalElements, totalElementsHelper]
+    //     );
 
     const [pagination, setPagination] = useState({
-        pageSizeOptions: ['5', '10', '20', '40', '60'],
+        //    pageSizeOptions: ['5', '10', '20', '40', '60'],
         showSizeChanger: true,
         pageSize: 10,
-        total: 31,
+        total: totalElements,
         current: 1,
     });
     // debugger;

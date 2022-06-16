@@ -4,12 +4,17 @@ import useAuth from '../../hooks/useAuth';
 
 const RequireAuth = (props) => {
     const { pathname } = useLocation();
-    const { id, osId } = useParams();
+    const { id } = useParams();
 
     const routes = {
         ROLE_USER: ['/sds', '/declaration'],
         ROLE_DICTIONARY_EDITOR: ['/declarations'],
-        user_admin: ['/declarations', `/declaration/${id}`],
+        user_admin: [
+            '/declarations',
+            `/declaration/${id}`,
+            '/requests-sdc-list',
+            `/request_sdc/${id}`,
+        ],
         user_sdc: [
             '/requests_sdc',
             `/request_sdc/${id}`,

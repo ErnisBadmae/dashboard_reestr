@@ -11,6 +11,14 @@
     width: 100%;
 }
 
+.card__title__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    & > .card__title {
+        min-width: auto;
+    }
+}
+
 .card__field {
     display: grid;
     grid-template-columns: 1fr 1fr;

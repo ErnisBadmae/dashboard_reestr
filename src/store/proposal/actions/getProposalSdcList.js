@@ -7,7 +7,11 @@ export const getProposalSdcList = createAsyncThunk(
     async (payload) => {
         const result = await $api.post(
             '/request/request_sdc_standard_certification/get_request_sdc_header_list',
-            { row_page: payload.row_page, page: payload.page }
+            {
+                row_page: payload.row_page,
+                page: payload.page,
+                filters: payload.filters,
+            }
         );
         const value = result.data.data.data
             //   .filter((el) => el.status.title === 'Черновик')
