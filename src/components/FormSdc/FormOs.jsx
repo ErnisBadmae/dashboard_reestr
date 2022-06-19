@@ -6,8 +6,11 @@ import { useForm, Controller } from 'react-hook-form';
 import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
 
-import 'react-datepicker/dist/react-datepicker.css';
+import { useState } from 'react';
+import RegisterSuccess from '../../pages/register/RegisterSuccess';
+
 import './form-sdc.scss';
+import 'react-datepicker/dist/react-datepicker.css';
 
 registerLocale('ru', ru);
 setDefaultLocale('ru');
@@ -24,6 +27,8 @@ function FormOsSdc(props) {
         formState: { errors },
         handleSubmit,
     } = useForm();
+
+    const [isRegisterSuccess, setIsRegisterSuccess] = useState(false);
 
     const formHandler = (data) => {
         const osSdsData = {
@@ -43,13 +48,19 @@ function FormOsSdc(props) {
             area: data.area,
         };
 
-        console.log(osSdsData, 'osSdsData');
         dispatch(postOrganSertificationSdc({ id, osSdsData }))
             .unwrap()
             .then(({ id }) => navigate(`/request_sdc/${id}`));
+        setIsRegisterSuccess(true);
     };
 
-    return (
+    return isRegisterSuccess ? (
+        <RegisterSuccess
+            text={'Ваше заявление успешно отредактировано.'}
+            redirect={'/'}
+            textRedirect={'На главную'}
+        />
+    ) : (
         <>
             <div className="login__title">Подача Заявления</div>
             <form

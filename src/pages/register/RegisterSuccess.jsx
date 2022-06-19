@@ -1,13 +1,13 @@
+import { Link } from 'react-router-dom';
 import './registr.scss';
 
 function RegisterSuccess(props) {
+    const { text, redirect, textRedirect } = props;
     return (
         <div className="success__container">
-            Спасибо за регистрацию, Ваша заявка отправлена на рассмотрение.
-            Данные для входа в систему будут отправлены на указанную электронную
-            почту.
+            {text}
             <div className="success__backlogin">
-                <a href="/login">Вернуться на страницу входа</a>
+                <Link to={redirect}>{textRedirect}</Link>
             </div>
         </div>
     );

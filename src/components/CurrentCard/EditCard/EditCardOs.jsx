@@ -6,6 +6,7 @@ import { getCurrentOsSdc } from '../../../store/proposal/actions';
 import { editCurrentOsSdc } from '../../../store/proposal/actions';
 
 import '../../FormSdc/form-sdc.scss';
+import RegisterSuccess from '../../../pages/register/RegisterSuccess';
 
 function EditCardOs(props) {
     const navigate = useNavigate();
@@ -41,6 +42,7 @@ function EditCardOs(props) {
         };
 
         dispatch(editCurrentOsSdc({ id, body }));
+        setIsEditSuccess(true);
     };
 
     const cardData = [
@@ -127,17 +129,11 @@ function EditCardOs(props) {
     ];
 
     return isEditSuccess ? (
-        <>
-            <div className="message__error">{message}</div>
-            <div className="edit__card-buttons">
-                <button
-                    className="btn__login edit__btn"
-                    onClick={() => navigate('/')}
-                >
-                    На главную
-                </button>
-            </div>
-        </>
+        <RegisterSuccess
+            text={'Ваше заявление успешно отредактировано.'}
+            redirect={'/'}
+            textRedirect={'На главную'}
+        />
     ) : (
         <>
             <div className="login__title">Редактирование ОС СДС</div>

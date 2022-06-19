@@ -1,11 +1,10 @@
 import { Table, Layout, Pagination } from 'antd';
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getProposalSdcList } from '../../store/proposal/actions';
 import { requestSdcCertifHolderTableColumn } from '../../helpers/requestsSds';
 import { ButtonRegistry } from '../Buttons/button-registry/button-registry';
-import $api from '../../http';
 
 import './table.scss';
 
@@ -14,7 +13,7 @@ const { Content } = Layout;
 export const TableSdcAdmin = (props) => {
     const [pageIndex, setPageIndex] = useState(0);
     const [pageSize, setPageSize] = useState(10);
-    const [filters, setFilters] = useState({});
+    const [filterStatus, setFilterStatus] = useState('');
 
     const { totalElements } = useSelector(
         (state) => state.proposal.proposalSdcList
@@ -29,10 +28,10 @@ export const TableSdcAdmin = (props) => {
             getProposalSdcList({
                 row_page: pageSize,
                 page: pageIndex,
-                filters: filters,
+                filters: filterStatus !== null ? { status: filterStatus } : {},
             })
         );
-    }, [dispatch, pageIndex, pageSize, filters]);
+    }, [dispatch, pageIndex, pageSize, filterStatus]);
 
     const { proposalSdcList } = useSelector((state) => state.proposal);
 
@@ -69,44 +68,33 @@ export const TableSdcAdmin = (props) => {
             text: 'Модерация',
             status: 7,
         },
+        {
+            text: 'Все',
+            status: null,
+        },
     ];
 
     return (
         <>
-            <Content style={{ padding: '0 40px' }}>
+            <Content style={{ padding: '25px 40px' }}>
                 {filterButtons.map((btn) => {
                     return (
                         <ButtonRegistry
                             text={btn.text}
                             key={btn.status}
-                            //     path={'/new-request-sdc'}
+                            style={
+                                btn.status === filterStatus
+                                    ? {
+                                          background: '#97c4f2',
+                                      }
+                                    : {}
+                            }
                             onClick={() => {
-                                setFilters({ status: btn.status });
+                                setFilterStatus(btn.status);
                             }}
                         />
                     );
                 })}
-
-                {/* <ButtonRegistry
-                    text="Отправлено на проверку документов"
-                    //     path={'/new-request-sdc'}
-                    onClick={() => checkStatus()}
-                />
-                <ButtonRegistry
-                    text="Проверка документов"
-                    //     path={'/new-request-sdc'}
-                    onClick={() => checkStatus()}
-                />
-                <ButtonRegistry
-                    text="Отправлено на модерацию"
-                    //     path={'/new-request-sdc'}
-                    onClick={() => checkStatus()}
-                />
-                <ButtonRegistry
-                    text="Модерация"
-                    //     path={'/new-request-sdc'}
-                    onClick={() => checkStatus()}
-                /> */}
                 <div className="registry-sro__drawer-wrapper">
                     <Table
                         // bordered={false}

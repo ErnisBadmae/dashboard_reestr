@@ -3,196 +3,319 @@ import { useState } from 'react';
 import { register } from '../../store/auth/authSlice';
 import ReactDadataBox from 'react-dadata-box';
 import RegisterSuccess from './RegisterSuccess';
+import { useForm, Controller } from 'react-hook-form';
 
 import './registr.scss';
+import '../../components/FormSdc/form-sdc.scss';
+import { useNavigate } from 'react-router-dom';
 
 const Registr = () => {
     const testToken = 'aa29b21595947db61a4e85cd92ad24cf5877542f';
 
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const [isRegisterSuccess, setIsRegisterSuccess] = useState(false);
-
-    const [formData, setFormData] = useState({
-        email: '',
-        firstname: '',
-        secondname: '',
-        lastname: '',
-        orgInn: '',
-        orgOgrn: '',
-        orgShortName: '',
-        post: '',
-        phone: '',
-        userRole: '',
-        registrationNumber: '',
-    });
+    const [inn, setInn] = useState('');
 
     const {
-        email,
-        firstname,
-        secondname,
-        lastname,
-        orgInn,
-        orgOgrn,
-        orgShortName,
-        post,
-        phone,
-        //    userRole,
-        registrationNumber,
-    } = formData;
+        register,
+        watch,
+        control,
+        formState: { errors },
+        handleSubmit,
+    } = useForm();
 
-    const onChange = (e) => {
-        setFormData((prevState) => ({
-            ...prevState,
-            [e.target.name]: e.target.value,
-        }));
-    };
+    const watchFields = watch(['orgInn', 'orgOgrn']);
+    console.log(watchFields, 'watchFields');
 
-    const formHandler = (e) => {
-        e.preventDefault();
-
+    const formHandler = (data) => {
         const registrData = {
-            email,
-            firstname,
-            secondname,
-            lastname,
-            orgInn,
-            orgOgrn,
-            orgShortName,
-            post,
-            phone,
-            userRole: '2',
-            registrationNumber,
+            post: data.post,
+            lastname: data.lastname,
+            secondname: data.secondname,
+            firstname: data.firstname,
+            orgInn: data.orgInn,
+            orgOgrn: data.orgOgrn,
+            orgShortName: data.orgShortName,
+            email: data.email,
+            phone: data.phone,
         };
-        //    console.log('registrData', registrData);
-        dispatch(register(registrData));
-        setIsRegisterSuccess(true);
+        console.log('registrData', registrData);
+        //    dispatch(register(registrData));
+        //    setIsRegisterSuccess(true);
     };
 
     return isRegisterSuccess ? (
-        <RegisterSuccess />
+        <RegisterSuccess
+            text={
+                'Спасибо за регистрацию, Ваша заявка отправлена на рассмотрение. Данные для входа в систему будут отправлены на указанную электронную почту.'
+            }
+            redirect={'/login'}
+            textRedirect={'Вернуться на страницу авторизации'}
+        />
     ) : (
         <>
             <div className="login__title">Сведения о заявителе</div>
-            <form onSubmit={formHandler} className="login__form">
-                <div>
-                    <p>Электронная почта</p>
+            <form
+                onSubmit={handleSubmit(formHandler)}
+                className="declaration__form__request"
+            >
+                <div className="card__edit__input">
+                    <p className="input__title">Электронная почта</p>
                     <input
-                        className="form__input"
+                        className="current__input card__edit__input__element"
                         name="email"
                         autoComplete="off"
                         type="email"
                         placeholder="  .....@....."
                         required
                         autoFocus
-                        onChange={onChange}
+                        id="email"
+                        style={
+                            !errors?.email ? {} : { border: '1px solid red' }
+                        }
+                        {...register('email', {
+                            required: true,
+                            pattern:
+                                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                        })}
                     />
+                    {errors?.email && (
+                        <div className="error-message">
+                            {errors?.email?.message ||
+                                'Введите корректный email'}
+                        </div>
+                    )}
                 </div>
-                <div>
-                    <p> Имя</p>
+
+                <div className="card__edit__input">
+                    <p className="input__title"> Имя</p>
                     <input
-                        className="form__input"
+                        className="current__input card__edit__input__element"
                         autoComplete="off"
                         name="firstname"
                         type="text"
+                        id="firstname"
                         required
-                        onChange={onChange}
+                        style={
+                            !errors?.firstname
+                                ? {}
+                                : { border: '1px solid red' }
+                        }
+                        {...register('firstname', {
+                            required: true,
+                            pattern: /[а-яА-ЯёЁ]/,
+                        })}
                     />
+                    {errors?.firstname && (
+                        <div className="error-message">
+                            {errors?.firstname?.message ||
+                                'Имя должно быть на кириллице'}
+                        </div>
+                    )}
                 </div>
-                <div>
-                    <p>Фамилия</p>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Фамилия</p>
                     <input
-                        className="form__input"
+                        className="current__input card__edit__input__element"
                         autoComplete="off"
                         name="secondname"
+                        id="secondname"
                         type="text"
                         required
-                        onChange={onChange}
+                        style={
+                            !errors?.secondname
+                                ? {}
+                                : { border: '1px solid red' }
+                        }
+                        {...register('secondname', {
+                            required: true,
+                            pattern: /[а-яА-ЯёЁ]/,
+                        })}
                     />
+                    {errors?.secondname && (
+                        <div className="error-message">
+                            {errors?.secondname?.message ||
+                                'Фамилия должна быть на кириллице'}
+                        </div>
+                    )}
                 </div>
-                <div>
-                    <p>Отчество</p>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Отчество</p>
                     <input
-                        className="form__input"
+                        className="current__input card__edit__input__element"
                         autoComplete="off"
                         name="lastname"
+                        id="lastname"
                         type="text"
                         required
-                        onChange={onChange}
+                        style={
+                            !errors?.lastname ? {} : { border: '1px solid red' }
+                        }
+                        {...register('lastname', {
+                            required: true,
+                            pattern: /[а-яА-ЯёЁ]/,
+                        })}
                     />
+                    {errors?.lastname && (
+                        <div className="error-message">
+                            {errors?.lastname?.message ||
+                                'Отчество должно быть на кириллице'}
+                        </div>
+                    )}
                 </div>
-                <div>
-                    <p>ИНН или наименование организации</p>
-                    <ReactDadataBox
-                        token={testToken}
-                        type="party"
-                        //     value={orgInn}
+
+                <div className="card__edit__input">
+                    <p className="input__title">
+                        ИНН или наименование организации
+                    </p>
+                    <Controller
+                        control={control}
                         name="orgInn"
-                        className="form__input"
-                        onChange={(suggestion) => {
-                            setFormData({
-                                ...formData,
-                                orgInn: suggestion?.data?.inn,
-                                orgOgrn: suggestion?.data?.ogrn || '',
-                            });
-                        }}
+                        id="orgInn"
+                        render={({ field }) => (
+                            <ReactDadataBox
+                                token={testToken}
+                                type="party"
+                                value={{ field }}
+                                className="current__input card__edit__input__element"
+                                onChange={(suggestion) => {
+                                    field.onChange(suggestion?.data?.inn);
+                                    setInn(suggestion?.data?.ogrn);
+                                    console.log(suggestion?.data);
+                                }}
+                            />
+                        )}
                     />
                 </div>
-                <div>
-                    <p>ОГРН</p>
+
+                {/* onChange={(suggestion) => {
+                                        setFormData({
+                                            ...formData,
+                                            orgInn: suggestion?.data?.inn,
+                                            orgOgrn: suggestion?.data?.ogrn || '',
+                                        });
+                                    }} */}
+
+                <div className="card__edit__input">
+                    <p className="input__title">ОГРН</p>
                     <input
-                        className="form__input"
-                        name="orgOgrn"
+                        className="current__input card__edit__input__element"
                         autoComplete="off"
                         type="text"
-                        value={orgOgrn}
+                        {...register('orgOgrn')}
                         required
-                        onChange={onChange}
+                        value={inn}
+                        onChange={formHandler}
                         //     onChange={(e) => setFormData(e.target.value)}
                     />
                 </div>
-                <div>
-                    <p>Сокращенное название организации</p>
+
+                <div className="card__edit__input">
+                    <p className="input__title">
+                        Сокращенное название организации
+                    </p>
                     <input
-                        className="form__input"
+                        className="current__input card__edit__input__element"
                         name="orgShortName"
                         autoComplete="off"
                         type="text"
+                        id="orgShortName"
                         required
-                        onChange={onChange}
+                        style={
+                            !errors?.orgShortName
+                                ? {}
+                                : { border: '1px solid red' }
+                        }
+                        {...register('orgShortName', {
+                            required: true,
+                            pattern: /[а-яА-ЯёЁ]/,
+                        })}
                     />
+                    {errors?.orgShortName && (
+                        <div className="error-message">
+                            {errors?.orgShortName?.message ||
+                                'Сокращенное наименование должно быть на кириллице'}
+                        </div>
+                    )}
                 </div>
-                <div>
-                    <p>Должность</p>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Должность</p>
                     <input
-                        className="form__input"
+                        className="current__input card__edit__input__element"
                         name="post"
                         autoComplete="off"
                         type="text"
+                        id="post"
                         required
-                        onChange={onChange}
+                        style={!errors?.post ? {} : { border: '1px solid red' }}
+                        {...register('post', {
+                            required: true,
+                            pattern: /[а-яА-ЯёЁ]/,
+                        })}
                     />
+                    {errors?.post && (
+                        <div className="error-message">
+                            {errors?.post?.message ||
+                                'Должность должна быть на кириллице'}
+                        </div>
+                    )}
                 </div>
-                <div>
-                    <p>Телефон</p>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Телефон</p>
                     <input
-                        className="form__input"
+                        className="current__input card__edit__input__element"
                         name="phone"
+                        id="phone"
                         placeholder="  +7"
-                        onChange={onChange}
+                        style={
+                            !errors?.phone ? {} : { border: '1px solid red' }
+                        }
+                        {...register('phone', {
+                            required: true,
+                            pattern: /[а-яА-ЯёЁ]/,
+                        })}
                     />
+                    {errors?.phone && (
+                        <div className="error-message">
+                            {errors?.phone?.message ||
+                                'Полное наименование должно быть на кириллице'}
+                        </div>
+                    )}
                 </div>
-                <div>
-                    <p>Регистрационный номер</p>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Регистрационный номер</p>
                     <input
-                        className="form__input"
+                        className="current__input card__edit__input__element"
                         name="registrationNumber"
+                        id="registrationNumber"
                         autoComplete="off"
                         type="text"
                         required
-                        onChange={onChange}
+                        style={
+                            !errors?.registrationNumber
+                                ? {}
+                                : { border: '1px solid red' }
+                        }
+                        {...register('registrationNumber', {
+                            required: true,
+                            pattern: /[а-яА-ЯёЁ]/,
+                        })}
                     />
-                    <p>
+                    {errors?.registrationNumber && (
+                        <div className="error-message">
+                            {errors?.registrationNumber?.message ||
+                                'Полное наименование должно быть на кириллице'}
+                        </div>
+                    )}
+
+                    <p className="input__title">
                         Уже зарегистрированы?
                         <br />
                         <span className="line">
@@ -201,10 +324,22 @@ const Registr = () => {
                     </p>
                 </div>
 
-                <button className="btn__login" type="submit">
-                    Отправить
-                </button>
-                <br />
+                <div className="declaration__buttons">
+                    <button
+                        className="btn__login declaration__btn"
+                        //     disabled={!isValid}
+                        onClick={() => navigate(-1)}
+                    >
+                        Отменить
+                    </button>
+                    <button
+                        className="btn__login declaration__btn"
+                        type="submit"
+                        //     disabled={!isValid}
+                    >
+                        Отправить
+                    </button>
+                </div>
             </form>
         </>
     );

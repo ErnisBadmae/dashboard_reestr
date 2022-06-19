@@ -1,5 +1,5 @@
-import { Table, Layout } from 'antd';
-import React, { useEffect, useState, useMemo } from 'react';
+import { Table, Layout, Pagination } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getProposalSdcList } from '../../store/proposal/actions';
@@ -12,24 +12,14 @@ import './table.scss';
 const { Content } = Layout;
 
 export const TableSdsOperator = (props) => {
+    const [pageIndex, setPageIndex] = useState(0);
+    const [pageSize, setPageSize] = useState(10);
+    const [filters, setFilters] = useState({});
+
     const { totalElements } = useSelector(
         (state) => state.proposal.proposalSdcList
     );
-    //     const totalElementsHelper = totalElements;
 
-    //     const memoTotalElements = useMemo(
-    //         () => totalElementsHelper === totalElements && totalElementsHelper,
-    //         [totalElements, totalElementsHelper]
-    //     );
-
-    const [pagination, setPagination] = useState({
-        //    pageSizeOptions: ['5', '10', '20', '40', '60'],
-        showSizeChanger: true,
-        pageSize: 10,
-        total: totalElements,
-        current: 1,
-    });
-    // debugger;
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const message =
@@ -39,14 +29,14 @@ export const TableSdsOperator = (props) => {
     useEffect(() => {
         dispatch(
             getProposalSdcList({
-                row_page: pagination.pageSize,
-                page: pagination.current,
+                row_page: pageSize,
+                page: pageIndex,
+                filters: filters,
             })
         );
-    }, [dispatch, pagination]);
+    }, [dispatch, pageIndex, pageSize, filters]);
 
     const { proposalSdcList } = useSelector((state) => state.proposal);
-    //    console.log(proposalSdcList, 'proposalSdc');
 
     const dataSource = proposalSdcList.data?.map((item) => ({
         ...item,
@@ -68,20 +58,11 @@ export const TableSdsOperator = (props) => {
         let res = await $api.get(
             '/request/request_sdc_standard_certification/get/active_request_sdc_header'
         );
-        //    console.log(res, 'responseFromcheckstatus');
         if (res.data.data?.requestSdcHeader?.status.code === 'created') {
             setCheckRequest(true);
         } else {
             navigate('/new-request-sdc');
         }
-    };
-
-    const handleTableChange = (newPagination) => {
-        setPagination({
-            ...pagination,
-            pageSize: newPagination.pageSize,
-            current: newPagination.current,
-        });
     };
 
     return (
@@ -108,8 +89,18 @@ export const TableSdsOperator = (props) => {
                         size="medium"
                         onRow={(record) => relocateToCard(record)}
                         rowKey={(obj) => obj.id}
-                        pagination={pagination}
-                        onChange={handleTableChange}
+                        pagination={false}
+                    />
+                    <Pagination
+                        key={'pagination'}
+                        showSizeChanger={true}
+                        current={pageIndex}
+                        total={totalElements}
+                        pageSize={pageSize}
+                        onChange={(page) => setPageIndex(page)}
+                        onShowSizeChange={(current, newPageSize) =>
+                            setPageSize(newPageSize)
+                        }
                     />
                 </div>
             </Content>
