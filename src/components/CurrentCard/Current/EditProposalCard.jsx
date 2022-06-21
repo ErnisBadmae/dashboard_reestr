@@ -166,16 +166,23 @@ function EditProposalCard(props) {
                         <Controller
                             control={control}
                             name="registrationDate"
+                            //    defaultValue={currentProposalSdc.registration_date}
                             render={({ field }) => (
                                 <DatePicker
                                     dateFormat="dd/MM/yyyy"
                                     className="current__input date"
                                     //  placeholderText="выберите дату"
-                                    placeholderText={
+                                    defaultValue={
                                         currentProposalSdc.registration_date
                                     }
                                     onChange={(e) => field.onChange(e)}
-                                    selected={field.value}
+                                    selected={
+                                        !field.value
+                                            ? new Date(
+                                                  currentProposalSdc.registration_date
+                                              )
+                                            : field.value
+                                    }
                                     maxDate={new Date()}
                                     showDisabledMonthNavigation
                                     required
