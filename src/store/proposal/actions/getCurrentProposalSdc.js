@@ -60,14 +60,27 @@ export const getCurrentProposalSdc = createAsyncThunk(
 //изменение заявки
 export const changeProposal = createAsyncThunk(
     'changeProposal/edit',
-    async (id, payload) => {
-        let result = await $api.post(
-            `/request/request_sdc_standard_certification/edit/${id}`,
-            payload,
-            headersAxios
+    async (payload) => {
+        const response = await fetch(
+            `/request/request_sdc_standard_certification/edit/${payload.id}`,
+            {
+                method: 'PATCH',
+                body: JSON.stringify(payload.body),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+            }
         );
+        const jsonResponse = await response.json();
 
-        return result;
+        if (jsonResponse.success === true) {
+            info('Ваши данные успешно отредактированы!');
+            return jsonResponse.data.requestSdcStandardCertification;
+        } else {
+            error(`ошибка сервера: ${jsonResponse.message}`);
+            return jsonResponse;
+        }
     }
 );
 
@@ -80,6 +93,14 @@ export const postDeclarationHolder = createAsyncThunk(
             payload.declarationSdsData,
             headersAxios
         );
+
+        if (result.data.success) {
+            const value = result.data.data.organCertification;
+            info('Данные успешно добавлены!');
+            return value;
+        } else {
+            error(`ошибка сервера: ${result.data.message}`);
+        }
 
         const value = result.data.data.holder;
         return value;
@@ -184,7 +205,5 @@ export const editCurrentOsSdc = createAsyncThunk(
             error(`ошибка сервера: ${jsonResponse.message}`);
             return jsonResponse;
         }
-
-        //    console.log(value, 'value');
     }
 );

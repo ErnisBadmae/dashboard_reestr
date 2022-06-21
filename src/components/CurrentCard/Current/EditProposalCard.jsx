@@ -1,16 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { getCurrentProposalSdc } from '../../../store/proposal/actions';
-import { editProposalCurrent } from '../../../store/proposal/proposalSlice';
+import { changeProposal } from '../../../store/proposal/actions';
+import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
+import ru from 'date-fns/locale/ru';
 
-// import '../card-item.scss';
 import '../../FormSdc/form-sdc.scss';
+
+import 'react-datepicker/dist/react-datepicker.css';
+
+registerLocale('ru', ru);
+setDefaultLocale('ru');
 
 function EditProposalCard(props) {
     const navigate = useNavigate();
-    const { register, handleSubmit, reset } = useForm();
+    const {
+        register,
+        control,
+        formState: { errors },
+        handleSubmit,
+    } = useForm();
+
     const [isEditSuccess, setIsEditSuccess] = useState(false);
     const [message, setMessage] = useState('');
 
@@ -27,73 +39,19 @@ function EditProposalCard(props) {
 
     const onSubmit = async (data) => {
         const body = {
-            full_name: data.full_name,
-            short_name: data.short_name,
-            registration_number: data.registration_number,
-            registration_date: data.registration_date,
-            registration_company: data.registration_company,
+            fullName: data.fullName,
+            shortName: data.shortName,
+            registrationNumber: data.registrationNumber,
+            registrationDate: data.registrationDate,
+            registrationCompany: data.registrationCompany,
             site: data.site,
             area: data.area,
             logo: data.logo,
         };
+        console.log(body);
 
-        const res = await fetch(
-            `/request/request_sdc_standard_certification/edit/${id}`,
-            {
-                method: 'PATCH',
-                body: JSON.stringify(body),
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
-                },
-            }
-        );
-        if (res.status === 403) {
-            setMessage('Ошибка! Редактирование заявки запрещено.');
-            setIsEditSuccess(true);
-        }
-        console.log(res, 'resresresres');
-        //    dispatch(editProposalCurrent(res));
+        dispatch(changeProposal({ id, body }));
     };
-
-    const cardData = [
-        {
-            id: 1,
-            title: 'Полное имя',
-            value: currentProposalSdc?.short_name,
-            name: 'short_name',
-        },
-        {
-            id: 2,
-            title: 'Регистрационный номер',
-            value: currentProposalSdc?.registration_number,
-            name: 'registration_number',
-        },
-        {
-            id: 3,
-            title: 'Дата регистрации',
-            value: currentProposalSdc?.registration_date,
-            name: 'registration_date',
-        },
-        {
-            id: 4,
-            title: 'registration_company',
-            value: currentProposalSdc?.registration_company,
-            name: 'registration_company',
-        },
-        {
-            id: 5,
-            title: 'Сайт организации',
-            value: currentProposalSdc?.site || 'данных нет',
-            name: 'site',
-        },
-        {
-            id: 6,
-            title: 'Область',
-            value: currentProposalSdc?.area,
-            name: 'area',
-        },
-    ];
 
     return isEditSuccess ? (
         <>
@@ -101,7 +59,6 @@ function EditProposalCard(props) {
             <div className="edit__card-buttons">
                 <button
                     className="btn__login edit__btn"
-                    //     disabled={!isValid}
                     onClick={() => navigate('/')}
                 >
                     На главную
@@ -110,8 +67,6 @@ function EditProposalCard(props) {
         </>
     ) : (
         <>
-            {/* <div className="card-container"> */}
-            {/* <div className="card"> */}
             <div className="login__title">
                 Редактирование заявления {currentProposalSdc?.full_name}
             </div>
@@ -119,25 +74,193 @@ function EditProposalCard(props) {
                 className="declaration__form__request"
                 onSubmit={handleSubmit(onSubmit)}
             >
-                {cardData.map((field) => {
-                    return (
-                        <div className="card__edit__input" key={field.id}>
-                            <p className="input__title">{field.title}</p>
-                            <input
-                                className="current__input card__edit__input__element"
-                                defaultValue={field.value}
-                                type="text"
-                                id={field.name}
-                                {...register(field.name)}
-                            />
+                <div className="card__edit__input">
+                    <p className="input__title">Полное наименование компании</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        autoComplete="off"
+                        name="fullName"
+                        defaultValue={currentProposalSdc.full_name}
+                        type="text"
+                        required
+                        autoFocus
+                        id="fullName"
+                        style={
+                            !errors?.fullName ? {} : { border: '1px solid red' }
+                        }
+                        {...register('fullName', {
+                            required: true,
+                            pattern: /[а-яА-ЯёЁ]/,
+                        })}
+                    />
+                    {errors?.fullName && (
+                        <div className="error-message">
+                            {errors?.fullName?.message ||
+                                'Полное наименование должно быть на кириллице'}
                         </div>
-                    );
-                })}
+                    )}
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Сокращенное наименование </p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="shortName"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        defaultValue={currentProposalSdc.short_name}
+                        style={
+                            !errors?.shortName
+                                ? {}
+                                : { border: '1px solid red' }
+                        }
+                        {...register('shortName', {
+                            required: true,
+                            pattern: /[а-яА-ЯёЁ]/,
+                        })}
+                    />
+                    {errors?.shortName && (
+                        <div className="error-message">
+                            {errors?.shortName?.message ||
+                                'Сокращенное наименование должно быть на кириллице'}
+                        </div>
+                    )}
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Регистрационный номер</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="registrationNumber"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        defaultValue={currentProposalSdc.registration_number}
+                        style={
+                            !errors?.registrationNumber
+                                ? {}
+                                : { border: '1px solid red' }
+                        }
+                        {...register('registrationNumber', {
+                            required: true,
+                            pattern: /^\d+$/,
+                            minLength: {
+                                value: 7,
+                                message:
+                                    'Вы вводите некорректное количество цифр',
+                            },
+                        })}
+                    />
+                    {errors?.registrationNumber && (
+                        <div className="error-message">
+                            {errors?.registrationNumber?.message ||
+                                'Регистрационный номер должен состоять только из цифр'}
+                        </div>
+                    )}
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Дата регистрации</p>
+                    <div className="card__edit__input__element">
+                        <Controller
+                            control={control}
+                            name="registrationDate"
+                            render={({ field }) => (
+                                <DatePicker
+                                    dateFormat="dd/MM/yyyy"
+                                    className="current__input date"
+                                    //  placeholderText="выберите дату"
+                                    placeholderText={
+                                        currentProposalSdc.registration_date
+                                    }
+                                    onChange={(e) => field.onChange(e)}
+                                    selected={field.value}
+                                    maxDate={new Date()}
+                                    showDisabledMonthNavigation
+                                    required
+                                />
+                            )}
+                        />
+                    </div>
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Компания - регистратор</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="registration_company"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        defaultValue={currentProposalSdc.registration_company}
+                        style={
+                            !errors?.registration_company
+                                ? {}
+                                : { border: '1px solid red' }
+                        }
+                        {...register('registration_company', {
+                            required: true,
+                            pattern: /[а-яА-ЯёЁ]/,
+                        })}
+                    />
+                    {errors?.registration_company && (
+                        <div className="error-message">
+                            {errors?.registration_company?.message ||
+                                'Сокращенное наименование должно быть на кириллице'}
+                        </div>
+                    )}
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Сайт</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="site"
+                        autoComplete="off"
+                        type="text"
+                        defaultValue={currentProposalSdc.site}
+                        required
+                        style={!errors?.site ? {} : { border: '1px solid red' }}
+                        {...register('site', {
+                            required: true,
+                            pattern: /[a-zA-Z]/,
+                        })}
+                    />
+                    {errors?.site && (
+                        <div className="error-message">
+                            {errors?.site?.message ||
+                                'Адрес сайта указывается латинским буквами'}
+                        </div>
+                    )}
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Область</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="area"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        defaultValue={currentProposalSdc.area}
+                        style={!errors?.area ? {} : { border: '1px solid red' }}
+                        {...register('area', {
+                            required: true,
+                            pattern: /[a-zA-Z]/,
+                        })}
+                    />
+                    {errors?.area && (
+                        <div className="error-message">
+                            {errors?.area?.message ||
+                                'Адрес сайта указывается латинским буквами'}
+                        </div>
+                    )}
+                </div>
 
                 <div className="declaration__buttons">
                     <button
                         className="btn__login declaration__btn"
-                        //     disabled={!isValid}
                         onClick={() => navigate(-1)}
                         type="button"
                     >
@@ -146,14 +269,11 @@ function EditProposalCard(props) {
                     <button
                         className="btn__login declaration__btn"
                         type="submit"
-                        //     disabled={!isValid}
                     >
                         Сохранить
                     </button>
                 </div>
             </form>
-            {/* </div>
-        </div> */}
         </>
     );
 }

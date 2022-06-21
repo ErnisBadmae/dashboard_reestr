@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { getCurrentOsSdc } from '../../../store/proposal/actions';
 import { editCurrentOsSdc } from '../../../store/proposal/actions';
-// import RegisterSuccess from '../../../pages/register/RegisterSuccess';
-// import { info, error } from '../../Toast/Toast';
 
 import '../../FormSdc/form-sdc.scss';
 
@@ -15,19 +13,11 @@ function EditCardOs(props) {
     const { register, handleSubmit, reset } = useForm();
     const { id } = useParams();
 
-    //     const [isEditSuccess, setIsEditSuccess] = useState(false);
     const { currentOsSdcCard } = useSelector((state) => state.proposalTest);
 
     useEffect(() => {
         dispatch(getCurrentOsSdc(id));
     }, [id, dispatch]);
-
-    //     useEffect(() => {
-    //         if (isSuccess) {
-    //             info('Данные успешно отредактированы!');
-    //         }
-    //         error(`ошибка сервера: ${errorMessage}`);
-    //     }, [id, dispatch, errorMessage]);
 
     if (!currentOsSdcCard) return null;
 
@@ -48,9 +38,6 @@ function EditCardOs(props) {
         };
 
         dispatch(editCurrentOsSdc({ id, body }));
-        //    setIsEditSuccess(true);
-
-        //    console.log('testmatest');
     };
 
     const cardData = [

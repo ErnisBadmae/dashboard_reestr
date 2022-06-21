@@ -8,14 +8,16 @@ function Holder(props) {
     return (
         <div className="card__title__container">
             <div className="card__title">
-                <strong>Держатель</strong>
+                <strong>{props.holderName ? `Держатель: ${props.holderName}` : `Держатель`}</strong>
             </div>
-            <div className="btn__edit">
-                <ButtonRegistry
-                    text={'Добавить держателя'}
-                    onClick={() => navigate(`/declaration`)}
-                />
-            </div>
+            {props.drawBtn && (
+                <div className="btn__edit">
+                    <ButtonRegistry
+                        text={'Добавить держателя'}
+                        onClick={() => navigate(`/declaration`)}
+                    />
+                </div>
+            )}
         </div>
     );
 }

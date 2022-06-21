@@ -5,6 +5,7 @@ import { getCurrentProposalSdc } from '../../../store/proposal/actions';
 import { ButtonRegistry } from '../../Buttons/button-registry/button-registry';
 import Holder from '../../Holders/Holder';
 import CurrentHolder from '../CurrentHolder/CurrentHolder';
+import { getHolders } from '../../../store/proposal/actions';
 
 import '../card-item.scss';
 
@@ -15,9 +16,11 @@ function ProposalCard(props) {
     const { id } = useParams();
 
     const { currentProposalSdc } = useSelector((state) => state.proposalTest);
+    const { holders } = useSelector((state) => state.proposalTest);
 
     useEffect(() => {
         dispatch(getCurrentProposalSdc(id));
+        dispatch(getHolders(id));
     }, [id, dispatch]);
 
     const cardData = [
@@ -83,8 +86,29 @@ function ProposalCard(props) {
                     />
                 </div>
                 <div className="card__field__container">
-                    <Holder />
-                    <CurrentHolder />
+                    {holders.length === 0 && <Holder drawBtn={true} />}
+                    {holders.map((holder, index) => {
+                        if (index === 0) {
+                            return (
+                                <>
+                                    <Holder
+                                        drawBtn={true}
+                                        holderName={holder.short_name}
+                                    />
+                                    <CurrentHolder currentHolder={holder} />
+                                </>
+                            );
+                        }
+                        return (
+                            <>
+                                <Holder
+                                    drawBtn={false}
+                                    holderName={holder.short_name}
+                                />
+                                <CurrentHolder currentHolder={holder} />
+                            </>
+                        );
+                    })}
                 </div>
             </div>
         </>

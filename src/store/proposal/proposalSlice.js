@@ -51,8 +51,10 @@ export const currentProposalTest = createSlice({
             })
             .addCase(changeProposal.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.isSuccess = true;
-                state.currentProposalSdc = action.payload;
+                if (action.payload.success) {
+                    state.isSuccess = true;
+                    state.currentProposalSdc = action.payload;
+                }
             })
             .addCase(changeProposal.rejected, (state, action) => {
                 state.isLoading = false;
@@ -65,6 +67,7 @@ export const currentProposalTest = createSlice({
             })
             .addCase(getCurrentProposalSdc.fulfilled, (state, action) => {
                 state.isLoading = false;
+
                 state.isSuccess = true;
                 state.currentProposalSdc = action.payload;
             })
@@ -90,20 +93,20 @@ export const currentProposalTest = createSlice({
             })
 
             //Держатели
-            .addCase(postDeclarationHolder.pending, (state) => {
-                state.isLoading = true;
-            })
-            .addCase(postDeclarationHolder.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.isSuccess = true;
-                state.holders = action.payload;
-            })
-            .addCase(postDeclarationHolder.rejected, (state, action) => {
-                state.isLoading = false;
-                state.isError = true;
-                state.message = action.payload;
-                state.holders = null;
-            })
+            //   .addCase(postDeclarationHolder.pending, (state) => {
+            //       state.isLoading = true;
+            //   })
+            //   .addCase(postDeclarationHolder.fulfilled, (state, action) => {
+            //       state.isLoading = false;
+            //       state.isSuccess = true;
+            //       state.holders = action.payload;
+            //   })
+            //   .addCase(postDeclarationHolder.rejected, (state, action) => {
+            //       state.isLoading = false;
+            //       state.isError = true;
+            //       state.message = action.payload;
+            //       state.holders = null;
+            //   })
             .addCase(getHolders.pending, (state) => {
                 state.isLoading = true;
             })
