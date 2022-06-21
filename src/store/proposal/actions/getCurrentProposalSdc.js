@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import $api from '../../../http';
 import { correctlyDate } from '../../../helpers/utils';
+import { error, info } from '../../../components/Toast/Toast.jsx';
 
 const headersAxios = {
     headers: {
@@ -112,9 +113,14 @@ export const postOrganSertificationSdc = createAsyncThunk(
             payload.osSdsData,
             headersAxios
         );
-        //    console.log(result, 'result OrganSertificationSdc/post');
-        const value = result.data.data.organCertification;
-        return value;
+        console.log(result, 'result OrganSertificationSdc/post');
+        if (result.data.success) {
+            const value = result.data.data.organCertification;
+            info('Данные успешно добавлены!');
+            return value;
+        } else {
+            error(`ошибка сервера: ${result.data.message}`);
+        }
     }
 );
 
@@ -145,6 +151,7 @@ export const getCurrentOsSdc = createAsyncThunk(
             `/request/request_sdc_standard_certification_organ_certification/${cardId}`
         );
 
+        console.log(result, 'resultresultresultresultresultresultresult');
         const value = result.data.data.organCertification;
         return {
             ...value,
@@ -168,12 +175,16 @@ export const editCurrentOsSdc = createAsyncThunk(
                 },
             }
         );
-        //  if (response.status === 403) {
-        //      setMessage('Ошибка! Редактирование заявки запрещено.');
-        //      setIsEditSuccess(true);
-        //  }
-        const value = await response.json();
-        console.log(value, 'value');
-        return value.data.organCertification;
+        const jsonResponse = await response.json();
+
+        if (jsonResponse.success === true) {
+            info('Ваши данные успешно отредактированы!');
+            return jsonResponse.data.organCertification;
+        } else {
+            error(`ошибка сервера: ${jsonResponse.message}`);
+            return jsonResponse;
+        }
+
+        //    console.log(value, 'value');
     }
 );

@@ -7,7 +7,7 @@ import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
 
 import { useState } from 'react';
-import RegisterSuccess from '../../pages/register/RegisterSuccess';
+// import RegisterSuccess from '../../pages/register/RegisterSuccess';
 
 import './form-sdc.scss';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -28,7 +28,7 @@ function FormOsSdc(props) {
         handleSubmit,
     } = useForm();
 
-    const [isRegisterSuccess, setIsRegisterSuccess] = useState(false);
+    //     const [isRegisterSuccess, setIsRegisterSuccess] = useState(false);
 
     const formHandler = (data) => {
         const osSdsData = {
@@ -48,19 +48,21 @@ function FormOsSdc(props) {
             area: data.area,
         };
 
-        dispatch(postOrganSertificationSdc({ id, osSdsData }))
-            .unwrap()
-            .then(({ id }) => navigate(`/request_sdc/${id}`));
-        setIsRegisterSuccess(true);
+        dispatch(postOrganSertificationSdc({ id, osSdsData }));
+        navigate(-1);
+        //   .unwrap()
+        //   .then(({ id }) => navigate(`/request_sdc/${id}`));
+        //  setIsRegisterSuccess(true);
     };
 
-    return isRegisterSuccess ? (
-        <RegisterSuccess
-            text={'Ваше заявление успешно отредактировано.'}
-            redirect={'/'}
-            textRedirect={'На главную'}
-        />
-    ) : (
+    return (
+        //     isRegisterSuccess ? (
+        //         <RegisterSuccess
+        //             text={'Ваше заявление успешно отредактировано.'}
+        //             redirect={'/'}
+        //             textRedirect={'На главную'}
+        //         />
+        //     ) : (
         <>
             <div className="login__title">Подача Заявления</div>
             <form
@@ -451,6 +453,7 @@ function FormOsSdc(props) {
                     <button
                         className="btn__login declaration__btn"
                         //     disabled={!isValid}
+                        type="button"
                         onClick={() => navigate(-1)}
                     >
                         Отменить

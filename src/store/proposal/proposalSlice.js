@@ -22,6 +22,7 @@ export const currentProposalTest = createSlice({
         currentOsSdcCard: {},
         isLoading: false,
         isSuccess: false,
+        errorMessage: '',
     },
     reducers: {},
     extraReducers: (builder) => {
@@ -174,8 +175,13 @@ export const currentProposalTest = createSlice({
             })
             .addCase(editCurrentOsSdc.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.isSuccess = true;
-                state.currentOsSdcCard = action.payload;
+                //  console.log(action.payload, 'action payload in edit card');
+                if (action.payload.success) {
+                    state.isSuccess = true;
+                    state.currentOsSdcCard = action.payload;
+                }
+
+                //  state.errorMessage = action.payload.message;
             })
             .addCase(editCurrentOsSdc.rejected, (state, action) => {
                 state.isLoading = false;

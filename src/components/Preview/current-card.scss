@@ -13,3 +13,34 @@
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
     border-radius: 3px;
 }
+.card__title {
+    justify-content: space-between;
+}
+
+.actionMenuContainer {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.actionMenu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 0px;
+    top: 50px;
+}
+
+.btn__option {
+    //     width: 143px;
+    //     height: 35px;
+    color: #0f2355;
+    border: none;
+    background: #f6f7fb;
+    border: 1px solid #a2afb2;
+    box-sizing: border-box;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+    border-radius: 3px;
+    &:hover {
+        background-color: #a2afb2;
+    }
+}

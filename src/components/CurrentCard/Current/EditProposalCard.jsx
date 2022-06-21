@@ -139,8 +139,9 @@ function EditProposalCard(props) {
                         className="btn__login declaration__btn"
                         //     disabled={!isValid}
                         onClick={() => navigate(-1)}
+                        type="button"
                     >
-                        Вернуться
+                        Назад
                     </button>
                     <button
                         className="btn__login declaration__btn"

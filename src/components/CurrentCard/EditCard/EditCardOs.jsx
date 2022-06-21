@@ -4,9 +4,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { getCurrentOsSdc } from '../../../store/proposal/actions';
 import { editCurrentOsSdc } from '../../../store/proposal/actions';
+// import RegisterSuccess from '../../../pages/register/RegisterSuccess';
+// import { info, error } from '../../Toast/Toast';
 
 import '../../FormSdc/form-sdc.scss';
-import RegisterSuccess from '../../../pages/register/RegisterSuccess';
 
 function EditCardOs(props) {
     const navigate = useNavigate();
@@ -14,14 +15,19 @@ function EditCardOs(props) {
     const { register, handleSubmit, reset } = useForm();
     const { id } = useParams();
 
-    const [isEditSuccess, setIsEditSuccess] = useState(false);
-    const [message, setMessage] = useState('');
-
+    //     const [isEditSuccess, setIsEditSuccess] = useState(false);
     const { currentOsSdcCard } = useSelector((state) => state.proposalTest);
 
     useEffect(() => {
         dispatch(getCurrentOsSdc(id));
-    }, [id, dispatch, message]);
+    }, [id, dispatch]);
+
+    //     useEffect(() => {
+    //         if (isSuccess) {
+    //             info('Данные успешно отредактированы!');
+    //         }
+    //         error(`ошибка сервера: ${errorMessage}`);
+    //     }, [id, dispatch, errorMessage]);
 
     if (!currentOsSdcCard) return null;
 
@@ -42,7 +48,9 @@ function EditCardOs(props) {
         };
 
         dispatch(editCurrentOsSdc({ id, body }));
-        setIsEditSuccess(true);
+        //    setIsEditSuccess(true);
+
+        //    console.log('testmatest');
     };
 
     const cardData = [
@@ -128,13 +136,7 @@ function EditCardOs(props) {
         },
     ];
 
-    return isEditSuccess ? (
-        <RegisterSuccess
-            text={'Ваше заявление успешно отредактировано.'}
-            redirect={'/'}
-            textRedirect={'На главную'}
-        />
-    ) : (
+    return (
         <>
             <div className="login__title">Редактирование ОС СДС</div>
             <form
@@ -160,8 +162,9 @@ function EditCardOs(props) {
                     <button
                         className="btn__login declaration__btn"
                         onClick={() => navigate(-1)}
+                        type="button"
                     >
-                        Вернуться
+                        Назад
                     </button>
                     <button
                         className="btn__login declaration__btn"
