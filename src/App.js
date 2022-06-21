@@ -45,11 +45,11 @@ function App() {
                     <Route path="/" element={<LayoutContent />}>
                         <Route
                             element={
-                                <RequireAuth allowedRoles={'user_admin'} />
+                                <RequireAuth allowedRoles={['user_admin']} />
                             }
                         >
                             <Route
-                                path="/declaration"
+                                path="/declaration-admin"
                                 element={<Declaration />}
                             />
                             <Route

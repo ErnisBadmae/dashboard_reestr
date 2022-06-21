@@ -7,8 +7,6 @@ const RequireAuth = (props) => {
     const { id } = useParams();
 
     const routes = {
-        ROLE_USER: ['/sds', '/declaration'],
-        ROLE_DICTIONARY_EDITOR: ['/declarations'],
         user_admin: [
             '/declarations',
             `/declaration/${id}`,
@@ -33,26 +31,19 @@ const RequireAuth = (props) => {
 
     let allowedRoutes = [];
 
-    switch (roles) {
-        case 'ROLE_USER':
-            props.allowedRoles.includes(roles) &&
-                allowedRoutes.push(...routes.ROLE_USER);
-            break;
-        case 'ROLE_DICTIONARY_EDITOR':
-            props.allowedRoles.includes(roles) &&
-                allowedRoutes.push(...routes.ROLE_DICTIONARY_EDITOR);
-            break;
-        case 'user_admin':
-            props.allowedRoles.includes(roles) &&
-                allowedRoutes.push(...routes.user_admin);
-            break;
-        case 'user_sdc':
-            props.allowedRoles.includes(roles) &&
-                allowedRoutes.push(...routes.user_sdc);
-            break;
-        default:
-            break;
-    }
+    props.allowedRoles.forEach((allowedRole) => {
+        switch (allowedRole) {
+            case 'user_admin':
+                allowedRole === roles &&
+                    allowedRoutes.push(...routes.user_admin);
+                break;
+            case 'user_sdc':
+                allowedRole === roles && allowedRoutes.push(...routes.user_sdc);
+                break;
+            default:
+                break;
+        }
+    });
 
     const isAuth = useAuth();
 
