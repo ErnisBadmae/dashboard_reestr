@@ -38,7 +38,7 @@ function EditProposalCard(props) {
 
     useEffect(() => {
         setRegistrationDate(
-            moment(currentProposalSdc.registration_date).toDate()
+            moment(currentProposalSdc?.registration_date).toDate()
         );
     }, [currentProposalSdc?.registration_date]);
 
