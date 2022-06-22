@@ -7,6 +7,8 @@ import { getOrganSertifications } from '../../store/proposal/actions';
 function OsSdc(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const { isCardEditable } = useSelector((state) => state.proposalTest);
+    const userRole = useSelector((state) => state.auth.user.roles);
 
     const { organSertificationSdc } = useSelector(
         (state) => state.proposalTest
@@ -24,12 +26,24 @@ function OsSdc(props) {
                 <div className="card__title">
                     <strong>ОС СДС</strong>
                 </div>
-                <div className="btn__edit">
-                    <ButtonRegistry
-                        text={'Добавить ОС'}
-                        onClick={() => navigate(`/form-os-sdc`)}
-                    />
-                </div>
+
+                {props.drawBtn && userRole === 'user_admin' && (
+                    <div className="btn__edit">
+                        <ButtonRegistry
+                            text={'Добавить ОС'}
+                            onClick={() => navigate(`/form-os-sdc`)}
+                        />
+                    </div>
+                )}
+
+                {props.drawBtn && isCardEditable && (
+                    <div className="btn__edit">
+                        <ButtonRegistry
+                            text={'Добавить ОС'}
+                            onClick={() => navigate(`/form-os-sdc`)}
+                        />
+                    </div>
+                )}
 
                 {organSertificationSdc?.length > 0 ? (
                     organSertificationSdc.map((el) => {

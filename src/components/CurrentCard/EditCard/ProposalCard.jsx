@@ -18,9 +18,7 @@ function ProposalCard(props) {
     const { id } = useParams();
 
     const { currentProposalSdc } = useSelector((state) => state.proposalTest);
-    const { isCardEditable } = useSelector(
-        (state) => state.proposalTest.isCardEditable
-    );
+    const { isCardEditable } = useSelector((state) => state.proposalTest);
     const { holders } = useSelector((state) => state.proposalTest);
 
     useEffect(() => {
@@ -67,6 +65,7 @@ function ProposalCard(props) {
         },
     ];
 
+    console.log(isCardEditable, '  console.log(isCardEditable)');
     return (
         <>
             <div className="card__body">

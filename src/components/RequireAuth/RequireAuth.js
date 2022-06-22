@@ -13,6 +13,7 @@ const RequireAuth = (props) => {
             '/requests-sdc-list',
             `/request_sdc/${id}`,
             `/edit-card/${id}`,
+            `/current-os/${id}`,
         ],
         user_sdc: [
             '/requests_sdc',

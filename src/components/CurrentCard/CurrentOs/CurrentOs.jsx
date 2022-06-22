@@ -12,7 +12,8 @@ function CurrentOsSdc(props) {
 
     const { currentOsSdcCard } = useSelector((state) => state.proposalTest);
 
-    //TODO: отрисовать каждый объект
+    const { isCardEditable } = useSelector((state) => state.proposalTest);
+    const userRole = useSelector((state) => state.auth.user.roles);
 
     useEffect(() => {
         dispatch(getCurrentOsSdc(id));
@@ -116,6 +117,16 @@ function CurrentOsSdc(props) {
                 >
                     Назад
                 </button>
+                {props.drawBtn && userRole === 'user_admin' && (
+                    <button
+                        className="btn__login declaration__btn"
+                        type="submit"
+                        onClick={() => navigate(`/edit-card-os/${id}`)}
+                    >
+                        Редактировать
+                    </button>
+                )}
+                {/* {props.drawBtn && isCardEditable && ( */}
                 <button
                     className="btn__login declaration__btn"
                     type="submit"
@@ -123,6 +134,7 @@ function CurrentOsSdc(props) {
                 >
                     Редактировать
                 </button>
+                {/* )} */}
             </div>
         </>
     );
