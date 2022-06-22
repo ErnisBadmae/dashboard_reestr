@@ -48,6 +48,7 @@ export const getPreviewCurrentProposalSdc = createAsyncThunk(
             dttm_updated: correctlyDate(value.dttm_updated),
             dttm_desicion: correctlyDate(value.dttm_desicion),
         };
+        //    return value;
     }
 );
 

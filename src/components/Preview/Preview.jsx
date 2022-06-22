@@ -10,9 +10,22 @@ import './card-item.css';
 import './current-card.scss';
 
 function PreviewCardSdc(props) {
-    const menu = (
-        <Menu
-            items={[
+    const userRole = useSelector((state) => state.auth.user.roles);
+    const { previewProposalSdc } = useSelector((state) => state.proposalTest);
+
+    const dispatch = useDispatch();
+    const { id } = useSelector(
+        (state) => state.proposalTest.currentProposalSdc
+    );
+    useEffect(() => {
+        dispatch(getPreviewCurrentProposalSdc(id));
+    }, [id, dispatch]);
+
+    if (!previewProposalSdc) return null;
+
+    const getMenuItems = (role, requestStatus) => {
+        if (role !== 'user_admin') {
+            return [
                 {
                     key: '1',
                     label: 'Отправить заявление на рассмотрение',
@@ -24,24 +37,48 @@ function PreviewCardSdc(props) {
                     label: 'Аннулировать заявление',
                     onClick: () => changeStatus(id, 'cancelled'),
                 },
-            ]}
-        />
+            ];
+        } else {
+            switch (requestStatus) {
+                case 4:
+                    return [
+                        {
+                            key: '1',
+                            label: 'Принять в работу заявление',
+                            onClick: () =>
+                                changeStatus(id, 'document_verified'),
+                        },
+                    ];
+                case 5:
+                    return [
+                        {
+                            key: '1',
+                            label: 'Вернуть на доработку',
+                            onClick: () => changeStatus(id, 'returned'),
+                        },
+                        {
+                            key: '2',
+                            label: 'Отправить на модерацию',
+                            onClick: () => changeStatus(id, 'send_moderation'),
+                        },
+                    ];
+                case 6:
+                default:
+                    break;
+            }
+        }
+    };
+
+    const menu = (
+        <Menu items={getMenuItems(userRole, previewProposalSdc?.status?.id)} />
     );
 
     //     const { Panel } = Collapse;
 
-    const [shownActionMenu, setShownActionMenu] = useState(false);
-    const actionMenuRef = useRef(null);
-    const dispatch = useDispatch();
-    //     const { id } = useParams();
-    const { id } = useSelector(
-        (state) => state.proposalTest.currentProposalSdc
-    );
-    const { previewProposalSdc } = useSelector((state) => state.proposalTest);
+    // const [shownActionMenu, setShownActionMenu] = useState(false);
+    // const actionMenuRef = useRef(null);
 
-    useEffect(() => {
-        dispatch(getPreviewCurrentProposalSdc(id));
-    }, [id, dispatch]);
+    //     const { id } = useParams();
 
     const cardData = [
         {

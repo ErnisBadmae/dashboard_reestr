@@ -18,6 +18,9 @@ function ProposalCard(props) {
     const { id } = useParams();
 
     const { currentProposalSdc } = useSelector((state) => state.proposalTest);
+    const { isCardEditable } = useSelector(
+        (state) => state.proposalTest.isCardEditable
+    );
     const { holders } = useSelector((state) => state.proposalTest);
 
     useEffect(() => {
@@ -81,12 +84,17 @@ function ProposalCard(props) {
                         </div>
                     );
                 })}
-                <div className="btn__edit">
-                    <ButtonRegistry
-                        text={'Редактировать СДС'}
-                        onClick={() => navigate(`/edit-card/${id}`)}
-                    />
-                </div>
+
+                {isCardEditable && (
+                    <div className="btn__edit">
+                        <ButtonRegistry
+                            // disabled={!isCardEditable}
+                            text={'Редактировать СДС'}
+                            onClick={() => navigate(`/edit-card/${id}`)}
+                        />
+                    </div>
+                )}
+
                 <div className="card__field__container">
                     {holders.length === 0 && <Holder drawBtn={true} />}
                     {holders.map((holder, index) => {

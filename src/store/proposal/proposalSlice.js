@@ -25,6 +25,7 @@ export const currentProposalTest = createSlice({
         isLoading: false,
         isSuccess: false,
         errorMessage: '',
+        isCardEditable: false,
     },
     reducers: {},
     extraReducers: (builder) => {
@@ -39,6 +40,11 @@ export const currentProposalTest = createSlice({
                 (state, action) => {
                     state.isLoading = false;
                     state.isSuccess = true;
+                    if (action.payload.status.id !== 1) {
+                        state.isCardEditable = false;
+                    } else {
+                        state.isCardEditable = true;
+                    }
                     state.previewProposalSdc = action.payload;
                 }
             )

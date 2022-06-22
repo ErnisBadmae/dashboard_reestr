@@ -1,6 +1,9 @@
 // import moment from 'moment';
 
 export const correctlyDate = (stringDate) => {
+    if (stringDate === null) {
+        return stringDate;
+    }
     let correct = new Date(stringDate);
     return correct.toLocaleDateString('ru');
 };
