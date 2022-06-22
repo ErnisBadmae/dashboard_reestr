@@ -2,21 +2,21 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { getCurrentProposalSdc } from '../../../store/proposal/actions';
-import { changeProposal } from '../../../store/proposal/actions';
+import { getCurrentHolder } from '../../../store/proposal/actions';
+import { changeHolder } from '../../../store/proposal/actions';
 import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
 import { correctlyDate } from '../../../helpers/utils';
 import moment from 'moment';
 
 import '../../FormSdc/form-sdc.scss';
-
 import 'react-datepicker/dist/react-datepicker.css';
 
 registerLocale('ru', ru);
 setDefaultLocale('ru');
 
-function EditProposalCard(props) {
+function EditCardHolders(props) {
+    const { id } = useParams();
     const navigate = useNavigate();
     const {
         register,
@@ -25,24 +25,22 @@ function EditProposalCard(props) {
     } = useForm();
 
     const dispatch = useDispatch();
-    const { id } = useParams();
 
-    const { currentProposalSdc } = useSelector((state) => state.proposalTest);
+    const { currentHolder } = useSelector((state) => state.proposalTest);
+
     const [registrationDate, setRegistrationDate] = useState(
-        moment(currentProposalSdc.registration_date).toDate()
+        moment(currentHolder?.registration_date).toDate()
     );
 
     useEffect(() => {
-        dispatch(getCurrentProposalSdc(id));
+        dispatch(getCurrentHolder(id));
     }, [id, dispatch]);
 
     useEffect(() => {
-        setRegistrationDate(
-            moment(currentProposalSdc.registration_date).toDate()
-        );
-    }, [currentProposalSdc.registration_date]);
+        setRegistrationDate(moment(currentHolder?.registration_date).toDate());
+    }, [currentHolder?.registration_date]);
 
-    if (!currentProposalSdc) return null;
+    if (!currentHolder) return null;
 
     const onSubmit = async (data) => {
         const body = {
@@ -51,32 +49,23 @@ function EditProposalCard(props) {
             registrationNumber: data.registrationNumber,
             registrationDate: registrationDate.toISOString(),
             registrationCompany: data.registrationCompany,
+            managerName: data.managerName,
+            managerPosition: data.managerPosition,
+            address: data.address,
             site: data.site,
-            area: data.area,
-            logo: data.logo,
+            phone: data.phone,
+            email: data.email,
+            inn: data.inn,
+            ogrn: data.ogrn,
         };
-        console.log(body);
 
-        dispatch(changeProposal({ id, body }));
+        dispatch(changeHolder({ id, body }));
     };
 
-    //      isEditSuccess ? (
-    //         <>
-    //             <div className="message__error">{message}</div>
-    //             <div className="edit__card-buttons">
-    //                 <button
-    //                     className="btn__login edit__btn"
-    //                     onClick={() => navigate('/')}
-    //                 >
-    //                     На главную
-    //                 </button>
-    //             </div>
-    //         </>
-    //     ) :
     return (
         <>
             <div className="login__title">
-                Редактирование заявления {currentProposalSdc?.full_name}
+                Редактирование заявления {currentHolder?.full_name}
             </div>
             <form
                 className="declaration__form__request"
@@ -88,7 +77,7 @@ function EditProposalCard(props) {
                         className="current__input card__edit__input__element"
                         autoComplete="off"
                         name="fullName"
-                        defaultValue={currentProposalSdc.full_name}
+                        defaultValue={currentHolder.full_name}
                         type="text"
                         required
                         autoFocus
@@ -117,7 +106,7 @@ function EditProposalCard(props) {
                         autoComplete="off"
                         type="text"
                         required
-                        defaultValue={currentProposalSdc.short_name}
+                        defaultValue={currentHolder.short_name}
                         style={
                             !errors?.shortName
                                 ? {}
@@ -144,7 +133,7 @@ function EditProposalCard(props) {
                         autoComplete="off"
                         type="text"
                         required
-                        defaultValue={currentProposalSdc.registration_number}
+                        defaultValue={currentHolder.registration_number}
                         style={
                             !errors?.registrationNumber
                                 ? {}
@@ -154,7 +143,7 @@ function EditProposalCard(props) {
                             required: true,
                             pattern: /^\d+$/,
                             minLength: {
-                                value: 7,
+                                value: 5,
                                 message:
                                     'Вы вводите некорректное количество цифр',
                             },
@@ -186,40 +175,13 @@ function EditProposalCard(props) {
                 </div>
 
                 <div className="card__edit__input">
-                    <p className="input__title">Компания - регистратор</p>
-                    <input
-                        className="current__input card__edit__input__element"
-                        name="registration_company"
-                        autoComplete="off"
-                        type="text"
-                        required
-                        defaultValue={currentProposalSdc.registration_company}
-                        style={
-                            !errors?.registration_company
-                                ? {}
-                                : { border: '1px solid red' }
-                        }
-                        {...register('registration_company', {
-                            required: true,
-                            pattern: /[а-яА-ЯёЁ]/,
-                        })}
-                    />
-                    {errors?.registration_company && (
-                        <div className="error-message">
-                            {errors?.registration_company?.message ||
-                                'Сокращенное наименование должно быть на кириллице'}
-                        </div>
-                    )}
-                </div>
-
-                <div className="card__edit__input">
                     <p className="input__title">Сайт</p>
                     <input
                         className="current__input card__edit__input__element"
                         name="site"
                         autoComplete="off"
                         type="text"
-                        defaultValue={currentProposalSdc.site}
+                        defaultValue={currentHolder.site}
                         required
                         style={!errors?.site ? {} : { border: '1px solid red' }}
                         {...register('site', {
@@ -236,26 +198,128 @@ function EditProposalCard(props) {
                 </div>
 
                 <div className="card__edit__input">
-                    <p className="input__title">Область</p>
+                    <p className="input__title"> Имя руководителя</p>
                     <input
                         className="current__input card__edit__input__element"
-                        name="area"
+                        name="managerName"
                         autoComplete="off"
                         type="text"
                         required
-                        defaultValue={currentProposalSdc.area}
-                        style={!errors?.area ? {} : { border: '1px solid red' }}
-                        {...register('area', {
+                        defaultValue={currentHolder.manager_name}
+                        style={
+                            !errors?.managerName
+                                ? {}
+                                : { border: '1px solid red' }
+                        }
+                        {...register('managerName', {
                             required: true,
-                            pattern: /[a-zA-Z]/,
+                            //    pattern: /[a-zA-Z]/,
                         })}
                     />
-                    {errors?.area && (
+                    {/* {errors?.managerName && (
                         <div className="error-message">
-                            {errors?.area?.message ||
+                            {errors?.managerName?.message ||
                                 'Адрес сайта указывается латинским буквами'}
                         </div>
-                    )}
+                    )} */}
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Должность руководителя</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="managerPosition"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        defaultValue={currentHolder.manager_position}
+                        style={
+                            !errors?.managerPosition
+                                ? {}
+                                : { border: '1px solid red' }
+                        }
+                        {...register('managerPosition', {
+                            required: true,
+                            //    pattern: /[a-zA-Z]/,
+                        })}
+                    />
+                    {/* {errors?.managerPosition && (
+                        <div className="error-message">
+                            {errors?.managerPosition?.message ||
+                                'Адрес сайта указывается латинским буквами'}
+                        </div>
+                    )} */}
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Инн</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="inn"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        defaultValue={currentHolder.inn}
+                        style={!errors?.inn ? {} : { border: '1px solid red' }}
+                        {...register('inn', {
+                            required: true,
+                            //    pattern: /[a-zA-Z]/,
+                        })}
+                    />
+                    {/* {errors?.inn && (
+                        <div className="error-message">
+                            {errors?.inn?.message ||
+                                'Адрес сайта указывается латинским буквами'}
+                        </div>
+                    )} */}
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Огрн</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="ogrn"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        defaultValue={currentHolder.ogrn}
+                        style={!errors?.ogrn ? {} : { border: '1px solid red' }}
+                        {...register('ogrn', {
+                            required: true,
+                            //    pattern: /[a-zA-Z]/,
+                        })}
+                    />
+                    {/* {errors?.ogrn && (
+                        <div className="error-message">
+                            {errors?.ogrn?.message ||
+                                'Адрес сайта указывается латинским буквами'}
+                        </div>
+                    )} */}
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Юридический адрес</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="address"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        defaultValue={currentHolder.address}
+                        style={
+                            !errors?.address ? {} : { border: '1px solid red' }
+                        }
+                        {...register('address', {
+                            required: true,
+                            //    pattern: /[a-zA-Z]/,
+                        })}
+                    />
+                    {/* {errors?.address && (
+                        <div className="error-message">
+                            {errors?.address?.message ||
+                                'Адрес сайта указывается латинским буквами'}
+                        </div>
+                    )} */}
                 </div>
 
                 <div className="declaration__buttons">
@@ -278,4 +342,4 @@ function EditProposalCard(props) {
     );
 }
 
-export default EditProposalCard;
+export default EditCardHolders;

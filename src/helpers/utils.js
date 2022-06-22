@@ -11,7 +11,7 @@ export const correctlyDate = (stringDate) => {
 //     return correct.toISOString();
 // };
 
-// export const correctlyDateEn = (stringDate) => {
-//     let correct = new Date(stringDate);
-//     return correct.toLocaleDateString('en-ZA');
-// };
+export const correctlyDateEn = (stringDate) => {
+    let correct = new Date(stringDate);
+    return correct.toLocaleDateString('en-GB');
+};

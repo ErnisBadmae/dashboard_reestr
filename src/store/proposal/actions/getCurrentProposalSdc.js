@@ -50,10 +50,11 @@ export const getCurrentProposalSdc = createAsyncThunk(
         );
         const value = result.data.data?.requestSdcStandardCertification;
 
-        return {
-            ...value,
-            registration_date: correctlyDate(value.registration_date),
-        };
+        //    return {
+        //        ...value,
+        //        registration_date: correctlyDate(value.registration_date),
+        //    };
+        return value;
     }
 );
 
@@ -114,16 +115,58 @@ export const getHolders = createAsyncThunk('holders/get', async (id) => {
     );
 
     console.log(result, 'result holders/getList');
-    const value = result.data.data.data.map((obj) => {
-        return {
-            ...obj,
-            registration_date: correctlyDate(obj.registration_date),
-            exclusion_date: correctlyDate(obj.exclusion_date),
-        };
-    });
+    const value = result.data.data.data;
+    //     .map((obj) => {
+    //         return {
+    //             ...obj,
+    //             registration_date: correctlyDate(obj.registration_date),
+    //             exclusion_date: correctlyDate(obj.exclusion_date),
+    //         };
+    //     });
 
     return value;
 });
+
+//просмотр текущего держателя
+export const getCurrentHolder = createAsyncThunk(
+    'CurrentHolder/getView',
+    async (id) => {
+        const result = await $api.get(
+            `/request/request_sdc_standard_certification_holder/${id}`
+        );
+
+        const value = result.data.data.holder;
+        return value;
+    }
+);
+
+//редактирование держателя
+
+export const changeHolder = createAsyncThunk(
+    'changeHolder/editHolder',
+    async (payload) => {
+        const response = await fetch(
+            `/request/request_sdc_standard_certification_holder/edit/${payload.id}`,
+            {
+                method: 'PATCH',
+                body: JSON.stringify(payload.body),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+            }
+        );
+        const jsonResponse = await response.json();
+
+        if (jsonResponse.success === true) {
+            info('Ваши данные успешно отредактированы!');
+            return jsonResponse.data.requestSdcStandardCertification;
+        } else {
+            error(`ошибка сервера: ${jsonResponse.message}`);
+            return jsonResponse;
+        }
+    }
+);
 
 //добавление ОС СДС
 export const postOrganSertificationSdc = createAsyncThunk(

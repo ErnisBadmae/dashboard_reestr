@@ -1,8 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ButtonRegistry } from '../../Buttons/button-registry/button-registry';
+import { correctlyDate } from '../../../helpers/utils';
 
 import '../card-item.scss';
 
 function CurrentHolder(props) {
+    const navigate = useNavigate();
     const cardData = [
         {
             id: 1,
@@ -67,7 +71,7 @@ function CurrentHolder(props) {
         {
             id: 11,
             title: 'Дата регистрации',
-            value: props.urrentHolder?.registration_date,
+            value: correctlyDate(props.currentHolder?.registration_date),
             name: 'registration_date',
         },
         {
@@ -79,7 +83,7 @@ function CurrentHolder(props) {
         {
             id: 13,
             title: 'Дата исключения',
-            value: props.currentHolder?.exclusion_date,
+            value: correctlyDate(props.currentHolder?.exclusion_date),
             name: 'exclusion_date',
         },
 
@@ -105,6 +109,14 @@ function CurrentHolder(props) {
                         </div>
                     );
                 })}
+            <div className="btn__edit-holder">
+                <ButtonRegistry
+                    onClick={() => {
+                        navigate(`/holder/${props.currentHolder.id}`);
+                    }}
+                    text={'Редактировать держателя'}
+                />
+            </div>
         </>
     );
 }

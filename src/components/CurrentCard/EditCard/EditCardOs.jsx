@@ -1,16 +1,29 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import { getCurrentOsSdc } from '../../../store/proposal/actions';
 import { editCurrentOsSdc } from '../../../store/proposal/actions';
+import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
+import ru from 'date-fns/locale/ru';
 
 import '../../FormSdc/form-sdc.scss';
+
+import 'react-datepicker/dist/react-datepicker.css';
+
+registerLocale('ru', ru);
+setDefaultLocale('ru');
 
 function EditCardOs(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { register, handleSubmit, reset } = useForm();
+    const {
+        register,
+        control,
+        formState: { errors },
+        handleSubmit,
+    } = useForm();
+
     const { id } = useParams();
 
     const { currentOsSdcCard } = useSelector((state) => state.proposalTest);
@@ -23,11 +36,11 @@ function EditCardOs(props) {
 
     const onSubmit = async (data) => {
         const body = {
-            certificate_number: data.certificate_number,
-            certificate_date: data.certificate_date,
-            decision_number: data.decision_number,
-            full_name_organ_certification: data.full_name_organ_certification,
-            short_name_organ_certification: data.short_name_organ_certification,
+            certificateNumber: data.certificate_number,
+            certificateDate: data.certificate_date,
+            decisionNumber: data.decision_number,
+            fullNameOrganCertification: data.full_name_organ_certification,
+            shortNameOrganCertification: data.short_name_organ_certification,
             inn: data.inn,
             ogrn: data.ogrn,
             manager_name: data.manager_name,
@@ -45,25 +58,25 @@ function EditCardOs(props) {
             id: 1,
             title: 'Номер сертификата',
             value: currentOsSdcCard?.certificate_number,
-            name: 'certificate_number',
+            name: 'certificateNumber',
         },
         {
             id: 2,
             title: 'Дата сертификата',
             value: currentOsSdcCard?.certificate_date,
-            name: 'certificate_date',
+            name: 'certificateDate',
         },
         {
             id: 3,
             title: 'Номер решения',
             value: currentOsSdcCard?.decision_number,
-            name: 'decision_number',
+            name: 'decisionNumber',
         },
         {
             id: 4,
             title: 'Полное наименование ОС',
             value: currentOsSdcCard?.full_name_organ_certification,
-            name: 'full_name_organ_certification',
+            name: 'fullNameOrganCertification',
         },
         {
             id: 5,
@@ -71,7 +84,7 @@ function EditCardOs(props) {
             value:
                 currentOsSdcCard?.short_name_organ_certification ||
                 'данных нет',
-            name: 'short_name_organ_certification',
+            name: 'shortNameOrganCertification',
         },
         {
             id: 6,

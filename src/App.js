@@ -18,6 +18,7 @@ import FormOsSdc from './components/FormSdc/FormOs';
 import CurrentOsSdc from './components/CurrentCard/CurrentOs/CurrentOs';
 import EditCardOs from './components/CurrentCard/EditCard/EditCardOs';
 import { TableSdcAdmin } from './components/TableSds/TableSdcAdmin';
+import EditCardHolders from './components/CurrentCard/EditCard/EditCardHolders';
 
 function App() {
     const navigate = useNavigate();
@@ -101,6 +102,12 @@ function App() {
                                 path="/edit-card-os/:id"
                                 element={<EditCardOs />}
                             />
+                            <Route path="holder">
+                                <Route
+                                    path=":id"
+                                    element={<EditCardHolders />}
+                                />
+                            </Route>
                         </Route>
                         <Route path="*" element={<NotFound />} />
                     </Route>

@@ -15,13 +15,13 @@ function PreviewCardSdc(props) {
             items={[
                 {
                     key: '1',
-                    label: 'Отрпавить на модерацию',
+                    label: 'Отправить заявление на рассмотрение',
                     onClick: () => changeStatus(id, 'send_document_verified'),
                 },
 
                 {
                     key: '2',
-                    label: 'cancelled',
+                    label: 'Аннулировать заявление',
                     onClick: () => changeStatus(id, 'cancelled'),
                 },
             ]}
@@ -69,20 +69,20 @@ function PreviewCardSdc(props) {
             name: 'status',
         },
     ];
-    const handleClickOutside = (event) => {
-        if (!actionMenuRef?.current?.contains(event.target)) {
-            setShownActionMenu(false);
-        }
-    };
+    //     const handleClickOutside = (event) => {
+    //         if (!actionMenuRef?.current?.contains(event.target)) {
+    //             setShownActionMenu(false);
+    //         }
+    //     };
 
-    useEffect(() => {
-        if (actionMenuRef) {
-            document.addEventListener('click', handleClickOutside, true);
-            return () => {
-                document.removeEventListener('click', handleClickOutside, true);
-            };
-        }
-    }, [actionMenuRef]);
+    //     useEffect(() => {
+    //         if (actionMenuRef) {
+    //             document.addEventListener('click', handleClickOutside, true);
+    //             return () => {
+    //                 document.removeEventListener('click', handleClickOutside, true);
+    //             };
+    //         }
+    //     }, [actionMenuRef]);
 
     const changeStatus = async (id, code) => {
         try {
@@ -102,16 +102,16 @@ function PreviewCardSdc(props) {
         <>
             <div className="card__title">
                 <strong>Заявление СДС</strong>
-                <Dropdown overlay={menu}>
-                    <a onClick={(e) => e.preventDefault()}>
-                        <Space>
-                            Действия
-                            <DownOutlined />
-                        </Space>
-                    </a>
-                </Dropdown>
                 <div className="actionMenuContainer">
-                    <button
+                    <Dropdown overlay={menu}>
+                        <a onClick={(e) => e.preventDefault()}>
+                            <Space style={{ color: '#0f2355' }}>
+                                Действия
+                                <DownOutlined />
+                            </Space>
+                        </a>
+                    </Dropdown>
+                    {/* <button
                         className="btn__option"
                         onClick={() => {
                             setShownActionMenu(!shownActionMenu);
@@ -119,8 +119,8 @@ function PreviewCardSdc(props) {
                         type="button"
                     >
                         Действия
-                    </button>
-                    {shownActionMenu && (
+                    </button> */}
+                    {/* {shownActionMenu && (
                         <div className="actionMenu" ref={actionMenuRef}>
                             <button
                                 className="btn__option"
@@ -137,7 +137,7 @@ function PreviewCardSdc(props) {
                                 Аннулировать заявление
                             </button>
                         </div>
-                    )}
+                    )} */}
                 </div>
             </div>
             <div className="card__body">

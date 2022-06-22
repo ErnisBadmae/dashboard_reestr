@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getCurrentProposalSdc } from '../../../store/proposal/actions';
@@ -6,6 +6,8 @@ import { ButtonRegistry } from '../../Buttons/button-registry/button-registry';
 import Holder from '../../Holders/Holder';
 import CurrentHolder from '../CurrentHolder/CurrentHolder';
 import { getHolders } from '../../../store/proposal/actions';
+import { correctlyDate } from '../../../helpers/utils';
+import EditCardHolders from './EditCardHolders';
 
 import '../card-item.scss';
 
@@ -39,7 +41,7 @@ function ProposalCard(props) {
         {
             id: 3,
             title: 'Дата регистрации',
-            value: currentProposalSdc?.registration_date,
+            value: correctlyDate(currentProposalSdc?.registration_date),
             name: 'registration_date',
         },
         {
@@ -93,7 +95,7 @@ function ProposalCard(props) {
                                 <>
                                     <Holder
                                         drawBtn={true}
-                                        holderName={holder.short_name}
+                                        holderName={holder.full_name}
                                     />
                                     <CurrentHolder currentHolder={holder} />
                                 </>
@@ -103,9 +105,10 @@ function ProposalCard(props) {
                             <>
                                 <Holder
                                     drawBtn={false}
-                                    holderName={holder.short_name}
+                                    holderName={holder.full_name}
                                 />
                                 <CurrentHolder currentHolder={holder} />
+                                <EditCardHolders currentHolder={holder} />
                             </>
                         );
                     })}

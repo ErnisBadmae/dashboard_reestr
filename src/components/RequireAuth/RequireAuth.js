@@ -24,6 +24,7 @@ const RequireAuth = (props) => {
             '/form-os-sdc',
             `/current-os/${id}`,
             `/edit-card-os/${id}`,
+            `/holder/${id}`,
         ],
     };
 

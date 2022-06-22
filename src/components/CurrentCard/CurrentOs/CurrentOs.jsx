@@ -1,18 +1,14 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentOsSdc } from '../../../store/proposal/actions';
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import '../card-item.scss';
 
 function CurrentOsSdc(props) {
-    //     const { pathname } = useLocation();
-    //     console.log(pathname, ' pathnamse os sdc');
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { id } = useParams();
-
-    console.log(id, 'idididididididi');
 
     const { currentOsSdcCard } = useSelector((state) => state.proposalTest);
 

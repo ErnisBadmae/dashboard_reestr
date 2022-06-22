@@ -9,6 +9,7 @@ import {
     getOrganSertifications,
     getCurrentOsSdc,
     editCurrentOsSdc,
+    getCurrentHolder,
 } from './actions';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -20,6 +21,7 @@ export const currentProposalTest = createSlice({
         holders: [],
         organSertificationSdc: [],
         currentOsSdcCard: {},
+        currentHolder: {},
         isLoading: false,
         isSuccess: false,
         errorMessage: '',
@@ -67,7 +69,6 @@ export const currentProposalTest = createSlice({
             })
             .addCase(getCurrentProposalSdc.fulfilled, (state, action) => {
                 state.isLoading = false;
-
                 state.isSuccess = true;
                 state.currentProposalSdc = action.payload;
             })
@@ -120,6 +121,21 @@ export const currentProposalTest = createSlice({
                 state.isError = true;
                 state.message = action.payload;
                 state.holders = null;
+            })
+
+            .addCase(getCurrentHolder.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getCurrentHolder.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.currentHolder = action.payload;
+            })
+            .addCase(getCurrentHolder.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                state.currentHolder = null;
             })
 
             //ОС
