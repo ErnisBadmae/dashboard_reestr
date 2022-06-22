@@ -40,7 +40,7 @@ function EditProposalCard(props) {
         setRegistrationDate(
             moment(currentProposalSdc.registration_date).toDate()
         );
-    }, [currentProposalSdc.registration_date]);
+    }, [currentProposalSdc?.registration_date]);
 
     if (!currentProposalSdc) return null;
 
