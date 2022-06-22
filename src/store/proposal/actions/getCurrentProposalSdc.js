@@ -13,13 +13,23 @@ const headersAxios = {
 export const postSdcRequest = createAsyncThunk(
     'requestSdc/post',
     async (payload) => {
-        let result = await $api.post(
-            '/request/request_sdc_standard_certification/add',
-            payload,
-            headersAxios
-        );
-
-        return result.data.data.requestSdcStandardCertification;
+        try {
+            let result = await $api.post(
+                '/request/request_sdc_standard_certification/add',
+                payload,
+                headersAxios
+            );
+            console.log(result, 'requestSdc/post');
+            if (result.data.data.success === true) {
+                info('Ваши данные успешно отредактированы!');
+                return result.data.requestSdcStandardCertification;
+            } else {
+                error(`ошибка сервера: ${result.message}`);
+            }
+            return result.data.data.requestSdcStandardCertification;
+        } catch (e) {
+            error(`ошибка сервера: ${e.message}`);
+        }
     }
 );
 

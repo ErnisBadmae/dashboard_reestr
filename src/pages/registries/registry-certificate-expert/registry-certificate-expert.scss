@@ -1,0 +1,49 @@
+.registry-sro {
+  // cursor: pointer;
+  &__filter-input {
+    width: 200px;
+  }
+  &__filter-icon {
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    padding: 10px;
+    background-color: #e4effa;
+    color: #696e73 !important;
+    box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%),
+      0 1px 10px 0 rgb(0 0 0 / 12%);
+    border-radius: 10px;
+    margin: 5px 0;
+  }
+  &__filter-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &__table {
+    td.ant-table-cell {
+      cursor: pointer;
+    }
+  }
+  &__drawer-wrapper {
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    background: #fafafa;
+    border: 1px solid #ebedf0;
+    border-radius: 2px;
+  }
+  &__buttons-wrapper{
+    display: flex;
+    justify-content: space-around;
+  }
+  .title-wrapper{
+    // text-align: center;
+    font-size: 20px;
+    margin: 5px 10px;
+    
+  }
+  &__name-registry{
+    margin-right: 100px;
+  }
+}

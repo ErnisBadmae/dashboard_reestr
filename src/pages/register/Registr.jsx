@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
-import { register } from '../../store/auth/authSlice';
+import { registration } from '../../store/auth/authSlice';
 import ReactDadataBox from 'react-dadata-box';
 import RegisterSuccess from './RegisterSuccess';
 import { useForm, Controller } from 'react-hook-form';
@@ -16,18 +16,7 @@ const Registr = () => {
     const dispatch = useDispatch();
 
     const [isRegisterSuccess, setIsRegisterSuccess] = useState(false);
-    const [inn, setInn] = useState('');
-
-    const {
-        register,
-        watch,
-        control,
-        formState: { errors },
-        handleSubmit,
-    } = useForm();
-
-    const watchFields = watch(['orgInn', 'orgOgrn']);
-    console.log(watchFields, 'watchFields');
+    const [ogrn, setOgrn] = useState('');
 
     const formHandler = (data) => {
         const registrData = {
@@ -36,15 +25,24 @@ const Registr = () => {
             secondname: data.secondname,
             firstname: data.firstname,
             orgInn: data.orgInn,
-            orgOgrn: data.orgOgrn,
+            orgOgrn: ogrn,
             orgShortName: data.orgShortName,
             email: data.email,
             phone: data.phone,
+            registrationNumber: data.registrationNumber,
+            userRole: 3,
         };
-        console.log('registrData', registrData);
-        //    dispatch(register(registrData));
-        //    setIsRegisterSuccess(true);
+
+        dispatch(registration(registrData));
+        setIsRegisterSuccess(true);
     };
+
+    const {
+        register,
+        control,
+        formState: { errors },
+        handleSubmit,
+    } = useForm();
 
     return isRegisterSuccess ? (
         <RegisterSuccess
@@ -184,8 +182,7 @@ const Registr = () => {
                                 className="current__input card__edit__input__element"
                                 onChange={(suggestion) => {
                                     field.onChange(suggestion?.data?.inn);
-                                    setInn(suggestion?.data?.ogrn);
-                                    console.log(suggestion?.data);
+                                    setOgrn(suggestion?.data?.ogrn);
                                 }}
                             />
                         )}
@@ -208,7 +205,7 @@ const Registr = () => {
                         type="text"
                         {...register('orgOgrn')}
                         required
-                        value={inn}
+                        value={ogrn}
                         onChange={formHandler}
                         //     onChange={(e) => setFormData(e.target.value)}
                     />
@@ -278,13 +275,15 @@ const Registr = () => {
                         }
                         {...register('phone', {
                             required: true,
-                            pattern: /[а-яА-ЯёЁ]/,
+                            minLength: {
+                                value: 7,
+                                message: 'Вы вводите некорректный номер',
+                            },
                         })}
                     />
                     {errors?.phone && (
                         <div className="error-message">
-                            {errors?.phone?.message ||
-                                'Полное наименование должно быть на кириллице'}
+                            {errors?.phone?.message || 'Укажите номер телефона'}
                         </div>
                     )}
                 </div>
@@ -305,13 +304,17 @@ const Registr = () => {
                         }
                         {...register('registrationNumber', {
                             required: true,
-                            pattern: /[а-яА-ЯёЁ]/,
+                            minLength: {
+                                value: 7,
+                                message:
+                                    'Вы вводите некорректное количество цифр',
+                            },
                         })}
                     />
                     {errors?.registrationNumber && (
                         <div className="error-message">
                             {errors?.registrationNumber?.message ||
-                                'Полное наименование должно быть на кириллице'}
+                                'Укажите регистрационный номер'}
                         </div>
                     )}
 

@@ -1,0 +1,31 @@
+p {
+    padding: 1px;
+    margin: 1px;
+}
+.card {
+    /* border: 5px solid black; */
+    max-width: 768px;
+    margin: 40px auto;
+}
+
+.card__title {
+    text-align: center;
+    /* border: 1px solid red; */
+    font-size: 20px;
+    margin: 15px 10px;
+}
+
+.card__body {
+    display: block;
+    border: 2px solid #f5f5f5;
+    margin: 5px auto 10px;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 3px 1px -2px rgb(0 0 0 / 20%), 0 2px 2px 0 rgb(0 0 0 / 14%),
+        0 1px 5px 0 rgb(0 0 0 / 12%);
+}
+
+.btn__card {
+    margin-top: 10px;
+    text-align: center;
+}

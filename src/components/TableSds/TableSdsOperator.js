@@ -58,7 +58,7 @@ export const TableSdsOperator = (props) => {
         let res = await $api.get(
             '/request/request_sdc_standard_certification/get/active_request_sdc_header'
         );
-        if (res.data.data?.requestSdcHeader?.status.code === 'created') {
+        if (res.data.data?.requestSdcHeader !== null) {
             setCheckRequest(true);
         } else {
             navigate('/new-request-sdc');

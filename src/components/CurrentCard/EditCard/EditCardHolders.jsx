@@ -6,7 +6,6 @@ import { getCurrentHolder } from '../../../store/proposal/actions';
 import { changeHolder } from '../../../store/proposal/actions';
 import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
-import { correctlyDate } from '../../../helpers/utils';
 import moment from 'moment';
 
 import '../../FormSdc/form-sdc.scss';

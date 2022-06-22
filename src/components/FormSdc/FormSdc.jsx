@@ -31,7 +31,8 @@ function FormSdc(props) {
             registrationDate: data.registrationDate.toLocaleDateString('en-CA'),
             registrationCompany: data.registrationCompany,
             area: data.area,
-            myFile: data.myFile,
+            site: data.site,
+            //   myFile: data.myFile,
         };
 
         dispatch(postSdcRequest(declarationSdsData))
@@ -161,7 +162,7 @@ function FormSdc(props) {
                 </div>
 
                 <div className="card__edit__input">
-                    <p className="input__title">Держатель</p>
+                    <p className="input__title">Компания-регистратор</p>
                     <input
                         className="current__input card__edit__input__element"
                         name="registrationCompany"
@@ -211,6 +212,18 @@ function FormSdc(props) {
                         </div>
                     )}
                 </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Сайт</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="site"
+                        autoComplete="off"
+                        type="text"
+                        {...register('site')}
+                    />
+                </div>
+
                 <div className="declaration__buttons">
                     <button
                         className="btn__login declaration__btn"

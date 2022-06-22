@@ -29,7 +29,7 @@ function EditProposalCard(props) {
 
     const { currentProposalSdc } = useSelector((state) => state.proposalTest);
     const [registrationDate, setRegistrationDate] = useState(
-        moment(currentProposalSdc.registration_date).toDate()
+        moment(currentProposalSdc?.registration_date).toDate()
     );
 
     useEffect(() => {
@@ -247,13 +247,13 @@ function EditProposalCard(props) {
                         style={!errors?.area ? {} : { border: '1px solid red' }}
                         {...register('area', {
                             required: true,
-                            pattern: /[a-zA-Z]/,
+                            pattern: /[а-яА-ЯёЁ]/,
                         })}
                     />
                     {errors?.area && (
                         <div className="error-message">
                             {errors?.area?.message ||
-                                'Адрес сайта указывается латинским буквами'}
+                                'Укажите корректные данные'}
                         </div>
                     )}
                 </div>
