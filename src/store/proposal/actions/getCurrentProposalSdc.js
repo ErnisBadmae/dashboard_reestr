@@ -67,13 +67,12 @@ export const getCurrentProposalSdc = createAsyncThunk(
         return value;
     }
 );
-
 //изменение заявки
 export const changeProposal = createAsyncThunk(
     'changeProposal/edit',
     async (payload) => {
         const response = await fetch(
-            `/request/request_sdc_standard_certification/edit/${payload.id}`,
+            `https://api-prof-sdc.anonamis.ru/api/request/request_sdc_standard_certification/edit/${payload.id}`,
             {
                 method: 'PATCH',
                 body: JSON.stringify(payload.body),
@@ -156,7 +155,7 @@ export const changeHolder = createAsyncThunk(
     'changeHolder/editHolder',
     async (payload) => {
         const response = await fetch(
-            `/request/request_sdc_standard_certification_holder/edit/${payload.id}`,
+            `https://api-prof-sdc.anonamis.ru/api/request/request_sdc_standard_certification_holder/edit/${payload.id}`,
             {
                 method: 'PATCH',
                 body: JSON.stringify(payload.body),
@@ -239,7 +238,7 @@ export const editCurrentOsSdc = createAsyncThunk(
     'viewEditCard/editCurrentOsSdc',
     async (payload) => {
         const response = await fetch(
-            `/request/request_sdc_standard_certification_organ_certification/edit/${payload.id}`,
+            `https://api-prof-sdc.anonamis.ru/api/request/request_sdc_standard_certification_organ_certification/edit/${payload.id}`,
             {
                 method: 'PATCH',
                 body: JSON.stringify(payload.body),
