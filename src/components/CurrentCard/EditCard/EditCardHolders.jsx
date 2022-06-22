@@ -76,7 +76,7 @@ function EditCardHolders(props) {
                         className="current__input card__edit__input__element"
                         autoComplete="off"
                         name="fullName"
-                        defaultValue={currentHolder.full_name}
+                        defaultValue={currentHolder?.full_name}
                         type="text"
                         required
                         autoFocus
@@ -105,7 +105,7 @@ function EditCardHolders(props) {
                         autoComplete="off"
                         type="text"
                         required
-                        defaultValue={currentHolder.short_name}
+                        defaultValue={currentHolder?.short_name}
                         style={
                             !errors?.shortName
                                 ? {}
@@ -132,7 +132,7 @@ function EditCardHolders(props) {
                         autoComplete="off"
                         type="text"
                         required
-                        defaultValue={currentHolder.registration_number}
+                        defaultValue={currentHolder?.registration_number}
                         style={
                             !errors?.registrationNumber
                                 ? {}
@@ -180,7 +180,7 @@ function EditCardHolders(props) {
                         name="site"
                         autoComplete="off"
                         type="text"
-                        defaultValue={currentHolder.site}
+                        defaultValue={currentHolder?.site}
                         required
                         style={!errors?.site ? {} : { border: '1px solid red' }}
                         {...register('site', {
@@ -204,7 +204,7 @@ function EditCardHolders(props) {
                         autoComplete="off"
                         type="text"
                         required
-                        defaultValue={currentHolder.manager_name}
+                        defaultValue={currentHolder?.manager_name}
                         style={
                             !errors?.managerName
                                 ? {}
@@ -231,7 +231,7 @@ function EditCardHolders(props) {
                         autoComplete="off"
                         type="text"
                         required
-                        defaultValue={currentHolder.manager_position}
+                        defaultValue={currentHolder?.manager_position}
                         style={
                             !errors?.managerPosition
                                 ? {}
@@ -258,7 +258,7 @@ function EditCardHolders(props) {
                         autoComplete="off"
                         type="text"
                         required
-                        defaultValue={currentHolder.inn}
+                        defaultValue={currentHolder?.inn}
                         style={!errors?.inn ? {} : { border: '1px solid red' }}
                         {...register('inn', {
                             required: true,
@@ -281,7 +281,7 @@ function EditCardHolders(props) {
                         autoComplete="off"
                         type="text"
                         required
-                        defaultValue={currentHolder.ogrn}
+                        defaultValue={currentHolder?.ogrn}
                         style={!errors?.ogrn ? {} : { border: '1px solid red' }}
                         {...register('ogrn', {
                             required: true,
@@ -304,7 +304,7 @@ function EditCardHolders(props) {
                         autoComplete="off"
                         type="text"
                         required
-                        defaultValue={currentHolder.address}
+                        defaultValue={currentHolder?.address}
                         style={
                             !errors?.address ? {} : { border: '1px solid red' }
                         }

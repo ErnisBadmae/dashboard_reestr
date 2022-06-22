@@ -20,7 +20,6 @@ function EditCardOs(props) {
     const dispatch = useDispatch();
     const {
         register,
-
         formState: { errors },
         handleSubmit,
     } = useForm();
@@ -32,13 +31,14 @@ function EditCardOs(props) {
     const [registrationDate, setRegistrationDate] = useState(
         moment(currentOsSdcCard?.certificate_date).toDate()
     );
+
     useEffect(() => {
         dispatch(getCurrentOsSdc(id));
     }, [id, dispatch]);
 
     useEffect(() => {
         setRegistrationDate(
-            moment(currentOsSdcCard?.registration_date).toDate()
+            moment(currentOsSdcCard?.certificate_date).toDate()
         );
     }, [currentOsSdcCard?.certificate_date]);
 

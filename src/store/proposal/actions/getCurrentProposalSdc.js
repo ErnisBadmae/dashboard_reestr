@@ -228,10 +228,11 @@ export const getCurrentOsSdc = createAsyncThunk(
 
         console.log(result, 'resultresultresultresultresultresultresult');
         const value = result.data.data.organCertification;
-        return {
-            ...value,
-            certificate_date: correctlyDate(value.certificate_date),
-        };
+        //    return {
+        //        ...value,
+        //        certificate_date: correctlyDate(value.certificate_date),
+        //    };
+        return value;
     }
 );
 
