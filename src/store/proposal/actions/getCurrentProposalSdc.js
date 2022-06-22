@@ -20,13 +20,14 @@ export const postSdcRequest = createAsyncThunk(
                 headersAxios
             );
             console.log(result, 'requestSdc/post');
-            if (result.data.data.success === true) {
+
+            if (result.data.success) {
                 info('Ваши данные успешно отредактированы!');
-                return result.data.requestSdcStandardCertification;
+                return result.data.data.requestSdcStandardCertification;
             } else {
                 error(`ошибка сервера: ${result.message}`);
+                return {};
             }
-            return result.data.data.requestSdcStandardCertification;
         } catch (e) {
             error(`ошибка сервера: ${e.message}`);
         }

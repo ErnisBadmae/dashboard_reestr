@@ -14,6 +14,7 @@ const register = async (registrData) => {
         registrData,
         headersAxios
     );
+    console.log(responseRegisterUser, 'responseRegisterUser');
     return responseRegisterUser.data;
 };
 
