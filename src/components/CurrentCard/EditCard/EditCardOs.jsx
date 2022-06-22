@@ -1,11 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { getCurrentOsSdc } from '../../../store/proposal/actions';
 import { editCurrentOsSdc } from '../../../store/proposal/actions';
 import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
+import moment from 'moment';
 
 import '../../FormSdc/form-sdc.scss';
 
@@ -19,7 +20,7 @@ function EditCardOs(props) {
     const dispatch = useDispatch();
     const {
         register,
-        control,
+
         formState: { errors },
         handleSubmit,
     } = useForm();
@@ -28,22 +29,31 @@ function EditCardOs(props) {
 
     const { currentOsSdcCard } = useSelector((state) => state.proposalTest);
 
+    const [registrationDate, setRegistrationDate] = useState(
+        moment(currentOsSdcCard?.certificate_date).toDate()
+    );
     useEffect(() => {
         dispatch(getCurrentOsSdc(id));
     }, [id, dispatch]);
+
+    useEffect(() => {
+        setRegistrationDate(
+            moment(currentOsSdcCard?.registration_date).toDate()
+        );
+    }, [currentOsSdcCard?.certificate_date]);
 
     if (!currentOsSdcCard) return null;
 
     const onSubmit = async (data) => {
         const body = {
-            certificateNumber: data.certificate_number,
-            certificateDate: data.certificate_date,
-            decisionNumber: data.decision_number,
-            fullNameOrganCertification: data.full_name_organ_certification,
-            shortNameOrganCertification: data.short_name_organ_certification,
+            certificateNumber: data.certificateNumber,
+            certificateDate: registrationDate.toISOString(),
+            decisionNumber: data.decisionNumber,
+            fullNameOrganCertification: data.fullNameOrganCertification,
+            shortNameOrganCertification: data.shortNameOrganCertification,
             inn: data.inn,
             ogrn: data.ogrn,
-            manager_name: data.manager_name,
+            managerName: data.managerName,
             address: data.address,
             email: data.email,
             site: data.site,
@@ -53,110 +63,238 @@ function EditCardOs(props) {
         dispatch(editCurrentOsSdc({ id, body }));
     };
 
-    const cardData = [
-        {
-            id: 1,
-            title: 'Номер сертификата',
-            value: currentOsSdcCard?.certificate_number,
-            name: 'certificateNumber',
-        },
-        {
-            id: 2,
-            title: 'Дата сертификата',
-            value: currentOsSdcCard?.certificate_date,
-            name: 'certificateDate',
-        },
-        {
-            id: 3,
-            title: 'Номер решения',
-            value: currentOsSdcCard?.decision_number,
-            name: 'decisionNumber',
-        },
-        {
-            id: 4,
-            title: 'Полное наименование ОС',
-            value: currentOsSdcCard?.full_name_organ_certification,
-            name: 'fullNameOrganCertification',
-        },
-        {
-            id: 5,
-            title: 'Сокращенное наименование ОС',
-            value:
-                currentOsSdcCard?.short_name_organ_certification ||
-                'данных нет',
-            name: 'shortNameOrganCertification',
-        },
-        {
-            id: 6,
-            title: 'Инн',
-            value: currentOsSdcCard?.inn,
-            name: 'inn',
-        },
-        {
-            id: 7,
-            title: 'Огрн',
-            value: currentOsSdcCard?.ogrn,
-            name: 'ogrn',
-        },
-        {
-            id: 8,
-            title: 'Имя руководителя',
-            value: currentOsSdcCard?.manager_name,
-            name: 'manager_name',
-        },
-        {
-            id: 9,
-            title: 'Юридический адрес',
-            value: currentOsSdcCard?.address,
-            name: 'address',
-        },
-        {
-            id: 10,
-            title: 'Контактный телефон',
-            value: currentOsSdcCard?.phone,
-            name: 'phone',
-        },
-        {
-            id: 11,
-            title: 'Электронная почта',
-            value: currentOsSdcCard?.email,
-            name: 'email',
-        },
-        {
-            id: 12,
-            title: 'Сайт',
-            value: currentOsSdcCard?.site,
-            name: 'site',
-        },
-        {
-            id: 13,
-            title: 'Область распространения',
-            value: currentOsSdcCard?.area,
-            name: 'area',
-        },
-    ];
-
     return (
         <>
-            <div className="login__title">Редактирование ОС СДС</div>
+            <div className="login__title">Редактирование заявления ОС</div>
             <form
                 className="declaration__form__request"
                 onSubmit={handleSubmit(onSubmit)}
             >
-                {cardData.map((field) => {
-                    return (
-                        <div className="card__edit__input" key={field.id}>
-                            <p className="input__title">{field.title}</p>
-                            <input
-                                className="current__input card__edit__input__element"
-                                defaultValue={field.value}
-                                type="text"
-                                id={field.name}
-                                {...register(field.name)}
-                            />
+                <div className="card__edit__input">
+                    <p className="input__title">Полное наименование компании</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        autoComplete="off"
+                        name="fullNameOrganCertification"
+                        defaultValue={currentOsSdcCard.full_name}
+                        type="text"
+                        required
+                        autoFocus
+                        id="fullNameOrganCertification"
+                        style={
+                            !errors?.fullNameOrganCertification
+                                ? {}
+                                : { border: '1px solid red' }
+                        }
+                        {...register('fullNameOrganCertification', {
+                            required: true,
+                            pattern: /[а-яА-ЯёЁ]/,
+                        })}
+                    />
+                    {errors?.fullNameOrganCertification && (
+                        <div className="error-message">
+                            {errors?.fullNameOrganCertification?.message ||
+                                'Полное наименование должно быть на кириллице'}
                         </div>
-                    );
-                })}
+                    )}
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Сокращенное наименование </p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="shortNameOrganCertification"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        defaultValue={currentOsSdcCard.short_name}
+                        style={
+                            !errors?.shortNameOrganCertification
+                                ? {}
+                                : { border: '1px solid red' }
+                        }
+                        {...register('shortNameOrganCertification', {
+                            required: true,
+                            pattern: /[а-яА-ЯёЁ]/,
+                        })}
+                    />
+                    {errors?.shortNameOrganCertification && (
+                        <div className="error-message">
+                            {errors?.shortNameOrganCertification?.message ||
+                                'Сокращенное наименование должно быть на кириллице'}
+                        </div>
+                    )}
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Номер сертификата</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="certificateNumber"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        defaultValue={currentOsSdcCard.registration_number}
+                        style={
+                            !errors?.certificateNumber
+                                ? {}
+                                : { border: '1px solid red' }
+                        }
+                        {...register('certificateNumber', {
+                            required: true,
+                            pattern: /^\d+$/,
+                            minLength: {
+                                value: 5,
+                                message:
+                                    'Вы вводите некорректное количество цифр',
+                            },
+                        })}
+                    />
+                    {errors?.certificateNumber && (
+                        <div className="error-message">
+                            {errors?.certificateNumber?.message ||
+                                'Регистрационный номер должен состоять только из цифр'}
+                        </div>
+                    )}
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Дата регистрации сертификата</p>
+                    <div className="card__edit__input__element">
+                        <DatePicker
+                            dateFormat="dd/MM/yyyy"
+                            className="current__input date"
+                            onChange={(date) => {
+                                setRegistrationDate(date);
+                            }}
+                            selected={registrationDate}
+                            maxDate={new Date()}
+                            showDisabledMonthNavigation
+                            required
+                        />
+                    </div>
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Сайт</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="site"
+                        autoComplete="off"
+                        type="text"
+                        defaultValue={currentOsSdcCard.site}
+                        required
+                        style={!errors?.site ? {} : { border: '1px solid red' }}
+                        {...register('site', {
+                            required: true,
+                            pattern: /[a-zA-Z]/,
+                        })}
+                    />
+                    {errors?.site && (
+                        <div className="error-message">
+                            {errors?.site?.message ||
+                                'Адрес сайта указывается латинским буквами'}
+                        </div>
+                    )}
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title"> Имя руководителя</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="managerName"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        defaultValue={currentOsSdcCard.manager_name}
+                        style={
+                            !errors?.managerName
+                                ? {}
+                                : { border: '1px solid red' }
+                        }
+                        {...register('managerName', {
+                            required: true,
+                            //    pattern: /[a-zA-Z]/,
+                        })}
+                    />
+                    {/* {errors?.managerName && (
+                        <div className="error-message">
+                            {errors?.managerName?.message ||
+                                'Адрес сайта указывается латинским буквами'}
+                        </div>
+                    )} */}
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Инн</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="inn"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        defaultValue={currentOsSdcCard.inn}
+                        style={!errors?.inn ? {} : { border: '1px solid red' }}
+                        {...register('inn', {
+                            required: true,
+                            //    pattern: /[a-zA-Z]/,
+                        })}
+                    />
+                    {/* {errors?.inn && (
+                        <div className="error-message">
+                            {errors?.inn?.message ||
+                                'Адрес сайта указывается латинским буквами'}
+                        </div>
+                    )} */}
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Огрн</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="ogrn"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        defaultValue={currentOsSdcCard.ogrn}
+                        style={!errors?.ogrn ? {} : { border: '1px solid red' }}
+                        {...register('ogrn', {
+                            required: true,
+                            //    pattern: /[a-zA-Z]/,
+                        })}
+                    />
+                    {/* {errors?.ogrn && (
+                        <div className="error-message">
+                            {errors?.ogrn?.message ||
+                                'Адрес сайта указывается латинским буквами'}
+                        </div>
+                    )} */}
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Юридический адрес</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="address"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        defaultValue={currentOsSdcCard.address}
+                        style={
+                            !errors?.address ? {} : { border: '1px solid red' }
+                        }
+                        {...register('address', {
+                            required: true,
+                            //    pattern: /[a-zA-Z]/,
+                        })}
+                    />
+                    {/* {errors?.address && (
+                        <div className="error-message">
+                            {errors?.address?.message ||
+                                'Адрес сайта указывается латинским буквами'}
+                        </div>
+                    )} */}
+                </div>
 
                 <div className="declaration__buttons">
                     <button
