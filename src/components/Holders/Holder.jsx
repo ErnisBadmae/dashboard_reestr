@@ -25,7 +25,7 @@ function Holder(props) {
                     />
                 </div>
             )}
-            {props.drawBtn && userRole === 'user_admin' && (
+            {props.drawBtn && userRole !== 'user_admin' && (
                 <div className="btn__edit">
                     <ButtonRegistry
                         text={'Добавить держателя'}
