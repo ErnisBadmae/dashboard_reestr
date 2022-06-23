@@ -54,7 +54,7 @@ const Registr = () => {
         />
     ) : (
         <>
-            <div className="login__title">Сведения о заявителе</div>
+            <div className="login__title">Регистрация пользователя СДС</div>
             <form
                 onSubmit={handleSubmit(formHandler)}
                 className="declaration__form__request"
