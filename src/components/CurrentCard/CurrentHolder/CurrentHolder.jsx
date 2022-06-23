@@ -79,25 +79,25 @@ function CurrentHolder(props) {
             value: correctlyDate(props.currentHolder?.registration_date),
             name: 'registration_date',
         },
+        //    {
+        //        id: 12,
+        //        title: 'Документ о регистрации',
+        //        value: props.currentHolder?.registration_document,
+        //        name: 'registration_document',
+        //    },
         {
             id: 12,
-            title: 'Документ о регистрации',
-            value: props.currentHolder?.registration_document,
-            name: 'registration_document',
-        },
-        {
-            id: 13,
             title: 'Дата исключения',
             value: correctlyDate(props.currentHolder?.exclusion_date),
             name: 'exclusion_date',
         },
 
-        {
-            id: 14,
-            title: 'Документ об исключении',
-            value: props.currentHolder?.exclusion_document,
-            name: 'exclusion_document',
-        },
+        //    {
+        //        id: 14,
+        //        title: 'Документ об исключении',
+        //        value: props.currentHolder?.exclusion_document,
+        //        name: 'exclusion_document',
+        //    },
     ];
 
     return (

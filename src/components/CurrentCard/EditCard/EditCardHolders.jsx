@@ -61,9 +61,9 @@ function EditCardHolders(props) {
             registrationNumber: data.registrationNumber,
             registrationDate: registrationDate.toISOString(),
             registrationCompany: data.registrationCompany,
-            registrationDocument: data.registrationDocument,
+            //   registrationDocument: data.registrationDocument,
             exclusionDate: exclusionDate.toISOString(),
-            exclusionDocument: data.exclusionDocument,
+            //   exclusionDocument: data.exclusionDocument,
         };
 
         dispatch(changeHolder({ id, body }));
@@ -298,7 +298,7 @@ function EditCardHolders(props) {
                     </div>
                 </div>
 
-                <div className="card__edit__input">
+                {/* <div className="card__edit__input">
                     <p className="input__title">Документ об исключении</p>
                     <input
                         className="current__input card__edit__input__element"
@@ -317,13 +317,8 @@ function EditCardHolders(props) {
                             //    pattern: /[a-zA-Z]/,
                         })}
                     />
-                    {/* {errors?.exclusionDocument && (
-                        <div className="error-message">
-                            {errors?.exclusionDocument?.message ||
-                                'Адрес сайта указывается латинским буквами'}
-                        </div>
-                    )} */}
-                </div>
+            
+                </div> */}
 
                 <div className="card__edit__input">
                     <p className="input__title">Юридический адрес</p>

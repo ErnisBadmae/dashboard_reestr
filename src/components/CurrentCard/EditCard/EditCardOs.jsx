@@ -348,6 +348,33 @@ function EditCardOs(props) {
                     )} */}
                 </div>
 
+                <div className="card__edit__input">
+                    <p className="input__title">Номер решения</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="decisionNumber"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        defaultValue={currentOsSdcCard.decision_number}
+                        style={
+                            !errors?.decisionNumber
+                                ? {}
+                                : { border: '1px solid red' }
+                        }
+                        {...register('decisionNumber', {
+                            required: true,
+                            //    pattern: /[a-zA-Z]/,
+                        })}
+                    />
+                    {/* {errors?.decisionNumber && (
+                        <div className="error-message">
+                            {errors?.decisionNumber?.message ||
+                                'Адрес сайта указывается латинским буквами'}
+                        </div>
+                    )} */}
+                </div>
+
                 <div className="declaration__buttons">
                     <button
                         className="btn__login declaration__btn"
