@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCurrentOsSdc } from '../../../store/proposal/actions';
 import { useParams, useNavigate } from 'react-router-dom';
+import { correctlyDate } from '../../../helpers/utils';
 
 import '../card-item.scss';
 
@@ -29,7 +30,7 @@ function CurrentOsSdc(props) {
         {
             id: 2,
             title: 'Дата сертификации',
-            value: currentOsSdcCard?.certificate_date,
+            value: correctlyDate(currentOsSdcCard?.certificate_date),
             name: 'certificate_date',
         },
         {

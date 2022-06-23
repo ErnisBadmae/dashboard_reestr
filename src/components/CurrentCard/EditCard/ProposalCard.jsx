@@ -30,39 +30,51 @@ function ProposalCard(props) {
         {
             id: 1,
             title: 'Полное имя',
-            value: currentProposalSdc?.short_name,
-            name: 'short_name',
+            value: currentProposalSdc?.full_name,
+            name: 'full_name',
         },
         {
             id: 2,
+            title: 'Сокращенное имя',
+            value: currentProposalSdc?.full_name,
+            name: 'short_name',
+        },
+        {
+            id: 3,
             title: 'Регистрационный номер',
             value: currentProposalSdc?.registration_number,
             name: 'registration_number',
         },
         {
-            id: 3,
+            id: 4,
             title: 'Дата регистрации',
             value: correctlyDate(currentProposalSdc?.registration_date),
             name: 'registration_date',
         },
         {
-            id: 4,
-            title: 'Держатель',
+            id: 5,
+            title: 'Зарегистрированная компания',
             value: currentProposalSdc?.registration_company,
             name: 'registration_company',
         },
         {
-            id: 5,
+            id: 6,
             title: 'Сайт организации',
             value: currentProposalSdc?.site,
             name: 'site',
         },
         {
-            id: 6,
+            id: 7,
             title: 'Область распространения',
             value: currentProposalSdc?.area,
             name: 'area',
         },
+        //    {
+        //        id: 8,
+        //        title: 'Логотип',
+        //        value: currentProposalSdc?.logo,
+        //        name: 'logo',
+        //    },
     ];
 
     console.log(isCardEditable, '  console.log(isCardEditable)');

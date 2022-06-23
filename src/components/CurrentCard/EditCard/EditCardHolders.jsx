@@ -31,13 +31,18 @@ function EditCardHolders(props) {
         moment(currentHolder?.registration_date).toDate()
     );
 
+    const [exclusionDate, setExclusionDate] = useState(
+        moment(currentHolder?.exclusion_date).toDate()
+    );
+
     useEffect(() => {
         dispatch(getCurrentHolder(id));
     }, [id, dispatch]);
 
     useEffect(() => {
         setRegistrationDate(moment(currentHolder?.registration_date).toDate());
-    }, [currentHolder?.registration_date]);
+        setExclusionDate(moment(currentHolder?.registration_date).toDate());
+    }, [currentHolder?.registration_date, currentHolder?.exclusion_date]);
 
     if (!currentHolder) return null;
 
@@ -45,17 +50,20 @@ function EditCardHolders(props) {
         const body = {
             fullName: data.fullName,
             shortName: data.shortName,
-            registrationNumber: data.registrationNumber,
-            registrationDate: registrationDate.toISOString(),
-            registrationCompany: data.registrationCompany,
+            inn: data.inn,
+            ogrn: data.ogrn,
             managerName: data.managerName,
             managerPosition: data.managerPosition,
             address: data.address,
             site: data.site,
             phone: data.phone,
             email: data.email,
-            inn: data.inn,
-            ogrn: data.ogrn,
+            registrationNumber: data.registrationNumber,
+            registrationDate: registrationDate.toISOString(),
+            registrationCompany: data.registrationCompany,
+            registrationDocument: data.registrationDocument,
+            exclusionDate: exclusionDate.toISOString(),
+            exclusionDocument: data.exclusionDocument,
         };
 
         dispatch(changeHolder({ id, body }));
@@ -174,29 +182,6 @@ function EditCardHolders(props) {
                 </div>
 
                 <div className="card__edit__input">
-                    <p className="input__title">Сайт</p>
-                    <input
-                        className="current__input card__edit__input__element"
-                        name="site"
-                        autoComplete="off"
-                        type="text"
-                        defaultValue={currentHolder?.site}
-                        required
-                        style={!errors?.site ? {} : { border: '1px solid red' }}
-                        {...register('site', {
-                            required: true,
-                            pattern: /[a-zA-Z]/,
-                        })}
-                    />
-                    {errors?.site && (
-                        <div className="error-message">
-                            {errors?.site?.message ||
-                                'Адрес сайта указывается латинским буквами'}
-                        </div>
-                    )}
-                </div>
-
-                <div className="card__edit__input">
                     <p className="input__title"> Имя руководителя</p>
                     <input
                         className="current__input card__edit__input__element"
@@ -297,6 +282,50 @@ function EditCardHolders(props) {
                 </div>
 
                 <div className="card__edit__input">
+                    <p className="input__title">Дата исключения</p>
+                    <div className="card__edit__input__element">
+                        <DatePicker
+                            dateFormat="dd/MM/yyyy"
+                            className="current__input date"
+                            onChange={(date) => {
+                                setExclusionDate(date);
+                            }}
+                            selected={exclusionDate}
+                            maxDate={new Date()}
+                            showDisabledMonthNavigation
+                            required
+                        />
+                    </div>
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Документ об исключении</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="exclusionDocument"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        defaultValue={currentHolder?.exclusion_document}
+                        style={
+                            !errors?.exclusionDocument
+                                ? {}
+                                : { border: '1px solid red' }
+                        }
+                        {...register('exclusionDocument', {
+                            required: true,
+                            //    pattern: /[a-zA-Z]/,
+                        })}
+                    />
+                    {/* {errors?.exclusionDocument && (
+                        <div className="error-message">
+                            {errors?.exclusionDocument?.message ||
+                                'Адрес сайта указывается латинским буквами'}
+                        </div>
+                    )} */}
+                </div>
+
+                <div className="card__edit__input">
                     <p className="input__title">Юридический адрес</p>
                     <input
                         className="current__input card__edit__input__element"
@@ -316,6 +345,79 @@ function EditCardHolders(props) {
                     {/* {errors?.address && (
                         <div className="error-message">
                             {errors?.address?.message ||
+                                'Адрес сайта указывается латинским буквами'}
+                        </div>
+                    )} */}
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Сайт</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="site"
+                        autoComplete="off"
+                        type="text"
+                        defaultValue={currentHolder?.site}
+                        required
+                        style={!errors?.site ? {} : { border: '1px solid red' }}
+                        {...register('site', {
+                            required: true,
+                            pattern: /[a-zA-Z]/,
+                        })}
+                    />
+                    {errors?.site && (
+                        <div className="error-message">
+                            {errors?.site?.message ||
+                                'Адрес сайта указывается латинским буквами'}
+                        </div>
+                    )}
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Телефон</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="phone"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        defaultValue={currentHolder?.phone}
+                        style={
+                            !errors?.phone ? {} : { border: '1px solid red' }
+                        }
+                        {...register('phone', {
+                            required: true,
+                            //    pattern: /[a-zA-Z]/,
+                        })}
+                    />
+                    {/* {errors?.phone && (
+                        <div className="error-message">
+                            {errors?.phone?.message ||
+                                'Адрес сайта указывается латинским буквами'}
+                        </div>
+                    )} */}
+                </div>
+
+                <div className="card__edit__input">
+                    <p className="input__title">Электронная почта</p>
+                    <input
+                        className="current__input card__edit__input__element"
+                        name="email"
+                        autoComplete="off"
+                        type="text"
+                        required
+                        defaultValue={currentHolder?.email}
+                        style={
+                            !errors?.email ? {} : { border: '1px solid red' }
+                        }
+                        {...register('email', {
+                            required: true,
+                            //    pattern: /[a-zA-Z]/,
+                        })}
+                    />
+                    {/* {errors?.email && (
+                        <div className="error-message">
+                            {errors?.email?.message ||
                                 'Адрес сайта указывается латинским буквами'}
                         </div>
                     )} */}
