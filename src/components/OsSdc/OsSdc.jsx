@@ -27,16 +27,7 @@ function OsSdc(props) {
                     <strong>ОС СДС</strong>
                 </div>
 
-                {props.drawBtn && userRole === 'user_admin' && (
-                    <div className="btn__edit">
-                        <ButtonRegistry
-                            text={'Добавить ОС'}
-                            onClick={() => navigate(`/form-os-sdc`)}
-                        />
-                    </div>
-                )}
-
-                {props.drawBtn && isCardEditable && (
+                {isCardEditable && userRole === 'user_sdc' && (
                     <div className="btn__edit">
                         <ButtonRegistry
                             text={'Добавить ОС'}

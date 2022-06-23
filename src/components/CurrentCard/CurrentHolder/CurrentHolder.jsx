@@ -3,14 +3,13 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ButtonRegistry } from '../../Buttons/button-registry/button-registry';
 import { correctlyDate } from '../../../helpers/utils';
-
 import '../card-item.scss';
 
 function CurrentHolder(props) {
     const { isCardEditable } = useSelector((state) => state.proposalTest);
+
     console.log(isCardEditable, 'isCardEditable');
     const userRole = useSelector((state) => state.auth.user.roles);
-
     const navigate = useNavigate();
     const cardData = [
         {
@@ -114,7 +113,7 @@ function CurrentHolder(props) {
                         </div>
                     );
                 })}
-            {props.drawBtn && userRole === 'user_admin' && (
+            {userRole === 'user_sdc' && isCardEditable && (
                 <div className="btn__edit-holder">
                     <ButtonRegistry
                         onClick={() => {
@@ -124,16 +123,6 @@ function CurrentHolder(props) {
                     />
                 </div>
             )}
-            {/* {props.drawBtn && isCardEditable && ( */}
-            <div className="btn__edit-holder">
-                <ButtonRegistry
-                    onClick={() => {
-                        navigate(`/holder/${props.currentHolder.id}`);
-                    }}
-                    text={'Редактировать держателя'}
-                />
-            </div>
-            {/* )} */}
         </>
     );
 }

@@ -1,10 +1,12 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { Dropdown, Menu, Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import $api from '../../http';
+
 import { DownOutlined } from '@ant-design/icons';
-import { getPreviewCurrentProposalSdc } from '../../store/proposal/actions';
-import { info, error } from '../../components/Toast/Toast';
+import {
+    getPreviewCurrentProposalSdc,
+    changeStatus,
+} from '../../store/proposal/actions';
 
 import './card-item.css';
 import './current-card.scss';
@@ -12,6 +14,7 @@ import './current-card.scss';
 function PreviewCardSdc(props) {
     const userRole = useSelector((state) => state.auth.user.roles);
     const { previewProposalSdc } = useSelector((state) => state.proposalTest);
+    const { isCardEditable } = useSelector((state) => state.proposalTest);
 
     const dispatch = useDispatch();
     const { id } = useSelector(
@@ -29,13 +32,17 @@ function PreviewCardSdc(props) {
                 {
                     key: '1',
                     label: 'Отправить заявление на рассмотрение',
-                    onClick: () => changeStatus(id, 'send_document_verified'),
+                    onClick: () =>
+                        dispatch(
+                            changeStatus({ id, code: 'send_document_verified' })
+                        ),
                 },
 
                 {
                     key: '2',
                     label: 'Аннулировать заявление',
-                    onClick: () => changeStatus(id, 'cancelled'),
+                    onClick: () =>
+                        dispatch(changeStatus({ id, code: 'cancelled' })),
                 },
             ];
         } else {
@@ -46,7 +53,12 @@ function PreviewCardSdc(props) {
                             key: '1',
                             label: 'Принять в работу заявление',
                             onClick: () =>
-                                changeStatus(id, 'document_verified'),
+                                dispatch(
+                                    changeStatus({
+                                        id,
+                                        code: 'document_verified',
+                                    })
+                                ),
                         },
                     ];
                 case 5:
@@ -54,15 +66,78 @@ function PreviewCardSdc(props) {
                         {
                             key: '1',
                             label: 'Вернуть на доработку',
-                            onClick: () => changeStatus(id, 'returned'),
+                            onClick: () =>
+                                dispatch(
+                                    changeStatus({ id, code: 'returned' })
+                                ),
                         },
                         {
                             key: '2',
                             label: 'Отправить на модерацию',
-                            onClick: () => changeStatus(id, 'send_moderation'),
+                            onClick: () =>
+                                dispatch(
+                                    changeStatus({
+                                        id,
+                                        code: 'send_moderation',
+                                    })
+                                ),
                         },
                     ];
                 case 6:
+                    return [
+                        {
+                            key: '1',
+                            label: 'Модерация',
+                            onClick: () =>
+                                dispatch(
+                                    changeStatus({ id, code: 'moderation' })
+                                ),
+                        },
+                    ];
+                case 7:
+                    return [
+                        {
+                            key: '1',
+                            label: 'Вернуть на доработку',
+                            onClick: () =>
+                                dispatch(
+                                    changeStatus({ id, code: 'returned' })
+                                ),
+                        },
+                        {
+                            key: '2',
+                            label: 'Отправить на проверку документов',
+                            onClick: () =>
+                                dispatch(
+                                    changeStatus({
+                                        id,
+                                        code: 'send_document_verified',
+                                    })
+                                ),
+                        },
+                        {
+                            key: '3',
+                            label: 'Принять',
+                            onClick: () =>
+                                dispatch(
+                                    changeStatus({
+                                        id,
+                                        code: 'decision_accepted',
+                                    })
+                                ),
+                        },
+                        {
+                            key: '4',
+                            label: 'Отклонить',
+                            onClick: () =>
+                                dispatch(
+                                    changeStatus({
+                                        id,
+                                        code: 'decision_rejected',
+                                    })
+                                ),
+                        },
+                    ];
                 default:
                     break;
             }
@@ -72,13 +147,6 @@ function PreviewCardSdc(props) {
     const menu = (
         <Menu items={getMenuItems(userRole, previewProposalSdc?.status?.id)} />
     );
-
-    //     const { Panel } = Collapse;
-
-    // const [shownActionMenu, setShownActionMenu] = useState(false);
-    // const actionMenuRef = useRef(null);
-
-    //     const { id } = useParams();
 
     const cardData = [
         {
@@ -121,33 +189,22 @@ function PreviewCardSdc(props) {
     //         }
     //     }, [actionMenuRef]);
 
-    const changeStatus = async (id, code) => {
-        try {
-            let res = await $api.post(
-                `request/request_sdc_standard_certification/change_sdc_header_status/${id}/${code}`
-            );
-            info('Статус заявки успешно изменен!');
-            console.log(res, 'responseFromcheckstatus');
-        } catch (err) {
-            error(err.response.data.message);
-        }
-    };
-
     return (
-        //    <div className="card-container">
-        //   <div className="card">
         <>
             <div className="card__title">
                 <strong>Заявление СДС</strong>
                 <div className="actionMenuContainer">
-                    <Dropdown overlay={menu}>
-                        <a onClick={(e) => e.preventDefault()}>
-                            <Space style={{ color: '#0f2355' }}>
-                                Действия
-                                <DownOutlined />
-                            </Space>
-                        </a>
-                    </Dropdown>
+                    {(userRole === 'user_admin' || isCardEditable) && (
+                        <Dropdown overlay={menu}>
+                            <a href="/" onClick={(e) => e.preventDefault()}>
+                                <Space style={{ color: '#0f2355' }}>
+                                    Действия
+                                    <DownOutlined />
+                                </Space>
+                            </a>
+                        </Dropdown>
+                    )}
+
                     {/* <button
                         className="btn__option"
                         onClick={() => {

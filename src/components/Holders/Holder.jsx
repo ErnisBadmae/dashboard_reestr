@@ -17,15 +17,8 @@ function Holder(props) {
                         : `Держатель`}
                 </strong>
             </div>
-            {props.drawBtn && isCardEditable && (
-                <div className="btn__edit">
-                    <ButtonRegistry
-                        text={'Добавить держателя'}
-                        onClick={() => navigate(`/declaration`)}
-                    />
-                </div>
-            )}
-            {props.drawBtn && userRole !== 'user_admin' && (
+
+            {props.drawBtn && userRole === 'user_sdc' && isCardEditable && (
                 <div className="btn__edit">
                     <ButtonRegistry
                         text={'Добавить держателя'}

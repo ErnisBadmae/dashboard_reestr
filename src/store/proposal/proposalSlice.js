@@ -10,8 +10,17 @@ import {
     getCurrentOsSdc,
     editCurrentOsSdc,
     getCurrentHolder,
+    changeStatus,
 } from './actions';
 import { createSlice } from '@reduxjs/toolkit';
+
+const changeIsCardEditable = (status, state) => {
+    if (status !== 1) {
+        state.isCardEditable = false;
+    } else {
+        state.isCardEditable = true;
+    }
+};
 
 export const currentProposalTest = createSlice({
     name: 'currentProposalTest',
@@ -40,11 +49,12 @@ export const currentProposalTest = createSlice({
                 (state, action) => {
                     state.isLoading = false;
                     state.isSuccess = true;
-                    if (action.payload.status.id !== 1) {
-                        state.isCardEditable = false;
-                    } else {
-                        state.isCardEditable = true;
-                    }
+                    changeIsCardEditable(action.payload.status.id, state);
+                    // if (action.payload.status.id !== 1) {
+                    //     state.isCardEditable = false;
+                    // } else {
+                    //     state.isCardEditable = true;
+                    // }
                     state.previewProposalSdc = action.payload;
                 }
             )
@@ -209,6 +219,25 @@ export const currentProposalTest = createSlice({
                 //  state.errorMessage = action.payload.message;
             })
             .addCase(editCurrentOsSdc.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                state.currentOsSdcCard = null;
+            })
+            .addCase(changeStatus.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(changeStatus.fulfilled, (state, action) => {
+                state.isLoading = false;
+
+                if (action.payload.status.id !== 1) {
+                    state.isCardEditable = false;
+                } else {
+                    state.isCardEditable = true;
+                }
+                state.previewProposalSdc = action.payload;
+            })
+            .addCase(changeStatus.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;

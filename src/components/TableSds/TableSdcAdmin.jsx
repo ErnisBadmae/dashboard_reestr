@@ -13,7 +13,7 @@ const { Content } = Layout;
 export const TableSdcAdmin = (props) => {
     const [pageIndex, setPageIndex] = useState(0);
     const [pageSize, setPageSize] = useState(10);
-    const [filterStatus, setFilterStatus] = useState('');
+    const [filterStatus, setFilterStatus] = useState(null);
 
     const { totalElements } = useSelector(
         (state) => state.proposal.proposalSdcList
@@ -61,13 +61,13 @@ export const TableSdcAdmin = (props) => {
             status: 5,
         },
         {
-            text: 'Отправлено на модерацию',
-            status: 6,
+            text: 'Решение принято',
+            status: 8 || 9,
         },
-        {
-            text: 'Модерация',
-            status: 7,
-        },
+        //    {
+        //        text: 'Модерация',
+        //        status: 7,
+        //    },
         {
             text: 'Все',
             status: null,

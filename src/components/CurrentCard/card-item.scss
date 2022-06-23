@@ -1,6 +1,6 @@
 .text__current-card {
-    margin: 15px, 0, 5px;
-    font-size: medium;
+    margin: 15px 0 5px;
+    font-size: 13px;
 }
 .strong-title {
     color: #0f2355;
@@ -20,6 +20,7 @@
 }
 
 .card__field {
+    font-size: 13px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     padding: 2px 0;
