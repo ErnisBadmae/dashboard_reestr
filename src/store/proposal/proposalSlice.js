@@ -230,7 +230,7 @@ export const currentProposalTest = createSlice({
             .addCase(changeStatus.fulfilled, (state, action) => {
                 state.isLoading = false;
 
-                if (action.payload.status.id !== 1) {
+                if (action.payload.status.id !== 1 && 2) {
                     state.isCardEditable = false;
                 } else {
                     state.isCardEditable = true;
@@ -246,5 +246,4 @@ export const currentProposalTest = createSlice({
     },
 });
 
-// export const { editCurrentOsSdc } = currentProposalTest.actions;
 export default currentProposalTest.reducer;

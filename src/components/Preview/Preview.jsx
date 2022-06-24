@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react';
 import { Dropdown, Menu, Space } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { DownOutlined } from '@ant-design/icons';
 import {
     getPreviewCurrentProposalSdc,
     changeStatus,
 } from '../../store/proposal/actions';
+import { useNavigate } from 'react-router-dom';
 
 import './card-item.css';
 import './current-card.scss';
 
 function PreviewCardSdc(props) {
+    const navigate = useNavigate();
     const userRole = useSelector((state) => state.auth.user.roles);
     const { previewProposalSdc } = useSelector((state) => state.proposalTest);
     const { isCardEditable } = useSelector((state) => state.proposalTest);
@@ -32,17 +33,21 @@ function PreviewCardSdc(props) {
                 {
                     key: '1',
                     label: 'Отправить заявление на рассмотрение',
-                    onClick: () =>
+                    onClick: () => {
                         dispatch(
                             changeStatus({ id, code: 'send_document_verified' })
-                        ),
+                        );
+                        navigate('/requests_sdc');
+                    },
                 },
 
                 {
                     key: '2',
                     label: 'Аннулировать заявление',
-                    onClick: () =>
-                        dispatch(changeStatus({ id, code: 'cancelled' })),
+                    onClick: () => {
+                        dispatch(changeStatus({ id, code: 'canceled' }));
+                        navigate('/requests_sdc');
+                    },
                 },
             ];
         } else {
@@ -52,13 +57,15 @@ function PreviewCardSdc(props) {
                         {
                             key: '1',
                             label: 'Принять в работу заявление',
-                            onClick: () =>
+                            onClick: () => {
                                 dispatch(
                                     changeStatus({
                                         id,
                                         code: 'document_verified',
                                     })
-                                ),
+                                );
+                                navigate('/requests_sdc');
+                            },
                         },
                     ];
                 case 5:
@@ -66,32 +73,38 @@ function PreviewCardSdc(props) {
                         {
                             key: '1',
                             label: 'Вернуть на доработку',
-                            onClick: () =>
+                            onClick: () => {
                                 dispatch(
                                     changeStatus({ id, code: 'returned' })
-                                ),
+                                );
+                                navigate('/requests_sdc');
+                            },
                         },
                         {
                             key: '2',
                             label: 'Принять',
-                            onClick: () =>
+                            onClick: () => {
                                 dispatch(
                                     changeStatus({
                                         id,
-                                        code: 'decision_accepted',
+                                        code: 'desicion_accepted',
                                     })
-                                ),
+                                );
+                                navigate('/requests_sdc');
+                            },
                         },
                         {
                             key: '3',
                             label: 'Отклонить',
-                            onClick: () =>
+                            onClick: () => {
                                 dispatch(
                                     changeStatus({
                                         id,
-                                        code: 'decision_rejected',
+                                        code: 'desicion_rejected',
                                     })
-                                ),
+                                );
+                                navigate('/requests_sdc');
+                            },
                         },
                     ];
                 case 6:
@@ -99,10 +112,12 @@ function PreviewCardSdc(props) {
                         {
                             key: '1',
                             label: 'Модерация',
-                            onClick: () =>
+                            onClick: () => {
                                 dispatch(
                                     changeStatus({ id, code: 'moderation' })
-                                ),
+                                );
+                                navigate('/requests_sdc');
+                            },
                         },
                     ];
                 case 7:
@@ -110,43 +125,67 @@ function PreviewCardSdc(props) {
                         {
                             key: '1',
                             label: 'Вернуть на доработку',
-                            onClick: () =>
+                            onClick: () => {
                                 dispatch(
                                     changeStatus({ id, code: 'returned' })
-                                ),
+                                );
+                                navigate('/requests_sdc');
+                            },
                         },
                         {
                             key: '2',
                             label: 'Отправить на проверку документов',
-                            onClick: () =>
+                            onClick: () => {
                                 dispatch(
                                     changeStatus({
                                         id,
                                         code: 'send_document_verified',
                                     })
-                                ),
+                                );
+                                navigate('/requests_sdc');
+                            },
                         },
                         {
                             key: '3',
                             label: 'Принять',
-                            onClick: () =>
+                            onClick: () => {
                                 dispatch(
                                     changeStatus({
                                         id,
-                                        code: 'decision_accepted',
+                                        code: 'desicion_accepted',
                                     })
-                                ),
+                                );
+                                navigate('/requests_sdc');
+                            },
                         },
                         {
                             key: '4',
                             label: 'Отклонить',
-                            onClick: () =>
+                            onClick: () => {
                                 dispatch(
                                     changeStatus({
                                         id,
-                                        code: 'decision_rejected',
+                                        code: 'desicion_rejected',
                                     })
-                                ),
+                                );
+                                navigate('/requests_sdc');
+                            },
+                        },
+                    ];
+                case 8:
+                    return [
+                        {
+                            key: '1',
+                            label: 'Внести в реестр',
+                            onClick: () => {
+                                dispatch(
+                                    changeStatus({
+                                        id,
+                                        code: 'register_entered',
+                                    })
+                                );
+                                navigate('/requests_sdc');
+                            },
                         },
                     ];
                 default:

@@ -66,7 +66,7 @@ function FormOsSdc(props) {
         //         />
         //     ) : (
         <>
-            <div className="login__title">Подача Заявления</div>
+            <div className="login__title">Сведения об ОС</div>
             <form
                 onSubmit={handleSubmit(formHandler)}
                 className="declaration__form__request"
