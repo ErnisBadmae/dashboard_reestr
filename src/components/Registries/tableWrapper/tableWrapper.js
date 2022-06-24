@@ -1,11 +1,11 @@
 import { Outlet } from 'react-router-dom';
 import { Select, Layout, Form, Drawer, Button } from 'antd';
 import { FilterFilled } from '@ant-design/icons';
-import { Poisk } from '../../components/poisk/poisk';
+// import { Poisk } from '../../components/poisk/poisk';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { handleTitle } from '../../helpers/utils';
-import { handleInputsFilter } from '../../helpers/inputsFilterConstants';
+import { handleTitle } from '../../../helpers/utils';
+import { handleInputsFilter } from '../../../helpers/inputsFilterConstants';
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -40,7 +40,7 @@ export const TableWrapper = () => {
         <Content style={{ padding: '0 20px' }}>
             <div>
                 <div className="registry-sro__filter-wrapper">
-                    <Poisk className="registry-sro__title-search" />
+                    {/* <Poisk className="registry-sro__title-search" /> */}
                     <div className="registry-sro__name-registry">
                         {handleTitle(pathname)}
                     </div>

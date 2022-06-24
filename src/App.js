@@ -10,7 +10,7 @@ import NotFound from './pages/not-found/NotFound';
 import { TableSdsOperator } from './components/TableSds/TableSdsOperator';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-// import { TableWrapper } from './components/TableWrapper/tableWrapper';
+import { TableWrapper } from './components/Registries/tableWrapper/tableWrapper';
 import FormSdc from './components/FormSdc/FormSdc';
 import ProposalSdc from './pages/proposalSdc/proposalSdc';
 import EditProposalCard from './components/CurrentCard/Current/EditProposalCard';
@@ -19,6 +19,7 @@ import CurrentOsSdc from './components/CurrentCard/CurrentOs/CurrentOs';
 import EditCardOs from './components/CurrentCard/EditCard/EditCardOs';
 import { TableSdcAdmin } from './components/TableSds/TableSdcAdmin';
 import EditCardHolders from './components/CurrentCard/EditCard/EditCardHolders';
+import { RegistrySds } from './pages/registries/registry-sds/registry-sds';
 
 function App() {
     const navigate = useNavigate();
@@ -44,6 +45,13 @@ function App() {
 
                 {!!user && (
                     <Route path="/" element={<LayoutContent />}>
+                        <Route element={<TableWrapper />}>
+                            <Route
+                                path="/standard-certifications/list"
+                                element={<RegistrySds />}
+                            />
+                        </Route>
+
                         <Route
                             element={
                                 <RequireAuth allowedRoles={['user_admin']} />

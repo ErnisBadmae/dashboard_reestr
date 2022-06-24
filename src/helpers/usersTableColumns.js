@@ -1,4 +1,4 @@
-export const requestsSdsTableColumns = [
+export const usersTableColumns = [
     {
         title: '',
         dataIndex: 'id',
@@ -44,37 +44,6 @@ export const requestsSdsTableColumns = [
     {
         title: 'Номер телефона',
         dataIndex: 'phone',
-        data_type: 'string',
-        is_sort: true,
-        number_in_row: 1,
-    },
-];
-
-export const requestSdcCertifHolderTableColumn = [
-    {
-        title: 'Дата создания ',
-        dataIndex: 'dttm_created',
-        data_type: 'string',
-        is_sort: true,
-        number_in_row: 1,
-    },
-    {
-        title: 'Дата обновления',
-        dataIndex: 'dttm_updated',
-        data_type: 'string',
-        is_sort: true,
-        number_in_row: 1,
-    },
-    {
-        title: 'Дата принятия решения',
-        dataIndex: 'dttm_decision',
-        data_type: 'string',
-        is_sort: true,
-        number_in_row: 1,
-    },
-    {
-        title: 'Статус',
-        dataIndex: 'status',
         data_type: 'string',
         is_sort: true,
         number_in_row: 1,

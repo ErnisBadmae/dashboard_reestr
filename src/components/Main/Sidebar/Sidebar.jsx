@@ -61,7 +61,7 @@ function Sidebar(props) {
                     <li>
                         <Link
                             style={{ width: '100%', height: '100%' }}
-                            to="/sds"
+                            to="/standard-certifications/list"
                         >
                             <div className="sidebar__inner-item" />
                             <span>Реестр СДС</span>

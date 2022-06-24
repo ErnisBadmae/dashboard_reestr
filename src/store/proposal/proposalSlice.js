@@ -1,6 +1,6 @@
 import {
     postSdcRequest,
-    postDeclarationHolder,
+    //     postDeclarationHolder,
     getCurrentProposalSdc,
     getPreviewCurrentProposalSdc,
     getHolders,
@@ -50,11 +50,6 @@ export const currentProposalTest = createSlice({
                     state.isLoading = false;
                     state.isSuccess = true;
                     changeIsCardEditable(action.payload.status.id, state);
-                    // if (action.payload.status.id !== 1) {
-                    //     state.isCardEditable = false;
-                    // } else {
-                    //     state.isCardEditable = true;
-                    // }
                     state.previewProposalSdc = action.payload;
                 }
             )

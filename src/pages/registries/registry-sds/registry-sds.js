@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react';
 import { Table } from 'antd';
 import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
-import { getEntries } from '../../store/entries/actions';
+import { getData } from '../../../store/registry/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { relocateToCard } from '../../helpers/utils';
-import { sdsTableColumns } from '../../helpers/columnsTableConstants';
+import { relocateToCard } from '../../../helpers/utils';
+import { sdsTableColumns } from '../../../helpers/columnsTableConstants';
 
 import './registry-sds.scss';
 
 export const RegistrySds = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { entries } = useSelector((state) => state.entries);
+    const { entries } = useSelector((state) => state.registries);
     const { pathname } = useLocation();
     const [filterValues] = useOutletContext();
 
     useEffect(() => {
-        dispatch(getEntries({ pathname, filterValues }));
+        dispatch(getData({ pathname, filterValues }));
     }, [pathname, filterValues, dispatch]);
 
     return (
