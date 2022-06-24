@@ -73,12 +73,23 @@ function PreviewCardSdc(props) {
                         },
                         {
                             key: '2',
-                            label: 'Отправить на модерацию',
+                            label: 'Принять',
                             onClick: () =>
                                 dispatch(
                                     changeStatus({
                                         id,
-                                        code: 'send_moderation',
+                                        code: 'decision_accepted',
+                                    })
+                                ),
+                        },
+                        {
+                            key: '3',
+                            label: 'Отклонить',
+                            onClick: () =>
+                                dispatch(
+                                    changeStatus({
+                                        id,
+                                        code: 'decision_rejected',
                                     })
                                 ),
                         },
