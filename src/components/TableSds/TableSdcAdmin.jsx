@@ -64,10 +64,7 @@ export const TableSdcAdmin = (props) => {
             text: 'Решение принято',
             status: [8, 9],
         },
-        //    {
-        //        text: 'Модерация',
-        //        status: 7,
-        //    },
+
         {
             text: 'Все',
             status: null,

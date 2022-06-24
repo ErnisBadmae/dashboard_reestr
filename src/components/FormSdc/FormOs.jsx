@@ -6,9 +6,6 @@ import { useForm, Controller } from 'react-hook-form';
 import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
 
-import { useState } from 'react';
-// import RegisterSuccess from '../../pages/register/RegisterSuccess';
-
 import './form-sdc.scss';
 import 'react-datepicker/dist/react-datepicker.css';
 

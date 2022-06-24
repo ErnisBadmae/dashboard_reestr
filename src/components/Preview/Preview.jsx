@@ -46,8 +46,9 @@ function PreviewCardSdc(props) {
                     key: '2',
                     label: 'Аннулировать заявление',
                     onClick: () => {
-                        dispatch(changeStatus({ id, code: 'canceled' }));
-                        navigate('/requests_sdc');
+                        dispatch(changeStatus({ id, code: 'canceled' }))
+                            .unwrap()
+                            .then(() => navigate('/requests_sdc'));
                     },
                 },
             ];
@@ -225,20 +226,6 @@ function PreviewCardSdc(props) {
             name: 'status',
         },
     ];
-    //     const handleClickOutside = (event) => {
-    //         if (!actionMenuRef?.current?.contains(event.target)) {
-    //             setShownActionMenu(false);
-    //         }
-    //     };
-
-    //     useEffect(() => {
-    //         if (actionMenuRef) {
-    //             document.addEventListener('click', handleClickOutside, true);
-    //             return () => {
-    //                 document.removeEventListener('click', handleClickOutside, true);
-    //             };
-    //         }
-    //     }, [actionMenuRef]);
 
     return (
         <>
@@ -255,34 +242,6 @@ function PreviewCardSdc(props) {
                             </a>
                         </Dropdown>
                     )}
-
-                    {/* <button
-                        className="btn__option"
-                        onClick={() => {
-                            setShownActionMenu(!shownActionMenu);
-                        }}
-                        type="button"
-                    >
-                        Действия
-                    </button> */}
-                    {/* {shownActionMenu && (
-                        <div className="actionMenu" ref={actionMenuRef}>
-                            <button
-                                className="btn__option"
-                                onClick={() =>
-                                    changeStatus(id, 'send_document_verified')
-                                }
-                            >
-                                Отправить на рассмотрение
-                            </button>
-                            <button
-                                className="btn__option"
-                                onClick={() => changeStatus(id, 'cancelled')}
-                            >
-                                Аннулировать заявление
-                            </button>
-                        </div>
-                    )} */}
                 </div>
             </div>
             <div className="card__body">
@@ -296,16 +255,8 @@ function PreviewCardSdc(props) {
                         </div>
                     );
                 })}
-                {/* <Collapse accordion>
-                    <Panel header="Смотреть подробнее" key="1" bordered={false}>
-                        <p>{<EditProposalCurrentSdc />}</p>
-                    </Panel>
-                </Collapse> */}
             </div>
-            {/* </div> */}
         </>
-
-        //    </div>
     );
 }
 

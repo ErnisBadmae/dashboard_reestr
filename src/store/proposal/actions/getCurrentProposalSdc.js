@@ -19,7 +19,6 @@ export const postSdcRequest = createAsyncThunk(
                 payload,
                 headersAxios
             );
-            console.log(result, 'requestSdc/post');
 
             if (result.data.success) {
                 info('Ваши данные успешно отредактированы!');
@@ -49,7 +48,6 @@ export const getPreviewCurrentProposalSdc = createAsyncThunk(
             dttm_updated: correctlyDate(value.dttm_updated),
             dttm_desicion: correctlyDate(value.dttm_desicion),
         };
-        //    return value;
     }
 );
 
@@ -125,7 +123,6 @@ export const getHolders = createAsyncThunk('holders/get', async (id) => {
         `/request/request_sdc_standard_certification_holder/list/${id}`
     );
 
-    console.log(result, 'result holders/getList');
     const value = result.data.data.data;
     //     .map((obj) => {
     //         return {
@@ -213,7 +210,6 @@ export const getOrganSertifications = createAsyncThunk(
                 certificate_date: correctlyDate(obj.certificate_date),
             };
         });
-        console.log(value, 'value from ');
         return value;
     }
 );
