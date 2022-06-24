@@ -36,8 +36,9 @@ function PreviewCardSdc(props) {
                     onClick: () => {
                         dispatch(
                             changeStatus({ id, code: 'send_document_verified' })
-                        );
-                        navigate('/requests_sdc');
+                        )
+                            .unwrap()
+                            .then(() => navigate('/requests_sdc'));
                     },
                 },
 
@@ -64,7 +65,7 @@ function PreviewCardSdc(props) {
                                         code: 'document_verified',
                                     })
                                 );
-                                navigate('/requests_sdc');
+                                navigate(-1);
                             },
                         },
                     ];
@@ -77,7 +78,7 @@ function PreviewCardSdc(props) {
                                 dispatch(
                                     changeStatus({ id, code: 'returned' })
                                 );
-                                navigate('/requests_sdc');
+                                navigate(-1);
                             },
                         },
                         {
@@ -90,7 +91,7 @@ function PreviewCardSdc(props) {
                                         code: 'desicion_accepted',
                                     })
                                 );
-                                navigate('/requests_sdc');
+                                navigate(-1);
                             },
                         },
                         {
@@ -103,7 +104,7 @@ function PreviewCardSdc(props) {
                                         code: 'desicion_rejected',
                                     })
                                 );
-                                navigate('/requests_sdc');
+                                navigate(-1);
                             },
                         },
                     ];
@@ -116,7 +117,7 @@ function PreviewCardSdc(props) {
                                 dispatch(
                                     changeStatus({ id, code: 'moderation' })
                                 );
-                                navigate('/requests_sdc');
+                                navigate(-1);
                             },
                         },
                     ];
@@ -129,7 +130,7 @@ function PreviewCardSdc(props) {
                                 dispatch(
                                     changeStatus({ id, code: 'returned' })
                                 );
-                                navigate('/requests_sdc');
+                                navigate(-1);
                             },
                         },
                         {
@@ -142,7 +143,7 @@ function PreviewCardSdc(props) {
                                         code: 'send_document_verified',
                                     })
                                 );
-                                navigate('/requests_sdc');
+                                navigate(-1);
                             },
                         },
                         {
@@ -155,7 +156,7 @@ function PreviewCardSdc(props) {
                                         code: 'desicion_accepted',
                                     })
                                 );
-                                navigate('/requests_sdc');
+                                navigate(-1);
                             },
                         },
                         {
@@ -168,7 +169,7 @@ function PreviewCardSdc(props) {
                                         code: 'desicion_rejected',
                                     })
                                 );
-                                navigate('/requests_sdc');
+                                navigate(-1);
                             },
                         },
                     ];
@@ -184,7 +185,7 @@ function PreviewCardSdc(props) {
                                         code: 'register_entered',
                                     })
                                 );
-                                navigate('/requests_sdc');
+                                navigate(-1);
                             },
                         },
                     ];

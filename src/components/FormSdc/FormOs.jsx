@@ -48,12 +48,11 @@ function FormOsSdc(props) {
             area: data.area,
         };
 
-        dispatch(postOrganSertificationSdc({ id, osSdsData }));
-        //    navigate(-1);
-        // .unwrap()
-        // .then(({ osId }) => {
-        navigate(`/request_sdc/${id}`);
-        // });
+        dispatch(postOrganSertificationSdc({ id, osSdsData }))
+            .unwrap()
+            .then(() => {
+                navigate(`/request_sdc/${id}`);
+            });
         //     setIsRegisterSuccess(true);
     };
 

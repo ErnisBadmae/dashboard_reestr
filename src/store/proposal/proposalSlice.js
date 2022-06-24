@@ -15,7 +15,7 @@ import {
 import { createSlice } from '@reduxjs/toolkit';
 
 const changeIsCardEditable = (status, state) => {
-    if (status !== 1) {
+    if (status !== (1 && 2)) {
         state.isCardEditable = false;
     } else {
         state.isCardEditable = true;
@@ -229,12 +229,7 @@ export const currentProposalTest = createSlice({
             })
             .addCase(changeStatus.fulfilled, (state, action) => {
                 state.isLoading = false;
-
-                if (action.payload.status.id !== 1 && 2) {
-                    state.isCardEditable = false;
-                } else {
-                    state.isCardEditable = true;
-                }
+                changeIsCardEditable(action.payload.status.id, state);
                 state.previewProposalSdc = action.payload;
             })
             .addCase(changeStatus.rejected, (state, action) => {
