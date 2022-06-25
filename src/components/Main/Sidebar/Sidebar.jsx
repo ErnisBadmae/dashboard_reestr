@@ -68,16 +68,32 @@ function Sidebar(props) {
                         </Link>
                     </li>
                     <li>
-                        <div className="sidebar__inner-item" />
-                        <span>Реестр ОС</span>
+                        <Link
+                            style={{ width: '100%', height: '100%' }}
+                            to="/organ-certifications/list"
+                        >
+                            <div className="sidebar__inner-item" />
+                            <span>Реестр ОС</span>
+                        </Link>
+                    </li>
+
+                    <li>
+                        <Link
+                            style={{ width: '100%', height: '100%' }}
+                            to="/certificates/list"
+                        >
+                            <div className="sidebar__inner-item" />
+                            <span>Реестр Сертификатов</span>
+                        </Link>
                     </li>
                     <li>
-                        <div className="sidebar__inner-item" />
-                        <span>Реестр Сертификатов</span>
-                    </li>
-                    <li>
-                        <div className="sidebar__inner-item" />
-                        <span>Реестр Экспертов</span>
+                        <Link
+                            style={{ width: '100%', height: '100%' }}
+                            to="/organ-certification-experts/list"
+                        >
+                            <div className="sidebar__inner-item" />
+                            <span>Реестр Экспертов</span>
+                        </Link>
                     </li>
                     <p className="sidebar__inner-title">
                         Пользовательский интерфейс

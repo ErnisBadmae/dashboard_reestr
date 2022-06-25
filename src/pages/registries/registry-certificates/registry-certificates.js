@@ -1,27 +1,15 @@
 import React, { useEffect } from 'react';
 import { Table } from 'antd';
-import { getEntries } from '../../store/entries/actions';
+import { getData } from '../../../store/registry/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useOutletContext } from 'react-router-dom';
-import { relocateToCard } from '../../helpers/utils';
-import { certifacatesTableColumn } from '../../helpers/columnsTableConstants';
+import { relocateToCard } from '../../../helpers/utils';
+import { certifacatesTableColumn } from '../../../helpers/columnsTableConstants';
 
 import './registry-certificates.scss';
 
 export const RegistryCertificates = () => {
-    const { entries } = useSelector((state) => state.entries);
-
-    //     const newEnt = entries.map(({ el }) => {
-    //         //    if (Object.prototype.toString.call(el) === '[object Date]') {
-    //         //        correctlyDate(el.certificate_date);
-    //         //    }
-    //         if ({ el } instanceof Date) {
-    //             correctlyDate(el);
-    //         }
-    //         return el;
-    //         //    console.log(entries, 'after');
-    //     });
-    //     console.log(newEntries, 'newEntries');
+    const { entries } = useSelector((state) => state.registries);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -30,7 +18,7 @@ export const RegistryCertificates = () => {
     const [filterValues] = useOutletContext();
 
     useEffect(() => {
-        dispatch(getEntries({ pathname, filterValues }));
+        dispatch(getData({ pathname, filterValues }));
     }, [pathname, filterValues, dispatch]);
 
     return (

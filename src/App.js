@@ -20,6 +20,9 @@ import EditCardOs from './components/CurrentCard/EditCard/EditCardOs';
 import { TableSdcAdmin } from './components/TableSds/TableSdcAdmin';
 import EditCardHolders from './components/CurrentCard/EditCard/EditCardHolders';
 import { RegistrySds } from './pages/registries/registry-sds/registry-sds';
+import { RegistryOs } from './pages/registries/registry-os/registry-os';
+import { RegistryCertificationExperts } from './pages/registries/registry-certificate-expert/registryCertificateExperts';
+import { RegistryCertificates } from './pages/registries/registry-certificates/registry-certificates';
 
 function App() {
     const navigate = useNavigate();
@@ -49,6 +52,18 @@ function App() {
                             <Route
                                 path="/standard-certifications/list"
                                 element={<RegistrySds />}
+                            />
+                            <Route
+                                path="/organ-certifications/list"
+                                element={<RegistryOs />}
+                            />
+                            <Route
+                                path="/organ-certification-experts/list"
+                                element={<RegistryCertificationExperts />}
+                            />
+                            <Route
+                                path="/certificates/list"
+                                element={<RegistryCertificates />}
                             />
                         </Route>
 
