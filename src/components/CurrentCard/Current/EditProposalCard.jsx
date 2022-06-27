@@ -6,7 +6,6 @@ import { getCurrentProposalSdc } from '../../../store/proposal/actions';
 import { changeProposal } from '../../../store/proposal/actions';
 import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
-import { correctlyDate } from '../../../helpers/utils';
 import moment from 'moment';
 
 import '../../FormSdc/form-sdc.scss';
@@ -55,7 +54,6 @@ function EditProposalCard(props) {
             area: data.area,
             logo: data.logo,
         };
-        console.log(body);
 
         dispatch(changeProposal({ id, body }));
     };

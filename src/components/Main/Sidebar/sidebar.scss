@@ -15,7 +15,7 @@
             align-items: center;
             margin-bottom: 10px;
             cursor: pointer;
-            padding: 3px;
+            padding: 2px;
 
             &:hover {
                 background: #e9e9e9;
@@ -25,6 +25,7 @@
             }
 
             span {
+                //  white-space: nowrap;
                 font-size: 13px;
                 font-weight: 400;
                 margin-left: 10px;

@@ -1,34 +1,38 @@
-import { AuthLayout } from './components/Layout/AuthLayout';
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
-import { LayoutContent } from './components/Layout/LayoutContent';
-import Declaration from './pages/declaration/Declaration';
-import Registr from './pages/register/Registr';
-import Login from './pages/login/Login';
-import { TableRegistry } from './components/TableRegistry/TableRegistry';
-import RequireAuth from './components/RequireAuth/RequireAuth';
-import NotFound from './pages/not-found/NotFound';
-import { TableSdsOperator } from './components/TableSds/TableSdsOperator';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { TableWrapper } from './components/Registries/tableWrapper/tableWrapper';
+
+import Login from './pages/login/Login';
+import Declaration from './pages/declaration/Declaration';
+import Registr from './pages/register/Registr';
+import RequireAuth from './components/RequireAuth/RequireAuth';
+import NotFound from './pages/not-found/NotFound';
 import FormSdc from './components/FormSdc/FormSdc';
 import ProposalSdc from './pages/proposalSdc/proposalSdc';
 import EditProposalCard from './components/CurrentCard/Current/EditProposalCard';
 import FormOsSdc from './components/FormSdc/FormOs';
 import CurrentOsSdc from './components/CurrentCard/CurrentOs/CurrentOs';
 import EditCardOs from './components/CurrentCard/EditCard/EditCardOs';
-import { TableSdcAdmin } from './components/TableSds/TableSdcAdmin';
 import EditCardHolders from './components/CurrentCard/EditCard/EditCardHolders';
+// import Dialogs from './components/Dialogs/Dialogs';
+
+import { AuthLayout } from './components/Layout/AuthLayout';
+import { LayoutContent } from './components/Layout/LayoutContent';
+import { TableRegistry } from './components/TableRegistry/TableRegistry';
+import { TableSdsOperator } from './components/TableSds/TableSdsOperator';
+import { TableWrapper } from './components/Registries/tableWrapper/tableWrapper';
+import { TableSdcAdmin } from './components/TableSds/TableSdcAdmin';
 import { RegistrySds } from './pages/registries/registry-sds/registry-sds';
 import { RegistryOs } from './pages/registries/registry-os/registry-os';
 import { RegistryCertificationExperts } from './pages/registries/registry-certificate-expert/registryCertificateExperts';
 import { RegistryCertificates } from './pages/registries/registry-certificates/registry-certificates';
+import { TableUsers } from './components/TableUsers/TableUsers';
+import CurrentUser from './components/CurrentCard/CurrentUser/CurrentUser';
 
 function App() {
     const navigate = useNavigate();
-    const { pathname } = useLocation();
-
     const user = useSelector((state) => state.auth.user);
+    const { pathname } = useLocation();
 
     useEffect(() => {
         if (!user) {
@@ -66,6 +70,10 @@ function App() {
                                 element={<RegistryCertificates />}
                             />
                         </Route>
+
+                        {/* <Route path="dialogs" element={<Dialogs />}></Route> */}
+                        <Route path="users" element={<TableUsers />} />
+                        <Route path="users/:id" element={<CurrentUser />} />
 
                         <Route
                             element={

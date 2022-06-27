@@ -15,7 +15,7 @@ function CurrentCard(props) {
         (state) => state.entries.requestCurrentCardSds.inclusionRequest
     );
     console.log('ididididididid', id);
-    const [message, setMessgage] = useState();
+    //     const [message, setMessgage] = useState('');
 
     useEffect(() => {
         dispatch(getCurrentCard(id));
@@ -25,8 +25,8 @@ function CurrentCard(props) {
         let res = await $api.post(
             `/user/user_standard_certification/inclusion_request_decision/${id}/${statusId}`
         );
-        setMessgage(res.data.message);
-        console.log(res, 'resres');
+        //    setMessgage(res.data.message);
+        //    console.log(res, 'resres');
     };
 
     return (

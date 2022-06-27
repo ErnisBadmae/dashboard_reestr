@@ -8,7 +8,6 @@ import '../card-item.scss';
 function CurrentHolder(props) {
     const { isCardEditable } = useSelector((state) => state.proposalTest);
 
-    console.log(isCardEditable, 'isCardEditable');
     const userRole = useSelector((state) => state.auth.user.roles);
     const navigate = useNavigate();
     const cardData = [

@@ -15,15 +15,15 @@ export const TableUsers = (props) => {
         dispatch(getUsersList());
     }, [dispatch]);
 
-    const { requestsSds } = useSelector((state) => state.entries);
+    const { users } = useSelector((state) => state.users);
 
-    const dataSource = requestsSds.map((item) => ({ ...item, key: item.id }));
+    const dataSource = users.map((item) => ({ ...item, key: item.id }));
 
     const relocateToCard = (record) => {
         return {
             onClick: (e) => {
                 e.preventDefault();
-                navigate('/user/' + record.id);
+                navigate('/users/' + record.id);
             },
         };
     };
