@@ -21,7 +21,7 @@ export const postSdcRequest = createAsyncThunk(
             );
 
             if (result.data.success) {
-                info('Ваши данные успешно отредактированы!');
+                info('Ваши данные успешно добавлены!');
                 return result.data.data.requestSdcStandardCertification;
             } else {
                 error(`ошибка сервера: ${result.message}`);

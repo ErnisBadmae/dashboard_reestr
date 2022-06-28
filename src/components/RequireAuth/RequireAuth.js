@@ -4,7 +4,7 @@ import useAuth from '../../hooks/useAuth';
 
 const RequireAuth = (props) => {
     const { pathname } = useLocation();
-    const { id } = useParams();
+    const { id, documentId } = useParams();
 
     const routes = {
         user_admin: [
@@ -26,6 +26,7 @@ const RequireAuth = (props) => {
             `/current-os/${id}`,
             `/edit-card-os/${id}`,
             `/holder/${id}`,
+            `/request_sdc/${id}/current-document/${documentId}`,
         ],
     };
 

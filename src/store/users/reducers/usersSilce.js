@@ -18,7 +18,6 @@ export const getUsers = createSlice({
             })
             .addCase(getUsersList.fulfilled, (state, action) => {
                 state.isLoading = false;
-                //  changeIsCardEditable(action.payload.status.id, state);
                 state.users = action.payload;
             })
             .addCase(getUsersList.rejected, (state, action) => {
@@ -32,7 +31,6 @@ export const getUsers = createSlice({
             })
             .addCase(viewCurrentUser.fulfilled, (state, action) => {
                 state.isLoading = false;
-                //  changeIsCardEditable(action.payload.status.id, state);
                 state.currentUser = action.payload;
             })
             .addCase(viewCurrentUser.rejected, (state, action) => {

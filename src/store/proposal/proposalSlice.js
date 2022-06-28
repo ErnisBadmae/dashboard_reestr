@@ -15,7 +15,7 @@ import {
 import { createSlice } from '@reduxjs/toolkit';
 
 const changeIsCardEditable = (status, state) => {
-    if (status !== (1 && 2)) {
+    if (status !== 1 && status !== 2) {
         state.isCardEditable = false;
     } else {
         state.isCardEditable = true;

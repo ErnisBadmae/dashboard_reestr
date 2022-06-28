@@ -28,6 +28,7 @@ import { RegistryCertificationExperts } from './pages/registries/registry-certif
 import { RegistryCertificates } from './pages/registries/registry-certificates/registry-certificates';
 import { TableUsers } from './components/TableUsers/TableUsers';
 import CurrentUser from './components/CurrentCard/CurrentUser/CurrentUser';
+import CurrentUploadDocument from './components/FileUploadInput/CurrentUploadDocument';
 
 function App() {
     const navigate = useNavigate();
@@ -125,6 +126,14 @@ function App() {
                             <Route
                                 path="/form-os-sdc"
                                 element={<FormOsSdc />}
+                            />
+                            {/* <Route
+                                path="/current-document"
+                                element={<FormOsSdc />}
+                            /> */}
+                            <Route
+                                path="/request_sdc/:id/current-document/:documentId"
+                                element={<CurrentUploadDocument />}
                             />
                             <Route path="current-os">
                                 <Route path=":id" element={<CurrentOsSdc />} />
