@@ -5,28 +5,28 @@ export const handleInputsFilter = (pathname) => {
         case '/organ-certifications/list':
             return (
                 <>
-                    <Form.Item name="address">
-                        <Input
-                            className="registry-sro__filter-input"
-                            placeholder="СДС"
-                        ></Input>
-                    </Form.Item>
-                    <Form.Item name="full_name_organ_certification">
+                    <Form.Item name="fullNameOrganCertification">
                         <Input
                             className="registry-sro__filter-input"
                             placeholder="Полное наименование организации"
                         ></Input>
                     </Form.Item>
-                    <Form.Item name="regNumber">
+                    <Form.Item name="area">
+                        <Input
+                            className="registry-sro__filter-input"
+                            placeholder="Область сертификации"
+                        ></Input>
+                    </Form.Item>
+                    <Form.Item name="inn">
                         <Input
                             className="registry-sro__filter-input"
                             placeholder="ИНН"
                         ></Input>
                     </Form.Item>
-                    <Form.Item name="regNumber">
+                    <Form.Item name="certificateDate">
                         <Input
                             className="registry-sro__filter-input"
-                            placeholder="Количество аттестованных экспертов"
+                            placeholder="Дата сертификации"
                         ></Input>
                     </Form.Item>
                 </>
@@ -35,22 +35,31 @@ export const handleInputsFilter = (pathname) => {
         case '/organ-certification-experts/list':
             return (
                 <>
-                    <Form.Item name="address">
+                    <Form.Item name="area">
                         <Input
                             className="registry-sro__filter-input"
-                            placeholder="№ сертификата (аттестата)"
+                            placeholder=""
                         ></Input>
                     </Form.Item>
-                    <Form.Item name="fullName">
+
+                    <Form.Item name="expertName">
                         <Input
                             className="registry-sro__filter-input"
                             placeholder="Фамилия, имя, отчество эксперта"
                         ></Input>
                     </Form.Item>
-                    <Form.Item name="regNumber">
+
+                    <Form.Item name="certificateNumber">
                         <Input
                             className="registry-sro__filter-input"
-                            placeholder="Дата выдачи аттестата"
+                            placeholder="№ сертификата (аттестата"
+                        ></Input>
+                    </Form.Item>
+
+                    <Form.Item name="valid">
+                        <Input
+                            className="registry-sro__filter-input"
+                            placeholder="Срок действия сертификата"
                         ></Input>
                     </Form.Item>
                 </>
@@ -59,22 +68,16 @@ export const handleInputsFilter = (pathname) => {
         case '/certificates/list':
             return (
                 <>
-                    <Form.Item name="address">
-                        <Input
-                            className="registry-sro__filter-input"
-                            placeholder="Адрес"
-                        ></Input>
-                    </Form.Item>
-                    <Form.Item name="fullName">
+                    <Form.Item name="fullNameOrganCertification">
                         <Input
                             className="registry-sro__filter-input"
                             placeholder="Полное наименование организации"
                         ></Input>
                     </Form.Item>
-                    <Form.Item name="regNumber">
+                    <Form.Item name="certificateDate">
                         <Input
                             className="registry-sro__filter-input"
-                            placeholder="Регистрационный номер"
+                            placeholder="Дата сертификата"
                         ></Input>
                     </Form.Item>
                 </>
@@ -83,7 +86,7 @@ export const handleInputsFilter = (pathname) => {
         default:
             return (
                 <>
-                    <Form.Item name="registration_company">
+                    <Form.Item name="registrationСompany">
                         <Input
                             className="registry-sro__filter-input"
                             placeholder="Держатель"
@@ -95,16 +98,16 @@ export const handleInputsFilter = (pathname) => {
                             placeholder="Полное наименование организации"
                         ></Input>
                     </Form.Item>
-                    <Form.Item name="regNumber">
+                    <Form.Item name="registrationNumber">
                         <Input
                             className="registry-sro__filter-input"
                             placeholder="Регистрационный номер"
                         ></Input>
                     </Form.Item>
-                    <Form.Item name="shortName">
+                    <Form.Item name="registrationDate">
                         <Input
                             className="registry-sro__filter-input"
-                            placeholder="Сокращенное название"
+                            placeholder="Дата регистрации"
                         ></Input>
                     </Form.Item>
                 </>

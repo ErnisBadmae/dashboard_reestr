@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getView } from '../../../store/entries/actions';
-import { BreadCrumbs } from '../../../components/breadCrumbs/breadCrumbs';
+import { getView } from '../../../../store/registry/actions';
 
 import './card-item.css';
 
 function CardExpert(props) {
     const { pathname } = useLocation();
 
-    //     console.log(pathname, 'pathnamefromcardcurrent');
-    //     const { id } = useParams();
     const dispatch = useDispatch();
 
     const { currentCard } = useSelector((state) => state.entries);
@@ -23,10 +20,6 @@ function CardExpert(props) {
 
     return (
         <div class="card-container">
-            <BreadCrumbs registry="expert-card">
-                <span> {'>'} </span>
-                <span> {currentCard?.expert_name} </span>
-            </BreadCrumbs>
             <div className="card">
                 <div className="card__title">
                     <strong>{currentCard?.expert_name}</strong>

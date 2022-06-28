@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getView } from '../../../store/entries/actions';
-// import { Breadcrumb } from 'antd';
+import { getView } from '../../../../store/registry/actions';
+
 import './card-item.css';
-import { BreadCrumbs } from '../../../components/breadCrumbs/breadCrumbs';
 
 function CardSds(props) {
     const { pathname } = useLocation();
@@ -18,10 +17,6 @@ function CardSds(props) {
 
     return (
         <div className="card-container">
-            <BreadCrumbs registry="sds-card">
-                <span> {'>'} </span>
-                <span> {currentCard?.full_name} </span>
-            </BreadCrumbs>
             <div className="card">
                 <div className="card__title">
                     <strong>{currentCard?.full_name}</strong>

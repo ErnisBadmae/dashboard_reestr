@@ -29,6 +29,7 @@ import { RegistryCertificates } from './pages/registries/registry-certificates/r
 import { TableUsers } from './components/TableUsers/TableUsers';
 import CurrentUser from './components/CurrentCard/CurrentUser/CurrentUser';
 import CurrentUploadDocument from './components/FileUploadInput/CurrentUploadDocument';
+import CardExpert from './pages/registries/registry-certificate-expert/card-reg-cert-exp/card-reg-cert-exp';
 
 function App() {
     const navigate = useNavigate();
@@ -53,6 +54,10 @@ function App() {
 
                 {!!user && (
                     <Route path="/" element={<LayoutContent />}>
+                        <Route
+                            path="/organ-certification-expert/view/:id"
+                            element={<CardExpert />}
+                        />
                         <Route element={<TableWrapper />}>
                             <Route
                                 path="/standard-certifications/list"

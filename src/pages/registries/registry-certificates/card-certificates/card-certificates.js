@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getView } from '../../../store/entries/actions';
-import { correctlyDate } from '../../../helpers/utils';
-import { BreadCrumbs } from '../../../components/breadCrumbs/breadCrumbs';
+import { getView } from '../../../../store/registry/actions';
+import { correctlyDate } from '../../../../helpers/utils';
 
 import './card-item.css';
 
@@ -18,10 +17,6 @@ function CardSertificate(props) {
 
     return (
         <div class="card-container">
-            <BreadCrumbs registry="certificate-card">
-                <span> {'>'} </span>
-                <span> {currentCard?.company_name} </span>
-            </BreadCrumbs>
             <div className="card">
                 <div className="card__title">
                     <strong>{currentCard?.company_name}</strong>

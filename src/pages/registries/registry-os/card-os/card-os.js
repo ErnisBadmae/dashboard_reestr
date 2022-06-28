@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getView } from '../../../store/entries/actions';
-import { BreadCrumbs } from '../../../components/breadCrumbs/breadCrumbs';
+import { getView } from '../../../../store/registry/actions';
 
 import './card-item.css';
 
@@ -17,10 +16,6 @@ function CardOs(props) {
 
     return (
         <div class="card-container">
-            <BreadCrumbs registry="os-card">
-                <span> {'>'} </span>
-                <span> {currentCard?.certificate_number} </span>
-            </BreadCrumbs>
             <div className="card">
                 <div className="card__title">
                     <strong>

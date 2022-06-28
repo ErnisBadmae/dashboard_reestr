@@ -47,7 +47,7 @@ export const uploadFiles = createAsyncThunk(
                 body: formData,
             }
         );
-        //    console.log(result, 'uploadFiles');
+        console.log(result, 'uploadFiles');
 
         return;
     }

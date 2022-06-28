@@ -11,9 +11,7 @@ const getBase64 = (file) =>
     new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
-
         reader.onload = () => resolve(reader.result);
-
         reader.onerror = (error) => reject(error);
     });
 
@@ -69,7 +67,6 @@ function CurrentUploadDocument(props) {
                     <strong>{currentDocument?.description}</strong>
                 </div>
                 <Upload
-                    // action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                     listType="picture-card"
                     fileList={currentDocument?.files}
                     onPreview={handlePreview}

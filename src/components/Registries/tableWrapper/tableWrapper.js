@@ -1,29 +1,35 @@
 import { Outlet } from 'react-router-dom';
-import { Select, Layout, Form, Drawer, Button } from 'antd';
+import {
+    // Select,
+    Layout,
+    Form,
+    Drawer,
+    Button,
+} from 'antd';
 import { FilterFilled } from '@ant-design/icons';
 // import { Poisk } from '../../components/poisk/poisk';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { handleTitle } from '../../../helpers/utils';
-import { handleInputsFilter } from '../../../helpers/inputsFilterConstants';
+// import { handleInputsFilter } from '../../../helpers/inputsFilterConstants';
 
 const { Content } = Layout;
-const { Option } = Select;
+// const { Option } = Select;
 
-const statusOptions = [
-    {
-        value: 'active',
-        title: 'Действует',
-    },
-    {
-        value: 'inactive',
-        title: 'Исключено',
-    },
-    {
-        value: 'wait',
-        title: 'Замечания',
-    },
-];
+// const statusOptions = [
+//     {
+//         value: 'active',
+//         title: 'Действует',
+//     },
+//     {
+//         value: 'inactive',
+//         title: 'Исключено',
+//     },
+//     {
+//         value: 'wait',
+//         title: 'Замечания',
+//     },
+// ];
 
 export const TableWrapper = () => {
     const [filterValues, setFilterValues] = useState(null);
@@ -57,7 +63,7 @@ export const TableWrapper = () => {
                         visible={filterModalVisible}
                         onClose={() => setFilterModalVisible(false)}
                     >
-                        <Form form={form}>
+                        {/* <Form form={form}>
                             <Form.Item name="state">
                                 <Select
                                     className="registry-sro__filter-input"
@@ -71,7 +77,7 @@ export const TableWrapper = () => {
                                 </Select>
                             </Form.Item>
                             {handleInputsFilter(pathname)}
-                        </Form>
+                        </Form> */}
                         <div className="registry-sro__buttons-wrapper">
                             <Button
                                 className="custom-button"
