@@ -1,93 +1,114 @@
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getView } from '../../../../store/registry/actions';
 
-import './card-item.css';
-
 function CardOs(props) {
+    const navigate = useNavigate();
+
     const dispatch = useDispatch();
     const { pathname } = useLocation();
-    const { currentCard } = useSelector((state) => state.entries);
+    const { currentCard } = useSelector((state) => state.registries);
 
     useEffect(() => {
         dispatch(getView(pathname));
     }, [pathname, dispatch]);
 
+    const cardData = [
+        {
+            id: -1,
+            title: 'Полное наименование организации',
+            value: currentCard?.full_name_organ_certification,
+        },
+        {
+            id: 0,
+            title: 'Сокращенное наименование организации',
+            value: currentCard?.short_name_organ_certification,
+        },
+        {
+            id: 1,
+            title: 'Номер аттестата аккредитации',
+            value: currentCard?.certificate_number,
+        },
+        {
+            id: 2,
+            title: 'Дата решения об аккредитации',
+            value: currentCard?.certificate_date,
+        },
+        {
+            id: 3,
+            title: 'Номер решения об аккредитации',
+            value: currentCard?.decision_number,
+        },
+        {
+            id: 4,
+            title: 'ИНН',
+            value: currentCard?.inn,
+        },
+        {
+            id: 5,
+            title: 'ОГРН',
+            value: currentCard?.ogrn,
+        },
+        {
+            id: 6,
+            title: 'ФИО руководителя',
+            value: currentCard?.manager_name,
+        },
+        {
+            id: 7,
+            title: 'Область распространения',
+            value: currentCard?.area,
+        },
+        {
+            id: 8,
+            title: 'Адрес',
+            value: currentCard?.address,
+        },
+        {
+            id: 9,
+            title: 'Электронная почта',
+            value: currentCard?.email,
+        },
+        {
+            id: 10,
+            title: 'Сайт',
+            value: currentCard?.site,
+        },
+        {
+            id: 11,
+            title: 'Область распространения',
+            value: currentCard?.area,
+        },
+    ];
+
     return (
-        <div class="card-container">
-            <div className="card">
+        <>
+            <div className="card__body">
                 <div className="card__title">
-                    <strong>
-                        {currentCard?.full_name_organization_certification}
-                    </strong>
+                    <strong>Карточка компании</strong>
                 </div>
-                <div className="card__body">
-                    <strong>Номер аттестата аккредитации</strong>
-                    <br />
-                    <p>{currentCard?.certificate_number}</p>
-                    <br />
-                    <strong>Дата решения об аккредитации</strong>
-                    <br />
-                    <p>{currentCard?.certificate_date}</p>
-                    <strong>
-                        <br />
-                        Номер решения об аккредитации
-                    </strong>
-                    <p>{currentCard?.decision_number}</p>
-                    <strong>
-                        <br />
-                        ИНН
-                    </strong>
-                    <br />
-                    <p>{currentCard?.inn}</p>
-                    <strong>
-                        <br />
-                        ОГРН
-                    </strong>
-                    <br />
-                    <p>{currentCard?.ogrn}</p>
-                    <strong>
-                        <br />
-                        ФИО руководителя
-                    </strong>
-                    <br />
-                    <p>{currentCard?.manager_name}</p>
-                    <strong>
-                        <br />
-                        Адрес
-                    </strong>
-                    <br />
-                    <p>{currentCard?.address}</p>
-                    <strong>
-                        <br />
-                        Электронная почта
-                    </strong>
-                    <br />
-                    <p>{currentCard?.email}</p>
-                    <strong>
-                        <br />
-                        Сайт
-                    </strong>
-                    <br />
-                    <p>
-                        <a href={currentCard?.site}>{currentCard?.site}</a>
-                    </p>
-                    <strong>
-                        <br />
-                        Область распространения
-                    </strong>
-                    <br />
-                    <p>{currentCard?.area}</p>
-                    {/* <strong>
-                         <br />
-                         Статус
-                     </strong>
-                     <br />
-                     <p>{currentItem?.status || 'нет данных'}</p> */}
-                </div>
+                {cardData.map((field) => {
+                    return (
+                        <div className="card__field" key={field.id}>
+                            <div className="strong-title">{field.title}</div>
+                            <div className="text__current-card">
+                                {field.value}
+                            </div>
+                        </div>
+                    );
+                })}
             </div>
-        </div>
+            <div className="declaration__buttons">
+                <button
+                    className="btn__login declaration__btn"
+                    onClick={() => navigate(-1)}
+                    type="button"
+                >
+                    Назад
+                </button>
+            </div>
+        </>
     );
 }
 

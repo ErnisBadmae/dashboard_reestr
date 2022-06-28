@@ -14,6 +14,12 @@ import FormOsSdc from './components/FormSdc/FormOs';
 import CurrentOsSdc from './components/CurrentCard/CurrentOs/CurrentOs';
 import EditCardOs from './components/CurrentCard/EditCard/EditCardOs';
 import EditCardHolders from './components/CurrentCard/EditCard/EditCardHolders';
+import CurrentUser from './components/CurrentCard/CurrentUser/CurrentUser';
+import CurrentUploadDocument from './components/FileUploadInput/CurrentUploadDocument';
+import CardExpert from './pages/registries/registry-certificate-expert/card-reg-cert-exp/card-reg-cert-exp';
+import CardSertificate from './pages/registries/registry-certificates/card-certificates/card-certificates';
+import CardSdc from './pages/registries/registry-sds/card-sds/card-sds';
+import CardOs from './pages/registries/registry-os/card-os/card-os';
 // import Dialogs from './components/Dialogs/Dialogs';
 
 import { AuthLayout } from './components/Layout/AuthLayout';
@@ -27,9 +33,6 @@ import { RegistryOs } from './pages/registries/registry-os/registry-os';
 import { RegistryCertificationExperts } from './pages/registries/registry-certificate-expert/registryCertificateExperts';
 import { RegistryCertificates } from './pages/registries/registry-certificates/registry-certificates';
 import { TableUsers } from './components/TableUsers/TableUsers';
-import CurrentUser from './components/CurrentCard/CurrentUser/CurrentUser';
-import CurrentUploadDocument from './components/FileUploadInput/CurrentUploadDocument';
-import CardExpert from './pages/registries/registry-certificate-expert/card-reg-cert-exp/card-reg-cert-exp';
 
 function App() {
     const navigate = useNavigate();
@@ -57,6 +60,18 @@ function App() {
                         <Route
                             path="/organ-certification-expert/view/:id"
                             element={<CardExpert />}
+                        />
+                        <Route
+                            path="/certificate/view/:id"
+                            element={<CardSertificate />}
+                        />
+                        <Route
+                            path="/standard-certification/view/:id"
+                            element={<CardSdc />}
+                        />
+                        <Route
+                            path="/organ-certification/view/:id"
+                            element={<CardOs />}
                         />
                         <Route element={<TableWrapper />}>
                             <Route

@@ -11,7 +11,7 @@ import { FilterFilled } from '@ant-design/icons';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { handleTitle } from '../../../helpers/utils';
-// import { handleInputsFilter } from '../../../helpers/inputsFilterConstants';
+import { handleInputsFilter } from '../../../helpers/inputsFilterConstants';
 
 const { Content } = Layout;
 // const { Option } = Select;
@@ -63,8 +63,8 @@ export const TableWrapper = () => {
                         visible={filterModalVisible}
                         onClose={() => setFilterModalVisible(false)}
                     >
-                        {/* <Form form={form}>
-                            <Form.Item name="state">
+                        <Form form={form}>
+                            {/* <Form.Item name="state">
                                 <Select
                                     className="registry-sro__filter-input"
                                     placeholder="Статус"
@@ -75,9 +75,9 @@ export const TableWrapper = () => {
                                         </Option>
                                     ))}
                                 </Select>
-                            </Form.Item>
+                            </Form.Item> */}
                             {handleInputsFilter(pathname)}
-                        </Form> */}
+                        </Form>
                         <div className="registry-sro__buttons-wrapper">
                             <Button
                                 className="custom-button"

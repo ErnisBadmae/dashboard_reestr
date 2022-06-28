@@ -1,88 +1,91 @@
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getView } from '../../../../store/registry/actions';
 
-import './card-item.css';
-
 function CardSds(props) {
     const { pathname } = useLocation();
+    const navigate = useNavigate();
+
     const dispatch = useDispatch();
 
-    const { currentCard } = useSelector((state) => state.entries);
+    const { currentCard } = useSelector((state) => state.registries);
 
     useEffect(() => {
         dispatch(getView(pathname));
     }, [pathname, dispatch]);
 
+    const cardData = [
+        {
+            id: 1,
+            title: 'Полное наименование',
+            value: currentCard?.full_name,
+        },
+        {
+            id: 2,
+            title: 'Сокращенное наименование',
+            value: currentCard?.short_name,
+        },
+        {
+            id: 3,
+            title: 'Регистрационный номер',
+            value: currentCard?.registration_number,
+        },
+        {
+            id: 4,
+            title: 'Дата регистрации',
+            value: currentCard?.registration_date,
+        },
+        {
+            id: 5,
+            title: 'Компания - регистратор',
+            value: currentCard?.registration_company,
+        },
+        {
+            id: 6,
+            title: 'Сайт',
+            value: currentCard?.site,
+        },
+        {
+            id: 7,
+            title: 'Область распространения',
+            value: currentCard?.area,
+        },
+        //    {
+        //        id: 8,
+        //        title: 'Область распространения',
+        //        value: currentCard?.area,
+        //    },
+    ];
+
     return (
-        <div className="card-container">
-            <div className="card">
+        <>
+            <div className="card__body">
                 <div className="card__title">
-                    <strong>{currentCard?.full_name}</strong>
+                    <strong>Карточка компании</strong>
                 </div>
-
-                <div className="card__body">
-                    <strong>Сокращенное название</strong>
-                    <br />
-                    <p>{currentCard?.short_name}</p>
-
-                    <strong>Регистрационный номер</strong>
-                    <br />
-                    <p>{currentCard?.registration_number}</p>
-
-                    <strong>
-                        <br />
-                        Дата регистрации
-                    </strong>
-                    <p>{currentCard?.registration_date}</p>
-
-                    <strong>
-                        <br />
-                        Организация, представившая СДС на регистрацию (Оно же
-                        Держатель)
-                    </strong>
-                    <p>{currentCard?.registration_company}</p>
-
-                    <strong>
-                        <br />
-                        Сайт
-                    </strong>
-                    <br />
-                    <p>
-                        <a href={currentCard?.site}>{currentCard?.site}</a>
-                    </p>
-
-                    <strong>
-                        <br />
-                        Область распространения
-                    </strong>
-                    <br />
-                    <p>{currentCard?.area}</p>
-
-                    <strong>
-                        <br />
-                        Изображение знака
-                    </strong>
-                    <br />
-                    <p>{currentCard?.logo}</p>
-
-                    <strong>
-                        <br />
-                        Статус
-                    </strong>
-                    <br />
-                    <p>{currentCard?.status || 'нет данных'}</p>
-                </div>
+                {cardData.map((field) => {
+                    return (
+                        <div className="card__field" key={field.id}>
+                            <div className="strong-title">{field.title}</div>
+                            <div className="text__current-card">
+                                {field.value}
+                            </div>
+                        </div>
+                    );
+                })}
             </div>
-        </div>
+            <div className="declaration__buttons">
+                <button
+                    className="btn__login declaration__btn"
+                    onClick={() => navigate(-1)}
+                    type="button"
+                >
+                    Назад
+                </button>
+            </div>
+        </>
     );
 }
 
 export default CardSds;
-
-// const titles = ['Сокращенное название', 'Регистрационный номер'];
-// return (
-//      titles.map((el) => {
-//           return <div>{el}</div>
-//      })

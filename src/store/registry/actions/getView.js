@@ -16,6 +16,9 @@ export const getView = createAsyncThunk(
                 valid_date: correctlyDate(el.valid_date),
                 valid: correctlyDate(el.valid),
                 registration_date: correctlyDate(el.registration_date),
+                introduction_date: correctlyDate(el.introduction_date),
+                exclusion_date: correctlyDate(el.exclusion_date),
+                education_date: correctlyDate(el.education_date),
             };
         }, {});
 

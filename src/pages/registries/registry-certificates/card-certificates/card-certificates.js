@@ -1,83 +1,109 @@
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getView } from '../../../../store/registry/actions';
-import { correctlyDate } from '../../../../helpers/utils';
-
-import './card-item.css';
 
 function CardSertificate(props) {
+    const navigate = useNavigate();
+
     const dispatch = useDispatch();
     const { pathname } = useLocation();
-    const { currentCard } = useSelector((state) => state.entries);
+    const { currentCard } = useSelector((state) => state.registries);
 
     useEffect(() => {
         dispatch(getView(pathname));
     }, [pathname, dispatch]);
 
+    const cardData = [
+        {
+            id: 0,
+            title: 'Полное наименование организации',
+            value: currentCard?.company_name,
+        },
+        {
+            id: 1,
+            title: '№ выданного сертификата',
+            value: currentCard?.number,
+        },
+        {
+            id: 2,
+            title: 'ИНН получателя',
+            value: currentCard?.company_inn,
+        },
+        {
+            id: 3,
+            title: '№ бланка',
+            value: currentCard?.certificate_form,
+        },
+        {
+            id: 4,
+            title: 'Дата выдачи',
+            value: currentCard?.certificate_date,
+        },
+        {
+            id: 5,
+            title: 'Срок действия сертификата',
+            value: currentCard?.valid_date,
+        },
+        {
+            id: 6,
+            title: 'Соответствие требованиям (например, стандарт)',
+            value: currentCard?.certificate_conformity,
+        },
+        //    {
+        //        id: 7,
+        //        title: 'Область распространения',
+        //        value: currentCard?.area,
+        //    },
+        {
+            id: 8,
+            title: 'ОГРН',
+            value: currentCard?.company_ogrn,
+        },
+        {
+            id: 9,
+            title: 'Особые отметки (например, оценка при наличии)',
+            value: currentCard?.comment,
+        },
+        {
+            id: 10,
+            title: 'Скан-копия сертификата',
+            value: currentCard?.certificate_scan,
+        },
+        // {
+        //     id: 11,
+        //     title: 'Область распространения',
+        //     value: currentCard?.area,
+        // },
+    ];
+
     return (
-        <div class="card-container">
-            <div className="card">
+        <>
+            <div className="card__body">
                 <div className="card__title">
-                    <strong>{currentCard?.company_name}</strong>
+                    <strong>Карточка компании</strong>
                 </div>
-                <div className="card__body">
-                    <strong>№ выданного сертификата</strong>
-                    <br />
-                    <p>{currentCard?.number}</p>
-                    <br />
-                    <strong>ИНН получателя</strong>
-                    <br />
-                    <p>{currentCard?.company_inn}</p>
-                    <strong>
-                        <br />№ бланка
-                    </strong>
-                    <p>{currentCard?.certificate_form}</p>
-                    <strong>
-                        <br />
-                        Дата выдачи
-                    </strong>
-                    <br />
-                    <p>{correctlyDate(currentCard?.certificate_date)}</p>
-                    <strong>
-                        <br />
-                        Срок действия сертификата
-                    </strong>
-                    <br />
-                    <p>{correctlyDate(currentCard?.valid_date)}</p>
-                    <strong>
-                        <br />
-                        Соответствие требованиям (например, стандарт)
-                    </strong>
-                    <br />
-                    <p>{currentCard?.certificate_conformity}</p>
-                    <strong>
-                        <br />
-                        ОГРН получателя
-                    </strong>
-                    <br />
-                    <p>{currentCard?.company_ogrn}</p>
-                    <strong>
-                        <br />
-                        Особые отметки (например, оценка при наличии)
-                    </strong>
-                    <br />
-                    <p>{currentCard?.comment}</p>
-                    <strong>
-                        <br />
-                        Скан-копия сертификата
-                    </strong>
-                    <br />
-                    <p>{currentCard?.certificate_scan}</p>
-                    {/* <strong>
-                         <br />
-                         Статус
-                     </strong>
-                     <br />
-                     <p>{currentItem?.status || 'нет данных'}</p> */}
-                </div>
+                {cardData.map((field) => {
+                    return (
+                        <div className="card__field" key={field.id}>
+                            <div className="strong-title">{field.title}</div>
+                            <div className="text__current-card">
+                                {field.value}
+                            </div>
+                        </div>
+                    );
+                })}
             </div>
-        </div>
+            <div className="declaration__buttons">
+                <button
+                    className="btn__login declaration__btn"
+                    onClick={() => navigate(-1)}
+                    type="button"
+                >
+                    Назад
+                </button>
+            </div>
+        </>
     );
 }
 
