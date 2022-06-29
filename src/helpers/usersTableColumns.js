@@ -27,13 +27,13 @@ export const usersTableColumns = [
         is_sort: true,
         number_in_row: 1,
     },
-    //     {
-    //         title: 'ИНН',
-    //         dataIndex: 'org_inn',
-    //         data_type: 'string',
-    //         is_sort: true,
-    //         number_in_row: 1,
-    //     },
+    {
+        title: 'Роль пользователя',
+        dataIndex: 'roleTitle',
+        data_type: 'string',
+        is_sort: true,
+        number_in_row: 1,
+    },
     //     {
     //         title: 'ОГРН',
     //         dataIndex: 'org_ogrn',

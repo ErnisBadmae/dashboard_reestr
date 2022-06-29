@@ -10,9 +10,14 @@ export const getUsersList = createAsyncThunk(
             //   page: payload.page,
             //   filters: payload.filters,
         });
-        console.log(result.data.data.data, 'getUsersList');
-
-        return result.data.data.data;
+        console.log(result, 'getUsersList');
+        const value = result.data.data.data.map((el) => {
+            return {
+                ...el,
+                roleTitle: el?.user_role?.title,
+            };
+        });
+        return value;
     }
 );
 

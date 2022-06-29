@@ -95,8 +95,7 @@ function App() {
                         </Route>
 
                         {/* <Route path="dialogs" element={<Dialogs />}></Route> */}
-                        <Route path="users" element={<TableUsers />} />
-                        <Route path="users/:id" element={<CurrentUser />} />
+
                         <Route path="reports" element={<Reports />} />
                         {/* <Route path="reports2" element={<Reports2 />} /> */}
 
@@ -105,6 +104,11 @@ function App() {
                                 <RequireAuth allowedRoles={['user_admin']} />
                             }
                         >
+                            <Route path="/users" element={<TableUsers />} />
+                            <Route
+                                path="/users/:id"
+                                element={<CurrentUser />}
+                            />
                             <Route
                                 path="/declaration-admin"
                                 element={<Declaration />}
