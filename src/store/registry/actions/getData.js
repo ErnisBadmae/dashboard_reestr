@@ -11,6 +11,7 @@ export const getData = createAsyncThunk('dataRegistry/get', async (payload) => {
             filters: payload.filterValues,
         }
     );
+
     const value = result.data.data.data.map((el) => {
         return {
             ...el,

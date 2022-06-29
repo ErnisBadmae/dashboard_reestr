@@ -10,7 +10,7 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 import { useDispatch, useSelector } from 'react-redux';
-import { getReportProfSdcForm1 } from '../../store/reports/actions';
+import { getReportProfSdcByCount } from '../../store/reports/actions';
 
 ChartJS.register(
     CategoryScale,
@@ -21,82 +21,83 @@ ChartJS.register(
     Legend
 );
 
-export const options = {
-    plugins: {
-        title: {
-            display: true,
-            text: 'Инфографика по отчетам',
-        },
-    },
-    responsive: true,
-    interaction: {
-        mode: 'index',
-        intersect: false,
-    },
-    scales: {
-        x: {
-            stacked: true,
-        },
-        y: {
-            stacked: true,
-        },
-    },
-};
-
-const labels = [
-    'Январь',
-    'Феврал',
-    'Март',
-    'Апрель',
-    'Май',
-    'Июнь',
-    'Июль',
-    'Сентябрь',
-    'Октябрь',
-    'Ноябрь',
-    'Декабрь',
-];
-const labels2 = ['2019', '2020', '2021', '2022'];
-
 export function Reports() {
     const dispatch = useDispatch();
-    //     const { lsd } = useSelector((state) => state.lsd);
-    console.log();
+    const { reportProfSdcCount } = useSelector((state) => state.reports);
+    console.log(reportProfSdcCount, 'reportProfSdcCount');
     const [currentLabels, setCurrentLabels] = useState(1);
 
     useEffect(() => {
-        dispatch(getReportProfSdcForm1());
-    }, []);
+        dispatch(getReportProfSdcByCount());
+    }, [dispatch]);
 
+    const options = {
+        plugins: {
+            title: {
+                display: true,
+                text: reportProfSdcCount?.report_title,
+            },
+        },
+        responsive: true,
+        interaction: {
+            mode: 'index',
+            intersect: false,
+        },
+        scales: {
+            x: {
+                stacked: true,
+            },
+            y: {
+                stacked: true,
+            },
+        },
+    };
+
+    const labelsByCount = [
+        {
+            title: 'register_oc_certified_experts_count',
+            value: reportProfSdcCount?.data?.register_oc_certified_experts_count
+                .value,
+        },
+        {
+            title: 'register_oc_count',
+            value: reportProfSdcCount?.data?.register_oc_count.value,
+        },
+        {
+            title: 'register_oc_issued_certificates_count',
+            value: reportProfSdcCount?.data
+                ?.register_oc_issued_certificates_count.value,
+        },
+        {
+            title: 'register_sdc_count',
+            value: reportProfSdcCount?.data?.register_sdc_count.value,
+        },
+    ];
+    const labelsByYears = ['2019', '2020', '2021', '2022'];
+
+    //передаем в дату объект
     const data = {
-        labels: currentLabels === 1 ? labels : labels2,
+        labels:
+            currentLabels === 1
+                ? [
+                      labelsByCount[0].title,
+                      labelsByCount[1].title,
+                      labelsByCount[2].title,
+                      labelsByCount[3].title,
+                  ]
+                : labelsByYears,
+
         datasets: [
             {
-                label: 'Dataset 1',
+                label: 'Количество',
                 data:
                     currentLabels === 1
-                        ? labels.map(() => 370)
-                        : labels2.map(() => 350),
+                        ? labelsByCount.map((el) => {
+                              return el.value;
+                          })
+                        : labelsByYears.map(() => 350),
                 backgroundColor: 'rgb(255, 99, 132)',
                 stack: 'Stack 0',
-            },
-            {
-                label: 'Dataset 2',
-                data:
-                    currentLabels === 1
-                        ? labels.map(() => 780)
-                        : labels2.map(() => 230),
-                backgroundColor: 'rgb(75, 192, 192)',
-                stack: 'Stack 0',
-            },
-            {
-                label: 'Dataset 3',
-                data:
-                    currentLabels === 1
-                        ? labels.map(() => 500)
-                        : labels2.map(() => 1000),
-                backgroundColor: 'rgb(53, 162, 235)',
-                stack: 'Stack 1',
             },
         ],
     };
@@ -110,8 +111,8 @@ export function Reports() {
                 }}
             >
                 {currentLabels === 1
-                    ? 'Вывести по годами'
-                    : 'Вывести по месяцам'}
+                    ? 'Вывести по годам'
+                    : 'Вывести по количеству'}
             </button>
             <Bar options={options} data={data} />
         </>

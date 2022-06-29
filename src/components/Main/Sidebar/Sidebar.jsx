@@ -98,11 +98,13 @@ function Sidebar(props) {
                     <p className="sidebar__inner-title">
                         Пользовательский интерфейс
                     </p>
+                    
                     <li>
                         <div className="sidebar__inner-item" />
                         <span>Сообщения</span>
                     </li>
-                    <li>
+
+                    {roles === 'user_admin' ?  <li>
                         <Link
                             style={{ width: '100%', height: '100%' }}
                             to="/users"
@@ -110,7 +112,8 @@ function Sidebar(props) {
                             <div className="sidebar__inner-item" />
                             <span>Пользователи</span>
                         </Link>
-                    </li>
+                    </li> : <></>}
+                   
                     <p className="sidebar__inner-title">Сервисы</p>
                     <li>
                         <Link

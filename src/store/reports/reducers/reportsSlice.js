@@ -1,11 +1,14 @@
-import { getReportProfSdcForm1, getReportProfSdcForm2 } from '../actions';
+import {
+    getReportProfSdcByCount,
+    getReportProfSdcFormByYears,
+} from '../actions';
 import { createSlice } from '@reduxjs/toolkit';
 
 export const getReports = createSlice({
     name: 'getReports',
     initialState: {
         reportProfSdcCount: {},
-        reportProfSdcYears: [],
+        reportProfSdcYears: {},
         isLoading: false,
         isSuccess: false,
         errorMessage: '',
@@ -13,28 +16,28 @@ export const getReports = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(getReportProfSdcForm1.pending, (state) => {
+            .addCase(getReportProfSdcByCount.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(getReportProfSdcForm1.fulfilled, (state, action) => {
+            .addCase(getReportProfSdcByCount.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.reportProfSdcCount = action.payload;
+                state.reportProfSdcCount = action.payload.report;
             })
-            .addCase(getReportProfSdcForm1.rejected, (state, action) => {
+            .addCase(getReportProfSdcByCount.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
                 state.reportProfSdcCount = null;
             })
 
-            .addCase(getReportProfSdcForm2.pending, (state) => {
+            .addCase(getReportProfSdcFormByYears.pending, (state) => {
                 state.isLoading = true;
             })
-            .addCase(getReportProfSdcForm2.fulfilled, (state, action) => {
+            .addCase(getReportProfSdcFormByYears.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.reportProfSdcYears = action.payload;
+                state.reportProfSdcYears = action.payload.report;
             })
-            .addCase(getReportProfSdcForm2.rejected, (state, action) => {
+            .addCase(getReportProfSdcFormByYears.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;
