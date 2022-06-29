@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 import { PlusOutlined } from '@ant-design/icons';
 import { Modal, Upload } from 'antd';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDocumentCard, uploadFiles } from '../../store/documents/actions';
 
@@ -16,6 +16,7 @@ const getBase64 = (file) =>
     });
 
 function CurrentUploadDocument(props) {
+    const navigate = useNavigate();
     const { id, documentId } = useParams();
     const dispatch = useDispatch();
 
@@ -88,6 +89,22 @@ function CurrentUploadDocument(props) {
                         src={previewImage}
                     />
                 </Modal>
+
+                <div className="declaration__buttons">
+                    <button
+                        className="btn__login declaration__btn"
+                        onClick={() => navigate(-1)}
+                        type="button"
+                    >
+                        Назад
+                    </button>
+                    <button
+                        className="btn__login declaration__btn"
+                        type="submit"
+                    >
+                        Сохранить
+                    </button>
+                </div>
             </div>
         </>
     );

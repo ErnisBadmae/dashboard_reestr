@@ -14,7 +14,7 @@ function OsSdc(props) {
         (state) => state.proposalTest
     );
     const { id } = useSelector(
-        (state) => state.proposalTest.currentProposalSdc
+        (state) => state?.proposalTest?.currentProposalSdc
     );
 
     useEffect(() => {

@@ -35,12 +35,12 @@ export const handleInputsFilter = (pathname) => {
         case '/organ-certification-experts/list':
             return (
                 <>
-                    <Form.Item name="area">
+                    {/* <Form.Item name="area">
                         <Input
                             className="registry-sro__filter-input"
                             placeholder=""
                         ></Input>
-                    </Form.Item>
+                    </Form.Item> */}
 
                     <Form.Item name="expertName">
                         <Input

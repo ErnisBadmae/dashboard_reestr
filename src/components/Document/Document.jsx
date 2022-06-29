@@ -24,7 +24,7 @@ function Document(props) {
 
     const { documentsContainers } = useSelector((state) => state.files);
     const { id } = useSelector(
-        (state) => state.proposalTest.currentProposalSdc
+        (state) => state?.proposalTest?.currentProposalSdc
     );
 
     useEffect(() => {

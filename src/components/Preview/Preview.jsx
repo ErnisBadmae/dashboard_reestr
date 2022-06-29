@@ -19,7 +19,7 @@ function PreviewCardSdc(props) {
 
     const dispatch = useDispatch();
     const { id } = useSelector(
-        (state) => state.proposalTest.currentProposalSdc
+        (state) => state?.proposalTest?.currentProposalSdc
     );
     useEffect(() => {
         dispatch(getPreviewCurrentProposalSdc(id));

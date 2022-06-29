@@ -27,7 +27,7 @@ export const RegistryOs = () => {
                 row_page: pageSize,
                 page: pageIndex,
                 pathname,
-                filterValues: filterValues ? { filters: filterValues } : {},
+                filterValues: filterValues ? { ...filterValues } : {},
             })
         );
     }, [pageIndex, pageSize, pathname, filterValues, dispatch]);
