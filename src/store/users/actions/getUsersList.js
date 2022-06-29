@@ -5,7 +5,7 @@ import $api from '../../../http';
 export const getUsersList = createAsyncThunk(
     'getUsersList/get',
     async (payload) => {
-        const result = await $api.post('/user/user_clients', {
+        const result = await $api.post('/user/users', {
             //   row_page: payload.row_page,
             //   page: payload.page,
             //   filters: payload.filters,

@@ -113,8 +113,13 @@ function Sidebar(props) {
                     </li>
                     <p className="sidebar__inner-title">Сервисы</p>
                     <li>
-                        <div className="sidebar__inner-item" />
-                        <span>Отчеты </span>
+                        <Link
+                            style={{ width: '100%', height: '100%' }}
+                            to="/reports"
+                        >
+                            <div className="sidebar__inner-item" />
+                            <span>Отчеты</span>
+                        </Link>
                     </li>
                     <li>
                         <div className="sidebar__inner-item" />

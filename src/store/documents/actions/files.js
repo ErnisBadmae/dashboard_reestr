@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 // import { correctlyDate } from '../../../helpers/utils';
 import $api from '../../../http';
+import axios from 'axios';
 
 export const postDocument = createAsyncThunk(
     'postDocument/post',
@@ -30,24 +31,53 @@ export const uploadFiles = createAsyncThunk(
 
         //    documentsFileList.append('uploadedFile[]', payload.uploadedFile);
 
-        payload.forEach((file) => {
-            formData.append('uploadedFile[]', file.uploadedFile);
-        });
+        // let files = [];
 
-        //    console.log(
-        //        documentsFileList.get('uploadedFile'),
-        //        'formdata.uploadedFile'
-        //    );
+        // files.push(payload.uploadedFile[0]);
+
+        formData.append('uploadedFile[]', payload.uploadedFile);
+
+        // payload.uploadedFile.forEach((file, index) => {
+        //     formData.set('uploadedFile[]', [
+        //         ...formData.get('uploadedFile[]'),
+        //         JSON.stringify(payload.uploadedFile[index]),
+        //     ]);
+        // });
+
+        // console.log(formData.get('uploadedFile[]'), 'formdata.uploadedFile');
+
+        // console.log(payload.uploadedFile, 'array from payload');
         // debugger;
 
-        const result = await fetch(
-            `https://api-prof-sdc.anonamis.ru/api/request/request_sdc_standard_certification/${payload.id}/document/${payload.documentId}/file/add`,
-            {
-                method: 'POST',
-                body: formData,
-            }
-        );
-        console.log(result, 'uploadFiles');
+        try {
+            const result = await axios.post(
+                `https://api-prof-sdc.anonamis.ru/api/request/request_sdc_standard_certification/${payload.id}/document/${payload.documentId}/file/add`,
+                //  {
+                //      method: 'POST',
+                //      body: formData,
+                //      headers: {
+                //          Authorization: `Bearer ${localStorage.getItem(
+                //              'token'
+                //          )}`,
+                //      },
+                //  }
+                formData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem(
+                            'token'
+                        )}`,
+                        'Content-type': 'multipart/form-data',
+                    },
+                }
+            );
+
+            //   const res = await result.json();
+
+            console.log(result, 'uploadFiles');
+        } catch (err) {
+            console.log('errror', err);
+        }
 
         return;
     }

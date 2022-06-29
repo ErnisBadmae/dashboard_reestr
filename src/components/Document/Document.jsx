@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ButtonRegistry } from '../Buttons/button-registry/button-registry';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDocuments } from '../../store/documents/actions';
 import { Form, Input, Modal } from 'antd';
@@ -9,7 +9,6 @@ import { postDocument } from '../../store/documents/actions';
 const { Option } = Select;
 
 function Document(props) {
-    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const { isCardEditable } = useSelector((state) => state.proposalTest);
@@ -17,6 +16,7 @@ function Document(props) {
 
     const [visible, setVisible] = useState(false);
     const [confirmLoading, setConfirmLoading] = useState(false);
+
     const [modalTitle, setModalTitle] = useState('Добавить документ');
     const [documentType, setDocumentType] = useState(1);
 
@@ -34,18 +34,15 @@ function Document(props) {
     const handleOk = (values) => {
         setModalTitle('Идет создание документа...');
         setConfirmLoading(true);
+
         const data = { ...values, fileType: documentType, id };
+
         dispatch(postDocument(data))
             .unwrap()
             .then(() => {
                 setVisible(false);
                 setConfirmLoading(false);
             });
-        // setTimeout(() => {
-        //     console.log(values, documentType, 'form data');
-        //     setVisible(false);
-        //     setConfirmLoading(false);
-        // }, 1000);
     };
 
     return (
@@ -66,7 +63,7 @@ function Document(props) {
                         <Modal
                             visible={visible}
                             title={modalTitle}
-                            okText="Submit"
+                            okText="Сохранить"
                             confirmLoading={confirmLoading}
                             onCancel={() => {
                                 setVisible(false);
@@ -81,7 +78,7 @@ function Document(props) {
                             >
                                 <Form.Item
                                     name="description"
-                                    label="Description"
+                                    label="Описание документа"
                                 >
                                     <Input type="options" />
                                 </Form.Item>
@@ -91,8 +88,8 @@ function Document(props) {
                                         setDocumentType(value);
                                     }}
                                 >
-                                    <Option value="1">1</Option>
-                                    <Option value="2">2</Option>
+                                    <Option value="1">Сертификат</Option>
+                                    <Option value="2">Изображение</Option>
                                 </Select>
                             </Form>
                         </Modal>

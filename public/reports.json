@@ -1,0 +1,16 @@
+{
+    "success": true,
+    "message": "OK",
+    "data": {
+        "report": {
+            "report_date": "2022-06-28 16:18:20",
+            "report_title": "Отчет по количеству",
+            "data": {
+                "register_sdc_count": 2,
+                "register_oc_count": 2,
+                "register_oc_certified_experts_count": 1,
+                "register_oc_issued_certificates_count": 2
+            }
+        }
+    }
+}

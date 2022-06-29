@@ -33,6 +33,8 @@ import { RegistryOs } from './pages/registries/registry-os/registry-os';
 import { RegistryCertificationExperts } from './pages/registries/registry-certificate-expert/registryCertificateExperts';
 import { RegistryCertificates } from './pages/registries/registry-certificates/registry-certificates';
 import { TableUsers } from './components/TableUsers/TableUsers';
+import { Reports } from './pages/reports/Reports';
+import { Reports2 } from './pages/reports/Reports';
 
 function App() {
     const navigate = useNavigate();
@@ -95,6 +97,8 @@ function App() {
                         {/* <Route path="dialogs" element={<Dialogs />}></Route> */}
                         <Route path="users" element={<TableUsers />} />
                         <Route path="users/:id" element={<CurrentUser />} />
+                        <Route path="reports" element={<Reports />} />
+                        {/* <Route path="reports2" element={<Reports2 />} /> */}
 
                         <Route
                             element={

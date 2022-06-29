@@ -39,6 +39,16 @@ function CurrentUser(props) {
             title: 'Описание',
             value: user?.user_role?.description,
         },
+        {
+            id: 5,
+            title: 'Дата создания пользователя',
+            value: user?.dttm_created,
+        },
+        {
+            id: 6,
+            title: 'Дата последней авторизации',
+            value: user?.dttn_last_authorization,
+        },
     ];
 
     return (

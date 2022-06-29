@@ -19,9 +19,9 @@ function CurrentUploadDocument(props) {
     const { id, documentId } = useParams();
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getDocumentCard({ id, documentId }));
-    }, [id, documentId, dispatch]);
+    //     useEffect(() => {
+    //         dispatch(getDocumentCard({ id, documentId }));
+    //     }, [id, documentId, dispatch]);
 
     const { currentDocument } = useSelector((state) => state.files);
 
