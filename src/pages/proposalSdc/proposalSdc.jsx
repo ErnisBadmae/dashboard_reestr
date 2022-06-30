@@ -15,7 +15,7 @@ function ProposalSdc(props) {
                     <PreviewCardSdc />
                     <ProposalCard />
                     <OsSdc />
-                    <CurrentUploadDocument />
+                    {/* <CurrentUploadDocument /> */}
                     <Document />
                 </div>
             </div>

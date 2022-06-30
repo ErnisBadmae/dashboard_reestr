@@ -18,6 +18,7 @@ export const getData = createAsyncThunk('dataRegistry/get', async (payload) => {
             certificate_date: correctlyDate(el.certificate_date),
             valid: correctlyDate(el.valid),
             registration_date: correctlyDate(el.registration_date),
+            valid_date: correctlyDate(el.valid_date),
             statusId: el.status?.id,
             statusTitle: el.status
                 ? el.status?.title
