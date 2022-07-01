@@ -11,6 +11,7 @@ import FormSdc from './components/FormSdc/FormSdc';
 import ProposalSdc from './pages/proposalSdc/proposalSdc';
 import EditProposalCard from './components/CurrentCard/Current/EditProposalCard';
 import FormOsSdc from './components/FormSdc/FormOs';
+import FormExpert from './components/FormSdc/FormExpert';
 import CurrentOsSdc from './components/CurrentCard/CurrentOs/CurrentOs';
 import EditCardOs from './components/CurrentCard/EditCard/EditCardOs';
 import EditCardHolders from './components/CurrentCard/EditCard/EditCardHolders';
@@ -34,7 +35,7 @@ import { RegistryCertificationExperts } from './pages/registries/registry-certif
 import { RegistryCertificates } from './pages/registries/registry-certificates/registry-certificates';
 import { TableUsers } from './components/TableUsers/TableUsers';
 import { Reports } from './pages/reports/Reports';
-import { Reports2 } from './pages/reports/Reports';
+import CurrentExpert from './components/CurrentCard/CurrentExpert/CurrentExpert';
 
 function App() {
     const navigate = useNavigate();
@@ -97,7 +98,6 @@ function App() {
                         {/* <Route path="dialogs" element={<Dialogs />}></Route> */}
 
                         <Route path="reports" element={<Reports />} />
-                        {/* <Route path="reports2" element={<Reports2 />} /> */}
 
                         <Route
                             element={
@@ -128,8 +128,6 @@ function App() {
                                 />
                             }
                         >
-                            {/* <Route element={<TableWrapper />}> */}
-
                             <Route
                                 path="/new-request-sdc"
                                 element={<FormSdc />}
@@ -155,14 +153,6 @@ function App() {
                                 path="/form-os-sdc"
                                 element={<FormOsSdc />}
                             />
-                            {/* <Route
-                                path="/current-document"
-                                element={<FormOsSdc />}
-                            /> */}
-                            <Route
-                                path="/request_sdc/:id/current-document/:documentId"
-                                element={<CurrentUploadDocument />}
-                            />
                             <Route path="current-os">
                                 <Route path=":id" element={<CurrentOsSdc />} />
                             </Route>
@@ -170,6 +160,20 @@ function App() {
                                 path="/edit-card-os/:id"
                                 element={<EditCardOs />}
                             />
+
+                            <Route
+                                path="/form-expert-os"
+                                element={<FormExpert />}
+                            />
+                            <Route path="current-expert-os">
+                                <Route path=":id" element={<CurrentExpert />} />
+                            </Route>
+
+                            <Route
+                                path="/request_sdc/:id/current-document/:documentId"
+                                element={<CurrentUploadDocument />}
+                            />
+
                             <Route path="holder">
                                 <Route
                                     path=":id"

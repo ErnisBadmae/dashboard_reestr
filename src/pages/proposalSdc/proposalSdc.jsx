@@ -1,6 +1,6 @@
 import React from 'react';
 import ProposalCard from '../../components/CurrentCard/EditCard/ProposalCard';
-import CurrentUploadDocument from '../../components/FileUploadInput/CurrentUploadDocument';
+// import CurrentUploadDocument from '../../components/FileUploadInput/CurrentUploadDocument';
 import OsSdc from '../../components/OsSdc/OsSdc';
 import PreviewCardSdc from '../../components/Preview/Preview';
 import Document from '../../components/Document/Document';

@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCurrentOsSdc } from '../../../store/proposal/actions';
-import { useParams, useNavigate } from 'react-router-dom';
+import { getCurrentOsSdc, getExpertsOs } from '../../../store/proposal/actions';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { correctlyDate } from '../../../helpers/utils';
 
 import '../card-item.scss';
+import { ButtonRegistry } from '../../Buttons/button-registry/button-registry';
 
 function CurrentOsSdc(props) {
     const navigate = useNavigate();
@@ -12,12 +13,14 @@ function CurrentOsSdc(props) {
     const { id } = useParams();
 
     const { currentOsSdcCard } = useSelector((state) => state.proposalTest);
-
+    const { expertsOs } = useSelector((state) => state.proposalTest);
     const { isCardEditable } = useSelector((state) => state.proposalTest);
+
     const userRole = useSelector((state) => state.auth.user.roles);
 
     useEffect(() => {
         dispatch(getCurrentOsSdc(id));
+        dispatch(getExpertsOs(id));
     }, [dispatch, id]);
 
     const cardData = [
@@ -110,6 +113,30 @@ function CurrentOsSdc(props) {
                         </div>
                     );
                 })}
+                <div className="btn__edit">
+                    <ButtonRegistry
+                        text={'Добавить эксперта'}
+                        onClick={() => navigate(`/form-expert-os`)}
+                    />
+                </div>
+                <div className="card__title">
+                    <strong>Эксперты</strong>
+                </div>
+                {expertsOs?.length > 0 ? (
+                    expertsOs.map((el) => {
+                        return (
+                            <Link
+                                to={`/current-expert-os/${el.id}`}
+                                key={el.id}
+                                className="card__field strong-title"
+                            >
+                                {el.expert_name}
+                            </Link>
+                        );
+                    })
+                ) : (
+                    <div>Данных не найдено</div>
+                )}
             </div>
             <div className="declaration__buttons">
                 <button
@@ -127,7 +154,7 @@ function CurrentOsSdc(props) {
                         Редактировать
                     </button>
                 )}
-                {/* {props.drawBtn && isCardEditable && ( */}
+
                 <button
                     className="btn__login declaration__btn"
                     type="submit"
@@ -135,7 +162,6 @@ function CurrentOsSdc(props) {
                 >
                     Редактировать
                 </button>
-                {/* )} */}
             </div>
         </>
     );

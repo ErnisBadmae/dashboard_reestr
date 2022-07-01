@@ -9,7 +9,6 @@ import ru from 'date-fns/locale/ru';
 import moment from 'moment';
 
 import '../../FormSdc/form-sdc.scss';
-
 import 'react-datepicker/dist/react-datepicker.css';
 
 registerLocale('ru', ru);
@@ -58,19 +57,6 @@ function EditProposalCard(props) {
         dispatch(changeProposal({ id, body }));
     };
 
-    //      isEditSuccess ? (
-    //         <>
-    //             <div className="message__error">{message}</div>
-    //             <div className="edit__card-buttons">
-    //                 <button
-    //                     className="btn__login edit__btn"
-    //                     onClick={() => navigate('/')}
-    //                 >
-    //                     На главную
-    //                 </button>
-    //             </div>
-    //         </>
-    //     ) :
     return (
         <>
             <div className="login__title">

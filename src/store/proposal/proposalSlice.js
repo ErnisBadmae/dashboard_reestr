@@ -1,16 +1,25 @@
 import {
     postSdcRequest,
     //     postDeclarationHolder,
-    getCurrentProposalSdc,
     getPreviewCurrentProposalSdc,
-    getHolders,
+    getCurrentProposalSdc,
     changeProposal,
+
+    //держатели
+    getHolders,
+    getCurrentHolder,
+
+    //ОС
     postOrganSertificationSdc,
     getOrganSertifications,
     getCurrentOsSdc,
     editCurrentOsSdc,
-    getCurrentHolder,
     changeStatus,
+
+    //эксперты
+    postExpertOsSdc,
+    getExpertsOs,
+    getCurrentExpertOs,
 } from './actions';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -31,6 +40,8 @@ export const currentProposalTest = createSlice({
         organSertificationSdc: [],
         currentOsSdcCard: {},
         currentHolder: {},
+        expertsOs: [],
+        currentExpertOs: {},
         isLoading: false,
         isSuccess: false,
         errorMessage: '',
@@ -170,7 +181,6 @@ export const currentProposalTest = createSlice({
             .addCase(getOrganSertifications.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
-                //  console.log(action.payload, 'action payload');
                 state.organSertificationSdc = action.payload;
                 //  Array.prototype.push.apply(
                 //      state.organSertificationSdc,
@@ -219,6 +229,52 @@ export const currentProposalTest = createSlice({
                 state.message = action.payload;
                 state.currentOsSdcCard = null;
             })
+
+            //работа с экспертами ОС
+            .addCase(postExpertOsSdc.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(postExpertOsSdc.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.currentExpertOs = action.payload;
+            })
+            .addCase(postExpertOsSdc.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                state.currentExpertOs = null;
+            })
+            .addCase(getExpertsOs.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getExpertsOs.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.expertsOs = action.payload;
+            })
+            .addCase(getExpertsOs.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                state.expertsOs = null;
+            })
+            .addCase(getCurrentExpertOs.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getCurrentExpertOs.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.currentExpertOs = action.payload;
+            })
+            .addCase(getCurrentExpertOs.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                state.currentExpertOs = null;
+            })
+
+            //смена статусов заявки
             .addCase(changeStatus.pending, (state) => {
                 state.isLoading = true;
             })

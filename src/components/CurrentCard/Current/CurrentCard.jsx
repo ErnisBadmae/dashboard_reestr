@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import $api from '../../../http';
@@ -14,8 +14,6 @@ function CurrentCard(props) {
     const current = useSelector(
         (state) => state.entries.requestCurrentCardSds.inclusionRequest
     );
-    console.log('ididididididid', id);
-    //     const [message, setMessgage] = useState('');
 
     useEffect(() => {
         dispatch(getCurrentCard(id));

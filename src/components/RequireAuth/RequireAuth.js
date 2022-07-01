@@ -16,6 +16,7 @@ const RequireAuth = (props) => {
             `/current-os/${id}`,
             '/users',
             `/users/${id}`,
+            `/current-expert-os/${id}`,
         ],
         user_sdc: [
             '/requests_sdc',
@@ -29,6 +30,8 @@ const RequireAuth = (props) => {
             `/edit-card-os/${id}`,
             `/holder/${id}`,
             `/request_sdc/${id}/current-document/${documentId}`,
+            '/form-expert-os',
+            `/current-expert-os/${id}`,
         ],
     };
 
