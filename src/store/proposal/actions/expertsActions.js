@@ -61,3 +61,29 @@ export const getCurrentExpertOs = createAsyncThunk(
         return value;
     }
 );
+
+export const editCurrentExpertOs = createAsyncThunk(
+    'edit/CurrentExpertOs',
+    async (payload) => {
+        const response = await fetch(
+            `https://api-prof-sdc.anonamis.ru/api/request/request_sdc_standard_certification_expert/edit/${payload.expertId}`,
+            {
+                method: 'PATCH',
+                body: JSON.stringify(payload.body),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+            }
+        );
+        const jsonResponse = await response.json();
+
+        if (jsonResponse.success === true) {
+            info('Ваши данные успешно отредактированы!');
+            return jsonResponse.data.organCertification;
+        } else {
+            error(`ошибка сервера: ${jsonResponse.message}`);
+            return jsonResponse;
+        }
+    }
+);

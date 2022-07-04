@@ -148,23 +148,14 @@ function CurrentExpert(props) {
                 >
                     Назад
                 </button>
-                {props.drawBtn && userRole === 'user_admin' && (
-                    <button
-                        className="btn__login declaration__btn"
-                        type="submit"
-                        //     onClick={() => navigate(`/edit-card-os/${id}`)}
-                    >
-                        Редактировать
-                    </button>
-                )}
 
-                {/* <button
+                <button
                     className="btn__login declaration__btn"
                     type="submit"
-                    // onClick={() => navigate(`/edit-card-os/${id}`)}
+                    onClick={() => navigate(`/edit-expert/${id}`)}
                 >
                     Редактировать
-                </button> */}
+                </button>
             </div>
         </>
     );

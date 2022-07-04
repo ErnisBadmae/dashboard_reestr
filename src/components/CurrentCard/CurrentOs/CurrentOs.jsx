@@ -12,9 +12,9 @@ function CurrentOsSdc(props) {
     const dispatch = useDispatch();
     const { id } = useParams();
 
+    const { isCardEditable } = useSelector((state) => state.proposalTest);
     const { currentOsSdcCard } = useSelector((state) => state.proposalTest);
     const { expertsOs } = useSelector((state) => state.proposalTest);
-    const { isCardEditable } = useSelector((state) => state.proposalTest);
 
     const userRole = useSelector((state) => state.auth.user.roles);
 
@@ -113,12 +113,14 @@ function CurrentOsSdc(props) {
                         </div>
                     );
                 })}
-                <div className="btn__edit">
-                    <ButtonRegistry
-                        text={'Добавить эксперта'}
-                        onClick={() => navigate(`/form-expert-os`)}
-                    />
-                </div>
+                {userRole === 'user_sdc' && isCardEditable && (
+                    <div className="btn__edit">
+                        <ButtonRegistry
+                            text={'Добавить эксперта'}
+                            onClick={() => navigate(`/form-expert-os`)}
+                        />
+                    </div>
+                )}
                 <div className="card__title">
                     <strong>Эксперты</strong>
                 </div>
@@ -138,6 +140,7 @@ function CurrentOsSdc(props) {
                     <div>Данных не найдено</div>
                 )}
             </div>
+
             <div className="declaration__buttons">
                 <button
                     className="btn__login declaration__btn"
@@ -145,7 +148,8 @@ function CurrentOsSdc(props) {
                 >
                     Назад
                 </button>
-                {props.drawBtn && userRole === 'user_admin' && (
+
+                {userRole === 'user_sdc' && isCardEditable && (
                     <button
                         className="btn__login declaration__btn"
                         type="submit"
@@ -154,14 +158,6 @@ function CurrentOsSdc(props) {
                         Редактировать
                     </button>
                 )}
-
-                <button
-                    className="btn__login declaration__btn"
-                    type="submit"
-                    onClick={() => navigate(`/edit-card-os/${id}`)}
-                >
-                    Редактировать
-                </button>
             </div>
         </>
     );

@@ -20,6 +20,7 @@ import {
     postExpertOsSdc,
     getExpertsOs,
     getCurrentExpertOs,
+    editCurrentExpertOs,
 } from './actions';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -268,6 +269,22 @@ export const currentProposalTest = createSlice({
                 state.currentExpertOs = action.payload;
             })
             .addCase(getCurrentExpertOs.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                state.currentExpertOs = null;
+            })
+            .addCase(editCurrentExpertOs.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(editCurrentExpertOs.fulfilled, (state, action) => {
+                state.isLoading = false;
+                if (action.payload.success) {
+                    state.isSuccess = true;
+                    state.currentExpertOs = action.payload;
+                }
+            })
+            .addCase(editCurrentExpertOs.rejected, (state, action) => {
                 state.isLoading = false;
                 state.isError = true;
                 state.message = action.payload;

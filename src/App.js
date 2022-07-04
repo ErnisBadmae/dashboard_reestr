@@ -15,6 +15,7 @@ import FormExpert from './components/FormSdc/FormExpert';
 import CurrentOsSdc from './components/CurrentCard/CurrentOs/CurrentOs';
 import EditCardOs from './components/CurrentCard/EditCard/EditCardOs';
 import EditCardHolders from './components/CurrentCard/EditCard/EditCardHolders';
+import EditExpert from './components/CurrentCard/EditCard/EditExpert';
 import CurrentUser from './components/CurrentCard/CurrentUser/CurrentUser';
 import CurrentUploadDocument from './components/FileUploadInput/CurrentUploadDocument';
 import CardExpert from './pages/registries/registry-certificate-expert/card-reg-cert-exp/card-reg-cert-exp';
@@ -168,6 +169,10 @@ function App() {
                             <Route path="current-expert-os">
                                 <Route path=":id" element={<CurrentExpert />} />
                             </Route>
+                            <Route
+                                path="/edit-expert/:id"
+                                element={<EditExpert />}
+                            />
 
                             <Route
                                 path="/request_sdc/:id/current-document/:documentId"

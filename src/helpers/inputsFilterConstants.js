@@ -68,7 +68,7 @@ export const handleInputsFilter = (pathname) => {
         case '/certificates/list':
             return (
                 <>
-                    <Form.Item name="fullNameOrganCertification">
+                    <Form.Item name="companyName">
                         <Input
                             className="registry-sro__filter-input"
                             placeholder="Полное наименование организации"

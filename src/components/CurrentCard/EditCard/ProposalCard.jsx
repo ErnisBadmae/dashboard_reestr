@@ -69,12 +69,6 @@ function ProposalCard(props) {
             value: currentProposalSdc?.area,
             name: 'area',
         },
-        //    {
-        //        id: 8,
-        //        title: 'Логотип',
-        //        value: currentProposalSdc?.logo,
-        //        name: 'logo',
-        //    },
     ];
 
     console.log(isCardEditable, '  console.log(isCardEditable)');
@@ -99,7 +93,6 @@ function ProposalCard(props) {
                 {isCardEditable && (
                     <div className="btn__edit">
                         <ButtonRegistry
-                            // disabled={!isCardEditable}
                             text={'Редактировать СДС'}
                             onClick={() => navigate(`/edit-card/${id}`)}
                         />

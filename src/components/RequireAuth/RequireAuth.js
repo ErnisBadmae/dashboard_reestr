@@ -32,6 +32,7 @@ const RequireAuth = (props) => {
             `/request_sdc/${id}/current-document/${documentId}`,
             '/form-expert-os',
             `/current-expert-os/${id}`,
+            `/edit-expert/${id}`,
         ],
     };
 

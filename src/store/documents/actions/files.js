@@ -55,11 +55,11 @@ export const uploadFiles = createAsyncThunk(
                 //  {
                 //      method: 'POST',
                 //      body: formData,
-                //      headers: {
-                //          Authorization: `Bearer ${localStorage.getItem(
-                //              'token'
-                //          )}`,
-                //      },
+                //  headers: {
+                //      Authorization: `Bearer ${localStorage.getItem(
+                //          'token'
+                //      )}`,
+                //  },
                 //  }
                 formData,
                 {
