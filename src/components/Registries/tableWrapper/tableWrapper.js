@@ -32,25 +32,33 @@ const { Content } = Layout;
 // ];
 
 export const TableWrapper = () => {
-    const [filterValues, setFilterValues] = useState(null);
-    const { pathname } = useLocation();
-
-    let [filterModalVisible, setFilterModalVisible] = useState(false);
     const [form] = Form.useForm();
+    const { pathname } = useLocation();
+    const [date, setDate] = useState();
+    const [filterValues, setFilterValues] = useState(null);
+    let [filterModalVisible, setFilterModalVisible] = useState(false);
 
     const handleFilterValues = () => {
-        setFilterValues(form.getFieldsValue());
+        if (date) {
+            date.setHours((-1 * date.getTimezoneOffset()) / 60);
+            setFilterValues({
+                ...form.getFieldsValue(),
+            });
+        } else {
+            setFilterValues({
+                ...form.getFieldsValue(),
+            });
+        }
     };
 
     const handleCloseFilters = () => {
         setFilterModalVisible(false);
-        form.resetFields();
     };
 
     const handleResetFilters = () => {
+        setDate();
         form.resetFields();
         handleFilterValues();
-        setFilterModalVisible(false);
     };
 
     return (
@@ -87,7 +95,10 @@ export const TableWrapper = () => {
                                     ))}
                                 </Select>
                             </Form.Item> */}
-                            {handleInputsFilter(pathname)}
+                            {handleInputsFilter(pathname, {
+                                set: (value) => setDate(value),
+                                value: date,
+                            })}
                         </Form>
                         <div className="registry-sro__buttons-wrapper">
                             <Button

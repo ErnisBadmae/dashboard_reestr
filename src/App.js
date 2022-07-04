@@ -37,6 +37,7 @@ import { RegistryCertificates } from './pages/registries/registry-certificates/r
 import { TableUsers } from './components/TableUsers/TableUsers';
 import { Reports } from './pages/reports/Reports';
 import CurrentExpert from './components/CurrentCard/CurrentExpert/CurrentExpert';
+import TestUpload from './testUpload';
 
 function App() {
     const navigate = useNavigate();
@@ -176,7 +177,8 @@ function App() {
 
                             <Route
                                 path="/request_sdc/:id/current-document/:documentId"
-                                element={<CurrentUploadDocument />}
+                                //   element={<CurrentUploadDocument />}
+                                element={<TestUpload />}
                             />
 
                             <Route path="holder">

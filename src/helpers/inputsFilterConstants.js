@@ -1,6 +1,7 @@
 import { Input, Form } from 'antd';
+import DatePicker from 'react-datepicker';
 
-export const handleInputsFilter = (pathname) => {
+export const handleInputsFilter = (pathname, localState) => {
     switch (pathname) {
         case '/organ-certifications/list':
             return (
@@ -24,10 +25,17 @@ export const handleInputsFilter = (pathname) => {
                         ></Input>
                     </Form.Item>
                     <Form.Item name="certificateDate">
-                        <Input
-                            className="registry-sro__filter-input"
-                            placeholder="Дата сертификации"
-                        ></Input>
+                        <DatePicker
+                            dateFormat="dd/MM/yyyy"
+                            className="current__input date"
+                            onChange={(date) => {
+                                localState.set(date);
+                            }}
+                            selected={localState.value}
+                            maxDate={new Date()}
+                            showDisabledMonthNavigation
+                            required
+                        />
                     </Form.Item>
                 </>
             );
@@ -57,10 +65,17 @@ export const handleInputsFilter = (pathname) => {
                     </Form.Item>
 
                     <Form.Item name="valid">
-                        <Input
-                            className="registry-sro__filter-input"
-                            placeholder="Срок действия сертификата"
-                        ></Input>
+                        <DatePicker
+                            dateFormat="dd/MM/yyyy"
+                            className="current__input date"
+                            onChange={(date) => {
+                                localState.set(date);
+                            }}
+                            selected={localState.value}
+                            maxDate={new Date()}
+                            showDisabledMonthNavigation
+                            required
+                        />
                     </Form.Item>
                 </>
             );
@@ -74,11 +89,30 @@ export const handleInputsFilter = (pathname) => {
                             placeholder="Полное наименование организации"
                         ></Input>
                     </Form.Item>
-                    <Form.Item name="certificateDate">
+                    <Form.Item name="companyInn">
                         <Input
                             className="registry-sro__filter-input"
-                            placeholder="Дата сертификата"
+                            placeholder="Инн компании"
                         ></Input>
+                    </Form.Item>
+                    <Form.Item name="number">
+                        <Input
+                            className="registry-sro__filter-input"
+                            placeholder="Номер сертификата"
+                        ></Input>
+                    </Form.Item>
+                    <Form.Item name="certificateDate">
+                        <DatePicker
+                            dateFormat="dd/MM/yyyy"
+                            className="current__input date"
+                            onChange={(date) => {
+                                localState.set(date);
+                            }}
+                            selected={localState.value}
+                            maxDate={new Date()}
+                            showDisabledMonthNavigation
+                            required
+                        />
                     </Form.Item>
                 </>
             );
@@ -105,10 +139,18 @@ export const handleInputsFilter = (pathname) => {
                         ></Input>
                     </Form.Item>
                     <Form.Item name="registrationDate">
-                        <Input
-                            className="registry-sro__filter-input"
-                            placeholder="Дата регистрации"
-                        ></Input>
+                        <DatePicker
+                            utcOffset={0}
+                            dateFormat="dd/MM/yyyy"
+                            className="current__input date"
+                            onChange={(date) => {
+                                localState.set(date);
+                            }}
+                            selected={localState.value}
+                            maxDate={new Date()}
+                            showDisabledMonthNavigation
+                            required
+                        />
                     </Form.Item>
                 </>
             );
