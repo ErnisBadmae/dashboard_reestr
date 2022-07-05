@@ -82,7 +82,15 @@ export const TableWrapper = () => {
                         visible={filterModalVisible}
                         onClose={handleCloseFilters}
                     >
-                        <Form form={form}>
+                        <Form
+                            onKeyPress={(e) => {
+                                if (e.key === 'Enter') {
+                                    form.submit();
+                                }
+                            }}
+                            form={form}
+                            onFinish={handleFilterValues}
+                        >
                             {/* <Form.Item name="state">
                                 <Select
                                     className="registry-sro__filter-input"
@@ -108,7 +116,10 @@ export const TableWrapper = () => {
                                 Сбросить
                             </Button>
                             <Button
+                                form={form}
                                 className="custom-button"
+                                key="submit"
+                                htmlType="submit"
                                 type="primary"
                                 onClick={handleFilterValues}
                             >

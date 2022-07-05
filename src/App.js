@@ -22,6 +22,7 @@ import CardExpert from './pages/registries/registry-certificate-expert/card-reg-
 import CardSertificate from './pages/registries/registry-certificates/card-certificates/card-certificates';
 import CardSdc from './pages/registries/registry-sds/card-sds/card-sds';
 import CardOs from './pages/registries/registry-os/card-os/card-os';
+import CurrentExpert from './components/CurrentCard/CurrentExpert/CurrentExpert';
 // import Dialogs from './components/Dialogs/Dialogs';
 
 import { AuthLayout } from './components/Layout/AuthLayout';
@@ -36,8 +37,6 @@ import { RegistryCertificationExperts } from './pages/registries/registry-certif
 import { RegistryCertificates } from './pages/registries/registry-certificates/registry-certificates';
 import { TableUsers } from './components/TableUsers/TableUsers';
 import { Reports } from './pages/reports/Reports';
-import CurrentExpert from './components/CurrentCard/CurrentExpert/CurrentExpert';
-import TestUpload from './testUpload';
 
 function App() {
     const navigate = useNavigate();
@@ -177,8 +176,7 @@ function App() {
 
                             <Route
                                 path="/request_sdc/:id/current-document/:documentId"
-                                //   element={<CurrentUploadDocument />}
-                                element={<TestUpload />}
+                                element={<CurrentUploadDocument />}
                             />
 
                             <Route path="holder">

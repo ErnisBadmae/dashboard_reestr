@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from 'react';
-// import { FileUploadInput } from './FileUploadInput';
 
-import { PlusOutlined } from '@ant-design/icons';
-import { Modal, Upload } from 'antd';
+import {
+    PlusOutlined,
+    DeleteOutlined,
+    DownloadOutlined,
+} from '@ant-design/icons';
+import { Modal, Upload, Button } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDocumentCard, uploadFiles } from '../../store/documents/actions';
+
+import './currentUploadDocument.css';
 
 const getBase64 = (file) =>
     new Promise((resolve, reject) => {
@@ -14,15 +19,17 @@ const getBase64 = (file) =>
         reader.onload = () => resolve(reader.result);
         reader.onerror = (error) => reject(error);
     });
-
+const getFileSize = (size) => {
+    return `${(size / 8 / 1024).toFixed(2)} KB`;
+};
 function CurrentUploadDocument(props) {
     const navigate = useNavigate();
     const { id, documentId } = useParams();
     const dispatch = useDispatch();
 
-    //     useEffect(() => {
-    //         dispatch(getDocumentCard({ id, documentId }));
-    //     }, [id, documentId, dispatch]);
+    useEffect(() => {
+        dispatch(getDocumentCard({ id, documentId }));
+    }, [id, documentId, dispatch]);
 
     const { currentDocument } = useSelector((state) => state.files);
 
@@ -44,22 +51,12 @@ function CurrentUploadDocument(props) {
         );
     };
 
-    const handleChange = ({ fileList }) => {
-        dispatch(uploadFiles({ id, documentId, uploadedFile: fileList }));
-    };
-
-    const uploadButton = (
-        <div>
-            <PlusOutlined />
-            <div
-                style={{
-                    marginTop: 8,
-                }}
-            >
-                Загрузить
-            </div>
-        </div>
-    );
+    function handleSubmit(event) {
+        debugger;
+        dispatch(uploadFiles({ id, documentId, uploadedFiles: event.file }))
+            .unwrap()
+            .then(() => dispatch(getDocumentCard({ id, documentId })));
+    }
 
     return (
         <>
@@ -68,12 +65,38 @@ function CurrentUploadDocument(props) {
                     <strong>{currentDocument?.description}</strong>
                 </div>
                 <Upload
-                    listType="picture-card"
+                    listType="text"
                     fileList={currentDocument?.files}
-                    onPreview={handlePreview}
-                    onChange={handleChange}
+                    itemRender={(node, file) => {
+                        return (
+                            <>
+                                <hr className="border__container" />
+                                <div className="file__container">
+                                    <div className="file__field">
+                                        {file.name}
+                                    </div>
+                                    <div>{getFileSize(file.file_size)}</div>
+                                    <Button
+                                        type="primary"
+                                        size="small"
+                                        icon={<DeleteOutlined />}
+                                    >
+                                        Удалить файл
+                                    </Button>
+                                    <Button
+                                        type="primary"
+                                        size="small"
+                                        icon={<DownloadOutlined />}
+                                    >
+                                        Скачать файл
+                                    </Button>
+                                </div>
+                            </>
+                        );
+                    }}
+                    customRequest={handleSubmit}
                 >
-                    {currentDocument?.files?.length >= 8 ? null : uploadButton}
+                    <Button icon={<PlusOutlined />}>Загрузить файл</Button>
                 </Upload>
                 <Modal
                     visible={previewVisible}
@@ -90,19 +113,13 @@ function CurrentUploadDocument(props) {
                     />
                 </Modal>
 
-                <div className="declaration__buttons">
+                <div className="declaration__buttons document__goback__button">
                     <button
                         className="btn__login declaration__btn"
                         onClick={() => navigate(-1)}
                         type="button"
                     >
                         Назад
-                    </button>
-                    <button
-                        className="btn__login declaration__btn"
-                        type="submit"
-                    >
-                        Сохранить
                     </button>
                 </div>
             </div>

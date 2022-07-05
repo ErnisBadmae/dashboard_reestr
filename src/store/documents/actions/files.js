@@ -29,38 +29,11 @@ export const uploadFiles = createAsyncThunk(
     async (payload) => {
         const formData = new FormData();
 
-        //    documentsFileList.append('uploadedFile[]', payload.uploadedFile);
-
-        // let files = [];
-
-        // files.push(payload.uploadedFile[0]);
-
-        formData.append('uploadedFile[]', payload.uploadedFile);
-
-        // payload.uploadedFile.forEach((file, index) => {
-        //     formData.set('uploadedFile[]', [
-        //         ...formData.get('uploadedFile[]'),
-        //         JSON.stringify(payload.uploadedFile[index]),
-        //     ]);
-        // });
-
-        // console.log(formData.get('uploadedFile[]'), 'formdata.uploadedFile');
-
-        // console.log(payload.uploadedFile, 'array from payload');
-        // debugger;
+        formData.append('uploadedFile[]', payload.uploadedFiles);
 
         try {
             const result = await axios.post(
                 `https://api-prof-sdc.anonamis.ru/api/request/request_sdc_standard_certification/${payload.id}/document/${payload.documentId}/file/add`,
-                //  {
-                //      method: 'POST',
-                //      body: formData,
-                //  headers: {
-                //      Authorization: `Bearer ${localStorage.getItem(
-                //          'token'
-                //      )}`,
-                //  },
-                //  }
                 formData,
                 {
                     headers: {
@@ -71,8 +44,6 @@ export const uploadFiles = createAsyncThunk(
                     },
                 }
             );
-
-            //   const res = await result.json();
 
             console.log(result, 'uploadFiles');
         } catch (err) {
@@ -100,6 +71,11 @@ export const getDocumentCard = createAsyncThunk(
         );
         console.log(result, 'getDocumentCard');
 
+        result.data.data[0].files = result.data.data[0].files.map((file) => ({
+            ...file,
+            name: file.file_name,
+            uid: file.id,
+        }));
         return result.data.data[0];
     }
 );

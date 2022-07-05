@@ -47,6 +47,7 @@ function FormExpert(props) {
             educationDate: data.educationDate.toLocaleDateString('en-CA'),
             educationOrganization: data.educationOrganization,
         };
+        console.log(expertData);
 
         dispatch(postExpertOsSdc({ oSid, expertData }))
             .unwrap()
@@ -63,12 +64,12 @@ function FormExpert(props) {
                 className="declaration__form__request"
             >
                 <div className="card__edit__input">
-                    <p className="input__title">Тип контракта</p>
-                    <input
+                    <p className="input__title">Выберите тип контракта</p>
+                    <select
                         className="current__input card__edit__input__element"
                         autoComplete="off"
                         name="contractType"
-                        type="text"
+                        type="options"
                         required
                         autoFocus
                         id="contractType"
@@ -80,17 +81,19 @@ function FormExpert(props) {
                         {...register('contractType', {
                             required: true,
                         })}
-                    />
+                    >
+                        <option value="1">трудовой договор</option>
+                        <option value="2">не трудовой</option>
+                    </select>
                     {errors?.contractType && (
                         <div className="error-message">
                             {errors?.contractType?.message || 'Выберите тип'}
                         </div>
                     )}
                 </div>
-
                 <div className="card__edit__input">
                     <p className="input__title">Тип образования</p>
-                    <input
+                    <select
                         className="current__input card__edit__input__element"
                         autoComplete="off"
                         name="educationType"
@@ -105,14 +108,16 @@ function FormExpert(props) {
                         {...register('educationType', {
                             required: true,
                         })}
-                    />
+                    >
+                        <option value="1">Высшее</option>
+                        <option value="2">не высшее</option>
+                    </select>
                     {errors?.educationType && (
                         <div className="error-message">
                             {errors?.educationType?.message || 'Выберите тип'}
                         </div>
                     )}
                 </div>
-
                 <div className="card__edit__input">
                     <p className="input__title">Имя эксперта</p>
                     <input
@@ -138,7 +143,6 @@ function FormExpert(props) {
                         </div>
                     )}
                 </div>
-
                 <div className="card__edit__input">
                     <p className="input__title">Номер сертификата</p>
                     <input
@@ -169,7 +173,6 @@ function FormExpert(props) {
                         </div>
                     )}
                 </div>
-
                 <div className="card__edit__input">
                     <p className="input__title">
                         Дата окончания действия сертификата
@@ -193,7 +196,6 @@ function FormExpert(props) {
                         />
                     </div>
                 </div>
-
                 <div className="card__edit__input">
                     <p className="input__title">Область распространения</p>
                     <input
@@ -213,7 +215,6 @@ function FormExpert(props) {
                         </div>
                     )}
                 </div>
-
                 <div className="card__edit__input">
                     <p className="input__title">Опыт</p>
                     <input
@@ -237,7 +238,6 @@ function FormExpert(props) {
                         </div>
                     )}
                 </div>
-
                 <div className="card__edit__input">
                     <p className="input__title">Дата вступления</p>
                     <div className="card__edit__input__element">
@@ -259,7 +259,6 @@ function FormExpert(props) {
                         />
                     </div>
                 </div>
-
                 <div className="card__edit__input">
                     <p className="input__title">Дата исключения</p>
                     <div className="card__edit__input__element">
@@ -281,7 +280,6 @@ function FormExpert(props) {
                         />
                     </div>
                 </div>
-
                 <div className="card__edit__input">
                     <p className="input__title">
                         Должность на момент исключения
@@ -308,7 +306,6 @@ function FormExpert(props) {
                         </div>
                     )}
                 </div>
-
                 <div className="card__edit__input">
                     <p className="input__title">Снилс</p>
                     <input
@@ -337,7 +334,6 @@ function FormExpert(props) {
                         </div>
                     )}
                 </div>
-
                 <div className="card__edit__input">
                     <p className="input__title">Образование</p>
                     <input
@@ -363,7 +359,6 @@ function FormExpert(props) {
                         </div>
                     )}
                 </div>
-
                 <div className="card__edit__input">
                     <p className="input__title">Специализация</p>
                     <input
@@ -392,7 +387,6 @@ function FormExpert(props) {
                         </div>
                     )}
                 </div>
-
                 <div className="card__edit__input">
                     <p className="input__title">Дата образования</p>
                     <div className="card__edit__input__element">
@@ -414,7 +408,6 @@ function FormExpert(props) {
                         />
                     </div>
                 </div>
-
                 <div className="card__edit__input">
                     <p className="input__title">Образовательная организация</p>
                     <input
@@ -438,8 +431,7 @@ function FormExpert(props) {
                                 'Введите данные'}
                         </div>
                     )}
-                </div>
-
+                </div>{' '}
                 <div className="declaration__buttons">
                     <button
                         className="btn__login declaration__btn"

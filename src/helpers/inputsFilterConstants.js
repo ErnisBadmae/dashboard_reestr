@@ -31,6 +31,9 @@ export const handleInputsFilter = (pathname, localState) => {
                             onChange={(date) => {
                                 localState.set(date);
                             }}
+                            showYearDropdown
+                            yearDropdownItemNumber={8}
+                            // scrollableYearDropdown
                             selected={localState.value}
                             maxDate={new Date()}
                             showDisabledMonthNavigation
@@ -71,6 +74,9 @@ export const handleInputsFilter = (pathname, localState) => {
                             onChange={(date) => {
                                 localState.set(date);
                             }}
+                            showYearDropdown
+                            yearDropdownItemNumber={8}
+                            // scrollableYearDropdown
                             selected={localState.value}
                             maxDate={new Date()}
                             showDisabledMonthNavigation
@@ -108,6 +114,9 @@ export const handleInputsFilter = (pathname, localState) => {
                             onChange={(date) => {
                                 localState.set(date);
                             }}
+                            showYearDropdown
+                            yearDropdownItemNumber={8}
+                            // scrollableYearDropdown
                             selected={localState.value}
                             maxDate={new Date()}
                             showDisabledMonthNavigation
@@ -146,6 +155,9 @@ export const handleInputsFilter = (pathname, localState) => {
                             onChange={(date) => {
                                 localState.set(date);
                             }}
+                            showYearDropdown
+                            yearDropdownItemNumber={8}
+                            // scrollableYearDropdown
                             selected={localState.value}
                             maxDate={new Date()}
                             showDisabledMonthNavigation
