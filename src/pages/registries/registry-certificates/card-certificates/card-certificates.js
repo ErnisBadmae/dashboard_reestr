@@ -81,7 +81,7 @@ function CardSertificate(props) {
         <>
             <div className="card__body">
                 <div className="card__title">
-                    <strong>Карточка компании</strong>
+                    <strong>Карточка сертификата</strong>
                 </div>
                 {cardData.map((field) => {
                     return (

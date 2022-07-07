@@ -1,6 +1,8 @@
 import {
     getReportProfSdcByCount,
     getReportProfSdcFormByYears,
+    getMonthsInclusionReport,
+    getReportExpertsProfSdc,
 } from '../actions';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -9,6 +11,8 @@ export const getReports = createSlice({
     initialState: {
         reportProfSdcCount: {},
         reportProfSdcYears: {},
+        reportProfSdcMonth: {},
+        reportProfSdcExperts: {},
         isLoading: false,
         isSuccess: false,
         errorMessage: '',
@@ -21,7 +25,7 @@ export const getReports = createSlice({
             })
             .addCase(getReportProfSdcByCount.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.reportProfSdcCount = action.payload.report;
+                state.reportProfSdcCount = action.payload;
             })
             .addCase(getReportProfSdcByCount.rejected, (state, action) => {
                 state.isLoading = false;
@@ -42,6 +46,32 @@ export const getReports = createSlice({
                 state.isError = true;
                 state.message = action.payload;
                 state.reportProfSdcYears = null;
+            })
+            .addCase(getMonthsInclusionReport.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getMonthsInclusionReport.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.reportProfSdcMonth = action.payload.report;
+            })
+            .addCase(getMonthsInclusionReport.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                state.reportProfSdcMonth = null;
+            })
+            .addCase(getReportExpertsProfSdc.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getReportExpertsProfSdc.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.reportProfSdcExperts = action.payload.report;
+            })
+            .addCase(getReportExpertsProfSdc.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                state.reportProfSdcExperts = null;
             });
     },
 });

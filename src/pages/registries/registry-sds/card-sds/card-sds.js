@@ -62,7 +62,7 @@ function CardSds(props) {
         <>
             <div className="card__body">
                 <div className="card__title">
-                    <strong>Карточка компании</strong>
+                    <strong>Карточка СДС</strong>
                 </div>
                 {cardData.map((field) => {
                     return (
