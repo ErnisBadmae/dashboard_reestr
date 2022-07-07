@@ -31,13 +31,14 @@ export const handleInputsFilter = (pathname, localState) => {
                             onChange={(date) => {
                                 localState.set(date);
                             }}
-                            showYearDropdown
-                            yearDropdownItemNumber={8}
-                            // scrollableYearDropdown
                             selected={localState.value}
                             maxDate={new Date()}
                             showDisabledMonthNavigation
                             required
+                            peekNextMonth
+                            showMonthDropdown
+                            showYearDropdown
+                            dropdownMode="select"
                         />
                     </Form.Item>
                 </>
@@ -46,13 +47,6 @@ export const handleInputsFilter = (pathname, localState) => {
         case '/organ-certification-experts/list':
             return (
                 <>
-                    {/* <Form.Item name="area">
-                        <Input
-                            className="registry-sro__filter-input"
-                            placeholder=""
-                        ></Input>
-                    </Form.Item> */}
-
                     <Form.Item name="expertName">
                         <Input
                             className="registry-sro__filter-input"
@@ -74,13 +68,14 @@ export const handleInputsFilter = (pathname, localState) => {
                             onChange={(date) => {
                                 localState.set(date);
                             }}
-                            showYearDropdown
-                            yearDropdownItemNumber={8}
-                            // scrollableYearDropdown
                             selected={localState.value}
                             maxDate={new Date()}
                             showDisabledMonthNavigation
                             required
+                            peekNextMonth
+                            showMonthDropdown
+                            showYearDropdown
+                            dropdownMode="select"
                         />
                     </Form.Item>
                 </>
@@ -114,13 +109,14 @@ export const handleInputsFilter = (pathname, localState) => {
                             onChange={(date) => {
                                 localState.set(date);
                             }}
-                            showYearDropdown
-                            yearDropdownItemNumber={8}
-                            // scrollableYearDropdown
                             selected={localState.value}
                             maxDate={new Date()}
                             showDisabledMonthNavigation
                             required
+                            peekNextMonth
+                            showMonthDropdown
+                            showYearDropdown
+                            dropdownMode="select"
                         />
                     </Form.Item>
                 </>
@@ -155,13 +151,14 @@ export const handleInputsFilter = (pathname, localState) => {
                             onChange={(date) => {
                                 localState.set(date);
                             }}
-                            showYearDropdown
-                            yearDropdownItemNumber={8}
-                            // scrollableYearDropdown
                             selected={localState.value}
                             maxDate={new Date()}
                             showDisabledMonthNavigation
                             required
+                            peekNextMonth
+                            showMonthDropdown
+                            showYearDropdown
+                            dropdownMode="select"
                         />
                     </Form.Item>
                 </>

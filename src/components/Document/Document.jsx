@@ -104,7 +104,8 @@ function Document(props) {
                                 key={el.id}
                                 className="card__field strong-title"
                             >
-                                {el.description}
+                                <span>{el.description}</span>
+                                <span>{el?.file_type?.title}</span>
                             </Link>
                         );
                     })

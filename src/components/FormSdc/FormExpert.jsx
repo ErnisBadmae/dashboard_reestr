@@ -52,7 +52,7 @@ function FormExpert(props) {
         dispatch(postExpertOsSdc({ oSid, expertData }))
             .unwrap()
             .then(() => {
-                navigate(`/request_sdc/${id}`);
+                navigate(-1);
             });
     };
 
