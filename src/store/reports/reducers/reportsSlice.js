@@ -39,7 +39,7 @@ export const getReports = createSlice({
             })
             .addCase(getReportProfSdcFormByYears.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.reportProfSdcYears = action.payload.report;
+                state.reportProfSdcYears = action.payload;
             })
             .addCase(getReportProfSdcFormByYears.rejected, (state, action) => {
                 state.isLoading = false;
@@ -52,7 +52,7 @@ export const getReports = createSlice({
             })
             .addCase(getMonthsInclusionReport.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.reportProfSdcMonth = action.payload.report;
+                state.reportProfSdcMonth = action.payload;
             })
             .addCase(getMonthsInclusionReport.rejected, (state, action) => {
                 state.isLoading = false;
@@ -60,12 +60,13 @@ export const getReports = createSlice({
                 state.message = action.payload;
                 state.reportProfSdcMonth = null;
             })
+
             .addCase(getReportExpertsProfSdc.pending, (state) => {
                 state.isLoading = true;
             })
             .addCase(getReportExpertsProfSdc.fulfilled, (state, action) => {
                 state.isLoading = false;
-                state.reportProfSdcExperts = action.payload.report;
+                state.reportProfSdcExperts = action.payload;
             })
             .addCase(getReportExpertsProfSdc.rejected, (state, action) => {
                 state.isLoading = false;

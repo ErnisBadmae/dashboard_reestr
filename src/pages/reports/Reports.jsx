@@ -43,16 +43,17 @@ export function Reports() {
     const { reportProfSdcCount } = useSelector((state) => state.reports);
     const { reportProfSdcYears } = useSelector((state) => state.reports);
     const { reportProfSdcMonth } = useSelector((state) => state.reports);
+    const { reportProfSdcExperts } = useSelector((state) => state.reports);
 
     const [currentYear, setCurrentYear] = useState('2021');
-    const [currentMonth, setCurrentMonth] = useState('Январь');
     const [currentLabels, setCurrentLabels] = useState('count');
 
-    const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(new Date(Date.now() - 86400000));
+    const [startDate, setStartDate] = useState(
+        new Date('2021-10-20T12:59:32.000Z')
+    );
+    const [endDate, setEndDate] = useState(new Date());
 
     useEffect(() => {
-        dispatch(getReportExpertsProfSdc());
         if (startDate && endDate) {
             dispatch(
                 getMonthsInclusionReport({
@@ -69,15 +70,12 @@ export function Reports() {
         if (reportProfSdcYears?.data) {
             setCurrentYear(reportProfSdcYears?.data[0].year);
         }
-
-        if (reportProfSdcMonth?.data) {
-            setCurrentMonth(reportProfSdcMonth?.data[0].monthName);
-        }
-    }, [dispatch, startDate, endDate, setCurrentYear, setCurrentMonth]);
+    }, [dispatch, startDate, endDate, setCurrentYear]);
 
     useEffect(() => {
         dispatch(getReportProfSdcByCount());
         dispatch(getReportProfSdcFormByYears());
+        dispatch(getReportExpertsProfSdc());
     }, [dispatch]);
 
     const labelsByCount = [
@@ -102,6 +100,33 @@ export function Reports() {
             value: reportProfSdcCount?.data?.register_sdc_count.cnt,
         },
     ];
+    const labelsByExperts = [
+        {
+            title: reportProfSdcExperts?.data?.announced_count.title,
+            value: reportProfSdcExperts?.data?.announced_count.cnt,
+        },
+        {
+            title: reportProfSdcExperts?.data?.admitted_count.title,
+            value: reportProfSdcExperts?.data?.admitted_count.cnt,
+        },
+        {
+            title: reportProfSdcExperts?.data?.certified_count.title,
+            value: reportProfSdcExperts?.data?.certified_count.cnt,
+        },
+        {
+            title: reportProfSdcExperts?.data?.certification_failed_count.title,
+            value: reportProfSdcExperts?.data?.certification_failed_count.cnt,
+        },
+    ];
+
+    // const getLabelsBy = (labels) => {
+    //     switch (labels) {
+    //         case 'experts':
+    //             return Object.values(reportProfSdcExperts?.data);
+    //         default:
+    //             return Object.values(reportProfSdcCount?.data);
+    //     }
+    // };
 
     const labelsByYears = reportProfSdcYears?.data
         ?.filter((el) => el.year === currentYear)
@@ -130,46 +155,19 @@ export function Reports() {
     const labelsByMonths = reportProfSdcMonth?.data?.map((el) => {
         return [
             {
-                title: el.register_oc_certified_experts_count?.title,
-                value: el.register_oc_certified_experts_count?.cnt,
+                title: el.register_sdc_count?.title,
             },
             {
                 title: el.register_oc_count?.title,
-                value: el.register_oc_count?.cnt,
+            },
+            {
+                title: el.register_oc_certified_experts_count?.title,
             },
             {
                 title: el.register_oc_issued_certificates_count?.title,
-                value: el.register_oc_issued_certificates_count?.cnt,
-            },
-            {
-                title: el.register_sdc_count?.title,
-                value: el.register_sdc_count?.cnt,
             },
         ];
     });
-
-    const labelsByExperts = [
-        {
-            title: reportProfSdcCount?.data?.register_oc_certified_experts_count
-                .title,
-            value: reportProfSdcCount?.data?.register_oc_certified_experts_count
-                .cnt,
-        },
-        {
-            title: reportProfSdcCount?.data?.register_oc_count.title,
-            value: reportProfSdcCount?.data?.register_oc_count.cnt,
-        },
-        {
-            title: reportProfSdcCount?.data
-                ?.register_oc_issued_certificates_count.title,
-            value: reportProfSdcCount?.data
-                ?.register_oc_issued_certificates_count.cnt,
-        },
-        {
-            title: reportProfSdcCount?.data?.register_sdc_count.title,
-            value: reportProfSdcCount?.data?.register_sdc_count.cnt,
-        },
-    ];
 
     const getOptions = (optionsType) => {
         let text;
@@ -183,9 +181,9 @@ export function Reports() {
             case 'months':
                 text = reportProfSdcMonth?.report_title;
                 break;
-            //  case 'experts':
-            //      text = reportProfSdcMonth?.report_title;
-            //      break;
+            case 'experts':
+                text = reportProfSdcExperts?.report_title;
+                break;
 
             default:
                 break;
@@ -225,6 +223,11 @@ export function Reports() {
                 return {
                     labels: reportProfSdcMonth?.data?.map((el) => el.monthName),
                 };
+            case 'experts':
+                return {
+                    labels: labelsByExperts.map((el) => el.title),
+                    data: labelsByExperts.map((el) => el.value),
+                };
             default:
                 return {
                     labels: labelsByCount.map((el) => el.title),
@@ -236,40 +239,43 @@ export function Reports() {
     const getDatasets = () => {
         switch (currentLabels) {
             case 'months':
-                // const datasetsArray = labelsByMonths[0].map((el, i) => {
-                // return {
-                //     label: el.title,
-                //     data: [1, 2, 3],
-                //     backgroundColor: 'rgb(255, 99, 132)',
-                //     stack: `Stack ${i}`,
-                // };
-                // });
-                return [
+                const datasetArray = [
                     {
-                        label: 'пропроп',
-                        data: [1, 2, 3],
+                        label: labelsByMonths[0][0].title,
+                        data: [],
                         backgroundColor: 'rgb(255, 99, 132)',
                         stack: `Stack ${1}`,
                     },
                     {
-                        label: 'ывапып',
-                        data: [2, 4, 1],
+                        label: labelsByMonths[0][1].title,
+                        data: [],
                         backgroundColor: 'rgb(255, 99, 132)',
                         stack: `Stack ${2}`,
                     },
                     {
-                        label: 'фывфывфаф',
-                        data: [6, 1, 4],
+                        label: labelsByMonths[0][2].title,
+                        data: [],
                         backgroundColor: 'rgb(255, 99, 132)',
                         stack: `Stack ${3}`,
                     },
                     {
-                        label: 'фывфыв',
-                        data: [5, 1, 2],
+                        label: labelsByMonths[0][3].title,
+                        data: [],
                         backgroundColor: 'rgb(255, 99, 132)',
                         stack: `Stack ${4}`,
                     },
                 ];
+                reportProfSdcMonth?.data?.forEach((month, monthIndex) => {
+                    datasetArray.forEach(
+                        (datasetElement, datasetElementIndex) => {
+                            datasetElement.data.push(
+                                Object.values(month)[datasetElementIndex + 2]
+                                    ?.cnt
+                            );
+                        }
+                    );
+                });
+                return datasetArray;
 
             default:
                 return [
