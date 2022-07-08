@@ -52,63 +52,33 @@ export function Reports() {
     const [endDate, setEndDate] = useState(new Date(Date.now() - 86400000));
 
     useEffect(() => {
-        dispatch(getReportProfSdcByCount());
-        dispatch(getReportProfSdcFormByYears());
         dispatch(getReportExpertsProfSdc());
-        dispatch(
-            getMonthsInclusionReport({
-                dateFrom: startDate,
-                // .toLocaleDateString('en-ZA')
-                // .replaceAll('/', '-'),
-                dateTo: endDate,
-                // .toLocaleDateString('en-ZA')
-                // .replaceAll('/', '-'),
-            })
-        );
-    }, [dispatch, startDate, endDate]);
-
-    const getOptions = (optionsType) => {
-        let text;
-        switch (optionsType) {
-            case 'years':
-                text = reportProfSdcYears?.report_title;
-                break;
-            case 'count':
-                text = reportProfSdcCount?.report_title;
-                break;
-            case 'months':
-                text = reportProfSdcMonth?.report_title;
-                break;
-            //  case 'experts':
-            //      text = reportProfSdcMonth?.report_title;
-            //      break;
-
-            default:
-                break;
+        if (startDate && endDate) {
+            dispatch(
+                getMonthsInclusionReport({
+                    dateFrom: startDate
+                        .toLocaleDateString('en-ZA')
+                        .replaceAll('/', '-'),
+                    dateTo: endDate
+                        .toLocaleDateString('en-ZA')
+                        .replaceAll('/', '-'),
+                })
+            );
         }
 
-        return {
-            plugins: {
-                title: {
-                    display: true,
-                    text: text,
-                },
-            },
-            responsive: true,
-            interaction: {
-                mode: 'index',
-                intersect: false,
-            },
-            scales: {
-                x: {
-                    stacked: true,
-                },
-                y: {
-                    stacked: true,
-                },
-            },
-        };
-    };
+        if (reportProfSdcYears?.data) {
+            setCurrentYear(reportProfSdcYears?.data[0].year);
+        }
+
+        if (reportProfSdcMonth?.data) {
+            setCurrentMonth(reportProfSdcMonth?.data[0].monthName);
+        }
+    }, [dispatch, startDate, endDate, setCurrentYear, setCurrentMonth]);
+
+    useEffect(() => {
+        dispatch(getReportProfSdcByCount());
+        dispatch(getReportProfSdcFormByYears());
+    }, [dispatch]);
 
     const labelsByCount = [
         {
@@ -157,29 +127,26 @@ export function Reports() {
             ];
         });
 
-    const labelsByMonths = reportProfSdcYears?.data
-        ?.filter((el) => el.year === currentYear)
-
-        .map((el) => {
-            return [
-                {
-                    title: el.register_oc_certified_experts_count?.title,
-                    value: el.register_oc_certified_experts_count?.cnt,
-                },
-                {
-                    title: el.register_oc_count?.title,
-                    value: el.register_oc_count?.cnt,
-                },
-                {
-                    title: el.register_oc_issued_certificates_count?.title,
-                    value: el.register_oc_issued_certificates_count?.cnt,
-                },
-                {
-                    title: el.register_sdc_count?.title,
-                    value: el.register_sdc_count?.cnt,
-                },
-            ];
-        });
+    const labelsByMonths = reportProfSdcMonth?.data?.map((el) => {
+        return [
+            {
+                title: el.register_oc_certified_experts_count?.title,
+                value: el.register_oc_certified_experts_count?.cnt,
+            },
+            {
+                title: el.register_oc_count?.title,
+                value: el.register_oc_count?.cnt,
+            },
+            {
+                title: el.register_oc_issued_certificates_count?.title,
+                value: el.register_oc_issued_certificates_count?.cnt,
+            },
+            {
+                title: el.register_sdc_count?.title,
+                value: el.register_sdc_count?.cnt,
+            },
+        ];
+    });
 
     const labelsByExperts = [
         {
@@ -204,24 +171,121 @@ export function Reports() {
         },
     ];
 
+    const getOptions = (optionsType) => {
+        let text;
+        switch (optionsType) {
+            case 'years':
+                text = reportProfSdcYears?.report_title;
+                break;
+            case 'count':
+                text = reportProfSdcCount?.report_title;
+                break;
+            case 'months':
+                text = reportProfSdcMonth?.report_title;
+                break;
+            //  case 'experts':
+            //      text = reportProfSdcMonth?.report_title;
+            //      break;
+
+            default:
+                break;
+        }
+
+        return {
+            plugins: {
+                title: {
+                    display: true,
+                    text: text,
+                },
+            },
+            responsive: true,
+            interaction: {
+                mode: 'index',
+                intersect: false,
+            },
+            scales: {
+                x: {
+                    stacked: true,
+                },
+                y: {
+                    stacked: true,
+                },
+            },
+        };
+    };
+
+    const getLabelsAndData = () => {
+        switch (currentLabels) {
+            case 'years':
+                return {
+                    labels: labelsByYears[0].map((el) => el.title),
+                    data: labelsByYears[0].map((el) => el.value),
+                };
+            case 'months':
+                return {
+                    labels: reportProfSdcMonth?.data?.map((el) => el.monthName),
+                };
+            default:
+                return {
+                    labels: labelsByCount.map((el) => el.title),
+                    data: labelsByCount.map((el) => el.value),
+                };
+        }
+    };
+
+    const getDatasets = () => {
+        switch (currentLabels) {
+            case 'months':
+                // const datasetsArray = labelsByMonths[0].map((el, i) => {
+                // return {
+                //     label: el.title,
+                //     data: [1, 2, 3],
+                //     backgroundColor: 'rgb(255, 99, 132)',
+                //     stack: `Stack ${i}`,
+                // };
+                // });
+                return [
+                    {
+                        label: 'пропроп',
+                        data: [1, 2, 3],
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        stack: `Stack ${1}`,
+                    },
+                    {
+                        label: 'ывапып',
+                        data: [2, 4, 1],
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        stack: `Stack ${2}`,
+                    },
+                    {
+                        label: 'фывфывфаф',
+                        data: [6, 1, 4],
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        stack: `Stack ${3}`,
+                    },
+                    {
+                        label: 'фывфыв',
+                        data: [5, 1, 2],
+                        backgroundColor: 'rgb(255, 99, 132)',
+                        stack: `Stack ${4}`,
+                    },
+                ];
+
+            default:
+                return [
+                    {
+                        label: 'Количество',
+                        data: getLabelsAndData().data,
+                        backgroundColor: 'rgb(255, 99, 132)',
+                    },
+                ];
+        }
+    };
+
     //передаем в дату объект
     const data = {
-        labels:
-            currentLabels === 'count'
-                ? labelsByCount.map((el) => el.title)
-                : labelsByYears[0].map((el) => el.title),
-
-        datasets: [
-            {
-                label: 'Количество',
-                data:
-                    currentLabels === 'count'
-                        ? labelsByCount.map((el) => el.value)
-                        : labelsByYears[0].map((el) => el.value),
-                backgroundColor: 'rgb(255, 99, 132)',
-                stack: 'Stack 0',
-            },
-        ],
+        labels: getLabelsAndData().labels,
+        datasets: getDatasets(),
     };
 
     const reportTypes = [
@@ -274,7 +338,6 @@ export function Reports() {
                             onChange={(dates) => {
                                 setStartDate(dates[0]);
                                 setEndDate(dates[1]);
-
                                 if (startDate && endDate) {
                                     dispatch(
                                         getMonthsInclusionReport({
@@ -296,7 +359,7 @@ export function Reports() {
                 )}
             </div>
 
-            <Bar options={getOptions(currentLabels)} data={data} />
+            <Bar type="bar" options={getOptions(currentLabels)} data={data} />
         </>
     );
 }
