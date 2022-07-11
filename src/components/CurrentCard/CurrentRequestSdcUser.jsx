@@ -4,7 +4,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { DownOutlined } from '@ant-design/icons';
 import { Dropdown, Menu, Space } from 'antd';
 
-import { viewCurrentRequestSdcUser } from '../../store/users/actions';
+import {
+    viewCurrentRequestSdcUser,
+    changeStatusSdcRequest,
+} from '../../store/users/actions';
 import { ButtonRegistry } from '../../components/Buttons/button-registry/button-registry';
 import { correctlyDate } from '../../helpers/utils';
 
@@ -98,28 +101,18 @@ function CurrentRequestSdcUser(props) {
             items={[
                 {
                     key: '1',
-                    label: (
-                        <a
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            href="https://www.antgroup.com"
-                        >
-                            Отказать
-                        </a>
-                    ),
+                    label: 'Отказать',
+                    onClick: () => {
+                        dispatch(changeStatusSdcRequest({ id, statusId: 2 }));
+                    },
                 },
 
                 {
                     key: '2',
-                    label: (
-                        <a
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            href="https://www.luohanacademy.com"
-                        >
-                            Принять
-                        </a>
-                    ),
+                    label: 'Принять',
+                    onClick: () => {
+                        dispatch(changeStatusSdcRequest({ id, statusId: 3 }));
+                    },
                 },
             ]}
         />
