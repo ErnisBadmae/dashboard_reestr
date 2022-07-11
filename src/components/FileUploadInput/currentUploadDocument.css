@@ -25,11 +25,21 @@
 
 .file__container {
     display: grid;
-    grid-template-columns: 6fr 2fr 2fr 2fr;
+    grid-template-columns: 3fr 1fr 1fr 1fr;
     place-items: center;
     height: 100%;
 }
+
+.file__size {
+    justify-self: start;
+}
 .file__btns {
+    margin: 0;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 4fr 1fr 1fr;
+    place-items: center;
+    width: 100%;
 }
 
 .document__goback__button {
@@ -42,5 +52,5 @@
 
 .header__document {
     display: grid;
-    grid-template-columns: 1.25fr 1fr;
+    grid-template-columns: 1fr 1fr;
 }

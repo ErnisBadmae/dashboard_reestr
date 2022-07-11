@@ -125,15 +125,19 @@ function Sidebar(props) {
                     )}
 
                     <p className="sidebar__inner-title">Сервисы</p>
-                    <li>
-                        <Link
-                            style={{ width: '100%', height: '100%' }}
-                            to="/reports"
-                        >
-                            <div className="sidebar__inner-item" />
-                            <span>Отчеты</span>
-                        </Link>
-                    </li>
+                    {roles === 'user_admin' ? (
+                        <li>
+                            <Link
+                                style={{ width: '100%', height: '100%' }}
+                                to="/reports"
+                            >
+                                <div className="sidebar__inner-item" />
+                                <span>Отчеты</span>
+                            </Link>
+                        </li>
+                    ) : (
+                        <></>
+                    )}
                     <li>
                         <div className="sidebar__inner-item" />
                         <span>Настройки </span>

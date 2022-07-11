@@ -19,13 +19,12 @@ import { Bar } from 'react-chartjs-2';
 import { useDispatch, useSelector } from 'react-redux';
 import { Select } from 'antd';
 
-import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
-import ru from 'date-fns/locale/ru';
+import { YearsReportSelect } from './YearsReportSelect.jsx';
+import { MonthsReportSelect } from './MonthsReportSelect.jsx';
+import { TableReports } from '../../components/TableSds/TableReports';
 
 import 'react-datepicker/dist/react-datepicker.css';
-
-registerLocale('ru', ru);
-setDefaultLocale('ru');
+import './reports.scss';
 
 ChartJS.register(
     CategoryScale,
@@ -70,7 +69,13 @@ export function Reports() {
         if (reportProfSdcYears?.data) {
             setCurrentYear(reportProfSdcYears?.data[0].year);
         }
-    }, [dispatch, startDate, endDate, setCurrentYear]);
+    }, [
+        dispatch,
+        startDate,
+        endDate,
+        setCurrentYear,
+        reportProfSdcYears?.data,
+    ]);
 
     useEffect(() => {
         dispatch(getReportProfSdcByCount());
@@ -118,15 +123,6 @@ export function Reports() {
             value: reportProfSdcExperts?.data?.certification_failed_count.cnt,
         },
     ];
-
-    // const getLabelsBy = (labels) => {
-    //     switch (labels) {
-    //         case 'experts':
-    //             return Object.values(reportProfSdcExperts?.data);
-    //         default:
-    //             return Object.values(reportProfSdcCount?.data);
-    //     }
-    // };
 
     const labelsByYears = reportProfSdcYears?.data
         ?.filter((el) => el.year === currentYear)
@@ -299,9 +295,10 @@ export function Reports() {
         { title: 'По включению по годам', id: 2, value: 'years' },
         { title: 'По включению по месяцам', id: 3, value: 'months' },
         { title: 'По экспертам', id: 4, value: 'experts' },
+        { title: 'Таблица', id: 5, value: 'table' },
     ];
     return (
-        <>
+        <div className="container__reports">
             <div style={{ display: 'flex' }}>
                 <Select
                     defaultValue={currentLabels}
@@ -316,56 +313,31 @@ export function Reports() {
                         </Option>
                     ))}
                 </Select>
-                {currentLabels === 'years' && (
-                    <Select
-                        defaultValue={currentYear}
-                        onChange={(value) => {
-                            setCurrentYear(value);
-                        }}
-                    >
-                        {reportProfSdcYears?.data?.map((el) => (
-                            <Option key={el.year} value={el.year}>
-                                {el.year}
-                            </Option>
-                        ))}
-                    </Select>
-                )}
 
-                {currentLabels === 'months' && (
-                    <div
-                        style={{
-                            maxWidth: '250px',
-                            border: '1px solid gray',
-                            width: '100%',
-                        }}
-                    >
-                        <DatePicker
-                            selected={startDate}
-                            onChange={(dates) => {
-                                setStartDate(dates[0]);
-                                setEndDate(dates[1]);
-                                if (startDate && endDate) {
-                                    dispatch(
-                                        getMonthsInclusionReport({
-                                            dateFrom: startDate
-                                                .toLocaleDateString('en-ZA')
-                                                .replaceAll('/', '-'),
-                                            dateTo: endDate
-                                                .toLocaleDateString('en-ZA')
-                                                .replaceAll('/', '-'),
-                                        })
-                                    );
-                                }
-                            }}
-                            startDate={startDate}
-                            endDate={endDate}
-                            selectsRange
-                        />
-                    </div>
-                )}
+                <YearsReportSelect
+                    conditionToRender={currentLabels === 'years'}
+                    setState={setCurrentYear}
+                    state={currentYear}
+                />
+
+                <MonthsReportSelect
+                    conditionToRender={currentLabels === 'months'}
+                    startDate={startDate}
+                    endDate={endDate}
+                    setStartDate={setStartDate}
+                    setEndDate={setEndDate}
+                />
             </div>
 
-            <Bar type="bar" options={getOptions(currentLabels)} data={data} />
-        </>
+            {currentLabels === 'table' ? (
+                <TableReports />
+            ) : (
+                <Bar
+                    type="bar"
+                    options={getOptions(currentLabels)}
+                    data={data}
+                />
+            )}
+        </div>
     );
 }

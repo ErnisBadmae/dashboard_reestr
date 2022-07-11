@@ -86,7 +86,9 @@ function CurrentUploadDocument(props) {
                                     <div className="file__field">
                                         {file.name}
                                     </div>
-                                    <div>{getFileSize(file.file_size)}</div>
+                                    <div className="file__size">
+                                        {getFileSize(file.file_size)}
+                                    </div>
                                     {userRole === 'user_sdc' && isCardEditable && (
                                         <Button
                                             type="primary"
@@ -155,6 +157,7 @@ function CurrentUploadDocument(props) {
                 </Modal>
             </div>
             <div className="declaration__buttons file__btns">
+                <div></div>
                 <button
                     className="btn__login declaration__btn"
                     onClick={() => navigate(-1)}

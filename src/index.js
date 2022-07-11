@@ -11,6 +11,7 @@ import { ToastContainer } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 import 'antd/dist/antd.min.css';
+import './index.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

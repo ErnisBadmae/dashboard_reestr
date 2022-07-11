@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
+import { DownOutlined } from '@ant-design/icons';
+import { Dropdown, Menu, Space } from 'antd';
 
 import { viewCurrentRequestSdcUser } from '../../store/users/actions';
 import { ButtonRegistry } from '../../components/Buttons/button-registry/button-registry';
@@ -90,33 +92,54 @@ function CurrentRequestSdcUser(props) {
             value: currentRequestSdcUser?.inclusionRequest
                 ?.comment_decision_admin,
         },
-        //    {
-        //        id: 14,
-        //        title: 'Инн организации',
-        //        value: currentRequestSdcUser?.org_inn,
-        //    },
-        //    {
-        //        id: 15,
-        //        title: 'Инн организации',
-        //        value: user?.org_inn,
-        //    },
-        //    {
-        //        id: 16,
-        //        title: 'Инн организации',
-        //        value: user?.org_inn,
-        //    },
-        //    {
-        //        id: 6,
-        //        title: 'Инн организации',
-        //        value: user?.org_inn,
-        //    },
     ];
+    const menu = (
+        <Menu
+            items={[
+                {
+                    key: '1',
+                    label: (
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href="https://www.antgroup.com"
+                        >
+                            Отказать
+                        </a>
+                    ),
+                },
+
+                {
+                    key: '2',
+                    label: (
+                        <a
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            href="https://www.luohanacademy.com"
+                        >
+                            Принять
+                        </a>
+                    ),
+                },
+            ]}
+        />
+    );
 
     return (
         <>
             <div className="card__body">
                 <div className="card__title">
                     <strong>Карточка просмотра заявления</strong>
+                    <div className="actionMenuContainer">
+                        <Dropdown overlay={menu}>
+                            <a href="/" onClick={(e) => e.preventDefault()}>
+                                <Space style={{ color: '#0f2355' }}>
+                                    Действия
+                                    <DownOutlined />
+                                </Space>
+                            </a>
+                        </Dropdown>
+                    </div>
                 </div>
                 {cardData.map((field) => {
                     return (
