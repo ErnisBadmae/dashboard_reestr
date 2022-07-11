@@ -55,7 +55,6 @@ export const getCurrentExpertOs = createAsyncThunk(
             `/request/request_sdc_standard_certification_expert/${cardId}`
         );
 
-        console.log(result, 'resultresultresultresultresultresultresult');
         const value = result.data.data.expert;
 
         return value;

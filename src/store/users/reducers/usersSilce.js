@@ -1,4 +1,9 @@
-import { getUsersList, viewCurrentUser } from '../actions';
+import {
+    getUsersList,
+    viewCurrentUser,
+    getRequestUserSdc,
+    viewCurrentRequestSdcUser,
+} from '../actions';
 import { createSlice } from '@reduxjs/toolkit';
 
 export const getUsers = createSlice({
@@ -6,6 +11,8 @@ export const getUsers = createSlice({
     initialState: {
         users: [],
         currentUser: {},
+        requestsListSdc: [],
+        currentRequestSdcUser: {},
         isLoading: false,
         isSuccess: false,
         errorMessage: '',
@@ -38,6 +45,32 @@ export const getUsers = createSlice({
                 state.isError = true;
                 state.message = action.payload;
                 state.currentUser = null;
+            })
+            .addCase(getRequestUserSdc.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getRequestUserSdc.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.requestsListSdc = action.payload;
+            })
+            .addCase(getRequestUserSdc.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                state.requestsListSdc = null;
+            })
+            .addCase(viewCurrentRequestSdcUser.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(viewCurrentRequestSdcUser.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.currentRequestSdcUser = action.payload;
+            })
+            .addCase(viewCurrentRequestSdcUser.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                state.currentRequestSdcUser = null;
             });
     },
 });

@@ -18,6 +18,8 @@ const RequireAuth = (props) => {
             `/users/${id}`,
             `/current-expert-os/${id}`,
             `/request_sdc/${id}/current-document/${documentId}`,
+            '/registration-sdc',
+            `/current-request-sdc-reg/${id}`,
         ],
         user_sdc: [
             '/requests_sdc',

@@ -37,6 +37,8 @@ function CurrentUploadDocument(props) {
     const { id, documentId } = useParams();
 
     const { currentDocument } = useSelector((state) => state.files);
+    const userRole = useSelector((state) => state.auth.user.roles);
+    const { isCardEditable } = useSelector((state) => state.proposalTest);
 
     const [previewVisible, setPreviewVisible] = useState(false);
     const [previewImage, setPreviewImage] = useState('');
@@ -85,66 +87,50 @@ function CurrentUploadDocument(props) {
                                         {file.name}
                                     </div>
                                     <div>{getFileSize(file.file_size)}</div>
-                                    <Button
-                                        type="primary"
-                                        size="small"
-                                        icon={<DeleteOutlined />}
-                                        target={file.uid}
-                                        onClick={(e) =>
-                                            dispatch(
-                                                deleteFileDocument({
-                                                    id,
-                                                    documentId,
-                                                    file,
-                                                })
-                                            )
-                                                .unwrap()
-                                                .then(() =>
-                                                    dispatch(
-                                                        getDocumentCard({
-                                                            id,
-                                                            documentId,
-                                                        })
-                                                    )
-                                                )
-                                        }
-                                    >
-                                        Удалить файл
-                                    </Button>
-                                    <Button
-                                        type="primary"
-                                        size="small"
-                                        icon={<DownloadOutlined />}
-                                        onClick={
-                                            (e) => {
+                                    {userRole === 'user_sdc' && isCardEditable && (
+                                        <Button
+                                            type="primary"
+                                            size="small"
+                                            icon={<DeleteOutlined />}
+                                            target={file.uid}
+                                            onClick={(e) =>
                                                 dispatch(
-                                                    saveFileDocument({
+                                                    deleteFileDocument({
                                                         id,
                                                         documentId,
                                                         file,
                                                     })
-                                                );
+                                                )
+                                                    .unwrap()
+                                                    .then(() =>
+                                                        dispatch(
+                                                            getDocumentCard({
+                                                                id,
+                                                                documentId,
+                                                            })
+                                                        )
+                                                    )
                                             }
-
-                                            // dispatch(
-                                            //     saveFileDocument({
-                                            //         id,
-                                            //         documentId,
-                                            //         file,
-                                            //     })
-                                            // )
-                                        }
+                                        >
+                                            Удалить файл
+                                        </Button>
+                                    )}
+                                    <Button
+                                        type="primary"
+                                        size="small"
+                                        icon={<DownloadOutlined />}
+                                        onClick={(e) => {
+                                            dispatch(
+                                                saveFileDocument({
+                                                    id,
+                                                    documentId,
+                                                    file,
+                                                })
+                                            );
+                                        }}
                                     >
                                         Скачать файл
                                     </Button>
-                                    {/* <a
-                                        download={name}
-                                        ref={ref}
-                                        style={{ visibility: 'hidden' }}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        href={url}
-                                    /> */}
                                 </div>
                             </>
                         );
@@ -167,23 +153,25 @@ function CurrentUploadDocument(props) {
                         src={previewImage}
                     />
                 </Modal>
-
-                <div className="declaration__buttons">
+            </div>
+            <div className="declaration__buttons file__btns">
+                <button
+                    className="btn__login declaration__btn"
+                    onClick={() => navigate(-1)}
+                    type="button"
+                >
+                    Назад
+                </button>
+                {userRole === 'user_sdc' && isCardEditable && (
                     <button
                         className="btn__login declaration__btn"
                         onClick={() => navigate(-1)}
                         type="button"
+                        style={{ width: 'auto' }}
                     >
-                        Назад
+                        Удалить документ
                     </button>
-                    <button
-                        className="btn__login declaration__btn"
-                        onClick={() => navigate(-1)}
-                        type="button"
-                    >
-                        Удалить ОС
-                    </button>
-                </div>
+                )}
             </div>
         </>
     );

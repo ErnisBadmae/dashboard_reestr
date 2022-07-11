@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import { viewCurrentUser } from '../../../store/users/actions/getUsersList';
 import { ButtonRegistry } from '../../Buttons/button-registry/button-registry';
+import { correctlyDate } from '../../../helpers/utils';
 
 import '../card-item.scss';
 
@@ -42,12 +43,12 @@ function CurrentUser(props) {
         {
             id: 5,
             title: 'Дата создания пользователя',
-            value: user?.dttm_created,
+            value: correctlyDate(user?.dttm_created),
         },
         {
             id: 6,
             title: 'Дата последней авторизации',
-            value: user?.dttn_last_authorization,
+            value: correctlyDate(user?.dttn_last_authorization),
         },
     ];
 

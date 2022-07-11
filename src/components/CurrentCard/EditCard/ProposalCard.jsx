@@ -19,6 +19,7 @@ function ProposalCard(props) {
 
     const { currentProposalSdc } = useSelector((state) => state.proposalTest);
     const { isCardEditable } = useSelector((state) => state.proposalTest);
+    const userRole = useSelector((state) => state.auth.user.roles);
     const { holders } = useSelector((state) => state.proposalTest);
 
     useEffect(() => {
@@ -90,7 +91,7 @@ function ProposalCard(props) {
                     );
                 })}
 
-                {isCardEditable && (
+                {isCardEditable && userRole === 'user_sdc' && (
                     <div className="btn__edit">
                         <ButtonRegistry
                             text={'Редактировать СДС'}

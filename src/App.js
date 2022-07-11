@@ -37,6 +37,8 @@ import { RegistryCertificationExperts } from './pages/registries/registry-certif
 import { RegistryCertificates } from './pages/registries/registry-certificates/registry-certificates';
 import { TableUsers } from './components/TableUsers/TableUsers';
 import { Reports } from './pages/reports/Reports';
+import { RequestUsersSdc } from './components/TableUsers/RequestUsersSdc';
+import CurrentRequestSdcUser from './components/CurrentCard/CurrentRequestSdcUser';
 
 function App() {
     const navigate = useNavigate();
@@ -106,6 +108,18 @@ function App() {
                             }
                         >
                             <Route path="/users" element={<TableUsers />} />
+
+                            <Route
+                                path="/registration-sdc"
+                                element={<RequestUsersSdc />}
+                            />
+                            <Route path="current-request-sdc-reg">
+                                <Route
+                                    path=":id"
+                                    element={<CurrentRequestSdcUser />}
+                                />
+                            </Route>
+
                             <Route
                                 path="/users/:id"
                                 element={<CurrentUser />}

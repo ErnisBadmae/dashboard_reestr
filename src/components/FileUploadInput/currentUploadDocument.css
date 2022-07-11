@@ -29,6 +29,8 @@
     place-items: center;
     height: 100%;
 }
+.file__btns {
+}
 
 .document__goback__button {
     justify-content: end;
@@ -39,6 +41,6 @@
 }
 
 .header__document {
-    display: flex;
-    justify-content: space-evenly;
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
 }

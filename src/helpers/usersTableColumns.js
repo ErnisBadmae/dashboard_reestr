@@ -1,11 +1,11 @@
 export const usersTableColumns = [
-    {
-        title: 'id-пользователя',
-        dataIndex: 'id',
-        data_type: 'string',
-        is_sort: true,
-        number_in_row: 2,
-    },
+    //     {
+    //         title: 'id-пользователя',
+    //         dataIndex: 'id',
+    //         data_type: 'string',
+    //         is_sort: true,
+    //         number_in_row: 2,
+    //     },
     //     {
     //         title: 'Статус ',
     //         dataIndex: 'status',
@@ -21,7 +21,7 @@ export const usersTableColumns = [
     //         number_in_row: 1,
     //     },
     {
-        title: 'email',
+        title: 'E-mail',
         dataIndex: 'email',
         data_type: 'string',
         is_sort: true,
@@ -48,4 +48,35 @@ export const usersTableColumns = [
     //         is_sort: true,
     //         number_in_row: 1,
     //     },
+];
+
+export const requestsUsersSdcTableColumn = [
+    {
+        title: 'Дата подачи ',
+        dataIndex: 'dttm_created',
+        data_type: 'string',
+        is_sort: true,
+        number_in_row: 1,
+    },
+    {
+        title: 'Инн',
+        dataIndex: 'org_inn',
+        data_type: 'string',
+        is_sort: true,
+        number_in_row: 1,
+    },
+    {
+        title: 'Наименование организации',
+        dataIndex: 'org_short_name',
+        data_type: 'string',
+        is_sort: true,
+        number_in_row: 1,
+    },
+    {
+        title: 'Регистрационный номер',
+        dataIndex: 'email',
+        data_type: 'string',
+        is_sort: true,
+        number_in_row: 1,
+    },
 ];

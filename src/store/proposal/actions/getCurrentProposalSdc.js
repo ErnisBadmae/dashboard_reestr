@@ -222,7 +222,6 @@ export const getCurrentOsSdc = createAsyncThunk(
             `/request/request_sdc_standard_certification_organ_certification/${cardId}`
         );
 
-        console.log(result, 'resultresultresultresultresultresultresult');
         const value = result.data.data.organCertification;
         //    return {
         //        ...value,
