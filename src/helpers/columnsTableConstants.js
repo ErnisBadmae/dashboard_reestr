@@ -1,16 +1,4 @@
 export const sdsTableColumns = [
-    //     {
-    //         title: '',
-    //         dataIndex: 'id',
-    //         data_type: 'string',
-    //         is_sort: true,
-    //         number_in_row: 2,
-    //         sorter: (a, b) => a.id - b.id,
-    //         showSorterTooltip: false,
-    //         defaultSortOrder: 'ascend',
-    //         sortDirections: ['ascend', 'descend'],
-    //         width: 30,
-    //     },
     {
         title: 'Статус',
         dataIndex: 'statusTitle',
@@ -26,13 +14,7 @@ export const sdsTableColumns = [
         is_sort: true,
         number_in_row: 1,
     },
-    //     {
-    //         title: 'Сокращенное название',
-    //         dataIndex: 'short_name',
-    //         data_type: 'string',
-    //         is_sort: true,
-    //         number_in_row: 1,
-    //     },
+
     {
         title: 'Регистрационный номер СДС',
         dataIndex: 'registration_number',
@@ -101,13 +83,6 @@ export const OsTableColumn = [
         is_sort: true,
         number_in_row: 1,
     },
-    //     {
-    //         title: 'Номер сертификата',
-    //         dataIndex: 'certificate_number',
-    //         data_type: 'string',
-    //         is_sort: true,
-    //         number_in_row: 1,
-    //     },
 ];
 
 export const certifacatesTableColumn = [
@@ -158,13 +133,7 @@ export const certifacatesTableColumn = [
         is_sort: true,
         number_in_row: 1,
     },
-    //     {
-    //         title: 'Наименование',
-    //         dataIndex: '',
-    //         data_type: 'string',
-    //         is_sort: true,
-    //         number_in_row: 1,
-    //     },
+
     {
         title: 'ОС',
         dataIndex: 'osValue',
@@ -215,13 +184,7 @@ export const certificateExpertsTable = [
         is_sort: true,
         number_in_row: 1,
     },
-    //     {
-    //         title: 'Дата выдачи аттестата',
-    //         dataIndex: 'certificate_date',
-    //         data_type: 'string',
-    //         is_sort: true,
-    //         number_in_row: 1,
-    //     },
+
     {
         title: 'Срок действия сертификата (аттестата)',
         dataIndex: 'valid',

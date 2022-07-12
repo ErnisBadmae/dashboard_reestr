@@ -295,7 +295,6 @@ export function Reports() {
         { title: 'По включению по годам', id: 2, value: 'years' },
         { title: 'По включению по месяцам', id: 3, value: 'months' },
         { title: 'По экспертам', id: 4, value: 'experts' },
-        { title: 'Таблица', id: 5, value: 'table' },
     ];
     return (
         <div className="container__reports">
@@ -329,15 +328,10 @@ export function Reports() {
                 />
             </div>
 
-            {currentLabels === 'table' ? (
-                <TableReports />
-            ) : (
-                <Bar
-                    type="bar"
-                    options={getOptions(currentLabels)}
-                    data={data}
-                />
-            )}
+            <Bar type="bar" options={getOptions(currentLabels)} data={data} />
+            <div className="container__table">
+                <TableReports currentLabels={currentLabels} />
+            </div>
         </div>
     );
 }
