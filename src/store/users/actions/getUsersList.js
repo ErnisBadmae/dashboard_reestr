@@ -43,7 +43,11 @@ export const getRequestUserSdc = createAsyncThunk(
             }
         );
         const value = result.data.data.data.map((el) => {
-            return { ...el, dttm_created: correctlyDate(el.dttm_created) };
+            return {
+                ...el,
+                statusTitle: el?.user_inclusion_request_status?.title,
+                dttm_created: correctlyDate(el.dttm_created),
+            };
         });
         const totalElements = result.data.data.data_header.count;
         return { data: value, totalElements };

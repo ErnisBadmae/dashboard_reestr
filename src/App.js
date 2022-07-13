@@ -23,6 +23,7 @@ import CardSertificate from './pages/registries/registry-certificates/card-certi
 import CardSdc from './pages/registries/registry-sds/card-sds/card-sds';
 import CardOs from './pages/registries/registry-os/card-os/card-os';
 import CurrentExpert from './components/CurrentCard/CurrentExpert/CurrentExpert';
+import CurrentRequestSdcUser from './components/CurrentCard/CurrentRequestSdcUser';
 // import Dialogs from './components/Dialogs/Dialogs';
 
 import { AuthLayout } from './components/Layout/AuthLayout';
@@ -38,7 +39,6 @@ import { RegistryCertificates } from './pages/registries/registry-certificates/r
 import { TableUsers } from './components/TableUsers/TableUsers';
 import { Reports } from './pages/reports/Reports';
 import { RequestUsersSdc } from './components/TableUsers/RequestUsersSdc';
-import CurrentRequestSdcUser from './components/CurrentCard/CurrentRequestSdcUser';
 
 function App() {
     const navigate = useNavigate();

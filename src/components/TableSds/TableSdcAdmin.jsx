@@ -19,7 +19,6 @@ export const TableSdcAdmin = (props) => {
         (state) => state.proposal.proposalSdcList
     );
 
-    // debugger;
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -37,7 +36,7 @@ export const TableSdcAdmin = (props) => {
 
     const dataSource = proposalSdcList.data?.map((item) => ({
         ...item,
-        //копируем и перезаписываем поля у объектов
+
         status: item.status.title,
         key: item.id,
     }));

@@ -145,8 +145,14 @@ function CurrentRequestSdcUser(props) {
                     );
                 })}
             </div>
-            <div className="btn__card">
-                <ButtonRegistry text="Назад" onClick={() => navigate(-1)} />
+            <div className="declaration__buttons">
+                <button
+                    className="btn__login declaration__btn"
+                    onClick={() => navigate(-1)}
+                    type="button"
+                >
+                    Назад
+                </button>
             </div>
         </>
     );
