@@ -1,5 +1,5 @@
 import logo from '../../assets/img/logo/Logo.svg';
-import descLogo from '../../assets/img/logo/desc.svg';
+import logo3 from '../../assets/img/logo/Logo3.svg';
 import {
     SearchOutlined,
     NotificationsNoneOutlined,
@@ -22,10 +22,9 @@ function Header(props) {
             <div className="header__container">
                 <div className="header__inner">
                     <div className="header__logo">
-                        <img className="header__logo-1" src={logo} alt="logo" />
                         <img
                             className="header__logo-2"
-                            src={descLogo}
+                            src={logo3}
                             alt="logo"
                         />
                     </div>
