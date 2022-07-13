@@ -88,25 +88,10 @@ export const saveFileDocument = createAsyncThunk(
                 `https://api-prof-sdc.anonamis.ru/api/request/request_sdc_standard_certification/${payload.id}/document/${payload.documentId}/file/${payload.file.id}/get`,
                 { responseType: 'blob' }
             )
-            //   .then((response) => {
-            //       new File([response.data], {
-            //           type: 'image/jpg',
-            //           lastModified: new Date(),
-            //       });
-            //   });
+
             .then((response) => {
                 console.log(response);
-                // const url = window.createObjectUrl(new Blob())(
-                //     [response.data],
-                //     {
-                //         type: response.headers['content-type'],
-                //     }
-                // );
-                // const link = document.createElement('a');
-                // link.href = url;
-                // link.setAttribute('download', 'ProfSdc');
-                // document.body.appendChild(link);
-                // link.click();
+
                 fileDownload(response.data, payload.file.file_name);
             });
     }
@@ -126,7 +111,6 @@ export const getDocumentCard = createAsyncThunk(
         const result = await $api.get(
             `/request/request_sdc_standard_certification/${payload.id}/document/${payload.documentId}`
         );
-        console.log(result, 'getDocumentCard');
 
         result.data.data[0].files = result.data.data[0].files.map((file) => ({
             ...file,
@@ -134,5 +118,32 @@ export const getDocumentCard = createAsyncThunk(
             uid: file.id,
         }));
         return result.data.data[0];
+    }
+);
+
+export const deleteDocument = createAsyncThunk(
+    'deleteDocument/delete',
+    async (payload) => {
+        try {
+            const response = await fetch(
+                `https://api-prof-sdc.anonamis.ru/api/request/request_sdc_standard_certification/${payload.id}/document/${payload.documentId}/delete`,
+                {
+                    method: 'DELETE',
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem(
+                            'token'
+                        )}`,
+                    },
+                }
+            );
+            const jsonResponse = await response.json();
+            if (jsonResponse.success === false) {
+                error(jsonResponse.message);
+            } else {
+                info('Выбранный документ успешно удален');
+            }
+        } catch (error) {
+            error('Произошла ошибка');
+        }
     }
 );

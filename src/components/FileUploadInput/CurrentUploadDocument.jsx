@@ -10,6 +10,7 @@ import {
     uploadFiles,
     deleteFileDocument,
     saveFileDocument,
+    deleteDocument,
 } from '../../store/documents/actions';
 
 import { Modal, Upload, Button } from 'antd';
@@ -168,9 +169,13 @@ function CurrentUploadDocument(props) {
                 {userRole === 'user_sdc' && isCardEditable && (
                     <button
                         className="btn__login declaration__btn"
-                        onClick={() => navigate(-1)}
                         type="button"
                         style={{ width: 'auto' }}
+                        onClick={() => {
+                            dispatch(deleteDocument({ id, documentId }))
+                                .unwrap()
+                                .then(() => navigate(-1));
+                        }}
                     >
                         Удалить документ
                     </button>
