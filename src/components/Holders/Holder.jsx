@@ -1,9 +1,11 @@
 import React from 'react';
 import { ButtonRegistry } from '../Buttons/button-registry/button-registry';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 function Holder(props) {
+    const { pathname } = useLocation();
+
     const navigate = useNavigate();
 
     const { isCardEditable } = useSelector((state) => state.proposalTest);
@@ -22,7 +24,7 @@ function Holder(props) {
                 <div className="btn__edit">
                     <ButtonRegistry
                         text={'Добавить держателя'}
-                        onClick={() => navigate(`/declaration`)}
+                        onClick={() => navigate(`${pathname}/form-holder`)}
                     />
                 </div>
             )}

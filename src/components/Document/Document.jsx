@@ -99,14 +99,17 @@ function Document(props) {
                 {documentsContainers?.length > 0 ? (
                     documentsContainers?.map((el) => {
                         return (
-                            <Link
-                                to={`/request_sdc/${id}/current-document/${el.id}`}
+                            <div
                                 key={el.id}
                                 className="card__field strong-title"
                             >
-                                <span>{el.description}</span>
+                                <Link
+                                    to={`/request_sdc/${id}/current-document/${el.id}`}
+                                >
+                                    {el.description}
+                                </Link>
                                 <span>{el?.file_type?.title}</span>
-                            </Link>
+                            </div>
                         );
                     })
                 ) : (

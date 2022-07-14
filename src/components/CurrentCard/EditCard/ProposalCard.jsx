@@ -72,7 +72,6 @@ function ProposalCard(props) {
         },
     ];
 
-    console.log(isCardEditable, '  console.log(isCardEditable)');
     return (
         <>
             <div className="card__body">

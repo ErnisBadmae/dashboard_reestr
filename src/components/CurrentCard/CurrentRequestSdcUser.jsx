@@ -8,7 +8,7 @@ import {
     viewCurrentRequestSdcUser,
     changeStatusSdcRequest,
 } from '../../store/users/actions';
-import { ButtonRegistry } from '../../components/Buttons/button-registry/button-registry';
+
 import { correctlyDate } from '../../helpers/utils';
 
 import './card-item.scss';

@@ -3,15 +3,13 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import Login from './pages/login/Login';
-import Declaration from './pages/declaration/Declaration';
+// import Declaration from './pages/declaration/Declaration';
 import Registr from './pages/register/Registr';
 import RequireAuth from './components/RequireAuth/RequireAuth';
 import NotFound from './pages/not-found/NotFound';
-import FormSdc from './components/FormSdc/FormSdc';
 import ProposalSdc from './pages/proposalSdc/proposalSdc';
 import EditProposalCard from './components/CurrentCard/Current/EditProposalCard';
-import FormOsSdc from './components/FormSdc/FormOs';
-import FormExpert from './components/FormSdc/FormExpert';
+import FormWrapper from './components/FormSdc/FormWrapper';
 import CurrentOsSdc from './components/CurrentCard/CurrentOs/CurrentOs';
 import EditCardOs from './components/CurrentCard/EditCard/EditCardOs';
 import EditCardHolders from './components/CurrentCard/EditCard/EditCardHolders';
@@ -124,10 +122,10 @@ function App() {
                                 path="/users/:id"
                                 element={<CurrentUser />}
                             />
-                            <Route
+                            {/* <Route
                                 path="/declaration-admin"
                                 element={<Declaration />}
-                            />
+                            /> */}
                             <Route
                                 path="/requests-sdc-list"
                                 element={<TableSdcAdmin />}
@@ -145,8 +143,41 @@ function App() {
                         >
                             <Route
                                 path="/new-request-sdc"
-                                element={<FormSdc />}
+                                element={
+                                    <FormWrapper
+                                        formTitle="Заявление СДС"
+                                        formType="newSdc"
+                                    />
+                                }
                             />
+                            <Route
+                                path="/form-expert-os"
+                                element={
+                                    <FormWrapper
+                                        formTitle="Сведения об эксперте"
+                                        formType="expert"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/request_sdc/:id/form-os-sdc"
+                                element={
+                                    <FormWrapper
+                                        formTitle="Сведение об ОС"
+                                        formType="osSdc"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/request_sdc/:id/form-holder"
+                                element={
+                                    <FormWrapper
+                                        formTitle="Сведения о держателе"
+                                        formType="newHolder"
+                                    />
+                                }
+                            />
+
                             <Route
                                 path="/requests_sdc"
                                 element={<TableSdsOperator />}
@@ -159,15 +190,7 @@ function App() {
                                 path="/edit-card/:id"
                                 element={<EditProposalCard />}
                             />
-                            <Route
-                                path="/declaration"
-                                element={<Declaration />}
-                            />
 
-                            <Route
-                                path="/form-os-sdc"
-                                element={<FormOsSdc />}
-                            />
                             <Route path="current-os">
                                 <Route path=":id" element={<CurrentOsSdc />} />
                             </Route>
@@ -176,13 +199,10 @@ function App() {
                                 element={<EditCardOs />}
                             />
 
-                            <Route
-                                path="/form-expert-os"
-                                element={<FormExpert />}
-                            />
                             <Route path="current-expert-os">
                                 <Route path=":id" element={<CurrentExpert />} />
                             </Route>
+
                             <Route
                                 path="/edit-expert/:id"
                                 element={<EditExpert />}

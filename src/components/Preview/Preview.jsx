@@ -8,7 +8,7 @@ import {
 } from '../../store/proposal/actions';
 import { useNavigate } from 'react-router-dom';
 
-import './card-item.css';
+import '../CurrentCard/card-item.scss';
 import './current-card.scss';
 
 function PreviewCardSdc(props) {
@@ -248,10 +248,10 @@ function PreviewCardSdc(props) {
                 {cardData.map((field) => {
                     return (
                         <div className="card__field" key={field.id}>
-                            <strong>{field.title}</strong>
-                            <div className="text__current-card">
+                            <span className="strong-title">{field.title}</span>
+                            <span className="text__current-card">
                                 {field.value}
-                            </div>
+                            </span>
                         </div>
                     );
                 })}

@@ -16,7 +16,7 @@ export const postSdcRequest = createAsyncThunk(
         try {
             let result = await $api.post(
                 '/request/request_sdc_standard_certification/add',
-                payload,
+                payload.formData,
                 headersAxios
             );
 
@@ -100,7 +100,7 @@ export const postDeclarationHolder = createAsyncThunk(
     async (payload) => {
         const result = await $api.post(
             `/request/request_sdc_standard_certification_holder/add/${payload.id}`,
-            payload.declarationSdsData,
+            payload.formData,
             headersAxios
         );
 
@@ -182,7 +182,7 @@ export const postOrganSertificationSdc = createAsyncThunk(
     async (payload) => {
         const result = await $api.post(
             `/request/request_sdc_standard_certification_organ_certification/add/${payload.id}`,
-            payload.osSdsData,
+            payload.formData,
             headersAxios
         );
         console.log(result, 'result OrganSertificationSdc/post');

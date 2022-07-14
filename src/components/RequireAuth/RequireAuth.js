@@ -28,7 +28,7 @@ const RequireAuth = (props) => {
             `/edit-card/${id}`,
             '/current-proposal',
             '/declaration',
-            '/form-os-sdc',
+            `/request_sdc/${id}/form-os-sdc`,
             `/current-os/${id}`,
             `/edit-card-os/${id}`,
             `/holder/${id}`,
@@ -36,6 +36,7 @@ const RequireAuth = (props) => {
             '/form-expert-os',
             `/current-expert-os/${id}`,
             `/edit-expert/${id}`,
+            `/request_sdc/${id}/form-holder`,
         ],
     };
 

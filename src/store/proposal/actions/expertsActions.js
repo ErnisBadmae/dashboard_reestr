@@ -14,7 +14,7 @@ export const postExpertOsSdc = createAsyncThunk(
     async (payload) => {
         const result = await $api.post(
             `/request/request_sdc_standard_certification_expert/add/${payload.oSid}`,
-            payload.expertData,
+            payload.formData,
             headersAxios
         );
         console.log(result, 'result postExpertOsSdc/post');

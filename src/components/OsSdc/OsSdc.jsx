@@ -31,7 +31,9 @@ function OsSdc(props) {
                     <div className="btn__edit">
                         <ButtonRegistry
                             text={'Добавить ОС'}
-                            onClick={() => navigate(`/form-os-sdc`)}
+                            onClick={() =>
+                                navigate(`/request_sdc/${id}/form-os-sdc`)
+                            }
                         />
                     </div>
                 )}
