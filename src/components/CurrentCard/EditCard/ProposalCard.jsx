@@ -76,7 +76,7 @@ function ProposalCard(props) {
         <>
             <div className="card__body">
                 <div className="card__title">
-                    <strong>Заявление</strong>
+                    <strong className="strong-title">Заявление</strong>
                 </div>
                 {cardData.map((field) => {
                     return (
@@ -120,7 +120,6 @@ function ProposalCard(props) {
                                     holderName={holder.full_name}
                                 />
                                 <CurrentHolder currentHolder={holder} />
-                                <EditCardHolders currentHolder={holder} />
                             </>
                         );
                     })}

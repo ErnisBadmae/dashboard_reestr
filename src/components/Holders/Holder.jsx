@@ -13,7 +13,7 @@ function Holder(props) {
     return (
         <div className="card__title__container">
             <div className="card__title">
-                <strong>
+                <strong className="strong-title">
                     {props.holderName
                         ? `Держатель: ${props.holderName}`
                         : `Держатель`}

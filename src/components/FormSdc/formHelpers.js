@@ -3,11 +3,13 @@ import {
     postOrganSertificationSdc,
     postSdcRequest,
     postDeclarationHolder,
+    editCurrentExpertOs,
 } from '../../store/proposal/actions';
 
 export const getFormData = (formType, data) => {
     switch (formType) {
         case 'expert':
+        case 'editExpert':
             return {
                 contractType: data.contractType,
                 educationType: data.educationType,
@@ -83,7 +85,6 @@ export const getFormData = (formType, data) => {
             return {};
     }
 };
-
 export const sendData = ({
     formType,
     dispatch,
@@ -91,11 +92,20 @@ export const sendData = ({
     formData,
     oSid,
     id,
+    expertId,
 }) => {
     switch (formType) {
         case 'expert':
             return () => {
                 dispatch(postExpertOsSdc({ oSid, formData }))
+                    .unwrap()
+                    .then(() => {
+                        navigate(-1);
+                    });
+            };
+        case 'editExpert':
+            return () => {
+                dispatch(editCurrentExpertOs({ expertId, formData }))
                     .unwrap()
                     .then(() => {
                         navigate(-1);

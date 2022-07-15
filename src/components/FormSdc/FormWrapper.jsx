@@ -15,11 +15,11 @@ import './form-sdc.scss';
 function FormWrapper({ formType, formTitle }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const sdcId = useParams().id;
+    const { id, expertId } = useParams();
 
     const { currentOsSdcCard } = useSelector((state) => state.proposalTest);
-
     const oSid = currentOsSdcCard?.id;
+
     const {
         register,
         control,
@@ -29,6 +29,7 @@ function FormWrapper({ formType, formTitle }) {
 
     const formHandler = (data) => {
         const formData = getFormData(formType, data);
+        console.log('we are in formhandler');
 
         sendData({
             formType,
@@ -36,7 +37,8 @@ function FormWrapper({ formType, formTitle }) {
             navigate,
             formData,
             oSid,
-            id: sdcId,
+            id,
+            expertId,
         })();
     };
 
@@ -47,7 +49,7 @@ function FormWrapper({ formType, formTitle }) {
                 onSubmit={handleSubmit(formHandler)}
                 className="declaration__form__request"
             >
-                {formType === 'expert' && (
+                {(formType === 'expert' || formType === 'editExpert') && (
                     <ExpertInputs
                         navigate={navigate}
                         register={register}

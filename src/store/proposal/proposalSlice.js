@@ -279,10 +279,8 @@ export const currentProposalTest = createSlice({
             })
             .addCase(editCurrentExpertOs.fulfilled, (state, action) => {
                 state.isLoading = false;
-                if (action.payload.success) {
-                    state.isSuccess = true;
-                    state.currentExpertOs = action.payload;
-                }
+                state.isSuccess = true;
+                state.currentExpertOs = action.payload;
             })
             .addCase(editCurrentExpertOs.rejected, (state, action) => {
                 state.isLoading = false;

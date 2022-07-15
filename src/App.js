@@ -160,6 +160,15 @@ function App() {
                                 }
                             />
                             <Route
+                                path="/edit-expert/:expertId"
+                                element={
+                                    <FormWrapper
+                                        formTitle="Редактирование эксперта"
+                                        formType="editExpert"
+                                    />
+                                }
+                            />
+                            <Route
                                 path="/request_sdc/:id/form-os-sdc"
                                 element={
                                     <FormWrapper
@@ -202,11 +211,11 @@ function App() {
                             <Route path="current-expert-os">
                                 <Route path=":id" element={<CurrentExpert />} />
                             </Route>
-
+                            {/* 
                             <Route
                                 path="/edit-expert/:id"
                                 element={<EditExpert />}
-                            />
+                            /> */}
 
                             <Route
                                 path="/request_sdc/:id/current-document/:documentId"

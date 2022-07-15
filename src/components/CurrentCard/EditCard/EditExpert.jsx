@@ -39,7 +39,6 @@ function EditExpert(props) {
 
     const {
         register,
-
         formState: { errors },
         handleSubmit,
     } = useForm();

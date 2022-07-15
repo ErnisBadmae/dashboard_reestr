@@ -1,12 +1,33 @@
 import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
-import 'react-datepicker/dist/react-datepicker.css';
 import { Controller } from 'react-hook-form';
+import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import moment from 'moment';
+import { getCurrentExpertOs } from '../../../store/proposal/actions';
+
+import 'react-datepicker/dist/react-datepicker.css';
 
 registerLocale('ru', ru);
 setDefaultLocale('ru');
 
 export function ExpertInputs({ control, register, errors, navigate }) {
+    const { currentExpertOs } = useSelector((state) => state.proposalTest);
+
+    const [validDate, setValidDate] = useState(
+        moment(currentExpertOs?.valid).toDate()
+    );
+    const [introductionDate, setIntroductionDate] = useState(
+        moment(currentExpertOs?.introduction_date).toDate()
+    );
+    const [exclusionDate, setExclusionDate] = useState(
+        moment(currentExpertOs?.exclusion_date).toDate()
+    );
+    const [educationDate, setEducationDate] = useState(
+        moment(currentExpertOs?.education_date).toDate()
+    );
+
     const inputs = [
         {
             title: 'Выберите тип контракта',
@@ -19,6 +40,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             errorMessage: 'Выберите тип',
             selectValue1: 'трудовой договор',
             selectValue2: 'проектная занятость',
+            defaultValue: currentExpertOs?.contract_type?.title,
         },
         {
             title: 'Тип образования',
@@ -31,6 +53,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             errorMessage: 'Выберите тип',
             selectValue1: 'Высшее',
             selectValue2: 'Среднее',
+            defaultValue: currentExpertOs?.education_type?.title,
         },
         {
             title: 'Имя эксперта',
@@ -41,6 +64,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Имя должно быть на кириллице',
+            defaultValue: currentExpertOs?.expert_name,
         },
         {
             title: 'Номер сертификата',
@@ -54,6 +78,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             },
             mask: null,
             errorMessage: 'номер должен состоять только из цифр',
+            defaultValue: currentExpertOs?.certificate_number,
         },
         {
             title: 'Дата регистрации',
@@ -64,6 +89,10 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Полное наименование должно быть на кириллице',
+            defaultValue: validDate,
+            setData: (data) => {
+                setValidDate(data);
+            },
         },
         {
             title: 'Область распространения',
@@ -74,6 +103,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Введите данные на кириллице',
+            defaultValue: currentExpertOs?.area,
         },
         {
             title: 'Опыт',
@@ -84,6 +114,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Введите данные на латинице',
+            defaultValue: currentExpertOs?.experience,
         },
         {
             title: 'Дата вступления',
@@ -94,6 +125,10 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Полное наименование должно быть на кириллице',
+            defaultValue: introductionDate,
+            setData: (data) => {
+                setIntroductionDate(data);
+            },
         },
         {
             title: 'Дата исключения',
@@ -104,6 +139,10 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Полное наименование должно быть на кириллице',
+            defaultValue: exclusionDate,
+            setData: (data) => {
+                setExclusionDate(data);
+            },
         },
 
         {
@@ -115,6 +154,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Полное наименование должно быть на кириллице',
+            defaultValue: currentExpertOs?.snils,
         },
         {
             title: 'Должность на момент исключения',
@@ -125,6 +165,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Полное наименование должно быть на кириллице',
+            defaultValue: currentExpertOs?.exclusion_position,
         },
         {
             title: 'Образование',
@@ -135,6 +176,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Полное наименование должно быть на кириллице',
+            defaultValue: currentExpertOs?.education,
         },
         {
             title: 'Специализация',
@@ -145,6 +187,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Полное наименование должно быть на кириллице',
+            defaultValue: currentExpertOs?.education_speciality,
         },
         {
             title: 'Дата получения образования',
@@ -155,6 +198,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Полное наименование должно быть на кириллице',
+            defaultValue: educationDate,
         },
         {
             title: 'Образовательная организация',
@@ -165,6 +209,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Полное наименование должно быть на кириллице',
+            defaultValue: currentExpertOs?.education_organization,
         },
     ];
 
@@ -182,6 +227,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
                                 type="options"
                                 required
                                 id={inputEl.name}
+                                defaultValue={inputEl.defaultValue}
                                 style={
                                     !errors?.[`${inputEl.name}`]
                                         ? {}
@@ -215,6 +261,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
                                 <Controller
                                     control={control}
                                     name={inputEl.name}
+                                    defaultValue={inputEl.defaultValue}
                                     render={({ field }) => (
                                         <DatePicker
                                             dateFormat="dd/MM/yyyy"
@@ -244,6 +291,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
                             required
                             autoFocus
                             id={inputEl.name}
+                            defaultValue={inputEl.defaultValue}
                             style={
                                 !errors[`${inputEl.name}`]
                                     ? {}

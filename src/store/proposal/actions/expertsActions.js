@@ -50,9 +50,9 @@ export const getExpertsOs = createAsyncThunk(
 
 export const getCurrentExpertOs = createAsyncThunk(
     'getCurrentExpertOs/view',
-    async (cardId) => {
+    async (expertId) => {
         const result = await $api.get(
-            `/request/request_sdc_standard_certification_expert/${cardId}`
+            `/request/request_sdc_standard_certification_expert/${expertId}`
         );
 
         const value = result.data.data.expert;
@@ -68,7 +68,7 @@ export const editCurrentExpertOs = createAsyncThunk(
             `https://api-prof-sdc.anonamis.ru/api/request/request_sdc_standard_certification_expert/edit/${payload.expertId}`,
             {
                 method: 'PATCH',
-                body: JSON.stringify(payload.body),
+                body: JSON.stringify(payload.formData),
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
