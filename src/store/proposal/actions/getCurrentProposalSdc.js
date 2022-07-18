@@ -54,9 +54,9 @@ export const getPreviewCurrentProposalSdc = createAsyncThunk(
 //получение текущей заявки
 export const getCurrentProposalSdc = createAsyncThunk(
     'view/getCurrentRequestSdc',
-    async (cardId) => {
+    async (sdcId) => {
         const result = await $api.get(
-            `/request/request_sdc_standard_certification/${cardId}`
+            `/request/request_sdc_standard_certification/${sdcId}`
         );
         const value = result.data.data?.requestSdcStandardCertification;
 
@@ -72,10 +72,10 @@ export const changeProposal = createAsyncThunk(
     'changeProposal/edit',
     async (payload) => {
         const response = await fetch(
-            `https://api-prof-sdc.anonamis.ru/api/request/request_sdc_standard_certification/edit/${payload.id}`,
+            `https://api-prof-sdc.anonamis.ru/api/request/request_sdc_standard_certification/edit/${payload.oSid}`,
             {
                 method: 'PATCH',
-                body: JSON.stringify(payload.body),
+                body: JSON.stringify(payload.formData),
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -99,7 +99,7 @@ export const postDeclarationHolder = createAsyncThunk(
     'declaration/post',
     async (payload) => {
         const result = await $api.post(
-            `/request/request_sdc_standard_certification_holder/add/${payload.id}`,
+            `/request/request_sdc_standard_certification_holder/add/${payload.sdcId}`,
             payload.formData,
             headersAxios
         );
@@ -118,9 +118,9 @@ export const postDeclarationHolder = createAsyncThunk(
 );
 
 //получение массива держателей
-export const getHolders = createAsyncThunk('holders/get', async (id) => {
+export const getHolders = createAsyncThunk('holders/get', async (sdcId) => {
     const result = await $api.post(
-        `/request/request_sdc_standard_certification_holder/list/${id}`
+        `/request/request_sdc_standard_certification_holder/list/${sdcId}`
     );
 
     const value = result.data.data.data;
@@ -138,9 +138,9 @@ export const getHolders = createAsyncThunk('holders/get', async (id) => {
 //просмотр текущего держателя
 export const getCurrentHolder = createAsyncThunk(
     'CurrentHolder/getView',
-    async (id) => {
+    async (holderId) => {
         const result = await $api.get(
-            `/request/request_sdc_standard_certification_holder/${id}`
+            `/request/request_sdc_standard_certification_holder/${holderId}`
         );
 
         const value = result.data.data.holder;
@@ -154,10 +154,10 @@ export const changeHolder = createAsyncThunk(
     'changeHolder/editHolder',
     async (payload) => {
         const response = await fetch(
-            `https://api-prof-sdc.anonamis.ru/api/request/request_sdc_standard_certification_holder/edit/${payload.id}`,
+            `https://api-prof-sdc.anonamis.ru/api/request/request_sdc_standard_certification_holder/edit/${payload.holderId}`,
             {
                 method: 'PATCH',
-                body: JSON.stringify(payload.body),
+                body: JSON.stringify(payload.formData),
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -181,7 +181,7 @@ export const postOrganSertificationSdc = createAsyncThunk(
     'OrganSertificationSdc/post',
     async (payload) => {
         const result = await $api.post(
-            `/request/request_sdc_standard_certification_organ_certification/add/${payload.id}`,
+            `/request/request_sdc_standard_certification_organ_certification/add/${payload.sdcId}`,
             payload.formData,
             headersAxios
         );
@@ -199,9 +199,9 @@ export const postOrganSertificationSdc = createAsyncThunk(
 //получение массива ОС СДС
 export const getOrganSertifications = createAsyncThunk(
     'osSdc/getList',
-    async (id) => {
+    async (sdcId) => {
         const result = await $api.post(
-            `/request/request_sdc_standard_certification_organ_certification/list/${id}`
+            `/request/request_sdc_standard_certification_organ_certification/list/${sdcId}`
         );
 
         const value = result.data.data.data.map((obj) => {
@@ -217,9 +217,9 @@ export const getOrganSertifications = createAsyncThunk(
 //получение текущей карточки ОС СДС
 export const getCurrentOsSdc = createAsyncThunk(
     'viewOs/getCurrentOsSdc',
-    async (cardId) => {
+    async (oSid) => {
         const result = await $api.get(
-            `/request/request_sdc_standard_certification_organ_certification/${cardId}`
+            `/request/request_sdc_standard_certification_organ_certification/${oSid}`
         );
 
         const value = result.data.data.organCertification;
@@ -236,10 +236,10 @@ export const editCurrentOsSdc = createAsyncThunk(
     'viewEditCard/editCurrentOsSdc',
     async (payload) => {
         const response = await fetch(
-            `https://api-prof-sdc.anonamis.ru/api/request/request_sdc_standard_certification_organ_certification/edit/${payload.id}`,
+            `https://api-prof-sdc.anonamis.ru/api/request/request_sdc_standard_certification_organ_certification/edit/${payload.oSid}`,
             {
                 method: 'PATCH',
-                body: JSON.stringify(payload.body),
+                body: JSON.stringify(payload.formData),
                 headers: {
                     'Content-Type': 'application/json',
                     Authorization: `Bearer ${localStorage.getItem('token')}`,

@@ -23,16 +23,17 @@ function EditProposalCard(props) {
     } = useForm();
 
     const dispatch = useDispatch();
-    const { id } = useParams();
+    const { sdcId } = useParams();
 
     const { currentProposalSdc } = useSelector((state) => state.proposalTest);
+
     const [registrationDate, setRegistrationDate] = useState(
         moment(currentProposalSdc?.registration_date).toDate()
     );
 
     useEffect(() => {
-        dispatch(getCurrentProposalSdc(id));
-    }, [id, dispatch]);
+        dispatch(getCurrentProposalSdc(sdcId));
+    }, [sdcId, dispatch]);
 
     useEffect(() => {
         setRegistrationDate(
@@ -54,7 +55,7 @@ function EditProposalCard(props) {
             logo: data.logo,
         };
 
-        dispatch(changeProposal({ id, body }));
+        dispatch(changeProposal({ sdcId, body }));
     };
 
     return (

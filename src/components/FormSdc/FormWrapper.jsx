@@ -1,10 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 import { getFormData, sendData } from './formHelpers.js';
-
 import { ExpertInputs } from './FormInputs/ExpertInputs.jsx';
 import { SdcInputs } from './FormInputs/SdcInputs.jsx';
 import { OsInputs } from './FormInputs/OsInputs';
@@ -15,7 +13,8 @@ import './form-sdc.scss';
 function FormWrapper({ formType, formTitle }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { id, expertId } = useParams();
+
+    const { sdcId, expertId, holderId } = useParams();
 
     const { currentOsSdcCard } = useSelector((state) => state.proposalTest);
     const oSid = currentOsSdcCard?.id;
@@ -29,16 +28,15 @@ function FormWrapper({ formType, formTitle }) {
 
     const formHandler = (data) => {
         const formData = getFormData(formType, data);
-        console.log('we are in formhandler');
-
         sendData({
             formType,
             dispatch,
             navigate,
             formData,
             oSid,
-            id,
+            sdcId,
             expertId,
+            holderId,
         })();
     };
 
@@ -55,30 +53,34 @@ function FormWrapper({ formType, formTitle }) {
                         register={register}
                         control={control}
                         errors={errors}
+                        formType={formType}
                     />
                 )}
-                {formType === 'newSdc' && (
+                {(formType === 'newSdc' || formType === 'editSdc') && (
                     <SdcInputs
                         navigate={navigate}
                         register={register}
                         control={control}
                         errors={errors}
+                        formType={formType}
                     />
                 )}
-                {formType === 'osSdc' && (
+                {(formType === 'osSdc' || formType === 'editOs') && (
                     <OsInputs
                         navigate={navigate}
                         register={register}
                         control={control}
                         errors={errors}
+                        formType={formType}
                     />
                 )}
-                {formType === 'newHolder' && (
+                {(formType === 'newHolder' || formType === 'editHolder') && (
                     <HolderInputs
                         navigate={navigate}
                         register={register}
                         control={control}
                         errors={errors}
+                        formType={formType}
                     />
                 )}
 

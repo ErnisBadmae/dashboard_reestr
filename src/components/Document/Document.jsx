@@ -6,8 +6,10 @@ import { getDocuments } from '../../store/documents/actions';
 import { Form, Input, Modal } from 'antd';
 import { Select } from 'antd';
 import { postDocument } from '../../store/documents/actions';
-const { Option } = Select;
 
+import '../CurrentCard/card-item.scss';
+
+const { Option } = Select;
 function Document(props) {
     const dispatch = useDispatch();
 
@@ -49,7 +51,7 @@ function Document(props) {
         <>
             <div className="card__body">
                 <div className="card__title">
-                    <strong>Документы</strong>
+                    <strong className="strong-title">Документы</strong>
                 </div>
 
                 {isCardEditable && userRole === 'user_sdc' && (

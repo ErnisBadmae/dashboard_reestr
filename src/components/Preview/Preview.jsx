@@ -9,7 +9,6 @@ import {
 import { useNavigate } from 'react-router-dom';
 
 import '../CurrentCard/card-item.scss';
-import './current-card.scss';
 
 function PreviewCardSdc(props) {
     const navigate = useNavigate();
@@ -230,7 +229,7 @@ function PreviewCardSdc(props) {
     return (
         <>
             <div className="card__title">
-                <strong>Заявление СДС</strong>
+                <strong className="strong-title">Заявление СДС</strong>
                 <div className="actionMenuContainer">
                     {(userRole === 'user_admin' || isCardEditable) && (
                         <Dropdown overlay={menu}>

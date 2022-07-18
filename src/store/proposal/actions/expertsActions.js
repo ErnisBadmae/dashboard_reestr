@@ -30,9 +30,9 @@ export const postExpertOsSdc = createAsyncThunk(
 
 export const getExpertsOs = createAsyncThunk(
     'getExpertsOs/getList',
-    async (id) => {
+    async (oSid) => {
         const result = await $api.post(
-            `/request/request_sdc_standard_certification_expert/list/${id}`
+            `/request/request_sdc_standard_certification_expert/list/${oSid}`
         );
 
         const value = result.data.data.data.map((obj) => {

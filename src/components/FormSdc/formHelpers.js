@@ -4,6 +4,9 @@ import {
     postSdcRequest,
     postDeclarationHolder,
     editCurrentExpertOs,
+    editCurrentOsSdc,
+    changeProposal,
+    changeHolder,
 } from '../../store/proposal/actions';
 
 export const getFormData = (formType, data) => {
@@ -30,6 +33,7 @@ export const getFormData = (formType, data) => {
             };
 
         case 'osSdc':
+        case 'editOs':
             return {
                 //убрать?
                 fullNameCompany: data.fullNameCompany,
@@ -49,6 +53,7 @@ export const getFormData = (formType, data) => {
                 area: data.area,
             };
         case 'newSdc':
+        case 'editSdc':
             return {
                 fullName: data.fullName,
                 shortName: data.shortName,
@@ -61,6 +66,7 @@ export const getFormData = (formType, data) => {
                 //   myFile: data.myFile,
             };
         case 'newHolder':
+        case 'editHolder':
             return {
                 fullName: data.fullName,
                 shortName: data.shortName,
@@ -91,8 +97,9 @@ export const sendData = ({
     navigate,
     formData,
     oSid,
-    id,
+    sdcId,
     expertId,
+    holderId,
 }) => {
     switch (formType) {
         case 'expert':
@@ -113,10 +120,18 @@ export const sendData = ({
             };
         case 'osSdc':
             return () => {
-                dispatch(postOrganSertificationSdc({ id, formData }))
+                dispatch(postOrganSertificationSdc({ sdcId, formData }))
                     .unwrap()
                     .then(() => {
-                        navigate(`/request_sdc/${id}`);
+                        navigate(`/request_sdc/${sdcId}`);
+                    });
+            };
+        case 'editOs':
+            return () => {
+                dispatch(editCurrentOsSdc({ oSid, formData }))
+                    .unwrap()
+                    .then(() => {
+                        navigate(-1);
                     });
             };
         case 'newSdc':
@@ -125,11 +140,27 @@ export const sendData = ({
                     .unwrap()
                     .then(({ id }) => navigate(`/request_sdc/${id}`));
             };
+        case 'editSdc':
+            return () => {
+                dispatch(changeProposal({ oSid, formData }))
+                    .unwrap()
+                    .then(() => {
+                        navigate(-1);
+                    });
+            };
         case 'newHolder':
             return () => {
-                dispatch(postDeclarationHolder({ id, formData }))
+                dispatch(postDeclarationHolder({ sdcId, formData }))
                     .unwrap()
-                    .then(() => navigate(`/request_sdc/${id}`));
+                    .then(() => navigate(`/request_sdc/${sdcId}`));
+            };
+        case 'editHolder':
+            return () => {
+                dispatch(changeHolder({ holderId, formData }))
+                    .unwrap()
+                    .then(() => {
+                        navigate(-1);
+                    });
             };
 
         default:

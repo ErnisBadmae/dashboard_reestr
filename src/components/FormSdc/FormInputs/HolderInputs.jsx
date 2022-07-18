@@ -1,24 +1,37 @@
 import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
-import 'react-datepicker/dist/react-datepicker.css';
 import { Controller } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import InputMask from 'react-input-mask';
+import moment from 'moment';
+
+import 'react-datepicker/dist/react-datepicker.css';
 
 registerLocale('ru', ru);
 setDefaultLocale('ru');
 
-export function HolderInputs({ control, register, errors, navigate }) {
+export function HolderInputs({ control, register, errors, formType }) {
+    const { currentHolder } = useSelector((state) => state.proposalTest);
+
+    const [registrationDate, setRegistrationDate] = useState(
+        moment(currentHolder?.registration_date).toDate()
+    );
+    const [exclusionDate, setExclusionDate] = useState(
+        moment(currentHolder?.exclusion_date).toDate()
+    );
     const inputs = [
         {
             id: 1,
-            title: 'Полное наименование СДС',
+            title: 'Полное наименование организации',
             name: 'fullName',
             type: 'text',
             required: true,
             pattern: /[а-яА-ЯёЁ]/,
             minLength: 0,
             mask: null,
-            errorMessage:
-                'Полное наименование должно быть на кириллицеВыберите тип',
+            errorMessage: 'Полное наименование должно быть на кириллице',
+            defaultValue: currentHolder?.full_name,
         },
         {
             id: 2,
@@ -30,6 +43,7 @@ export function HolderInputs({ control, register, errors, navigate }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Сокращенное наименование должно быть на кириллице',
+            defaultValue: currentHolder?.short_name,
         },
         {
             id: 3,
@@ -44,10 +58,11 @@ export function HolderInputs({ control, register, errors, navigate }) {
             },
             mask: null,
             errorMessage: 'номер должен состоять только из цифр',
+            defaultValue: currentHolder?.inn,
         },
         {
             id: 4,
-            title: 'Огрн',
+            title: 'ОГРН',
             name: 'ogrn',
             type: 'text',
             required: true,
@@ -58,7 +73,10 @@ export function HolderInputs({ control, register, errors, navigate }) {
             },
             mask: null,
             errorMessage: 'номер должен состоять только из цифр',
+            defaultValue: currentHolder?.ogrn,
         },
+
+        //убрать?
         {
             id: 5,
             title: 'Регистрационный номер',
@@ -72,7 +90,10 @@ export function HolderInputs({ control, register, errors, navigate }) {
             },
             mask: null,
             errorMessage: 'Вы вводите некорректное количество цифр',
+            defaultValue: currentHolder?.registration_number,
         },
+
+        //убрать?
         {
             id: 6,
             title: 'Дата регистрации (в реестре Росстандата)',
@@ -82,10 +103,15 @@ export function HolderInputs({ control, register, errors, navigate }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Введите данные',
+            defaultValue: registrationDate,
+            setData: (data) => {
+                setRegistrationDate(data);
+            },
         },
 
+        //убрать?
         {
-            id: 77,
+            id: 7,
             title: 'Дата исключения',
             name: 'exclusionDate',
             type: 'date',
@@ -94,6 +120,10 @@ export function HolderInputs({ control, register, errors, navigate }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Введите данные',
+            defaultValue: exclusionDate,
+            setData: (data) => {
+                setExclusionDate(data);
+            },
         },
 
         {
@@ -106,18 +136,9 @@ export function HolderInputs({ control, register, errors, navigate }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Введите данные на кириллице',
+            defaultValue: currentHolder?.manager_name,
         },
-        {
-            id: 9,
-            title: 'Область распространения системы (объекты сертификации)',
-            name: 'area',
-            type: 'text',
-            required: true,
-            pattern: /[а-яА-ЯёЁ]/,
-            minLength: 0,
-            mask: null,
-            errorMessage: 'Введите данные на кириллице',
-        },
+
         {
             id: 10,
             title: 'Должность руководителя',
@@ -128,6 +149,7 @@ export function HolderInputs({ control, register, errors, navigate }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Введите данные на кириллице',
+            defaultValue: currentHolder?.manager_position,
         },
         {
             id: 11,
@@ -139,6 +161,7 @@ export function HolderInputs({ control, register, errors, navigate }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Введите данные на кириллице',
+            defaultValue: currentHolder?.address,
         },
         {
             id: 12,
@@ -148,8 +171,9 @@ export function HolderInputs({ control, register, errors, navigate }) {
             required: true,
             pattern: null,
             minLength: 0,
-            mask: null,
-            errorMessage: 'Полное наименование должно быть на кириллице',
+            mask: '+7 (999) 999-99-99',
+            errorMessage: 'Введите данные',
+            defaultValue: currentHolder?.phone,
         },
         {
             id: 13,
@@ -157,10 +181,12 @@ export function HolderInputs({ control, register, errors, navigate }) {
             name: 'email',
             type: 'text',
             required: true,
-            pattern: null,
+            pattern:
+                /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
             minLength: 0,
             mask: null,
-            errorMessage: 'Полное наименование должно быть на кириллице',
+            errorMessage: 'Введите корректные данные',
+            defaultValue: currentHolder?.email,
         },
         {
             id: 14,
@@ -168,10 +194,11 @@ export function HolderInputs({ control, register, errors, navigate }) {
             name: 'site',
             type: 'text',
             required: true,
-            pattern: null,
+            pattern: /[a-zA-Z]/,
             minLength: 0,
             mask: null,
-            errorMessage: 'Полное наименование должно быть на кириллице',
+            errorMessage: 'Введите данные на латинице',
+            defaultValue: currentHolder?.site,
         },
     ];
 
@@ -186,6 +213,11 @@ export function HolderInputs({ control, register, errors, navigate }) {
                                 <Controller
                                     control={control}
                                     name={inputEl.name}
+                                    defaultValue={
+                                        formType === 'editHolder'
+                                            ? inputEl.defaultValue
+                                            : null
+                                    }
                                     render={({ field }) => (
                                         <DatePicker
                                             dateFormat="dd/MM/yyyy"
@@ -203,6 +235,48 @@ export function HolderInputs({ control, register, errors, navigate }) {
                         </div>
                     );
                 }
+                if (inputEl.mask) {
+                    return (
+                        <div className="card__edit__input" key={inputEl.title}>
+                            <p className="input__title">{inputEl.title}</p>
+
+                            <Controller
+                                render={({ field }) => {
+                                    return (
+                                        <InputMask
+                                            {...field}
+                                            style={
+                                                !errors[`${inputEl.name}`]
+                                                    ? {}
+                                                    : {
+                                                          border: '1px solid red',
+                                                      }
+                                            }
+                                            className="current__input card__edit__input__element"
+                                            mask={inputEl.mask}
+                                        />
+                                    );
+                                }}
+                                control={control}
+                                name={inputEl.name}
+                                defaultValue={
+                                    formType === 'editHolder'
+                                        ? inputEl.defaultValue
+                                        : null
+                                }
+                                required={inputEl.required}
+                                autoComplete="off"
+                                type={inputEl.type}
+                            />
+                            {errors[`${inputEl.name}`] && (
+                                <div className="error-message">
+                                    {errors[`${inputEl.name}`].message ||
+                                        'Вы вводите некорректное количество цифр'}
+                                </div>
+                            )}
+                        </div>
+                    );
+                }
 
                 return (
                     <div className="card__edit__input" key={inputEl.id}>
@@ -214,6 +288,11 @@ export function HolderInputs({ control, register, errors, navigate }) {
                             type="text"
                             required
                             autoFocus
+                            defaultValue={
+                                formType === 'editHolder'
+                                    ? inputEl.defaultValue
+                                    : null
+                            }
                             id={inputEl.name}
                             style={
                                 !errors[`${inputEl.name}`]

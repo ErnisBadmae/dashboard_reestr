@@ -9,7 +9,7 @@ import '../card-item.scss';
 function CurrentExpert(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { id } = useParams();
+    const { expertId } = useParams();
 
     const { currentExpertOs } = useSelector((state) => state.proposalTest);
     const { isCardEditable } = useSelector((state) => state.proposalTest);
@@ -17,8 +17,8 @@ function CurrentExpert(props) {
     const userRole = useSelector((state) => state.auth.user.roles);
 
     useEffect(() => {
-        dispatch(getCurrentExpertOs(id));
-    }, [dispatch, id]);
+        dispatch(getCurrentExpertOs(expertId));
+    }, [dispatch, expertId]);
 
     const cardData = [
         {
@@ -152,7 +152,7 @@ function CurrentExpert(props) {
                 <button
                     className="btn__login declaration__btn"
                     type="submit"
-                    onClick={() => navigate(`/edit-expert/${id}`)}
+                    onClick={() => navigate(`/edit-expert/${expertId}`)}
                 >
                     Редактировать
                 </button>

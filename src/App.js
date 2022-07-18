@@ -3,17 +3,12 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import Login from './pages/login/Login';
-// import Declaration from './pages/declaration/Declaration';
 import Registr from './pages/register/Registr';
 import RequireAuth from './components/RequireAuth/RequireAuth';
 import NotFound from './pages/not-found/NotFound';
 import ProposalSdc from './pages/proposalSdc/proposalSdc';
-import EditProposalCard from './components/CurrentCard/Current/EditProposalCard';
 import FormWrapper from './components/FormSdc/FormWrapper';
 import CurrentOsSdc from './components/CurrentCard/CurrentOs/CurrentOs';
-import EditCardOs from './components/CurrentCard/EditCard/EditCardOs';
-import EditCardHolders from './components/CurrentCard/EditCard/EditCardHolders';
-import EditExpert from './components/CurrentCard/EditCard/EditExpert';
 import CurrentUser from './components/CurrentCard/CurrentUser/CurrentUser';
 import CurrentUploadDocument from './components/FileUploadInput/CurrentUploadDocument';
 import CardExpert from './pages/registries/registry-certificate-expert/card-reg-cert-exp/card-reg-cert-exp';
@@ -62,19 +57,19 @@ function App() {
                 {!!user && (
                     <Route path="/" element={<LayoutContent />}>
                         <Route
-                            path="/organ-certification-expert/view/:id"
+                            path="/organ-certification-expert/view/:sdcId"
                             element={<CardExpert />}
                         />
                         <Route
-                            path="/certificate/view/:id"
+                            path="/certificate/view/:sdcId"
                             element={<CardSertificate />}
                         />
                         <Route
-                            path="/standard-certification/view/:id"
+                            path="/standard-certification/view/:sdcId"
                             element={<CardSdc />}
                         />
                         <Route
-                            path="/organ-certification/view/:id"
+                            path="/organ-certification/view/:sdcId"
                             element={<CardOs />}
                         />
                         <Route element={<TableWrapper />}>
@@ -122,10 +117,7 @@ function App() {
                                 path="/users/:id"
                                 element={<CurrentUser />}
                             />
-                            {/* <Route
-                                path="/declaration-admin"
-                                element={<Declaration />}
-                            /> */}
+
                             <Route
                                 path="/requests-sdc-list"
                                 element={<TableSdcAdmin />}
@@ -145,8 +137,17 @@ function App() {
                                 path="/new-request-sdc"
                                 element={
                                     <FormWrapper
-                                        formTitle="Заявление СДС"
+                                        formTitle="Заявление"
                                         formType="newSdc"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/edit-card/:sdcId"
+                                element={
+                                    <FormWrapper
+                                        formTitle="Редактирование СДС"
+                                        formType="editSdc"
                                     />
                                 }
                             />
@@ -169,7 +170,7 @@ function App() {
                                 }
                             />
                             <Route
-                                path="/request_sdc/:id/form-os-sdc"
+                                path="/request_sdc/:sdcId/form-os-sdc"
                                 element={
                                     <FormWrapper
                                         formTitle="Сведение об ОС"
@@ -178,56 +179,62 @@ function App() {
                                 }
                             />
                             <Route
-                                path="/request_sdc/:id/form-holder"
+                                path="/edit-card-os/:sdcId"
                                 element={
                                     <FormWrapper
-                                        formTitle="Сведения о держателе"
+                                        formTitle="Редактирование ОС"
+                                        formType="editOs"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/request_sdc/:sdcId/form-holder"
+                                element={
+                                    <FormWrapper
+                                        formTitle="Сведения о Держателе (Организации, представившая систему на регистрацию)"
                                         formType="newHolder"
                                     />
                                 }
                             />
+                            <Route path="holder">
+                                <Route
+                                    path=":holderId"
+                                    element={
+                                        <FormWrapper
+                                            formTitle="Редактирование держателя"
+                                            formType="editHolder"
+                                        />
+                                    }
+                                />
+                            </Route>
 
                             <Route
                                 path="/requests_sdc"
                                 element={<TableSdsOperator />}
                             />
                             <Route
-                                path="/request_sdc/:id"
+                                path="/request_sdc/:sdcId"
                                 element={<ProposalSdc />}
-                            />
-                            <Route
-                                path="/edit-card/:id"
-                                element={<EditProposalCard />}
                             />
 
                             <Route path="current-os">
-                                <Route path=":id" element={<CurrentOsSdc />} />
-                            </Route>
-                            <Route
-                                path="/edit-card-os/:id"
-                                element={<EditCardOs />}
-                            />
-
-                            <Route path="current-expert-os">
-                                <Route path=":id" element={<CurrentExpert />} />
-                            </Route>
-                            {/* 
-                            <Route
-                                path="/edit-expert/:id"
-                                element={<EditExpert />}
-                            /> */}
-
-                            <Route
-                                path="/request_sdc/:id/current-document/:documentId"
-                                element={<CurrentUploadDocument />}
-                            />
-
-                            <Route path="holder">
                                 <Route
-                                    path=":id"
-                                    element={<EditCardHolders />}
+                                    path=":oSid"
+                                    element={<CurrentOsSdc />}
                                 />
                             </Route>
+
+                            <Route path="current-expert-os">
+                                <Route
+                                    path=":expertId"
+                                    element={<CurrentExpert />}
+                                />
+                            </Route>
+
+                            <Route
+                                path="/request_sdc/:sdcId/current-document/:documentId"
+                                element={<CurrentUploadDocument />}
+                            />
                         </Route>
                         <Route path="*" element={<NotFound />} />
                     </Route>

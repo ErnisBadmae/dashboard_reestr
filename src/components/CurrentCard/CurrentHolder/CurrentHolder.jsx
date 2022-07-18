@@ -1,13 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { ButtonRegistry } from '../../Buttons/button-registry/button-registry';
 import { correctlyDate } from '../../../helpers/utils';
+import { getCurrentHolder } from '../../../store/proposal/actions';
 import '../card-item.scss';
 
 function CurrentHolder(props) {
     const { isCardEditable } = useSelector((state) => state.proposalTest);
-
+    const dispatch = useDispatch();
     const userRole = useSelector((state) => state.auth.user.roles);
     const navigate = useNavigate();
     const cardData = [
@@ -116,7 +117,13 @@ function CurrentHolder(props) {
                 <div className="btn__edit-holder">
                     <ButtonRegistry
                         onClick={() => {
-                            navigate(`/holder/${props.currentHolder.id}`);
+                            dispatch(getCurrentHolder(props.currentHolder.id))
+                                .unwrap()
+                                .then(() => {
+                                    navigate(
+                                        `/holder/${props.currentHolder.id}`
+                                    );
+                                });
                         }}
                         text={'Редактировать держателя'}
                     />

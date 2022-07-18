@@ -1,18 +1,16 @@
 import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
 import { Controller } from 'react-hook-form';
-import { useSelector, useDispatch } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useState } from 'react';
 import moment from 'moment';
-import { getCurrentExpertOs } from '../../../store/proposal/actions';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
 registerLocale('ru', ru);
 setDefaultLocale('ru');
 
-export function ExpertInputs({ control, register, errors, navigate }) {
+export function ExpertInputs({ control, register, errors, formType }) {
     const { currentExpertOs } = useSelector((state) => state.proposalTest);
 
     const [validDate, setValidDate] = useState(
@@ -30,6 +28,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
 
     const inputs = [
         {
+            id: 1,
             title: 'Выберите тип контракта',
             name: 'contractType',
             type: 'options',
@@ -43,6 +42,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             defaultValue: currentExpertOs?.contract_type?.title,
         },
         {
+            id: 2,
             title: 'Тип образования',
             name: 'educationType',
             type: 'options',
@@ -56,6 +56,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             defaultValue: currentExpertOs?.education_type?.title,
         },
         {
+            id: 3,
             title: 'Имя эксперта',
             name: 'expertName',
             type: 'text',
@@ -67,6 +68,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             defaultValue: currentExpertOs?.expert_name,
         },
         {
+            id: 4,
             title: 'Номер сертификата',
             name: 'certificateNumber',
             type: 'text',
@@ -81,6 +83,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             defaultValue: currentExpertOs?.certificate_number,
         },
         {
+            id: 5,
             title: 'Дата регистрации',
             name: 'valid',
             type: 'date',
@@ -95,6 +98,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             },
         },
         {
+            id: 6,
             title: 'Область распространения',
             name: 'area',
             type: 'text',
@@ -106,6 +110,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             defaultValue: currentExpertOs?.area,
         },
         {
+            id: 7,
             title: 'Опыт',
             name: 'experience',
             type: 'text',
@@ -117,6 +122,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             defaultValue: currentExpertOs?.experience,
         },
         {
+            id: 8,
             title: 'Дата вступления',
             name: 'introductionDate',
             type: 'date',
@@ -131,6 +137,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             },
         },
         {
+            id: 9,
             title: 'Дата исключения',
             name: 'exclusionDate',
             type: 'date',
@@ -146,6 +153,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
         },
 
         {
+            id: 10,
             title: 'Снилс',
             name: 'snils',
             type: 'text',
@@ -157,6 +165,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             defaultValue: currentExpertOs?.snils,
         },
         {
+            id: 11,
             title: 'Должность на момент исключения',
             name: 'exclusionPosition',
             type: 'text',
@@ -168,6 +177,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             defaultValue: currentExpertOs?.exclusion_position,
         },
         {
+            id: 12,
             title: 'Образование',
             name: 'education',
             type: 'text',
@@ -179,6 +189,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             defaultValue: currentExpertOs?.education,
         },
         {
+            id: 13,
             title: 'Специализация',
             name: 'educationSpeciality',
             type: 'text',
@@ -190,6 +201,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             defaultValue: currentExpertOs?.education_speciality,
         },
         {
+            id: 14,
             title: 'Дата получения образования',
             name: 'educationDate',
             type: 'date',
@@ -199,8 +211,12 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             mask: null,
             errorMessage: 'Полное наименование должно быть на кириллице',
             defaultValue: educationDate,
+            setData: (data) => {
+                setEducationDate(data);
+            },
         },
         {
+            id: 15,
             title: 'Образовательная организация',
             name: 'educationOrganization',
             type: 'text',
@@ -218,7 +234,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
             {inputs.map((inputEl) => {
                 if (inputEl.type === 'options') {
                     return (
-                        <div className="card__edit__input">
+                        <div className="card__edit__input" key={inputEl.id}>
                             <p className="input__title">{inputEl.title}</p>
                             <select
                                 className="current__input card__edit__input__element"
@@ -227,7 +243,11 @@ export function ExpertInputs({ control, register, errors, navigate }) {
                                 type="options"
                                 required
                                 id={inputEl.name}
-                                defaultValue={inputEl.defaultValue}
+                                defaultValue={
+                                    formType === 'editExpert'
+                                        ? inputEl.defaultValue
+                                        : null
+                                }
                                 style={
                                     !errors?.[`${inputEl.name}`]
                                         ? {}
@@ -255,13 +275,17 @@ export function ExpertInputs({ control, register, errors, navigate }) {
                 }
                 if (inputEl.type === 'date') {
                     return (
-                        <div className="card__edit__input">
+                        <div className="card__edit__input" key={inputEl.id}>
                             <p className="input__title">{inputEl.title}</p>
                             <div className="card__edit__input__element">
                                 <Controller
                                     control={control}
                                     name={inputEl.name}
-                                    defaultValue={inputEl.defaultValue}
+                                    defaultValue={
+                                        formType === 'editExpert'
+                                            ? inputEl.defaultValue
+                                            : null
+                                    }
                                     render={({ field }) => (
                                         <DatePicker
                                             dateFormat="dd/MM/yyyy"
@@ -281,7 +305,7 @@ export function ExpertInputs({ control, register, errors, navigate }) {
                 }
 
                 return (
-                    <div className="card__edit__input">
+                    <div className="card__edit__input" key={inputEl.id}>
                         <p className="input__title">{inputEl.title}</p>
                         <input
                             className="current__input card__edit__input__element"
@@ -291,7 +315,11 @@ export function ExpertInputs({ control, register, errors, navigate }) {
                             required
                             autoFocus
                             id={inputEl.name}
-                            defaultValue={inputEl.defaultValue}
+                            defaultValue={
+                                formType === 'editExpert'
+                                    ? inputEl.defaultValue
+                                    : null
+                            }
                             style={
                                 !errors[`${inputEl.name}`]
                                     ? {}

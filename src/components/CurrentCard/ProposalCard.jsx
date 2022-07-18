@@ -1,21 +1,22 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { getCurrentProposalSdc } from '../../../store/proposal/actions';
-import { ButtonRegistry } from '../../Buttons/button-registry/button-registry';
-import Holder from '../../Holders/Holder';
-import CurrentHolder from '../CurrentHolder/CurrentHolder';
-import { getHolders } from '../../../store/proposal/actions';
-import { correctlyDate } from '../../../helpers/utils';
-import EditCardHolders from './EditCardHolders';
+import {
+    getCurrentProposalSdc,
+    getHolders,
+} from '../../store/proposal/actions';
+import { ButtonRegistry } from '../Buttons/button-registry/button-registry';
+import Holder from '../Holders/Holder';
+import CurrentHolder from './CurrentHolder/CurrentHolder';
+import { correctlyDate } from '../../helpers/utils';
 
-import '../card-item.scss';
+import './card-item.scss';
 
 function ProposalCard(props) {
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
-    const { id } = useParams();
+    const { sdcId } = useParams();
 
     const { currentProposalSdc } = useSelector((state) => state.proposalTest);
     const { isCardEditable } = useSelector((state) => state.proposalTest);
@@ -23,9 +24,9 @@ function ProposalCard(props) {
     const { holders } = useSelector((state) => state.proposalTest);
 
     useEffect(() => {
-        dispatch(getCurrentProposalSdc(id));
-        dispatch(getHolders(id));
-    }, [id, dispatch]);
+        dispatch(getCurrentProposalSdc(sdcId));
+        dispatch(getHolders(sdcId));
+    }, [sdcId, dispatch]);
 
     const cardData = [
         {
@@ -94,7 +95,7 @@ function ProposalCard(props) {
                     <div className="btn__edit">
                         <ButtonRegistry
                             text={'Редактировать СДС'}
-                            onClick={() => navigate(`/edit-card/${id}`)}
+                            onClick={() => navigate(`/edit-card/${sdcId}`)}
                         />
                     </div>
                 )}

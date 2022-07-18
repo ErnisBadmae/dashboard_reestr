@@ -4,39 +4,40 @@ import useAuth from '../../hooks/useAuth';
 
 const RequireAuth = (props) => {
     const { pathname } = useLocation();
-    const { id, documentId, expertId } = useParams();
+    const { sdcId, documentId, expertId, holderId, oSid } = useParams();
 
     const routes = {
         user_admin: [
             '/declarations',
-            `/declaration/${id}`,
+            `/declaration/${sdcId}`,
             '/requests-sdc-list',
-            `/request_sdc/${id}`,
-            `/edit-card/${id}`,
-            `/current-os/${id}`,
+            `/request_sdc/${sdcId}`,
+            `/edit-card/${sdcId}`,
+            `/current-os/${oSid}`,
             '/users',
-            `/users/${id}`,
-            `/current-expert-os/${id}`,
-            `/request_sdc/${id}/current-document/${documentId}`,
+            `/users/${sdcId}`,
+            `/current-expert-os/${expertId}`,
+            `/request_sdc/${sdcId}/form-holder`,
+            `/request_sdc/${sdcId}/current-document/${documentId}`,
             '/registration-sdc',
-            `/current-request-sdc-reg/${id}`,
+            `/current-request-sdc-reg/${sdcId}`,
         ],
         user_sdc: [
             '/requests_sdc',
-            `/request_sdc/${id}`,
+            `/request_sdc/${sdcId}`,
             '/new-request-sdc',
-            `/edit-card/${id}`,
+            `/edit-card/${sdcId}`,
             '/current-proposal',
             '/declaration',
-            `/request_sdc/${id}/form-os-sdc`,
-            `/current-os/${id}`,
-            `/edit-card-os/${id}`,
-            `/holder/${id}`,
-            `/request_sdc/${id}/current-document/${documentId}`,
+            `/request_sdc/${sdcId}/form-os-sdc`,
+            `/current-os/${oSid}`,
+            `/edit-card-os/${sdcId}`,
+            `/holder/${holderId}`,
+            `/request_sdc/${sdcId}/current-document/${documentId}`,
             '/form-expert-os',
-            `/current-expert-os/${id}`,
+            `/current-expert-os/${expertId}`,
             `/edit-expert/${expertId}`,
-            `/request_sdc/${id}/form-holder`,
+            `/request_sdc/${sdcId}/form-holder`,
         ],
     };
 

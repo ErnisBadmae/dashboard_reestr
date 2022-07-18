@@ -10,7 +10,7 @@ import { ButtonRegistry } from '../../Buttons/button-registry/button-registry';
 function CurrentOsSdc(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { id } = useParams();
+    const { oSid } = useParams();
 
     const { isCardEditable } = useSelector((state) => state.proposalTest);
     const { currentOsSdcCard } = useSelector((state) => state.proposalTest);
@@ -19,9 +19,9 @@ function CurrentOsSdc(props) {
     const userRole = useSelector((state) => state.auth.user.roles);
 
     useEffect(() => {
-        dispatch(getCurrentOsSdc(id));
-        dispatch(getExpertsOs(id));
-    }, [dispatch, id]);
+        dispatch(getCurrentOsSdc(oSid));
+        dispatch(getExpertsOs(oSid));
+    }, [dispatch, oSid]);
 
     const cardData = [
         {
@@ -153,7 +153,7 @@ function CurrentOsSdc(props) {
                     <button
                         className="btn__login declaration__btn"
                         type="submit"
-                        onClick={() => navigate(`/edit-card-os/${id}`)}
+                        onClick={() => navigate(`/edit-card-os/${oSid}`)}
                     >
                         Редактировать
                     </button>

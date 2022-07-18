@@ -4,6 +4,8 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrganSertifications } from '../../store/proposal/actions';
 
+import '../CurrentCard/card-item.scss';
+
 function OsSdc(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -24,7 +26,9 @@ function OsSdc(props) {
         <>
             <div className="card__body">
                 <div className="card__title">
-                    <strong>ОС СДС</strong>
+                    <strong className="strong-title">
+                        Органы по сертификации{' '}
+                    </strong>
                 </div>
 
                 {isCardEditable && userRole === 'user_sdc' && (
