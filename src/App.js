@@ -108,7 +108,7 @@ function App() {
                             />
                             <Route path="current-request-sdc-reg">
                                 <Route
-                                    path=":id"
+                                    path=":regId"
                                     element={<CurrentRequestSdcUser />}
                                 />
                             </Route>

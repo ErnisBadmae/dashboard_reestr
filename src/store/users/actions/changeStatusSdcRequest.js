@@ -8,7 +8,7 @@ export const changeStatusSdcRequest = createAsyncThunk(
     async (payload) => {
         try {
             let res = await $api.post(
-                `/user/user_standard_certification/inclusion_request_decision/${payload.id}/${payload.statusId}`
+                `/user/user_standard_certification/inclusion_request_decision/${payload.regId}/${payload.statusId}`
             );
             if (res.data?.success === false) {
                 error(res.data?.message);

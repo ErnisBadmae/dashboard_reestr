@@ -16,13 +16,13 @@ import './card-item.scss';
 function CurrentRequestSdcUser(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { id } = useParams();
+    const { regId } = useParams();
 
     const { currentRequestSdcUser } = useSelector((state) => state.users);
 
     useEffect(() => {
-        dispatch(viewCurrentRequestSdcUser(id));
-    }, [id, dispatch]);
+        dispatch(viewCurrentRequestSdcUser(regId));
+    }, [regId, dispatch]);
 
     const cardData = [
         {
@@ -103,7 +103,9 @@ function CurrentRequestSdcUser(props) {
                     key: '1',
                     label: 'Отказать',
                     onClick: () => {
-                        dispatch(changeStatusSdcRequest({ id, statusId: 2 }));
+                        dispatch(
+                            changeStatusSdcRequest({ regId, statusId: 2 })
+                        );
                     },
                 },
 
@@ -111,7 +113,9 @@ function CurrentRequestSdcUser(props) {
                     key: '2',
                     label: 'Принять',
                     onClick: () => {
-                        dispatch(changeStatusSdcRequest({ id, statusId: 3 }));
+                        dispatch(
+                            changeStatusSdcRequest({ regId, statusId: 3 })
+                        );
                     },
                 },
             ]}
@@ -122,7 +126,9 @@ function CurrentRequestSdcUser(props) {
         <>
             <div className="card__body">
                 <div className="card__title">
-                    <strong>Карточка просмотра заявления</strong>
+                    <strong className="strong-title">
+                        Карточка просмотра заявления
+                    </strong>
                     <div className="actionMenuContainer">
                         <Dropdown overlay={menu}>
                             <a href="/" onClick={(e) => e.preventDefault()}>

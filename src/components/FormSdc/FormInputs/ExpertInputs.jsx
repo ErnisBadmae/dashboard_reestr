@@ -33,7 +33,7 @@ export function ExpertInputs({ control, register, errors, formType }) {
             name: 'contractType',
             type: 'options',
             required: true,
-            pattern: /[а-яА-ЯёЁ]/,
+            pattern: null,
             minLength: 0,
             mask: null,
             errorMessage: 'Выберите тип',
@@ -47,7 +47,7 @@ export function ExpertInputs({ control, register, errors, formType }) {
             name: 'educationType',
             type: 'options',
             required: true,
-            pattern: /[а-яА-ЯёЁ]/,
+            pattern: null,
             minLength: 0,
             mask: null,
             errorMessage: 'Выберите тип',
@@ -91,7 +91,7 @@ export function ExpertInputs({ control, register, errors, formType }) {
             pattern: null,
             minLength: 0,
             mask: null,
-            errorMessage: 'Полное наименование должно быть на кириллице',
+            errorMessage: 'Введите данные',
             defaultValue: validDate,
             setData: (data) => {
                 setValidDate(data);
@@ -115,10 +115,10 @@ export function ExpertInputs({ control, register, errors, formType }) {
             name: 'experience',
             type: 'text',
             required: true,
-            pattern: /[a-zA-Z]/,
+            pattern: /[а-яА-ЯёЁ]/,
             minLength: 0,
             mask: null,
-            errorMessage: 'Введите данные на латинице',
+            errorMessage: 'Введите данные на кириллице',
             defaultValue: currentExpertOs?.experience,
         },
         {
@@ -130,7 +130,7 @@ export function ExpertInputs({ control, register, errors, formType }) {
             pattern: null,
             minLength: 0,
             mask: null,
-            errorMessage: 'Полное наименование должно быть на кириллице',
+            errorMessage: 'Введите данные нана кириллице',
             defaultValue: introductionDate,
             setData: (data) => {
                 setIntroductionDate(data);
@@ -145,7 +145,7 @@ export function ExpertInputs({ control, register, errors, formType }) {
             pattern: null,
             minLength: 0,
             mask: null,
-            errorMessage: 'Полное наименование должно быть на кириллице',
+            errorMessage: 'Введите данные на',
             defaultValue: exclusionDate,
             setData: (data) => {
                 setExclusionDate(data);
@@ -161,7 +161,7 @@ export function ExpertInputs({ control, register, errors, formType }) {
             pattern: null,
             minLength: 0,
             mask: null,
-            errorMessage: 'Полное наименование должно быть на кириллице',
+            errorMessage: 'Введите данные на',
             defaultValue: currentExpertOs?.snils,
         },
         {
@@ -170,10 +170,10 @@ export function ExpertInputs({ control, register, errors, formType }) {
             name: 'exclusionPosition',
             type: 'text',
             required: true,
-            pattern: null,
+            pattern: /[а-яА-ЯёЁ]/,
             minLength: 0,
             mask: null,
-            errorMessage: 'Полное наименование должно быть на кириллице',
+            errorMessage: 'Введите данные нана кириллице',
             defaultValue: currentExpertOs?.exclusion_position,
         },
         {
@@ -182,10 +182,10 @@ export function ExpertInputs({ control, register, errors, formType }) {
             name: 'education',
             type: 'text',
             required: true,
-            pattern: null,
+            pattern: /[а-яА-ЯёЁ]/,
             minLength: 0,
             mask: null,
-            errorMessage: 'Полное наименование должно быть на кириллице',
+            errorMessage: 'Введите данные на кириллице',
             defaultValue: currentExpertOs?.education,
         },
         {
@@ -194,10 +194,10 @@ export function ExpertInputs({ control, register, errors, formType }) {
             name: 'educationSpeciality',
             type: 'text',
             required: true,
-            pattern: null,
+            pattern: /[а-яА-ЯёЁ]/,
             minLength: 0,
             mask: null,
-            errorMessage: 'Полное наименование должно быть на кириллице',
+            errorMessage: 'Введите данные на кириллице',
             defaultValue: currentExpertOs?.education_speciality,
         },
         {
@@ -209,7 +209,7 @@ export function ExpertInputs({ control, register, errors, formType }) {
             pattern: null,
             minLength: 0,
             mask: null,
-            errorMessage: 'Полное наименование должно быть на кириллице',
+            errorMessage: 'Введите данные',
             defaultValue: educationDate,
             setData: (data) => {
                 setEducationDate(data);
@@ -221,10 +221,10 @@ export function ExpertInputs({ control, register, errors, formType }) {
             name: 'educationOrganization',
             type: 'text',
             required: true,
-            pattern: null,
+            pattern: /[а-яА-ЯёЁ]/,
             minLength: 0,
             mask: null,
-            errorMessage: 'Полное наименование должно быть на кириллице',
+            errorMessage: 'Введите данные на кириллице',
             defaultValue: currentExpertOs?.education_organization,
         },
     ];

@@ -122,7 +122,7 @@ function CurrentOsSdc(props) {
                     </div>
                 )}
                 <div className="card__title">
-                    <strong>Эксперты</strong>
+                    <strong className="strong-title">Эксперты</strong>
                 </div>
                 {expertsOs?.length > 0 ? (
                     expertsOs.map((el) => {
