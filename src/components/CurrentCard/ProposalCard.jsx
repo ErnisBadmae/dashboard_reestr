@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { EditOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
@@ -95,6 +96,7 @@ function ProposalCard(props) {
                     <div className="btn__edit">
                         <ButtonRegistry
                             text={'Редактировать СДС'}
+                            icon={<EditOutlined />}
                             onClick={() => navigate(`/edit-card/${sdcId}`)}
                         />
                     </div>

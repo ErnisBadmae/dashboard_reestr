@@ -3,9 +3,10 @@ import { ButtonRegistry } from '../Buttons/button-registry/button-registry';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDocuments } from '../../store/documents/actions';
-import { Form, Input, Modal } from 'antd';
+import { Form, Input, Modal, Space } from 'antd';
 import { Select } from 'antd';
 import { postDocument } from '../../store/documents/actions';
+import { LinkOutlined } from '@ant-design/icons';
 
 import '../CurrentCard/card-item.scss';
 
@@ -108,6 +109,8 @@ function Document(props) {
                                 <Link
                                     to={`/request_sdc/${id}/current-document/${el.id}`}
                                 >
+                                    <LinkOutlined />
+
                                     {el.description}
                                 </Link>
                                 <span>{el?.file_type?.title}</span>

@@ -1,4 +1,5 @@
 import { Table, Layout, Pagination } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -75,6 +76,7 @@ export const TableSdsOperator = (props) => {
                         <ButtonRegistry
                             text="Добавить заявку"
                             //     path={'/new-request-sdc'}
+                            icon={<PlusOutlined />}
                             onClick={() => checkStatus()}
                         />
                     )}

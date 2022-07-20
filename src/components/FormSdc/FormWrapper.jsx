@@ -86,16 +86,13 @@ function FormWrapper({ formType, formTitle }) {
 
                 <div className="declaration__buttons">
                     <button
-                        className="btn__login declaration__btn"
+                        className="btn__login"
                         type="button"
                         onClick={() => navigate(-1)}
                     >
                         Отменить
                     </button>
-                    <button
-                        className="btn__login declaration__btn"
-                        type="submit"
-                    >
+                    <button className="btn__login" type="submit">
                         Отправить
                     </button>
                 </div>
