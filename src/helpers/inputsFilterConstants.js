@@ -125,7 +125,7 @@ export const handleInputsFilter = (pathname, localState) => {
         default:
             return (
                 <>
-                    <Form.Item name="registrationСompany">
+                    <Form.Item name="registrationCompany">
                         <Input
                             className="registry-sro__filter-input"
                             placeholder="Держатель"

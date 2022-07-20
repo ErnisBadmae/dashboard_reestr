@@ -97,6 +97,7 @@ function ProposalCard(props) {
                         <ButtonRegistry
                             text={'Редактировать СДС'}
                             icon={<EditOutlined />}
+                            className={'btn__login'}
                             onClick={() => navigate(`/edit-card/${sdcId}`)}
                         />
                     </div>

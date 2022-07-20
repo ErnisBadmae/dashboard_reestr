@@ -3,6 +3,7 @@ import { ButtonRegistry } from '../Buttons/button-registry/button-registry';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getOrganSertifications } from '../../store/proposal/actions';
+import { PlusOutlined } from '@ant-design/icons';
 
 import '../CurrentCard/card-item.scss';
 
@@ -35,6 +36,8 @@ function OsSdc(props) {
                     <div className="btn__edit">
                         <ButtonRegistry
                             text={'Добавить ОС'}
+                            className={'btn__login'}
+                            icon={<PlusOutlined />}
                             onClick={() =>
                                 navigate(`/request_sdc/${id}/form-os-sdc`)
                             }

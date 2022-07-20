@@ -3,10 +3,10 @@ import { ButtonRegistry } from '../Buttons/button-registry/button-registry';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDocuments } from '../../store/documents/actions';
-import { Form, Input, Modal, Space } from 'antd';
+import { Form, Input, Modal } from 'antd';
 import { Select } from 'antd';
 import { postDocument } from '../../store/documents/actions';
-import { LinkOutlined } from '@ant-design/icons';
+import { LinkOutlined, PlusOutlined } from '@ant-design/icons';
 
 import '../CurrentCard/card-item.scss';
 
@@ -59,6 +59,8 @@ function Document(props) {
                     <div className="btn__edit">
                         <ButtonRegistry
                             text={'Добавить документ'}
+                            className={'btn__login'}
+                            icon={<PlusOutlined />}
                             onClick={() => {
                                 setVisible(true);
                             }}

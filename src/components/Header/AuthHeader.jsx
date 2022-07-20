@@ -1,14 +1,5 @@
-import logo from '../../assets/img/logo/Logo.svg';
-import descLogo from '../../assets/img/logo/desc.svg';
-// import {
-//     SearchOutlined,
-//     NotificationsNoneOutlined,
-//     ChatBubbleOutlineOutlined,
-//     LanguageOutlined,
-//     Settings,
-//     AccountCircle,
-//     PowerSettingsNew,
-// } from '@mui/icons-material';
+import logo3 from '../../assets/img/logo/Logo3.svg';
+
 import './header.scss';
 
 function AuthHeader(props) {
@@ -17,41 +8,13 @@ function AuthHeader(props) {
             <div className="header__container">
                 <div className="header__inner">
                     <div className="header__logo">
-                        <img className="header__logo-1" src={logo} alt="logo" />
                         <img
                             className="header__logo-2"
-                            src={descLogo}
+                            src={logo3}
                             alt="logo"
                         />
                     </div>
-                    <nav className="header__nav">
-                        {/* <div className="header__icons-search">
-                            <input className="header__input" />
-                            <SearchOutlined className="icon" />
-                        </div> */}
-
-                        {/* <ul className="header__icons">
-                         
-                            <li className="header__icon">
-                                <NotificationsNoneOutlined className="icon" />
-                            </li>
-                            <li className="header__icon">
-                                <ChatBubbleOutlineOutlined className="icon" />
-                            </li>
-                            <li className="header__icon">
-                                <LanguageOutlined className="icon" />
-                            </li>
-                            <li className="header__icon">
-                                <Settings className="icon" />
-                            </li>
-                            <li className="header__icon">
-                                <AccountCircle className="icon" />
-                            </li>
-                            <li className="header__icon">
-                                <PowerSettingsNew className="icon" />
-                            </li>
-                        </ul> */}
-                    </nav>
+                    <nav className="header__nav"></nav>
                 </div>
             </div>
         </header>

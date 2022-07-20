@@ -116,6 +116,7 @@ function CurrentOsSdc(props) {
                 {userRole === 'user_sdc' && isCardEditable && (
                     <div className="btn__edit">
                         <ButtonRegistry
+                            className={'btn__login'}
                             text={'Добавить эксперта'}
                             onClick={() => navigate(`/form-expert-os`)}
                         />

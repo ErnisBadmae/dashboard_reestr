@@ -1,4 +1,3 @@
-import logo from '../../assets/img/logo/Logo.svg';
 import logo3 from '../../assets/img/logo/Logo3.svg';
 import {
     SearchOutlined,

@@ -85,6 +85,7 @@ export const TableSdcAdmin = (props) => {
                                       }
                                     : {}
                             }
+                            className={'button-registry'}
                             onClick={() => {
                                 setFilterStatus(btn.status);
                             }}

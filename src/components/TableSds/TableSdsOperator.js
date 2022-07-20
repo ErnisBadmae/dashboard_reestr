@@ -75,7 +75,7 @@ export const TableSdsOperator = (props) => {
                     ) : (
                         <ButtonRegistry
                             text="Добавить заявку"
-                            //     path={'/new-request-sdc'}
+                            className={'btn__login'}
                             icon={<PlusOutlined />}
                             onClick={() => checkStatus()}
                         />

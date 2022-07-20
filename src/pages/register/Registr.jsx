@@ -330,7 +330,6 @@ const Registr = () => {
                 <div className="declaration__buttons">
                     <button
                         className="btn__login declaration__btn"
-                        //     disabled={!isValid}
                         onClick={() => navigate(-1)}
                     >
                         Отменить
@@ -338,7 +337,6 @@ const Registr = () => {
                     <button
                         className="btn__login declaration__btn"
                         type="submit"
-                        //     disabled={!isValid}
                     >
                         Отправить
                     </button>

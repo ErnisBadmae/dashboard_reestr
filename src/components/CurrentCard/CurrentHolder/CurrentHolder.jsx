@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { ButtonRegistry } from '../../Buttons/button-registry/button-registry';
 import { correctlyDate } from '../../../helpers/utils';
 import { getCurrentHolder } from '../../../store/proposal/actions';
+import { EditOutlined } from '@ant-design/icons';
+
 import '../card-item.scss';
 
 function CurrentHolder(props) {
@@ -116,6 +118,8 @@ function CurrentHolder(props) {
             {userRole === 'user_sdc' && isCardEditable && (
                 <div className="btn__edit-holder">
                     <ButtonRegistry
+                        className={'btn__login'}
+                        icon={<EditOutlined />}
                         onClick={() => {
                             dispatch(getCurrentHolder(props.currentHolder.id))
                                 .unwrap()
