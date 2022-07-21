@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import './registr.scss';
+import '../login/login.scss';
 
 function RegisterSuccess(props) {
     const { text, redirect, textRedirect } = props;

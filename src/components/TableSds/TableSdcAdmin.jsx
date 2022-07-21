@@ -78,13 +78,34 @@ export const TableSdcAdmin = (props) => {
                         <ButtonRegistry
                             text={btn.text}
                             key={btn.status}
-                            style={
-                                btn.status === filterStatus
-                                    ? {
-                                          background: '#97c4f2',
-                                      }
-                                    : {}
-                            }
+                            style={(function () {
+                                if (
+                                    typeof btn.status === 'object' &&
+                                    btn.status !== null &&
+                                    filterStatus !== null
+                                ) {
+                                    if (
+                                        btn.status.length ===
+                                            filterStatus.length &&
+                                        btn.status.every(
+                                            (value, index) =>
+                                                value === filterStatus[index]
+                                        )
+                                    ) {
+                                        return {
+                                            background: '#97c4f2',
+                                        };
+                                    }
+                                } else {
+                                    if (btn.status === filterStatus) {
+                                        return {
+                                            background: '#97c4f2',
+                                        };
+                                    } else {
+                                        return {};
+                                    }
+                                }
+                            })()}
                             className={'button-registry'}
                             onClick={() => {
                                 setFilterStatus(btn.status);

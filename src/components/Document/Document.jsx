@@ -104,11 +104,9 @@ function Document(props) {
                 {documentsContainers?.length > 0 ? (
                     documentsContainers?.map((el) => {
                         return (
-                            <div
-                                key={el.id}
-                                className="card__field strong-title"
-                            >
+                            <div key={el.id} className="card__field">
                                 <Link
+                                    className="strong-title"
                                     to={`/request_sdc/${id}/current-document/${el.id}`}
                                 >
                                     <LinkOutlined />

@@ -1,5 +1,6 @@
 import { Input, Form } from 'antd';
 import DatePicker from 'react-datepicker';
+import InputMask from 'react-input-mask';
 
 export const handleInputsFilter = (pathname, localState) => {
     switch (pathname) {
@@ -138,10 +139,16 @@ export const handleInputsFilter = (pathname, localState) => {
                         ></Input>
                     </Form.Item>
                     <Form.Item name="registrationNumber">
-                        <Input
-                            className="registry-sro__filter-input"
+                        <InputMask
+                            formatChars={{
+                                9: '[0-9]',
+                                a: '[A-Za-z]',
+                                '*': '[А-Яа-яЁёA-Za-z]',
+                            }}
+                            className="current__input date"
+                            mask="РОСС RU.99999.99***9"
                             placeholder="Регистрационный номер"
-                        ></Input>
+                        />
                     </Form.Item>
                     <Form.Item name="registrationDate">
                         <DatePicker
@@ -159,6 +166,7 @@ export const handleInputsFilter = (pathname, localState) => {
                             showMonthDropdown
                             showYearDropdown
                             dropdownMode="select"
+                            placeholderText="Выберите дату"
                         />
                     </Form.Item>
                 </>

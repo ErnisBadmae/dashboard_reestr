@@ -3,6 +3,7 @@ import { Controller } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import ru from 'date-fns/locale/ru';
+import InputMask from 'react-input-mask';
 import moment from 'moment';
 
 import 'react-datepicker/dist/react-datepicker.css';
@@ -37,11 +38,10 @@ export function SdcInputs({ control, register, errors, navigate, formType }) {
             pattern: /[а-яА-ЯёЁ]/,
             minLength: 0,
             mask: null,
-            errorMessage: 'Полное наименование должно быть на кириллице',
+            errorMessage: 'Введите данные на кириллице',
             defaultValue: currentProposalSdc?.short_name,
         },
 
-        //сделать маску
         {
             title: 'Регистрационный номер',
             name: 'registrationNumber',
@@ -49,8 +49,8 @@ export function SdcInputs({ control, register, errors, navigate, formType }) {
             required: true,
             pattern: /^\d+$/,
             minLength: 0,
-            mask: null,
-            errorMessage: 'Сокращенное наименование должно быть на кириллице',
+            mask: 'РОСС RU.99999.99***9',
+            errorMessage: 'Введите только числа',
             defaultValue: currentProposalSdc?.registration_number,
         },
         {
@@ -61,11 +61,10 @@ export function SdcInputs({ control, register, errors, navigate, formType }) {
             pattern: /[а-яА-ЯёЁ]/,
             minLength: {
                 value: 7,
-                message: 'Вы вводите некорректное количество цифр',
+                message: 'Вы вводите некорректное данные',
             },
             mask: null,
-            errorMessage:
-                'Регистрационный номер должен состоять только из цифр',
+            errorMessage: 'Введите данные на кириллице',
             defaultValue: currentProposalSdc?.registration_company,
         },
         {
@@ -139,6 +138,53 @@ export function SdcInputs({ control, register, errors, navigate, formType }) {
                                     )}
                                 />
                             </div>
+                        </div>
+                    );
+                }
+                if (inputEl.mask) {
+                    return (
+                        <div className="card__edit__input" key={inputEl.title}>
+                            <p className="input__title">{inputEl.title}</p>
+
+                            <Controller
+                                render={({ field }) => {
+                                    return (
+                                        <InputMask
+                                            {...field}
+                                            formatChars={{
+                                                9: '[0-9]',
+                                                a: '[A-Za-z]',
+                                                '*': '[А-Яа-яЁёA-Za-z]',
+                                            }}
+                                            style={
+                                                !errors[`${inputEl.name}`]
+                                                    ? {}
+                                                    : {
+                                                          border: '1px solid red',
+                                                      }
+                                            }
+                                            className="current__input card__edit__input__element"
+                                            mask={inputEl.mask}
+                                        />
+                                    );
+                                }}
+                                control={control}
+                                name={inputEl.name}
+                                defaultValue={
+                                    formType === 'editSdc'
+                                        ? inputEl.defaultValue
+                                        : null
+                                }
+                                required={inputEl.required}
+                                autoComplete="off"
+                                type={inputEl.type}
+                            />
+                            {errors[`${inputEl.name}`] && (
+                                <div className="error-message">
+                                    {errors[`${inputEl.name}`].message ||
+                                        'Вы вводите некорректное количество цифр'}
+                                </div>
+                            )}
                         </div>
                     );
                 }

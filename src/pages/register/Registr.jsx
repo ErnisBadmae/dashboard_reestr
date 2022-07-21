@@ -5,9 +5,10 @@ import ReactDadataBox from 'react-dadata-box';
 import RegisterSuccess from './RegisterSuccess';
 import { useForm, Controller } from 'react-hook-form';
 
-import './registr.scss';
-import '../../components/FormSdc/form-sdc.scss';
 import { useNavigate } from 'react-router-dom';
+
+import '../../components/FormSdc/form-sdc.scss';
+import '../login/login.scss';
 
 const Registr = () => {
     const testToken = 'aa29b21595947db61a4e85cd92ad24cf5877542f';
@@ -17,6 +18,7 @@ const Registr = () => {
 
     const [isRegisterSuccess, setIsRegisterSuccess] = useState(false);
     const [ogrn, setOgrn] = useState('');
+    const [ogrnError, setOgrnError] = useState(false);
 
     const formHandler = (data) => {
         const registrData = {
@@ -206,9 +208,19 @@ const Registr = () => {
                         {...register('orgOgrn')}
                         required
                         value={ogrn}
-                        onChange={formHandler}
+                        onBlur={() => {
+                            setOgrnError(false);
+                        }}
+                        onChange={() => {
+                            setOgrnError(true);
+                        }}
                         //     onChange={(e) => setFormData(e.target.value)}
                     />
+                    {ogrnError && (
+                        <div className="error-message">
+                            Выберите ИНН и это поле автоматически заполнится
+                        </div>
+                    )}
                 </div>
 
                 <div className="card__edit__input">
