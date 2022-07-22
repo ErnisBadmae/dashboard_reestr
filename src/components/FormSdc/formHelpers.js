@@ -142,7 +142,7 @@ export const sendData = ({
             };
         case 'editSdc':
             return () => {
-                dispatch(changeProposal({ oSid, formData }))
+                dispatch(changeProposal({ sdcId, formData }))
                     .unwrap()
                     .then(() => {
                         navigate(-1);

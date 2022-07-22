@@ -7,22 +7,23 @@ import {
     getHolders,
 } from '../../store/proposal/actions';
 import { ButtonRegistry } from '../Buttons/button-registry/button-registry';
-import Holder from '../Holders/Holder';
-import CurrentHolder from './CurrentHolder/CurrentHolder';
 import { correctlyDate } from '../../helpers/utils';
+
+import CurrentHolder from './CurrentHolder/CurrentHolder';
+import Holder from '../Holders/Holder';
+import Spinner from '../Spinner/Spinner';
 
 import './card-item.scss';
 
 function ProposalCard(props) {
     const navigate = useNavigate();
-
     const dispatch = useDispatch();
+
     const { sdcId } = useParams();
 
-    const { currentProposalSdc } = useSelector((state) => state.proposalTest);
-    const { isCardEditable } = useSelector((state) => state.proposalTest);
+    const { currentProposalSdc, isCardEditable, holders, isLoading } =
+        useSelector((state) => state.proposalTest);
     const userRole = useSelector((state) => state.auth.user.roles);
-    const { holders } = useSelector((state) => state.proposalTest);
 
     useEffect(() => {
         dispatch(getCurrentProposalSdc(sdcId));
@@ -73,6 +74,10 @@ function ProposalCard(props) {
             name: 'area',
         },
     ];
+
+    if (isLoading) {
+        return <Spinner />;
+    }
 
     return (
         <>

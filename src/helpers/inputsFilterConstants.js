@@ -40,6 +40,7 @@ export const handleInputsFilter = (pathname, localState) => {
                             showMonthDropdown
                             showYearDropdown
                             dropdownMode="select"
+                            placeholderText="Выберите дату"
                         />
                     </Form.Item>
                 </>
@@ -77,6 +78,7 @@ export const handleInputsFilter = (pathname, localState) => {
                             showMonthDropdown
                             showYearDropdown
                             dropdownMode="select"
+                            placeholderText="Выберите дату"
                         />
                     </Form.Item>
                 </>
@@ -118,6 +120,7 @@ export const handleInputsFilter = (pathname, localState) => {
                             showMonthDropdown
                             showYearDropdown
                             dropdownMode="select"
+                            placeholderText="Выберите дату"
                         />
                     </Form.Item>
                 </>

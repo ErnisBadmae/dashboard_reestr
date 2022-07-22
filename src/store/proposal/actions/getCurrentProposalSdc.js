@@ -72,7 +72,7 @@ export const changeProposal = createAsyncThunk(
     'changeProposal/edit',
     async (payload) => {
         const response = await fetch(
-            `https://api-prof-sdc.anonamis.ru/api/request/request_sdc_standard_certification/edit/${payload.oSid}`,
+            `https://api-prof-sdc.anonamis.ru/api/request/request_sdc_standard_certification/edit/${payload.sdcId}`,
             {
                 method: 'PATCH',
                 body: JSON.stringify(payload.formData),

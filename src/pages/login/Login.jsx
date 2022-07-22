@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../../store/auth/authSlice';
+import Spinner from '../../components/Spinner/Spinner';
 import './login.scss';
 
 function Login(props) {
@@ -14,19 +15,14 @@ function Login(props) {
     });
 
     const { username, password } = formData;
-    const { user, isError, isSuccess, message } = useSelector(
+    const { user, isLoading, isSuccess, message } = useSelector(
         (state) => state.auth
     );
 
     useEffect(() => {
-        //     if(isError) {
-        //           message
-        //     }
         if (isSuccess || user) {
             navigate('/');
         }
-
-        // dispatch(reset());
     }, [user, isSuccess, navigate]);
 
     const onChange = (e) => {
@@ -44,6 +40,11 @@ function Login(props) {
         };
         dispatch(login(userData));
     };
+
+    if (isLoading) {
+        //    debugger;
+        return <Spinner />;
+    }
 
     return (
         <section>

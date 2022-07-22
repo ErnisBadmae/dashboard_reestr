@@ -1,6 +1,5 @@
 import axios from 'axios';
 import $api from '../../http';
-// import jwt_decode from 'jwt-decode';
 
 const headersAxios = {
     headers: {
@@ -14,7 +13,7 @@ const register = async (registrData) => {
         registrData,
         headersAxios
     );
-    console.log(responseRegisterUser, 'responseRegisterUser');
+
     return responseRegisterUser.data;
 };
 
@@ -26,9 +25,7 @@ const login = async (userData) => {
     );
 
     if (responseLoginUser.data) {
-        //    const value = jwt_decode(responseLoginUser.data.token);
         const token = responseLoginUser.data.token;
-
         localStorage.setItem('token', token);
 
         const responseCurrentUser = await $api.get(
