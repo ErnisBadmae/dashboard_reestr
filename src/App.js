@@ -18,6 +18,7 @@ import CardOs from './pages/registries/registry-os/card-os/card-os';
 import CurrentExpert from './components/CurrentCard/CurrentExpert/CurrentExpert';
 import CurrentRequestSdcUser from './components/CurrentCard/CurrentRequestSdcUser';
 // import Dialogs from './components/Dialogs/Dialogs';
+import LongPulling from './components/LongPulling/LongPulling';
 
 import { AuthLayout } from './components/Layout/AuthLayout';
 import { LayoutContent } from './components/Layout/LayoutContent';
@@ -133,6 +134,7 @@ function App() {
                                 />
                             }
                         >
+                            <Route path="/messages" element={<LongPulling />} />
                             <Route
                                 path="/new-request-sdc"
                                 element={

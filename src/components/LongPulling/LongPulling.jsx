@@ -1,13 +1,95 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import './dialog.scss';
+import { Editor } from '@tinymce/tinymce-react';
 
 function LongPulling(props) {
     const [messages, setMessages] = useState([]);
     const [value, setValue] = useState('');
 
-    useEffect(() => {
-        subscribe();
-    }, []);
+    const [messageType, setMessageType] = useState('users');
+    const [recieverList, setRecieverList] = useState([]);
+
+    // useEffect(() => {
+    //     subscribe();
+    // }, []);
+
+    const contacts = {
+        usersSdc: [
+            {
+                user_type_data: {
+                    user_type: 'user_sdc',
+                    user_type_name: 'Пользователь СДС',
+                },
+                id: 1,
+                email: 'user_sdc@mail.com',
+                dttm_created: null,
+                dttm_update: null,
+                dttn_last_authorization: '2022-07-04T12:57:24+00:00',
+                enabled: true,
+            },
+            {
+                user_type_data: {
+                    user_type: 'user_sdc',
+                    user_type_name: 'Пользователь СДС',
+                },
+                id: 11,
+                email: 'user_sdc1@mail.ru',
+                dttm_created: null,
+                dttm_update: null,
+                dttn_last_authorization: '2022-06-30T08:39:29+00:00',
+                enabled: true,
+            },
+        ],
+        usersOc: [
+            {
+                user_type_data: {
+                    user_type: 'user_oc',
+                    user_type_name: 'Пользователь органа сертификации',
+                },
+                id: 23,
+                email: 'user_oc2@mail.ru',
+                dttm_created: '2022-06-16T09:30:43+00:00',
+                dttm_update: null,
+                dttn_last_authorization: '2022-06-16T09:38:37+00:00',
+                enabled: true,
+            },
+            {
+                user_type_data: {
+                    user_type: 'user_oc',
+                    user_type_name: 'Пользователь органа сертификации',
+                },
+                id: 21,
+                email: 'user_oc1@mail.ru',
+                dttm_created: '2022-06-03T15:57:13+00:00',
+                dttm_update: null,
+                dttn_last_authorization: '2022-07-08T15:33:28+00:00',
+                enabled: true,
+            },
+            {
+                user_type_data: {
+                    user_type: 'user_oc',
+                    user_type_name: 'Пользователь органа сертификации',
+                },
+                id: 22,
+                email: 'user_oc@mail.ru',
+                dttm_created: '2022-06-09T08:19:47+00:00',
+                dttm_update: null,
+                dttn_last_authorization: '2022-07-08T15:37:23+00:00',
+                enabled: true,
+            },
+        ],
+        groups: [
+            {
+                code: 'admin',
+                name: 'Техническая поддержка',
+            },
+            {
+                code: 'prof_sdc',
+                name: 'Оператор ПРОФ СДС',
+            },
+        ],
+    };
 
     const subscribe = async () => {
         try {
@@ -30,9 +112,94 @@ function LongPulling(props) {
         });
     };
 
+    const textEditor = useRef(null);
+
+    const handleSelectRecievers = (el) => {
+        // проверяем тип группы и очищаем массив получателей если группа сменилась
+        if (el.email) {
+            setMessageType('users');
+
+            if (recieverList.length) {
+                !recieverList[0].email && setRecieverList([]);
+            }
+        } else {
+            setMessageType('group');
+            if (recieverList.length) {
+                !recieverList[0].code && setRecieverList([]);
+            }
+        }
+
+        // проверяем есть ли такой же элемент в массиве получателей и если есть фильтруем массив по айди этого получателя, чтобы исключить его из этого массива
+        if (recieverList.some((reciever) => el.id === reciever.id)) {
+            setRecieverList((prev) =>
+                prev.filter((reciever) => {
+                    // console.log(prev, 'logging info prevState');
+                    // console.log(
+                    //     {
+                    //         reciever,
+                    //         el,
+                    //     },
+                    //     'logging info'
+                    // );
+                    return reciever.id !== el.id;
+                })
+            );
+        } else {
+            setRecieverList((prev) => [...prev, el]);
+        }
+    };
+
+    const [messageText, setMessageText] = useState('');
+    console.log(messageText, value);
+
     return (
         <div className="center">
-            <div>
+            <div className="messagesContainer">
+                <div className="messages">
+                    <div className="messagesBlock">{messageText}</div>
+                    <div className="richTextContainer">
+                        <button
+                            onClick={() => {
+                                setMessageText(value);
+                            }}
+                        >
+                            Send
+                        </button>
+                    </div>
+                </div>
+
+                <div className="contactList">
+                    {Object.entries(contacts).map((contactList) => {
+                        return contactList.map((contact) => {
+                            if (typeof contact === 'string') {
+                                return <span>{contact}</span>;
+                            } else {
+                                return contact.map((el) => {
+                                    return (
+                                        <button
+                                            onClick={() => {
+                                                handleSelectRecievers(el);
+                                            }}
+                                            className={
+                                                recieverList.some(
+                                                    (reciever) =>
+                                                        el.id === reciever.id
+                                                )
+                                                    ? 'reciever selected'
+                                                    : 'reciever'
+                                            }
+                                        >
+                                            {el.email ? el.email : el.name}
+                                        </button>
+                                    );
+                                });
+                            }
+                        });
+                    })}
+                </div>
+            </div>
+
+            {/* <div>
                 <div className="form">
                     <input
                         value={value}
@@ -46,9 +213,9 @@ function LongPulling(props) {
                         <div className="message" key={mess.id}>
                             {mess.message}
                         </div>
-                    ))}
+                     ))}
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 }
