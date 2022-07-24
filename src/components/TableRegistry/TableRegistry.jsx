@@ -17,7 +17,7 @@ export const TableRegistry = () => {
 
     useEffect(() => {
         dispatch(getEntries());
-    }, []);
+    }, [dispatch]);
 
     const { entries } = useSelector((state) => state.entries);
     //     console.log(entries, 'entries');

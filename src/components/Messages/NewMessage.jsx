@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './dialog.scss';
-import { Editor } from '@tinymce/tinymce-react';
+// import { Editor } from '@tinymce/tinymce-react';
 
-function LongPulling(props) {
+function NewMessage(props) {
     const [messages, setMessages] = useState([]);
     const [value, setValue] = useState('');
+    const [messageText, setMessageText] = useState('');
 
     const [messageType, setMessageType] = useState('users');
     const [recieverList, setRecieverList] = useState([]);
@@ -112,7 +113,17 @@ function LongPulling(props) {
         });
     };
 
-    const textEditor = useRef(null);
+    const compareRecievers = (el, reciever, isNegativeComparasion) => {
+        if (reciever.id) {
+            return isNegativeComparasion
+                ? el.id !== reciever.id
+                : el.id === reciever.id;
+        } else {
+            return isNegativeComparasion
+                ? el.code !== reciever.code
+                : el.code === reciever.code;
+        }
+    };
 
     const handleSelectRecievers = (el) => {
         // проверяем тип группы и очищаем массив получателей если группа сменилась
@@ -130,18 +141,14 @@ function LongPulling(props) {
         }
 
         // проверяем есть ли такой же элемент в массиве получателей и если есть фильтруем массив по айди этого получателя, чтобы исключить его из этого массива
-        if (recieverList.some((reciever) => el.id === reciever.id)) {
+        if (
+            recieverList.some((reciever) => {
+                return compareRecievers(el, reciever, false);
+            })
+        ) {
             setRecieverList((prev) =>
                 prev.filter((reciever) => {
-                    // console.log(prev, 'logging info prevState');
-                    // console.log(
-                    //     {
-                    //         reciever,
-                    //         el,
-                    //     },
-                    //     'logging info'
-                    // );
-                    return reciever.id !== el.id;
+                    return compareRecievers(el, reciever, true);
                 })
             );
         } else {
@@ -149,14 +156,19 @@ function LongPulling(props) {
         }
     };
 
-    const [messageText, setMessageText] = useState('');
-    console.log(messageText, value);
-
     return (
         <div className="center">
             <div className="messagesContainer">
                 <div className="messages">
                     <div className="messagesBlock">{messageText}</div>
+
+                    <input
+                        value={value}
+                        onChange={(e) => {
+                            setValue(e.target.value);
+                        }}
+                    />
+
                     <div className="richTextContainer">
                         <button
                             onClick={() => {
@@ -182,8 +194,13 @@ function LongPulling(props) {
                                             }}
                                             className={
                                                 recieverList.some(
-                                                    (reciever) =>
-                                                        el.id === reciever.id
+                                                    (reciever) => {
+                                                        return compareRecievers(
+                                                            el,
+                                                            reciever,
+                                                            false
+                                                        );
+                                                    }
                                                 )
                                                     ? 'reciever selected'
                                                     : 'reciever'
@@ -220,4 +237,4 @@ function LongPulling(props) {
     );
 }
 
-export default LongPulling;
+export default NewMessage;

@@ -31,7 +31,7 @@ const { Content } = Layout;
 //     },
 // ];
 
-export const TableWrapper = () => {
+export const TableRegistriesWrapper = () => {
     const [form] = Form.useForm();
     const { pathname } = useLocation();
     const [date, setDate] = useState();

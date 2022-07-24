@@ -18,14 +18,14 @@ import CardOs from './pages/registries/registry-os/card-os/card-os';
 import CurrentExpert from './components/CurrentCard/CurrentExpert/CurrentExpert';
 import CurrentRequestSdcUser from './components/CurrentCard/CurrentRequestSdcUser';
 // import Dialogs from './components/Dialogs/Dialogs';
-import LongPulling from './components/LongPulling/LongPulling';
+import Messages from './components/Messages/Messages';
 
 import { AuthLayout } from './components/Layout/AuthLayout';
 import { LayoutContent } from './components/Layout/LayoutContent';
 import { TableRegistry } from './components/TableRegistry/TableRegistry';
 import { TableSdsOperator } from './components/TableSds/TableSdsOperator';
-import { TableWrapper } from './components/Registries/tableWrapper/tableWrapper';
-import { TableSdcAdmin } from './components/TableSds/TableSdcAdmin';
+import { TableRegistriesWrapper } from './components/Registries/tableWrapper/TableRegistriesWrapper';
+import { TableWrapper } from './components/TableWrapper/TableWrapper';
 import { RegistrySds } from './pages/registries/registry-sds/registry-sds';
 import { RegistryOs } from './pages/registries/registry-os/registry-os';
 import { RegistryCertificationExperts } from './pages/registries/registry-certificate-expert/registryCertificateExperts';
@@ -73,7 +73,7 @@ function App() {
                             path="/organ-certification/view/:sdcId"
                             element={<CardOs />}
                         />
-                        <Route element={<TableWrapper />}>
+                        <Route element={<TableRegistriesWrapper />}>
                             <Route
                                 path="/standard-certifications/list"
                                 element={<RegistrySds />}
@@ -121,7 +121,7 @@ function App() {
 
                             <Route
                                 path="/requests-sdc-list"
-                                element={<TableSdcAdmin />}
+                                element={<TableWrapper tableType="sdcAdmin" />}
                             />
 
                             <Route path="/sds" element={<TableRegistry />} />
@@ -134,7 +134,11 @@ function App() {
                                 />
                             }
                         >
-                            <Route path="/messages" element={<LongPulling />} />
+                            {/* <Route path="/messages" element={<Messages />} /> */}
+                            <Route
+                                path="/messages"
+                                element={<TableWrapper tableType="user_sdc" />}
+                            />
                             <Route
                                 path="/new-request-sdc"
                                 element={

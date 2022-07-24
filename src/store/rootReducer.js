@@ -8,6 +8,7 @@ import currentProposalTest from './proposal/proposalSlice';
 import getUsers from './users/reducers/usersSilce';
 import documents from './documents/reducers/documentsSlice';
 import getReports from './reports/reducers/reportsSlice';
+import getMessages from './messages/reducers/messageSlice';
 
 export const rootReducer = combineReducers({
     auth: authReducer,
@@ -15,6 +16,7 @@ export const rootReducer = combineReducers({
     users: getUsers,
     files: documents,
     reports: getReports,
+    messages: getMessages,
     registries: entriesRegistryReducer,
     entries: entriesReducer,
     proposal: proposalReducer,

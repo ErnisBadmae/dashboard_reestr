@@ -106,8 +106,13 @@ function Sidebar(props) {
                     </p>
 
                     <li>
-                        <div className="sidebar__inner-item" />
-                        <span>Сообщения</span>
+                        <Link
+                            style={{ width: '100%', height: '100%' }}
+                            to="/messages"
+                        >
+                            <div className="sidebar__inner-item" />
+                            <span>Сообщения</span>
+                        </Link>
                     </li>
 
                     {roles === 'user_admin' ? (
