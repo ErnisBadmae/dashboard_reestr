@@ -4,6 +4,7 @@ import './dialog.scss';
 import { RichEditorExample } from './RichText';
 import { EditorState } from 'draft-js';
 // import { Editor } from '@tinymce/tinymce-react';
+import TextEditor from './RichText';
 
 function NewMessage(props) {
     const [messages, setMessages] = useState([]);
@@ -143,6 +144,7 @@ function NewMessage(props) {
         <div className="center">
             <div className="messagesContainer">
                 <div className="messages">
+                    <TextEditor />
                     {/* <div className="messagesBlock">{messageText}</div> */}
 
                     {/* <RichEditorExample
