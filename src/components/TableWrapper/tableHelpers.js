@@ -1,8 +1,5 @@
 import { getProposalSdcList } from '../../store/proposal/actions';
 import { getInbox, getOutBox } from '../../store/messages/actions';
-import { useNavigate } from 'react-router-dom';
-
-const navigate = useNavigate;
 
 export const getTableData = ({
     tableType,
@@ -10,6 +7,7 @@ export const getTableData = ({
     pageSize,
     filterStatus,
     pageIndex,
+    messagesType,
 }) => {
     switch (tableType) {
         case 'sdcAdmin':
@@ -25,18 +23,37 @@ export const getTableData = ({
                     })
                 );
             };
-        case 'user_sdc':
+        case 'messages':
             return () => {
-                dispatch(
-                    getInbox({
-                        row_page: pageSize,
-                        page: pageIndex,
-                        filters:
-                            filterStatus !== null
-                                ? { status: filterStatus }
-                                : {},
-                    })
-                );
+                if (messagesType === 'inbox') {
+                    dispatch(
+                        getInbox({
+                            row_page: pageSize,
+                            page: pageIndex,
+                            filters:
+                                filterStatus !== null
+                                    ? { status: filterStatus }
+                                    : {},
+                        })
+                    );
+                }
+                if (messagesType === 'outbox') {
+                    dispatch(
+                        getOutBox({
+                            row_page: pageSize,
+                            page: pageIndex,
+                            filters:
+                                filterStatus !== null
+                                    ? { status: filterStatus }
+                                    : {},
+                        })
+                    );
+                }
+                // if(messagesType ==='sendMessage'){
+                //     dispatch(
+
+                //     )
+                // }
             };
         default:
             break;
@@ -48,30 +65,40 @@ export const getFilterButtons = (tableType) => {
         case 'sdcAdmin':
             return [
                 {
+                    id: 1,
+                    text: 'Все',
+                    status: null,
+                },
+                {
+                    id: 2,
                     text: 'Отправлено на проверку документов',
                     status: 4,
                 },
                 {
+                    id: 3,
                     text: 'Проверка документов',
                     status: 5,
                 },
+
                 {
+                    id: 4,
                     text: 'Решение принято',
                     status: [8, 9],
                 },
-
-                {
-                    text: 'Все',
-                    status: null,
-                },
             ];
-        case 'user_sdc':
+        case 'messages':
             return [
                 {
                     text: 'Входящие сообщения',
+                    id: 1,
                 },
                 {
                     text: 'Исходящие сообщения',
+                    id: 2,
+                },
+                {
+                    text: 'Написать сообщение',
+                    id: 3,
                 },
             ];
         default:
@@ -112,7 +139,7 @@ export const getColumns = (tableType) => {
                     number_in_row: 1,
                 },
             ];
-        case 'user_sdc':
+        case 'messages':
             return [
                 {
                     title: 'Тема письма',
@@ -141,9 +168,9 @@ export const getColumns = (tableType) => {
     }
 };
 
-export const relocateToCard = (record, tableType) => {
+export const relocateToCard = (record, tableType, navigate) => {
     switch (tableType) {
-        case 'user_sdc':
+        case 'messages':
             return {
                 onClick: (e) => {
                     e.preventDefault();

@@ -1,231 +1,164 @@
-import React, { useCallback, useMemo, useState } from 'react';
-import { Editable, withReact, useSlate, Slate } from 'slate-react';
-import {
-    Editor,
-    Transforms,
-    createEditor,
-    Element as SlateElement,
-} from 'slate';
-import { withHistory } from 'slate-history';
+import React from 'react';
+import { Editor, RichUtils } from 'draft-js';
 
-import { Button } from 'antd';
+export class RichEditorExample extends React.Component {
+    onChange = (editorState) => {
+        this.props.onChange('editorState', editorState);
+    };
 
-const LIST_TYPES = ['numbered-list', 'bulleted-list'];
-const TEXT_ALIGN_TYPES = ['left', 'center', 'right', 'justify'];
+    focus = () => this.refs.editor.focus();
 
-const RichText = ({ setMessage, message }) => {
-    const renderElement = useCallback((props) => <Element {...props} />, []);
-    const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
-    const editor = useMemo(() => withHistory(withReact(createEditor())), []);
+    handleKeyCommand = (command) => {
+        const { editorState } = this.props;
+        const newState = RichUtils.handleKeyCommand(editorState, command);
+        if (newState) {
+            this.onChange(newState);
+            return true;
+        }
+        return false;
+    };
 
-    const [testMessage, setTestMessage] = useState();
-
-    return (
-        <Slate editor={editor} value={initialValue}>
-            <Editable
-                renderElement={renderElement}
-                renderLeaf={renderLeaf}
-                placeholder="Enter some rich text…"
-                spellCheck
-                autoFocus
-                value={testMessage}
-                onChange={(change) => {
-                    console.log(change);
-                    setTestMessage(change.value);
-                }}
-                className="textEditor"
-            />
-
-            <MarkButton format="bold" icon="Bold" />
-            <MarkButton format="italic" icon="Italic" />
-            <MarkButton format="underline" icon="Underlined" />
-            <MarkButton format="code" icon="Code" />
-            <BlockButton format="heading-one" icon="Looks one" />
-            <BlockButton format="heading-two" icon="Looks two" />
-            <BlockButton format="block-quote" icon="Quote" />
-            <BlockButton format="numbered-list" icon="Numbered list" />
-            <BlockButton format="bulleted-list" icon="Bulleted list" />
-            <BlockButton format="left" icon="Align left" />
-            <BlockButton format="center" icon="Align center" />
-            <BlockButton format="right" icon="Align right" />
-            <BlockButton format="justify" icon="Align justify" />
-        </Slate>
-    );
-};
-
-const toggleBlock = (editor, format) => {
-    const isActive = isBlockActive(
-        editor,
-        format,
-        TEXT_ALIGN_TYPES.includes(format) ? 'align' : 'type'
-    );
-    const isList = LIST_TYPES.includes(format);
-
-    Transforms.unwrapNodes(editor, {
-        match: (n) =>
-            !Editor.isEditor(n) &&
-            SlateElement.isElement(n) &&
-            LIST_TYPES.includes(n.type) &&
-            !TEXT_ALIGN_TYPES.includes(format),
-        split: true,
-    });
-    let newProperties;
-    if (TEXT_ALIGN_TYPES.includes(format)) {
-        newProperties = {
-            align: isActive ? undefined : format,
-        };
-    } else {
-        newProperties = {
-            type: isActive ? 'paragraph' : isList ? 'list-item' : format,
-        };
+    onTab = (e) => {
+        const maxDepth = 4;
+        this.onChange(RichUtils.onTab(e, this.props.editorState, maxDepth));
+    };
+    toggleBlockType = (blockType) => {
+        this.onChange(
+            RichUtils.toggleBlockType(this.props.editorState, blockType)
+        );
+    };
+    toggleInlineStyle = (inlineStyle) => {
+        this.onChange(
+            RichUtils.toggleInlineStyle(this.props.editorState, inlineStyle)
+        );
+    };
+    render() {
+        const { editorState } = this.props;
+        // If the user changes block type before entering any text, we can
+        // either style the placeholder or hide it. Let's just hide it now.
+        let className = 'RichEditor-editor';
+        var contentState = editorState.getCurrentContent();
+        if (!contentState.hasText()) {
+            if (contentState.getBlockMap().first().getType() !== 'unstyled') {
+                className += ' RichEditor-hidePlaceholder';
+            }
+        }
+        return (
+            <div className="RichEditor-root">
+                <BlockStyleControls
+                    editorState={editorState}
+                    onToggle={this.toggleBlockType}
+                />
+                <InlineStyleControls
+                    editorState={editorState}
+                    onToggle={this.toggleInlineStyle}
+                />
+                <div className={className} onClick={this.focus}>
+                    <Editor
+                        blockStyleFn={getBlockStyle}
+                        customStyleMap={styleMap}
+                        editorState={editorState}
+                        handleKeyCommand={this.handleKeyCommand}
+                        onChange={this.onChange}
+                        onTab={this.onTab}
+                        placeholder="Tell a story..."
+                        ref="editor"
+                        spellCheck={true}
+                    />
+                </div>
+            </div>
+        );
     }
-    Transforms.setNodes(editor, newProperties);
-
-    if (!isActive && isList) {
-        const block = { type: format, children: [] };
-        Transforms.wrapNodes(editor, block);
-    }
-};
-
-const toggleMark = (editor, format) => {
-    const isActive = isMarkActive(editor, format);
-
-    if (isActive) {
-        Editor.removeMark(editor, format);
-    } else {
-        Editor.addMark(editor, format, true);
-    }
-};
-
-const isBlockActive = (editor, format, blockType = 'type') => {
-    const { selection } = editor;
-    if (!selection) return false;
-
-    const [match] = Array.from(
-        Editor.nodes(editor, {
-            at: Editor.unhangRange(editor, selection),
-            match: (n) =>
-                !Editor.isEditor(n) &&
-                SlateElement.isElement(n) &&
-                n[blockType] === format,
-        })
-    );
-
-    return !!match;
-};
-
-const isMarkActive = (editor, format) => {
-    const marks = Editor.marks(editor);
-    return marks ? marks[format] === true : false;
-};
-
-const Element = ({ attributes, children, element }) => {
-    const style = { textAlign: element.align };
-    switch (element.type) {
-        case 'block-quote':
-            return (
-                <blockquote style={style} {...attributes}>
-                    {children}
-                </blockquote>
-            );
-        case 'bulleted-list':
-            return (
-                <ul style={style} {...attributes}>
-                    {children}
-                </ul>
-            );
-        case 'heading-one':
-            return (
-                <h1 style={style} {...attributes}>
-                    {children}
-                </h1>
-            );
-        case 'heading-two':
-            return (
-                <h2 style={style} {...attributes}>
-                    {children}
-                </h2>
-            );
-        case 'list-item':
-            return (
-                <li style={style} {...attributes}>
-                    {children}
-                </li>
-            );
-        case 'numbered-list':
-            return (
-                <ol style={style} {...attributes}>
-                    {children}
-                </ol>
-            );
-        default:
-            return (
-                <p style={style} {...attributes}>
-                    {children}
-                </p>
-            );
-    }
-};
-
-const Leaf = ({ attributes, children, leaf }) => {
-    if (leaf.bold) {
-        children = <strong>{children}</strong>;
-    }
-
-    if (leaf.code) {
-        children = <code>{children}</code>;
-    }
-
-    if (leaf.italic) {
-        children = <em>{children}</em>;
-    }
-
-    if (leaf.underline) {
-        children = <u>{children}</u>;
-    }
-
-    return <span {...attributes}>{children}</span>;
-};
-
-const BlockButton = ({ format, icon }) => {
-    const editor = useSlate();
-    return (
-        <Button
-            active={isBlockActive(
-                editor,
-                format,
-                TEXT_ALIGN_TYPES.includes(format) ? 'align' : 'type'
-            )}
-            onMouseDown={(event) => {
-                event.preventDefault();
-                toggleBlock(editor, format);
-            }}
-        >
-            <span>{icon}</span>
-        </Button>
-    );
-};
-
-const MarkButton = ({ format, icon }) => {
-    const editor = useSlate();
-    return (
-        <Button
-            active={isMarkActive(editor, format)}
-            onMouseDown={(event) => {
-                event.preventDefault();
-                toggleMark(editor, format);
-            }}
-        >
-            <span>{icon}</span>
-        </Button>
-    );
-};
-
-const initialValue = [
-    {
-        type: 'paragraph',
-        children: [{ text: '' }],
+}
+// Custom overrides for "code" style.
+const styleMap = {
+    CODE: {
+        backgroundColor: 'rgba(0, 0, 0, 0.05)',
+        fontFamily: '"Inconsolata", "Menlo", "Consolas", monospace',
+        fontSize: 16,
+        padding: 2,
     },
+};
+function getBlockStyle(block) {
+    switch (block.getType()) {
+        case 'blockquote':
+            return 'RichEditor-blockquote';
+        default:
+            return null;
+    }
+}
+class StyleButton extends React.Component {
+    constructor() {
+        super();
+        this.onToggle = (e) => {
+            e.preventDefault();
+            this.props.onToggle(this.props.style);
+        };
+    }
+    render() {
+        let className = 'RichEditor-styleButton';
+        if (this.props.active) {
+            className += ' RichEditor-activeButton';
+        }
+        return (
+            <span className={className} onMouseDown={this.onToggle}>
+                {this.props.label}
+            </span>
+        );
+    }
+}
+const BLOCK_TYPES = [
+    { label: 'H1', style: 'header-one' },
+    { label: 'H2', style: 'header-two' },
+    { label: 'H3', style: 'header-three' },
+    { label: 'H4', style: 'header-four' },
+    { label: 'H5', style: 'header-five' },
+    { label: 'H6', style: 'header-six' },
+    { label: 'Blockquote', style: 'blockquote' },
+    { label: 'UL', style: 'unordered-list-item' },
+    { label: 'OL', style: 'ordered-list-item' },
+    { label: 'Code Block', style: 'code-block' },
 ];
-
-export default RichText;
+const BlockStyleControls = (props) => {
+    const { editorState } = props;
+    const selection = editorState.getSelection();
+    const blockType = editorState
+        .getCurrentContent()
+        .getBlockForKey(selection.getStartKey())
+        .getType();
+    return (
+        <div className="RichEditor-controls">
+            {BLOCK_TYPES.map((type) => (
+                <StyleButton
+                    key={type.label}
+                    active={type.style === blockType}
+                    label={type.label}
+                    onToggle={props.onToggle}
+                    style={type.style}
+                />
+            ))}
+        </div>
+    );
+};
+var INLINE_STYLES = [
+    { label: 'Bold', style: 'BOLD' },
+    { label: 'Italic', style: 'ITALIC' },
+    { label: 'Underline', style: 'UNDERLINE' },
+    { label: 'Monospace', style: 'CODE' },
+];
+const InlineStyleControls = (props) => {
+    var currentStyle = props.editorState.getCurrentInlineStyle();
+    return (
+        <div className="RichEditor-controls">
+            {INLINE_STYLES.map((type) => (
+                <StyleButton
+                    key={type.label}
+                    active={currentStyle.has(type.style)}
+                    label={type.label}
+                    onToggle={props.onToggle}
+                    style={type.style}
+                />
+            ))}
+        </div>
+    );
+};

@@ -33,6 +33,7 @@ import { RegistryCertificates } from './pages/registries/registry-certificates/r
 import { TableUsers } from './components/TableUsers/TableUsers';
 import { Reports } from './pages/reports/Reports';
 import { RequestUsersSdc } from './components/TableUsers/RequestUsersSdc';
+import CurrentMessage from './components/CurrentCard/CurrentMessage/CurrentMessage';
 
 function App() {
     const navigate = useNavigate();
@@ -137,8 +138,14 @@ function App() {
                             {/* <Route path="/messages" element={<Messages />} /> */}
                             <Route
                                 path="/messages"
-                                element={<TableWrapper tableType="user_sdc" />}
+                                element={<TableWrapper tableType="messages" />}
                             />
+                            <Route path="message">
+                                <Route
+                                    path=":messageId"
+                                    element={<CurrentMessage />}
+                                />
+                            </Route>
                             <Route
                                 path="/new-request-sdc"
                                 element={

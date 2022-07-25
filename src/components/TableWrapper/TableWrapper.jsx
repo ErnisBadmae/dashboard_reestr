@@ -8,19 +8,21 @@ import {
     getTableData,
     getFilterButtons,
     getColumns,
-    //     relocateToCard,
+    relocateToCard,
 } from './tableHelpers';
 import { useGetDataSource } from '../../hooks/useGetDataSource';
 
 import './table.scss';
+import NewMessage from '../Messages/NewMessage';
 
 const { Content } = Layout;
 
 export const TableWrapper = ({ tableType }) => {
     const [pageIndex, setPageIndex] = useState(0);
     const [pageSize, setPageSize] = useState(10);
-    const [filterStatus, setFilterStatus] = useState(null);
-
+    const [currentTab, setCurrentTab] = useState({
+        id: 1,
+    });
     const { totalElements } = useSelector(
         (state) => state.proposal.proposalSdcList
     );
@@ -29,28 +31,30 @@ export const TableWrapper = ({ tableType }) => {
     const dispatch = useDispatch();
 
     useEffect(() => {
+        setCurrentTab({
+            id: 1,
+        });
+    }, [tableType]);
+
+    useEffect(() => {
         getTableData({
             tableType,
             dispatch,
             pageIndex,
             pageSize,
-            filterStatus,
+            filterStatus: currentTab.status,
+            messagesType:
+                currentTab.id === 1
+                    ? 'inbox'
+                    : currentTab.id === 2
+                    ? 'outbox'
+                    : 'sendMessage',
         })();
-    }, [dispatch, pageIndex, pageSize, filterStatus, tableType]);
+    }, [dispatch, pageIndex, pageSize, currentTab, tableType]);
 
     const dataSource = useGetDataSource(tableType);
     const filterBtn = getFilterButtons(tableType);
     const columns = getColumns(tableType);
-
-    const relocateToCard = (record) => {
-        return {
-            onClick: (e) => {
-                e.preventDefault();
-                // navigate('/request_sdc/' + record.id);
-                navigate('/message/' + record.id);
-            },
-        };
-    };
 
     return (
         <>
@@ -59,64 +63,50 @@ export const TableWrapper = ({ tableType }) => {
                     return (
                         <ButtonRegistry
                             text={btn.text}
-                            key={btn.status}
-                            style={(function () {
-                                if (
-                                    typeof btn.status === 'object' &&
-                                    btn.status !== null &&
-                                    filterStatus !== null
-                                ) {
-                                    if (
-                                        btn.status.length ===
-                                            filterStatus.length &&
-                                        btn.status.every(
-                                            (value, index) =>
-                                                value === filterStatus[index]
-                                        )
-                                    ) {
-                                        return {
-                                            background: '#97c4f2',
-                                        };
-                                    }
-                                } else {
-                                    if (btn.status === filterStatus) {
-                                        return {
-                                            background: '#97c4f2',
-                                        };
-                                    } else {
-                                        return {};
-                                    }
-                                }
-                            })()}
+                            key={btn.id}
+                            style={
+                                btn.id === currentTab.id
+                                    ? { background: '#97c4f2' }
+                                    : {}
+                            }
                             className={'button-registry'}
                             onClick={() => {
-                                setFilterStatus(btn.status);
+                                setCurrentTab(btn);
                             }}
                         />
                     );
                 })}
                 <div className="registry-sro__drawer-wrapper">
-                    <Table
-                        // bordered={false}
-                        columns={columns}
-                        dataSource={dataSource}
-                        className="registry-sro__table"
-                        size="medium"
-                        onRow={(record) => relocateToCard(record)}
-                        rowKey={(obj) => obj.id}
-                        pagination={false}
-                    />
-                    <Pagination
-                        key={'pagination'}
-                        showSizeChanger={true}
-                        current={pageIndex}
-                        total={totalElements}
-                        pageSize={pageSize}
-                        onChange={(page) => setPageIndex(page)}
-                        onShowSizeChange={(current, newPageSize) =>
-                            setPageSize(newPageSize)
-                        }
-                    />
+                    {currentTab.text === 'Написать сообщение' &&
+                    tableType === 'messages' ? (
+                        <NewMessage />
+                    ) : (
+                        <>
+                            <Table
+                                // bordered={false}
+                                columns={columns}
+                                dataSource={dataSource}
+                                className="registry-sro__table"
+                                size="medium"
+                                onRow={(record) =>
+                                    relocateToCard(record, tableType, navigate)
+                                }
+                                rowKey={(obj) => obj.id}
+                                pagination={false}
+                            />
+                            <Pagination
+                                key={'pagination'}
+                                showSizeChanger={true}
+                                current={pageIndex}
+                                total={totalElements}
+                                pageSize={pageSize}
+                                onChange={(page) => setPageIndex(page)}
+                                onShowSizeChange={(current, newPageSize) =>
+                                    setPageSize(newPageSize)
+                                }
+                            />
+                        </>
+                    )}
                 </div>
             </Content>
         </>

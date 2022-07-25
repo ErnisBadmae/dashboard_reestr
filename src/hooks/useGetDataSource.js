@@ -12,7 +12,7 @@ export const useGetDataSource = (tableType) => {
                 status: item.status.title,
                 key: item.id,
             }));
-        case 'user_sdc':
+        case 'messages':
             return inbox.data?.data?.map((item) => ({
                 ...item,
                 key: item.id,

@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './dialog.scss';
+import { RichEditorExample } from './RichText';
+import { EditorState } from 'draft-js';
 // import { Editor } from '@tinymce/tinymce-react';
 
 function NewMessage(props) {
     const [messages, setMessages] = useState([]);
     const [value, setValue] = useState('');
-    const [messageText, setMessageText] = useState('');
+    const [messageText, setMessageText] = useState(() =>
+        EditorState.createEmpty()
+    );
 
     const [messageType, setMessageType] = useState('users');
     const [recieverList, setRecieverList] = useState([]);
@@ -92,27 +96,6 @@ function NewMessage(props) {
         ],
     };
 
-    const subscribe = async () => {
-        try {
-            const { data } = await axios.post(
-                '/api/user/message/incoming_list'
-            );
-            setMessages((prev) => [data, ...prev]);
-            await subscribe();
-        } catch (error) {
-            setTimeout(() => {
-                subscribe();
-            }, 500);
-        }
-    };
-
-    const sendMessage = async () => {
-        await axios.post('/api/user/message/contacts_prof_sdc', {
-            message: value,
-            id: Date.now(),
-        });
-    };
-
     const compareRecievers = (el, reciever, isNegativeComparasion) => {
         if (reciever.id) {
             return isNegativeComparasion
@@ -160,7 +143,18 @@ function NewMessage(props) {
         <div className="center">
             <div className="messagesContainer">
                 <div className="messages">
-                    <div className="messagesBlock">{messageText}</div>
+                    {/* <div className="messagesBlock">{messageText}</div> */}
+
+                    {/* <RichEditorExample
+                        editorState={EditorState.createEmpty()}
+                        onChange={(_, editorState) => {
+                            // console.log(editorState);
+                            setMessageText(editorState);
+                        }}
+                        onBlur={() => {
+                            console.log('blur');
+                        }}
+                    /> */}
 
                     <input
                         value={value}
@@ -169,7 +163,7 @@ function NewMessage(props) {
                         }}
                     />
 
-                    <div className="richTextContainer">
+                    {/* <div className="richTextContainer">
                         <button
                             onClick={() => {
                                 setMessageText(value);
@@ -177,7 +171,7 @@ function NewMessage(props) {
                         >
                             Send
                         </button>
-                    </div>
+                    </div> */}
                 </div>
 
                 <div className="contactList">

@@ -1,4 +1,4 @@
-import { getInbox, getOutBox } from '../actions';
+import { getInbox, getOutBox, viewCurrentMessage } from '../actions';
 import { createSlice } from '@reduxjs/toolkit';
 
 export const getMessages = createSlice({
@@ -40,21 +40,21 @@ export const getMessages = createSlice({
                 state.isError = true;
                 state.message = action.payload;
                 state.outbox = null;
-            });
+            })
 
-        //    .addCase(viewCurrentRequestSdcUser.pending, (state) => {
-        //        state.isLoading = true;
-        //    })
-        //    .addCase(viewCurrentRequestSdcUser.fulfilled, (state, action) => {
-        //        state.isLoading = false;
-        //        state.currentRequestSdcUser = action.payload;
-        //    })
-        //    .addCase(viewCurrentRequestSdcUser.rejected, (state, action) => {
-        //        state.isLoading = false;
-        //        state.isError = true;
-        //        state.message = action.payload;
-        //        state.currentRequestSdcUser = null;
-        //    });
+            .addCase(viewCurrentMessage.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(viewCurrentMessage.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.currentMessage = action.payload;
+            })
+            .addCase(viewCurrentMessage.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                state.currentMessage = null;
+            });
     },
 });
 
