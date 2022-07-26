@@ -52,7 +52,15 @@ export const TableWrapper = ({ tableType }) => {
         })();
     }, [dispatch, pageIndex, pageSize, currentTab, tableType]);
 
-    const dataSource = useGetDataSource(tableType);
+    const dataSource = useGetDataSource({
+        tableType,
+        messagesType:
+            currentTab.id === 1
+                ? 'inbox'
+                : currentTab.id === 2
+                ? 'outbox'
+                : 'sendMessage',
+    });
     const filterBtn = getFilterButtons(tableType);
     const columns = getColumns(tableType);
 
