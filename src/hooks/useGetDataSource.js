@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 
 export const useGetDataSource = (tableType) => {
     const { proposalSdcList } = useSelector((state) => state.proposal);
-    const { inbox } = useSelector((state) => state.messages);
+    const { outbox } = useSelector((state) => state.messages);
 
     switch (tableType) {
         case 'sdcAdmin':
@@ -13,7 +13,7 @@ export const useGetDataSource = (tableType) => {
                 key: item.id,
             }));
         case 'messages':
-            return inbox.data?.data?.map((item) => ({
+            return outbox.map((item) => ({
                 ...item,
                 key: item.id,
             }));

@@ -1,102 +1,31 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import './dialog.scss';
-import { RichEditorExample } from './RichText';
 import { EditorState } from 'draft-js';
-// import { Editor } from '@tinymce/tinymce-react';
+import { useDispatch, useSelector } from 'react-redux';
 import TextEditor from './RichText';
+import { sendMessage, getContactList } from '../../store/messages/actions';
+import { error, info } from '../Toast/Toast';
 
 function NewMessage(props) {
     const [messages, setMessages] = useState([]);
     const [value, setValue] = useState('');
-    const [messageText, setMessageText] = useState(() =>
-        EditorState.createEmpty()
+    const [messageText, setMessageText] = useState(
+        EditorState.createEmpty().getCurrentContent()
     );
+
+    const userRole = useSelector((state) => state.auth.user.roles);
 
     const [messageType, setMessageType] = useState('users');
     const [recieverList, setRecieverList] = useState([]);
 
-    // useEffect(() => {
-    //     subscribe();
-    // }, []);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(getContactList({ userRole }));
+    }, [dispatch, userRole]);
 
-    const contacts = {
-        usersSdc: [
-            {
-                user_type_data: {
-                    user_type: 'user_sdc',
-                    user_type_name: 'Пользователь СДС',
-                },
-                id: 1,
-                email: 'user_sdc@mail.com',
-                dttm_created: null,
-                dttm_update: null,
-                dttn_last_authorization: '2022-07-04T12:57:24+00:00',
-                enabled: true,
-            },
-            {
-                user_type_data: {
-                    user_type: 'user_sdc',
-                    user_type_name: 'Пользователь СДС',
-                },
-                id: 11,
-                email: 'user_sdc1@mail.ru',
-                dttm_created: null,
-                dttm_update: null,
-                dttn_last_authorization: '2022-06-30T08:39:29+00:00',
-                enabled: true,
-            },
-        ],
-        usersOc: [
-            {
-                user_type_data: {
-                    user_type: 'user_oc',
-                    user_type_name: 'Пользователь органа сертификации',
-                },
-                id: 23,
-                email: 'user_oc2@mail.ru',
-                dttm_created: '2022-06-16T09:30:43+00:00',
-                dttm_update: null,
-                dttn_last_authorization: '2022-06-16T09:38:37+00:00',
-                enabled: true,
-            },
-            {
-                user_type_data: {
-                    user_type: 'user_oc',
-                    user_type_name: 'Пользователь органа сертификации',
-                },
-                id: 21,
-                email: 'user_oc1@mail.ru',
-                dttm_created: '2022-06-03T15:57:13+00:00',
-                dttm_update: null,
-                dttn_last_authorization: '2022-07-08T15:33:28+00:00',
-                enabled: true,
-            },
-            {
-                user_type_data: {
-                    user_type: 'user_oc',
-                    user_type_name: 'Пользователь органа сертификации',
-                },
-                id: 22,
-                email: 'user_oc@mail.ru',
-                dttm_created: '2022-06-09T08:19:47+00:00',
-                dttm_update: null,
-                dttn_last_authorization: '2022-07-08T15:37:23+00:00',
-                enabled: true,
-            },
-        ],
-        groups: [
-            {
-                code: 'admin',
-                name: 'Техническая поддержка',
-            },
-            {
-                code: 'prof_sdc',
-                name: 'Оператор ПРОФ СДС',
-            },
-        ],
-    };
+    const { contactsList } = useSelector((state) => state.messages);
 
+    // функция для фильтра массива получателей для удаления конкретного получателя (чтобы оставить в массиве всех кроме него)
     const compareRecievers = (el, reciever, isNegativeComparasion) => {
         if (reciever.id) {
             return isNegativeComparasion
@@ -125,59 +54,65 @@ function NewMessage(props) {
         }
 
         // проверяем есть ли такой же элемент в массиве получателей и если есть фильтруем массив по айди этого получателя, чтобы исключить его из этого массива
-        if (
-            recieverList.some((reciever) => {
-                return compareRecievers(el, reciever, false);
-            })
-        ) {
-            setRecieverList((prev) =>
-                prev.filter((reciever) => {
-                    return compareRecievers(el, reciever, true);
-                })
-            );
+
+        if (messageType === 'group') {
+            setRecieverList([el]);
         } else {
-            setRecieverList((prev) => [...prev, el]);
+            if (
+                recieverList.some((reciever) => {
+                    return compareRecievers(el, reciever, false);
+                })
+            ) {
+                setRecieverList((prev) =>
+                    prev.filter((reciever) => {
+                        return compareRecievers(el, reciever, true);
+                    })
+                );
+            } else {
+                setRecieverList((prev) => [...prev, el]);
+            }
         }
     };
 
+    const handleSendMessage = () => {
+        if (recieverList.length > 0) {
+            if (recieverList[0].code) {
+                dispatch(
+                    sendMessage({
+                        group: recieverList[0].code,
+                        messageText: messageText.getPlainText(),
+                    })
+                );
+            }
+            if (recieverList[0].email) {
+                dispatch(
+                    sendMessage({
+                        users: recieverList.map((el) => el.id),
+                        messageText: messageText.getPlainText(),
+                    })
+                );
+            }
+            info('Отправлено!');
+        } else {
+            error('Выберите хотя бы одного получателя!');
+        }
+    };
     return (
         <div className="center">
             <div className="messagesContainer">
                 <div className="messages">
-                    <TextEditor />
-                    {/* <div className="messagesBlock">{messageText}</div> */}
+                    <TextEditor setMessageText={setMessageText} />
 
-                    {/* <RichEditorExample
-                        editorState={EditorState.createEmpty()}
-                        onChange={(_, editorState) => {
-                            // console.log(editorState);
-                            setMessageText(editorState);
-                        }}
-                        onBlur={() => {
-                            console.log('blur');
-                        }}
-                    /> */}
-
-                    <input
-                        value={value}
-                        onChange={(e) => {
-                            setValue(e.target.value);
-                        }}
-                    />
-
-                    {/* <div className="richTextContainer">
-                        <button
-                            onClick={() => {
-                                setMessageText(value);
-                            }}
-                        >
-                            Send
-                        </button>
-                    </div> */}
+                    <button
+                        onClick={handleSendMessage}
+                        className={'btn__login'}
+                    >
+                        Отправить
+                    </button>
                 </div>
 
                 <div className="contactList">
-                    {Object.entries(contacts).map((contactList) => {
+                    {Object.entries(contactsList).map((contactList) => {
                         return contactList.map((contact) => {
                             if (typeof contact === 'string') {
                                 return <span>{contact}</span>;
@@ -211,24 +146,6 @@ function NewMessage(props) {
                     })}
                 </div>
             </div>
-
-            {/* <div>
-                <div className="form">
-                    <input
-                        value={value}
-                        onChange={(e) => setValue(e.target.value)}
-                        type="text"
-                    />
-                    <button onClick={sendMessage}>Отправить</button>
-                </div>
-                <div className="messages">
-                    {messages.map((mess) => (
-                        <div className="message" key={mess.id}>
-                            {mess.message}
-                        </div>
-                     ))}
-                </div>
-            </div> */}
         </div>
     );
 }

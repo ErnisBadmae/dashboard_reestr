@@ -1,4 +1,9 @@
-import { getInbox, getOutBox, viewCurrentMessage } from '../actions';
+import {
+    getInbox,
+    getOutBox,
+    viewCurrentMessage,
+    getContactList,
+} from '../actions';
 import { createSlice } from '@reduxjs/toolkit';
 
 export const getMessages = createSlice({
@@ -7,6 +12,7 @@ export const getMessages = createSlice({
         inbox: [],
         outbox: [],
         currentMessage: {},
+        contactsList: {},
         isLoading: false,
         isSuccess: false,
         errorMessage: '',
@@ -54,6 +60,20 @@ export const getMessages = createSlice({
                 state.isError = true;
                 state.message = action.payload;
                 state.currentMessage = null;
+            })
+
+            .addCase(getContactList.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getContactList.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.contactsList = action.payload;
+            })
+            .addCase(getContactList.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                state.contactsList = null;
             });
     },
 });

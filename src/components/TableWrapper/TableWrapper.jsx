@@ -11,9 +11,9 @@ import {
     relocateToCard,
 } from './tableHelpers';
 import { useGetDataSource } from '../../hooks/useGetDataSource';
+import NewMessage from '../Messages/NewMessage';
 
 import './table.scss';
-import NewMessage from '../Messages/NewMessage';
 
 const { Content } = Layout;
 
