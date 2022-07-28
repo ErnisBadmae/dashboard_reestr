@@ -18,7 +18,7 @@ const RequireAuth = (props) => {
     const routes = {
         user_oc: [
             '/requests_oc',
-            `/request_oc/${proposalOsId}`,
+            `/current_oc/${proposalOsId}`,
             '/new_request_oc',
             `/edit_card/${proposalOsId}`,
         ],

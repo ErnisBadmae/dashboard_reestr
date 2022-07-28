@@ -66,7 +66,7 @@ export const getCurrentProposalOs = createAsyncThunk(
             `request/request_oc_organ_certification/get_request_oc_header/${cardId}`
         );
 
-        const value = result.data.data?.requestSdcHeader;
+        const value = result.data.data?.requestOcHeader;
         return {
             ...value,
             dttm_created: correctlyDate(value.dttm_created),

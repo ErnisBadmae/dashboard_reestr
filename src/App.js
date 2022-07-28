@@ -261,7 +261,7 @@ function App() {
                                 element={<TableWrapper tableType="tableOs" />}
                             />
                             <Route
-                                path="/request_oc/:proposalOsId"
+                                path="/current_oc/:proposalOsId"
                                 element={<ProposalOs />}
                             />
                             <Route

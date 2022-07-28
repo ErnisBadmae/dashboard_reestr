@@ -29,45 +29,96 @@ function ProposalCardOs(props) {
 
     const cardData = [
         {
-            id: 1,
-            title: 'Полное имя',
-            value: currentProposalOs?.full_name,
+            id: 0,
+            title: 'Полное наименование',
+            value: currentProposalOs?.request_oc_organ_certification
+                ?.full_name_company,
             name: 'full_name',
         },
         {
+            id: 1,
+            title: 'Полное наименование ОС',
+            value: currentProposalOs?.request_oc_organ_certification
+                ?.full_name_organ_certification,
+            name: 'short_name',
+        },
+        {
             id: 2,
-            title: 'Сокращенное имя',
-            value: currentProposalOs?.full_name,
+            title: 'Сокращенное наименование ОС',
+            value: currentProposalOs?.request_oc_organ_certification
+                ?.short_name_organ_certification,
             name: 'short_name',
         },
         {
             id: 3,
-            title: 'Регистрационный номер',
-            value: currentProposalOs?.registration_number,
+            title: 'Номер сертификата',
+            value: currentProposalOs?.request_oc_organ_certification
+                ?.certificate_number,
             name: 'registration_number',
         },
         {
             id: 4,
             title: 'Дата регистрации',
-            value: correctlyDate(currentProposalOs?.registration_date),
-            name: 'registration_date',
+            value: correctlyDate(
+                currentProposalOs?.request_oc_organ_certification
+                    ?.certificate_date
+            ),
+            name: 'certificate_date',
         },
         {
             id: 5,
-            title: 'Зарегистрированная компания',
-            value: currentProposalOs?.registration_company,
-            name: 'registration_company',
+            title: 'Номер решения',
+            value: currentProposalOs?.request_oc_organ_certification
+                ?.decision_number,
+            name: 'decision_number',
         },
         {
             id: 6,
             title: 'Сайт организации',
-            value: currentProposalOs?.site,
+            value: currentProposalOs?.request_oc_organ_certification?.site,
             name: 'site',
         },
         {
             id: 7,
             title: 'Область распространения',
-            value: currentProposalOs?.area,
+            value: currentProposalOs?.request_oc_organ_certification?.area,
+            name: 'area',
+        },
+        {
+            id: 8,
+            title: 'ИНН',
+            value: currentProposalOs?.request_oc_organ_certification?.inn,
+            name: 'area',
+        },
+        {
+            id: 9,
+            title: 'ОГРН',
+            value: currentProposalOs?.request_oc_organ_certification?.ogrn,
+            name: 'area',
+        },
+        {
+            id: 10,
+            title: 'Имя руководителя',
+            value: currentProposalOs?.request_oc_organ_certification
+                ?.manager_name,
+            name: 'area',
+        },
+        {
+            id: 11,
+            title: 'Адрес',
+            value: currentProposalOs?.request_oc_organ_certification?.address,
+            name: 'area',
+        },
+        {
+            id: 12,
+            title: 'Номер телефона',
+            value: currentProposalOs?.request_oc_organ_certification?.phone,
+            name: 'area',
+        },
+        {
+            id: 13,
+            title: 'E-mail',
+            value: currentProposalOs?.request_oc_organ_certification?.email,
             name: 'area',
         },
     ];

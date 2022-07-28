@@ -265,7 +265,7 @@ export const relocateToCard = (record, tableType, navigate) => {
             return {
                 onClick: (e) => {
                     e.preventDefault();
-                    navigate('/request_oс/' + record.id);
+                    navigate('/current_oc/' + record.id);
                 },
             };
 
