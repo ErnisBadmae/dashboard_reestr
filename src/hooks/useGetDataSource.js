@@ -9,6 +9,7 @@ export const useGetDataSource = ({ tableType, messagesType }) => {
 
     switch (tableType) {
         case 'sdcAdmin':
+        case 'tableSdc':
             return proposalSdcList.data?.map((item) => ({
                 ...item,
 
@@ -16,6 +17,7 @@ export const useGetDataSource = ({ tableType, messagesType }) => {
                 key: item.id,
             }));
         case 'osAdmin':
+        case 'tableOs':
             return proposalOsList.data?.map((item) => ({
                 ...item,
 

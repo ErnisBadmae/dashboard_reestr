@@ -2,6 +2,7 @@ import { Table, Layout, Pagination } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { PlusOutlined } from '@ant-design/icons';
 
 import NewMessage from '../Messages/NewMessage';
 import Spinner from '../Spinner/Spinner';
@@ -13,6 +14,7 @@ import {
     getFilterButtons,
     getColumns,
     relocateToCard,
+    checkStatus,
 } from './tableHelpers';
 
 import './table.scss';
@@ -20,17 +22,24 @@ import './table.scss';
 const { Content } = Layout;
 
 export const TableWrapper = ({ tableType }) => {
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const message =
+        'У вас имеется активная заявка, Вы пока не можете добавить заявку';
+
+    const [checkRequest, setCheckRequest] = useState(false);
     const [pageIndex, setPageIndex] = useState(0);
     const [pageSize, setPageSize] = useState(10);
     const [currentTab, setCurrentTab] = useState({
         id: 1,
     });
+
     const { totalElements } = useSelector(
         (state) => state.proposal.proposalSdcList
     );
     const { loading } = useSelector((state) => state.proposal);
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const userRole = useSelector((state) => state.auth.user.roles);
 
     useEffect(() => {
         setCurrentTab({
@@ -66,12 +75,37 @@ export const TableWrapper = ({ tableType }) => {
     if (loading) {
         return <Spinner />;
     }
+
     const filterBtn = getFilterButtons(tableType);
     const columns = getColumns(tableType);
+
+    const drawAddRequest = (userRole) => {
+        if (userRole !== 'user_admin') {
+            return (
+                <ButtonRegistry
+                    text="Добавить заявку"
+                    className={'btn__login'}
+                    icon={<PlusOutlined />}
+                    onClick={() =>
+                        checkStatus(userRole, setCheckRequest, navigate)
+                    }
+                />
+            );
+        } else {
+            return <></>;
+        }
+    };
 
     return (
         <>
             <Content style={{ padding: '25px 40px' }}>
+                <div className="buttons__request">
+                    {checkRequest ? (
+                        <div className="check-error"> {message} </div>
+                    ) : (
+                        drawAddRequest(userRole)
+                    )}
+                </div>
                 {filterBtn.map((btn) => {
                     return (
                         <ButtonRegistry

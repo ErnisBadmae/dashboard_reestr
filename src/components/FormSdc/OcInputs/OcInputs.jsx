@@ -1,9 +1,9 @@
-import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
 import { Controller } from 'react-hook-form';
-import { useSelector } from 'react-redux';
-import { useState } from 'react';
-import ru from 'date-fns/locale/ru';
 import InputMask from 'react-input-mask';
+import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
+import ru from 'date-fns/locale/ru';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import moment from 'moment';
 
 import 'react-datepicker/dist/react-datepicker.css';
@@ -11,15 +11,16 @@ import 'react-datepicker/dist/react-datepicker.css';
 registerLocale('ru', ru);
 setDefaultLocale('ru');
 
-export function OsInputs({ control, register, errors, navigate, formType }) {
-    const { currentProposalSdc } = useSelector((state) => state.proposalTest);
-    const [certificateDate, setCertificateDate] = useState(
-        moment(currentProposalSdc?.certificate_date).toDate()
+export function OcInputs({ control, register, errors, formType }) {
+    const { currentOsSdcCard } = useSelector((state) => state.proposalTest);
+
+    const [registrationDate, setRegistrationDate] = useState(
+        moment(currentOsSdcCard?.certificate_date).toDate()
     );
     const inputs = [
+        //удалить?
         {
-            id: 0,
-            title: 'Наименование компании',
+            title: 'Полное наименование компании',
             name: 'fullNameCompany',
             type: 'text',
             required: true,
@@ -27,11 +28,10 @@ export function OsInputs({ control, register, errors, navigate, formType }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Полное наименование должно быть на кириллице',
-            defaultValue: currentProposalSdc?.full_name_company,
+            defaultValue: currentOsSdcCard?.full_name_organ_certification,
         },
         {
-            id: 1,
-            title: 'Наименование',
+            title: 'Полное наименование ОС',
             name: 'fullNameOrganCertification',
             type: 'text',
             required: true,
@@ -39,64 +39,74 @@ export function OsInputs({ control, register, errors, navigate, formType }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Полное наименование должно быть на кириллице',
-            defaultValue: currentProposalSdc?.full_name_organ_certification,
+            defaultValue: currentOsSdcCard?.full_name_company,
         },
-
         {
-            id: 2,
-            title: 'Сокращенное наименование',
+            title: 'Сокращенное наименование ОС',
             name: 'shortNameOrganCertification',
             type: 'text',
             required: true,
             pattern: /[а-яА-ЯёЁ]/,
             minLength: 0,
             mask: null,
-            errorMessage: 'Введите данные на кириллице',
-            defaultValue: currentProposalSdc?.short_name_organ_certification,
+            errorMessage: 'Сокращенное наименование должно быть на кириллице',
+            defaultValue: currentOsSdcCard?.short_name_organ_certification,
         },
-
         {
-            id: 3,
-            title: 'Номер сертификата',
+            title: 'Номер аттестата аккредитации',
             name: 'certificateNumber',
             type: 'text',
             required: true,
             pattern: /^\d+$/,
-            minLength: 0,
-            mask: 'РОСС RU.99999.99***9',
-            errorMessage: 'Введите только числа',
-            defaultValue: currentProposalSdc?.certificate_number,
+            minLength: {
+                value: 7,
+                message: 'Вы вводите некорректное количество цифр',
+            },
+            mask: null,
+            errorMessage:
+                'Регистрационный номер должен состоять только из цифр',
+            defaultValue: currentOsSdcCard?.certificate_number,
         },
         {
-            id: 4,
-            title: 'Дата сертификации',
+            title: 'Дата решения об аккредитации',
             name: 'certificateDate',
             type: 'text',
             required: true,
             pattern: null,
             minLength: 0,
             mask: null,
-            errorMessage: 'Введите данные',
-            defaultValue: certificateDate,
+            errorMessage: 'Полное наименование должно быть на кириллице',
+            defaultValue: registrationDate,
             setData: (data) => {
-                setCertificateDate(data);
+                setRegistrationDate(data);
             },
         },
         {
-            id: 5,
-            title: 'Номер решения',
+            title: 'Номер решения об аккредитации',
             name: 'decisionNumber',
             type: 'text',
             required: true,
             pattern: /^\d+$/,
-            minLength: 0,
-            mask: 'РОСС RU.99999.99***9',
-            errorMessage: 'Введите только числа',
-            defaultValue: currentProposalSdc?.decision_number,
+            minLength: {
+                value: 4,
+                message: 'Вы вводите некорректное количество цифр',
+            },
+            mask: null,
+            errorMessage: 'Вы вводите некорректное количество цифр',
+            defaultValue: currentOsSdcCard?.decision_number,
         },
-
         {
-            id: 6,
+            title: 'Телефон',
+            name: 'phone',
+            type: 'text',
+            required: true,
+            pattern: null,
+            minLength: 0,
+            mask: '+7 (999) 999-99-99',
+            errorMessage: 'Введите корректный номер телефона',
+            defaultValue: currentOsSdcCard?.phone,
+        },
+        {
             title: 'ИНН',
             name: 'inn',
             type: 'text',
@@ -107,11 +117,10 @@ export function OsInputs({ control, register, errors, navigate, formType }) {
                 message: 'Вы вводите некорректное количество цифр',
             },
             mask: null,
-            errorMessage: 'номер должен состоять только из цифр',
-            defaultValue: currentProposalSdc?.inn,
+            errorMessage: 'Ввод возможен только цифр',
+            defaultValue: currentOsSdcCard?.inn,
         },
         {
-            id: 7,
             title: 'ОГРН',
             name: 'ogrn',
             type: 'text',
@@ -122,12 +131,11 @@ export function OsInputs({ control, register, errors, navigate, formType }) {
                 message: 'Вы вводите некорректное количество цифр',
             },
             mask: null,
-            errorMessage: 'номер должен состоять только из цифр',
-            defaultValue: currentProposalSdc?.ogrn,
+            errorMessage: 'Ввод возможен только цифр',
+            defaultValue: currentOsSdcCard?.ogrn,
         },
         {
-            id: 8,
-            title: 'Имя руководителя',
+            title: 'Данные руководителя',
             name: 'managerName',
             type: 'text',
             required: true,
@@ -135,11 +143,10 @@ export function OsInputs({ control, register, errors, navigate, formType }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Введите данные на кириллице',
-            defaultValue: currentProposalSdc?.manager_name,
+            defaultValue: currentOsSdcCard?.manager_name,
         },
         {
-            id: 9,
-            title: 'Адрес',
+            title: 'Адрес компании',
             name: 'address',
             type: 'text',
             required: true,
@@ -147,23 +154,10 @@ export function OsInputs({ control, register, errors, navigate, formType }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Введите данные на кириллице',
-            defaultValue: currentProposalSdc?.address,
+            defaultValue: currentOsSdcCard?.address,
         },
         {
-            id: 10,
-            title: 'Номер телефона',
-            name: 'phone',
-            type: 'text',
-            required: true,
-            pattern: null,
-            minLength: 0,
-            mask: '+7 (999) 999-99-99',
-            errorMessage: 'Введите данные',
-            defaultValue: currentProposalSdc?.phone,
-        },
-        {
-            id: 11,
-            title: 'E-mail',
+            title: 'Электронная почта',
             name: 'email',
             type: 'text',
             required: true,
@@ -171,26 +165,21 @@ export function OsInputs({ control, register, errors, navigate, formType }) {
                 /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
             minLength: 0,
             mask: null,
-            errorMessage: 'Введите корректные данные',
-            defaultValue: currentProposalSdc?.phone,
+            errorMessage: 'Введите корректную почту',
+            defaultValue: currentOsSdcCard?.email,
         },
         {
-            id: 12,
             title: 'Сайт',
             name: 'site',
             type: 'text',
             required: true,
             pattern: /[a-zA-Z]/,
-            minLength: {
-                value: 4,
-                message: 'Вы вводите некорректное значение',
-            },
+            minLength: 0,
             mask: null,
             errorMessage: 'Введите данные на латинице',
-            defaultValue: currentProposalSdc?.site,
+            defaultValue: currentOsSdcCard?.site,
         },
         {
-            id: 13,
             title: 'Область распространения',
             name: 'area',
             type: 'text',
@@ -199,23 +188,65 @@ export function OsInputs({ control, register, errors, navigate, formType }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Введите данные на кириллице',
-            defaultValue: currentProposalSdc?.area,
+            defaultValue: currentOsSdcCard?.area,
         },
     ];
 
     return (
         <>
             {inputs.map((inputEl) => {
-                if (inputEl.name === 'registrationDate') {
+                if (inputEl.mask) {
                     return (
-                        <div className="card__edit__input">
-                            <p className="input__title">Дата регистрации</p>
+                        <div className="card__edit__input" key={inputEl.title}>
+                            <p className="input__title">{inputEl.title}</p>
+
+                            <Controller
+                                render={({ field }) => {
+                                    return (
+                                        <InputMask
+                                            {...field}
+                                            style={
+                                                !errors[`${inputEl.name}`]
+                                                    ? {}
+                                                    : {
+                                                          border: '1px solid red',
+                                                      }
+                                            }
+                                            className="current__input card__edit__input__element"
+                                            mask={inputEl.mask}
+                                        />
+                                    );
+                                }}
+                                control={control}
+                                name={inputEl.name}
+                                defaultValue={
+                                    formType === 'editOs'
+                                        ? inputEl.defaultValue
+                                        : null
+                                }
+                                required={inputEl.required}
+                                autoComplete="off"
+                                type={inputEl.type}
+                            />
+                            {errors[`${inputEl.name}`] && (
+                                <div className="error-message">
+                                    {errors[`${inputEl.name}`].message ||
+                                        'Вы вводите некорректное количество цифр'}
+                                </div>
+                            )}
+                        </div>
+                    );
+                }
+                if (inputEl.name === 'certificateDate') {
+                    return (
+                        <div className="card__edit__input" key={inputEl.name}>
+                            <p className="input__title">{inputEl.title}</p>
                             <div className="card__edit__input__element">
                                 <Controller
                                     control={control}
                                     name={inputEl.name}
                                     defaultValue={
-                                        formType === 'editSdc'
+                                        formType === 'editOs'
                                             ? inputEl.defaultValue
                                             : null
                                     }
@@ -236,53 +267,6 @@ export function OsInputs({ control, register, errors, navigate, formType }) {
                         </div>
                     );
                 }
-                if (inputEl.mask) {
-                    return (
-                        <div className="card__edit__input" key={inputEl.title}>
-                            <p className="input__title">{inputEl.title}</p>
-
-                            <Controller
-                                render={({ field }) => {
-                                    return (
-                                        <InputMask
-                                            {...field}
-                                            formatChars={{
-                                                9: '[0-9]',
-                                                a: '[A-Za-z]',
-                                                '*': '[А-Яа-яЁёA-Za-z]',
-                                            }}
-                                            style={
-                                                !errors[`${inputEl.name}`]
-                                                    ? {}
-                                                    : {
-                                                          border: '1px solid red',
-                                                      }
-                                            }
-                                            className="current__input card__edit__input__element"
-                                            mask={inputEl.mask}
-                                        />
-                                    );
-                                }}
-                                control={control}
-                                name={inputEl.name}
-                                defaultValue={
-                                    formType === 'editSdc'
-                                        ? inputEl.defaultValue
-                                        : null
-                                }
-                                required={inputEl.required}
-                                autoComplete="off"
-                                type={inputEl.type}
-                            />
-                            {errors[`${inputEl.name}`] && (
-                                <div className="error-message">
-                                    {errors[`${inputEl.name}`].message ||
-                                        'Вы вводите некорректное количество цифр'}
-                                </div>
-                            )}
-                        </div>
-                    );
-                }
                 return (
                     <div className="card__edit__input">
                         <p className="input__title">{inputEl.title}</p>
@@ -295,7 +279,7 @@ export function OsInputs({ control, register, errors, navigate, formType }) {
                             autoFocus
                             id={inputEl.name}
                             defaultValue={
-                                formType === 'editSdc'
+                                formType === 'editOs'
                                     ? inputEl.defaultValue
                                     : null
                             }

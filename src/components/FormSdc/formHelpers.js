@@ -1,3 +1,4 @@
+import $api from '../../http';
 import {
     postExpertOsSdc,
     postOrganSertificationSdc,
@@ -7,6 +8,9 @@ import {
     editCurrentOsSdc,
     changeProposal,
     changeHolder,
+
+    //OC
+    postOcRequest,
 } from '../../store/proposal/actions';
 
 export const getFormData = (formType, data) => {
@@ -87,6 +91,26 @@ export const getFormData = (formType, data) => {
                 email: data.email,
                 site: data.site,
             };
+
+        //OC
+        case 'newOc':
+        case 'editOc':
+            return {
+                fullNameCompany: data.fullNameCompany,
+                fullNameOrganCertification: data.fullNameOrganCertification,
+                shortNameOrganCertification: data.shortNameOrganCertification,
+                decisionNumber: data.decisionNumber,
+                certificateDate:
+                    data.certificateDate.toLocaleDateString('en-CA'),
+                inn: data.inn,
+                ogrn: data.ogrn,
+                managerName: data.managerName,
+                address: data.address,
+                phone: data.phone,
+                email: data.email,
+                site: data.site,
+                area: data.area,
+            };
         default:
             return {};
     }
@@ -161,6 +185,14 @@ export const sendData = ({
                     .then(() => {
                         navigate(-1);
                     });
+            };
+
+        //OC
+        case 'newOc':
+            return () => {
+                dispatch(postOcRequest({ formData }))
+                    .unwrap()
+                    .then(({ id }) => navigate(`/request_os//${id}`));
             };
 
         default:

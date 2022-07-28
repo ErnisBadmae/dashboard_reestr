@@ -9,9 +9,7 @@ import {
     getHolders,
     getCurrentHolder,
 
-    //ОС
-    getProposalOsList,
-    getCurrentProposalOs,
+    //Органы сертификации
     postOrganSertificationSdc,
     getOrganSertifications,
     getCurrentOsSdc,
@@ -23,6 +21,11 @@ import {
     getExpertsOs,
     getCurrentExpertOs,
     editCurrentExpertOs,
+
+    //заявления ОС
+    postOcRequest,
+    getProposalOsList,
+    getCurrentProposalOs,
 } from './actions';
 
 const changeIsCardEditable = (status, state) => {
@@ -165,6 +168,21 @@ export const currentProposalTest = createSlice({
             })
 
             //ОС
+            .addCase(postOcRequest.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(postOcRequest.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.currentProposalOs = action.payload;
+            })
+            .addCase(postOcRequest.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                state.currentProposalOs = null;
+            })
+
             .addCase(getProposalOsList.pending, (state) => {
                 state.isLoading = true;
             })

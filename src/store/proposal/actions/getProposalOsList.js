@@ -1,18 +1,51 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { correctlyDate } from '../../../helpers/utils';
+import { error, info } from '../../../components/Toast/Toast.jsx';
+
 import $api from '../../../http';
+
+const headersAxios = {
+    headers: {
+        'Content-Type': 'application/json',
+    },
+};
+
+export const postOcRequest = createAsyncThunk(
+    'postOcRequest/post',
+    async (payload) => {
+        try {
+            let result = await $api.post(
+                '/request/request_oc_organ_certification/add',
+                payload.formData,
+                headersAxios
+            );
+
+            if (result.data.success) {
+                info('Ваши данные успешно добавлены!');
+                return result.data.data.requestSdcStandardCertification;
+            } else {
+                error(`ошибка сервера: ${result.message}`);
+                return {};
+            }
+        } catch (e) {
+            error(`ошибка сервера: ${e.message}`);
+        }
+    }
+);
 
 export const getProposalOsList = createAsyncThunk(
     'getProposalOsList/get',
     async (payload) => {
         const result = await $api.post(
-            '/request/request_sdc_standard_certification/get_request_sdc_header_list',
+            '/request/request_oc_organ_certification/get_request_oc_header_list',
             {
                 row_page: payload.row_page,
                 page: payload.page,
                 filters: payload.filters,
             }
         );
+        //    console.log(result, 'result');
+        //    return result.data;
         const value = result.data.data.data.map((el) => {
             return {
                 ...el,
@@ -30,7 +63,7 @@ export const getCurrentProposalOs = createAsyncThunk(
     'getCurrentProposalOs/view',
     async (cardId) => {
         let result = await $api.get(
-            `request/request_sdc_standard_certification/get_request_sdc_header/${cardId}`
+            `request/request_oc_organ_certification/get_request_oc_header/${cardId}`
         );
 
         const value = result.data.data?.requestSdcHeader;

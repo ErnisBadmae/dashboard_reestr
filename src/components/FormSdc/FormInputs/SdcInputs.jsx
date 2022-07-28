@@ -113,7 +113,7 @@ export function SdcInputs({ control, register, errors, navigate, formType }) {
             {inputs.map((inputEl) => {
                 if (inputEl.name === 'registrationDate') {
                     return (
-                        <div className="card__edit__input">
+                        <div key={inputEl.name} className="card__edit__input">
                             <p className="input__title">Дата регистрации</p>
                             <div className="card__edit__input__element">
                                 <Controller
@@ -122,7 +122,7 @@ export function SdcInputs({ control, register, errors, navigate, formType }) {
                                     defaultValue={
                                         formType === 'editSdc'
                                             ? inputEl.defaultValue
-                                            : null
+                                            : ''
                                     }
                                     render={({ field }) => (
                                         <DatePicker
@@ -143,7 +143,7 @@ export function SdcInputs({ control, register, errors, navigate, formType }) {
                 }
                 if (inputEl.mask) {
                     return (
-                        <div className="card__edit__input" key={inputEl.title}>
+                        <div key={inputEl.name} className="card__edit__input">
                             <p className="input__title">{inputEl.title}</p>
 
                             <Controller
@@ -173,7 +173,7 @@ export function SdcInputs({ control, register, errors, navigate, formType }) {
                                 defaultValue={
                                     formType === 'editSdc'
                                         ? inputEl.defaultValue
-                                        : null
+                                        : ''
                                 }
                                 required={inputEl.required}
                                 autoComplete="off"
@@ -189,7 +189,7 @@ export function SdcInputs({ control, register, errors, navigate, formType }) {
                     );
                 }
                 return (
-                    <div className="card__edit__input">
+                    <div key={inputEl.name} className="card__edit__input">
                         <p className="input__title">{inputEl.title}</p>
                         <input
                             className="current__input card__edit__input__element"
@@ -202,7 +202,7 @@ export function SdcInputs({ control, register, errors, navigate, formType }) {
                             defaultValue={
                                 formType === 'editSdc'
                                     ? inputEl.defaultValue
-                                    : null
+                                    : ''
                             }
                             style={
                                 !errors[`${inputEl.name}`]

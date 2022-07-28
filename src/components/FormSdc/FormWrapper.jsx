@@ -8,13 +8,15 @@ import { SdcInputs } from './FormInputs/SdcInputs.jsx';
 import { OsInputs } from './FormInputs/OsInputs';
 import { HolderInputs } from './FormInputs/HolderInputs';
 
+import { OcInputs } from './OcInputs/OcInputs';
+
 import './form-sdc.scss';
 
 function FormWrapper({ formType, formTitle }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { sdcId, expertId, holderId } = useParams();
+    const { sdcId, expertId, holderId, proposalOsId } = useParams();
 
     const { currentOsSdcCard } = useSelector((state) => state.proposalTest);
     const oSid = currentOsSdcCard?.id;
@@ -37,6 +39,7 @@ function FormWrapper({ formType, formTitle }) {
             sdcId,
             expertId,
             holderId,
+            proposalOsId,
         })();
     };
 
@@ -76,6 +79,16 @@ function FormWrapper({ formType, formTitle }) {
                 )}
                 {(formType === 'newHolder' || formType === 'editHolder') && (
                     <HolderInputs
+                        navigate={navigate}
+                        register={register}
+                        control={control}
+                        errors={errors}
+                        formType={formType}
+                    />
+                )}
+
+                {(formType === 'newOc' || formType === 'editOc') && (
+                    <OcInputs
                         navigate={navigate}
                         register={register}
                         control={control}

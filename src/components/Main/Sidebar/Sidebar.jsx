@@ -19,21 +19,27 @@ function Sidebar(props) {
         },
         {
             role: 'user_admin',
-            href: '/requests-sdc-list',
+            href: '/requests_sdc_list',
             text: 'Заявления СДС',
             id: 2,
         },
         {
             role: 'user_admin',
-            href: '/registration-os',
+            href: '/requests_os_list',
             text: 'Заявления ОС',
             id: 3,
+        },
+        {
+            role: 'user_oc',
+            href: '/requests_oc',
+            text: 'Заявления ОС',
+            id: 4,
         },
         {
             role: 'user_admin',
             href: '/registration-sdc',
             text: 'Регистрация СДС',
-            id: 4,
+            id: 5,
         },
     ];
     return (

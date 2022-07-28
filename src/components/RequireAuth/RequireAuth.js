@@ -16,10 +16,17 @@ const RequireAuth = (props) => {
     } = useParams();
 
     const routes = {
+        user_oc: [
+            '/requests_oc',
+            `/request_oc/${proposalOsId}`,
+            '/new_request_oc',
+            `/edit_card/${proposalOsId}`,
+        ],
         user_admin: [
             '/declarations',
             `/declaration/${sdcId}`,
-            '/requests-sdc-list',
+            '/requests_sdc_list',
+            '/requests_os_list',
             `/request_sdc/${sdcId}`,
             `/edit-card/${sdcId}`,
             `/current-os/${oSid}`,
@@ -32,11 +39,9 @@ const RequireAuth = (props) => {
             `/current-request-sdc-reg/${regId}`,
             '/messages',
             `/message/${messageId}`,
-            '/registration-os',
-            `/request_os/${proposalOsId}`,
+            //   `/request_oc/${proposalOsId}`,
         ],
         user_sdc: [
-            '/requests_sdc',
             `/request_sdc/${sdcId}`,
             '/new-request-sdc',
             `/edit-card/${sdcId}`,
@@ -53,7 +58,7 @@ const RequireAuth = (props) => {
             `/request_sdc/${sdcId}/form-holder`,
             '/messages',
             `/message/${messageId}`,
-            `/request_os/${proposalOsId}`,
+            '/requests_sdc',
         ],
     };
 
@@ -69,6 +74,9 @@ const RequireAuth = (props) => {
                 break;
             case 'user_sdc':
                 allowedRole === roles && allowedRoutes.push(...routes.user_sdc);
+                break;
+            case 'user_oc':
+                allowedRole === roles && allowedRoutes.push(...routes.user_oc);
                 break;
             default:
                 break;

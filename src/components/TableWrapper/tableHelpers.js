@@ -3,6 +3,7 @@ import {
     getProposalOsList,
 } from '../../store/proposal/actions';
 import { getInbox, getOutBox } from '../../store/messages/actions';
+import $api from '../../http';
 
 export const getTableData = ({
     tableType,
@@ -14,6 +15,7 @@ export const getTableData = ({
 }) => {
     switch (tableType) {
         case 'sdcAdmin':
+        case 'tableSdc':
             return () => {
                 dispatch(
                     getProposalSdcList({
@@ -27,6 +29,7 @@ export const getTableData = ({
                 );
             };
         case 'osAdmin':
+        case 'tableOs':
             return () => {
                 dispatch(
                     getProposalOsList({
@@ -136,6 +139,10 @@ export const getFilterButtons = (tableType) => {
                     id: 3,
                 },
             ];
+        case 'tableSdc':
+            return [];
+        case 'tableOs':
+            return [];
         default:
             break;
     }
@@ -144,6 +151,7 @@ export const getFilterButtons = (tableType) => {
 export const getColumns = (tableType) => {
     switch (tableType) {
         case 'sdcAdmin':
+        case 'tableSdc':
             return [
                 {
                     title: 'Дата создания ',
@@ -175,6 +183,7 @@ export const getColumns = (tableType) => {
                 },
             ];
         case 'osAdmin':
+        case 'tableOs':
             return [
                 {
                     title: 'Дата создания ',
@@ -244,6 +253,7 @@ export const relocateToCard = (record, tableType, navigate) => {
                 },
             };
         case 'sdcAdmin':
+        case 'tableSdc':
             return {
                 onClick: (e) => {
                     e.preventDefault();
@@ -251,12 +261,42 @@ export const relocateToCard = (record, tableType, navigate) => {
                 },
             };
         case 'osAdmin':
+        case 'tableOs':
             return {
                 onClick: (e) => {
                     e.preventDefault();
-                    navigate('/request_os/' + record.id);
+                    navigate('/request_oс/' + record.id);
                 },
             };
+
+        default:
+            break;
+    }
+};
+
+export const checkStatus = async (userRole, setState, navigate) => {
+    switch (userRole) {
+        case 'user_sdc':
+            let res = await $api.get(
+                '/request/request_sdc_standard_certification/get/active_request_sdc_header'
+            );
+            if (res.data.data?.requestSdcHeader !== null) {
+                setState(true);
+            } else {
+                navigate('/new-request-sdc');
+            }
+            break;
+
+        case 'user_oc':
+            let val = await $api.get(
+                '/request/request_sdc_standard_certification/get/active_request_oc_header'
+            );
+            if (val.data.data?.requestSdcHeader !== null) {
+                setState(true);
+            } else {
+                navigate('/new-request-oc');
+            }
+            break;
 
         default:
             break;

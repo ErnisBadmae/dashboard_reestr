@@ -18,11 +18,11 @@ import CardOs from './pages/registries/registry-os/card-os/card-os';
 import CurrentExpert from './components/CurrentCard/CurrentExpert/CurrentExpert';
 import CurrentRequestSdcUser from './components/CurrentCard/CurrentRequestSdcUser';
 import CurrentMessage from './components/CurrentCard/CurrentMessage/CurrentMessage';
+import ProposalOs from './pages/proposalSdc/proposalOs';
 
 import { AuthLayout } from './components/Layout/AuthLayout';
 import { LayoutContent } from './components/Layout/LayoutContent';
 import { TableRegistry } from './components/TableRegistry/TableRegistry';
-import { TableSdsOperator } from './components/TableSds/TableSdsOperator';
 import { TableRegistriesWrapper } from './components/Registries/tableWrapper/TableRegistriesWrapper';
 import { TableWrapper } from './components/TableWrapper/TableWrapper';
 import { RegistrySds } from './pages/registries/registry-sds/registry-sds';
@@ -32,7 +32,6 @@ import { RegistryCertificates } from './pages/registries/registry-certificates/r
 import { TableUsers } from './components/TableUsers/TableUsers';
 import { Reports } from './pages/reports/Reports';
 import { RequestUsersSdc } from './components/TableUsers/RequestUsersSdc';
-import ProposalOs from './pages/proposalSdc/proposalOs';
 
 function App() {
     const navigate = useNavigate();
@@ -94,6 +93,7 @@ function App() {
 
                         <Route path="reports" element={<Reports />} />
 
+                        {/* админовские руты */}
                         <Route
                             element={
                                 <RequireAuth allowedRoles={['user_admin']} />
@@ -118,17 +118,18 @@ function App() {
                             />
 
                             <Route
-                                path="/requests-sdc-list"
+                                path="/requests_sdc_list"
                                 element={<TableWrapper tableType="sdcAdmin" />}
                             />
                             <Route
-                                path="/registration-os"
+                                path="/requests_os_list"
                                 element={<TableWrapper tableType="osAdmin" />}
                             />
 
                             <Route path="/sds" element={<TableRegistry />} />
                         </Route>
 
+                        {/* руты сущности СДС */}
                         <Route
                             element={
                                 <RequireAuth
@@ -222,15 +223,11 @@ function App() {
                             </Route>
                             <Route
                                 path="/requests_sdc"
-                                element={<TableSdsOperator />}
+                                element={<TableWrapper tableType="tableSdc" />}
                             />
                             <Route
                                 path="/request_sdc/:sdcId"
                                 element={<ProposalSdc />}
-                            />
-                            <Route
-                                path="/request_os/:proposalOsId"
-                                element={<ProposalOs />}
                             />
 
                             <Route path="current-os">
@@ -250,6 +247,43 @@ function App() {
                                 element={<CurrentUploadDocument />}
                             />
                         </Route>
+
+                        {/* руты сущности OC */}
+                        <Route
+                            element={
+                                <RequireAuth
+                                    allowedRoles={['user_oc', 'user_admin']}
+                                />
+                            }
+                        >
+                            <Route
+                                path="/requests_oc"
+                                element={<TableWrapper tableType="tableOs" />}
+                            />
+                            <Route
+                                path="/request_oc/:proposalOsId"
+                                element={<ProposalOs />}
+                            />
+                            <Route
+                                path="/new_request_oc"
+                                element={
+                                    <FormWrapper
+                                        formTitle="Заявление"
+                                        formType="newOc"
+                                    />
+                                }
+                            />
+                            <Route
+                                path="/edit_card/:proposalOsId"
+                                element={
+                                    <FormWrapper
+                                        formTitle="Редактирование ОС"
+                                        formType="editOc"
+                                    />
+                                }
+                            />
+                        </Route>
+
                         <Route path="*" element={<NotFound />} />
                     </Route>
                 )}
