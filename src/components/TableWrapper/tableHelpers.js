@@ -1,4 +1,7 @@
-import { getProposalSdcList } from '../../store/proposal/actions';
+import {
+    getProposalSdcList,
+    getProposalOsList,
+} from '../../store/proposal/actions';
 import { getInbox, getOutBox } from '../../store/messages/actions';
 
 export const getTableData = ({
@@ -14,6 +17,19 @@ export const getTableData = ({
             return () => {
                 dispatch(
                     getProposalSdcList({
+                        row_page: pageSize,
+                        page: pageIndex,
+                        filters:
+                            filterStatus !== null
+                                ? { status: filterStatus }
+                                : {},
+                    })
+                );
+            };
+        case 'osAdmin':
+            return () => {
+                dispatch(
+                    getProposalOsList({
                         row_page: pageSize,
                         page: pageIndex,
                         filters:
@@ -49,11 +65,6 @@ export const getTableData = ({
                         })
                     );
                 }
-                // if(messagesType ==='sendMessage'){
-                //     dispatch(
-
-                //     )
-                // }
             };
         default:
             break;
@@ -63,6 +74,30 @@ export const getTableData = ({
 export const getFilterButtons = (tableType) => {
     switch (tableType) {
         case 'sdcAdmin':
+            return [
+                {
+                    id: 1,
+                    text: 'Все',
+                    status: null,
+                },
+                {
+                    id: 2,
+                    text: 'Отправлено на проверку документов',
+                    status: 4,
+                },
+                {
+                    id: 3,
+                    text: 'Проверка документов',
+                    status: 5,
+                },
+
+                {
+                    id: 4,
+                    text: 'Решение принято',
+                    status: [8, 9],
+                },
+            ];
+        case 'osAdmin':
             return [
                 {
                     id: 1,
@@ -139,6 +174,37 @@ export const getColumns = (tableType) => {
                     number_in_row: 1,
                 },
             ];
+        case 'osAdmin':
+            return [
+                {
+                    title: 'Дата создания ',
+                    dataIndex: 'dttm_created',
+                    data_type: 'string',
+                    is_sort: true,
+                    number_in_row: 1,
+                },
+                {
+                    title: 'Дата обновления',
+                    dataIndex: 'dttm_updated',
+                    data_type: 'string',
+                    is_sort: true,
+                    number_in_row: 1,
+                },
+                {
+                    title: 'Дата принятия решения',
+                    dataIndex: 'dttm_decision',
+                    data_type: 'string',
+                    is_sort: true,
+                    number_in_row: 1,
+                },
+                {
+                    title: 'Статус',
+                    dataIndex: 'status',
+                    data_type: 'string',
+                    is_sort: true,
+                    number_in_row: 1,
+                },
+            ];
         case 'messages':
             return [
                 {
@@ -175,6 +241,20 @@ export const relocateToCard = (record, tableType, navigate) => {
                 onClick: (e) => {
                     e.preventDefault();
                     navigate('/message/' + record.id);
+                },
+            };
+        case 'sdcAdmin':
+            return {
+                onClick: (e) => {
+                    e.preventDefault();
+                    navigate('/request_sdc/' + record.id);
+                },
+            };
+        case 'osAdmin':
+            return {
+                onClick: (e) => {
+                    e.preventDefault();
+                    navigate('/request_os/' + record.id);
                 },
             };
 

@@ -4,8 +4,16 @@ import useAuth from '../../hooks/useAuth';
 
 const RequireAuth = (props) => {
     const { pathname } = useLocation();
-    const { sdcId, documentId, expertId, holderId, oSid, regId, messageId } =
-        useParams();
+    const {
+        sdcId,
+        documentId,
+        expertId,
+        holderId,
+        oSid,
+        regId,
+        messageId,
+        proposalOsId,
+    } = useParams();
 
     const routes = {
         user_admin: [
@@ -24,6 +32,8 @@ const RequireAuth = (props) => {
             `/current-request-sdc-reg/${regId}`,
             '/messages',
             `/message/${messageId}`,
+            '/registration-os',
+            `/request_os/${proposalOsId}`,
         ],
         user_sdc: [
             '/requests_sdc',
@@ -43,6 +53,7 @@ const RequireAuth = (props) => {
             `/request_sdc/${sdcId}/form-holder`,
             '/messages',
             `/message/${messageId}`,
+            `/request_os/${proposalOsId}`,
         ],
     };
 

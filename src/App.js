@@ -17,8 +17,7 @@ import CardSdc from './pages/registries/registry-sds/card-sds/card-sds';
 import CardOs from './pages/registries/registry-os/card-os/card-os';
 import CurrentExpert from './components/CurrentCard/CurrentExpert/CurrentExpert';
 import CurrentRequestSdcUser from './components/CurrentCard/CurrentRequestSdcUser';
-// import Dialogs from './components/Dialogs/Dialogs';
-import Messages from './components/Messages/Messages';
+import CurrentMessage from './components/CurrentCard/CurrentMessage/CurrentMessage';
 
 import { AuthLayout } from './components/Layout/AuthLayout';
 import { LayoutContent } from './components/Layout/LayoutContent';
@@ -33,7 +32,6 @@ import { RegistryCertificates } from './pages/registries/registry-certificates/r
 import { TableUsers } from './components/TableUsers/TableUsers';
 import { Reports } from './pages/reports/Reports';
 import { RequestUsersSdc } from './components/TableUsers/RequestUsersSdc';
-import CurrentMessage from './components/CurrentCard/CurrentMessage/CurrentMessage';
 
 function App() {
     const navigate = useNavigate();
@@ -93,8 +91,6 @@ function App() {
                             />
                         </Route>
 
-                        {/* <Route path="dialogs" element={<Dialogs />}></Route> */}
-
                         <Route path="reports" element={<Reports />} />
 
                         <Route
@@ -124,6 +120,10 @@ function App() {
                                 path="/requests-sdc-list"
                                 element={<TableWrapper tableType="sdcAdmin" />}
                             />
+                            <Route
+                                path="/registration-os"
+                                element={<TableWrapper tableType="osAdmin" />}
+                            />
 
                             <Route path="/sds" element={<TableRegistry />} />
                         </Route>
@@ -135,7 +135,6 @@ function App() {
                                 />
                             }
                         >
-                            {/* <Route path="/messages" element={<Messages />} /> */}
                             <Route
                                 path="/messages"
                                 element={<TableWrapper tableType="messages" />}
@@ -220,13 +219,16 @@ function App() {
                                     }
                                 />
                             </Route>
-
                             <Route
                                 path="/requests_sdc"
                                 element={<TableSdsOperator />}
                             />
                             <Route
                                 path="/request_sdc/:sdcId"
+                                element={<ProposalSdc />}
+                            />
+                            <Route
+                                path="/request_os/:proposalOsId"
                                 element={<ProposalSdc />}
                             />
 
@@ -236,14 +238,12 @@ function App() {
                                     element={<CurrentOsSdc />}
                                 />
                             </Route>
-
                             <Route path="current-expert-os">
                                 <Route
                                     path=":expertId"
                                     element={<CurrentExpert />}
                                 />
                             </Route>
-
                             <Route
                                 path="/request_sdc/:sdcId/current-document/:documentId"
                                 element={<CurrentUploadDocument />}

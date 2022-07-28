@@ -1,6 +1,6 @@
+import { createSlice } from '@reduxjs/toolkit';
 import {
     postSdcRequest,
-    //     postDeclarationHolder,
     getPreviewCurrentProposalSdc,
     getCurrentProposalSdc,
     changeProposal,
@@ -10,6 +10,8 @@ import {
     getCurrentHolder,
 
     //ОС
+    getProposalOsList,
+    getCurrentProposalOs,
     postOrganSertificationSdc,
     getOrganSertifications,
     getCurrentOsSdc,
@@ -22,7 +24,6 @@ import {
     getCurrentExpertOs,
     editCurrentExpertOs,
 } from './actions';
-import { createSlice } from '@reduxjs/toolkit';
 
 const changeIsCardEditable = (status, state) => {
     if (status !== 1 && status !== 2) {
@@ -35,6 +36,8 @@ const changeIsCardEditable = (status, state) => {
 export const currentProposalTest = createSlice({
     name: 'currentProposalTest',
     initialState: {
+        proposalOsList: [],
+        currentProposalOs: {},
         currentProposalSdc: {},
         previewProposalSdc: {},
         holders: [],
@@ -162,6 +165,36 @@ export const currentProposalTest = createSlice({
             })
 
             //ОС
+            .addCase(getProposalOsList.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getProposalOsList.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.proposalOsList = action.payload;
+            })
+            .addCase(getProposalOsList.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                state.proposalOsList = null;
+            })
+
+            .addCase(getCurrentProposalOs.pending, (state) => {
+                state.isLoading = true;
+            })
+            .addCase(getCurrentProposalOs.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.isSuccess = true;
+                state.currentProposalOs = action.payload;
+            })
+            .addCase(getCurrentProposalOs.rejected, (state, action) => {
+                state.isLoading = false;
+                state.isError = true;
+                state.message = action.payload;
+                state.currentProposalOs = null;
+            })
+
             .addCase(postOrganSertificationSdc.pending, (state) => {
                 state.isLoading = true;
             })

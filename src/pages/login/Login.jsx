@@ -42,7 +42,6 @@ function Login(props) {
     };
 
     if (isLoading) {
-        //    debugger;
         return <Spinner />;
     }
 

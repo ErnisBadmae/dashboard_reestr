@@ -20,14 +20,20 @@ function Sidebar(props) {
         {
             role: 'user_admin',
             href: '/requests-sdc-list',
-            text: 'Список заявлений',
+            text: 'Заявления СДС',
             id: 2,
+        },
+        {
+            role: 'user_admin',
+            href: '/registration-os',
+            text: 'Заявления ОС',
+            id: 3,
         },
         {
             role: 'user_admin',
             href: '/registration-sdc',
             text: 'Регистрация СДС',
-            id: 3,
+            id: 4,
         },
     ];
     return (

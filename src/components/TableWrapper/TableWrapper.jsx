@@ -3,15 +3,17 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
+import NewMessage from '../Messages/NewMessage';
+import Spinner from '../Spinner/Spinner';
+
 import { ButtonRegistry } from '../Buttons/button-registry/button-registry';
+import { useGetDataSource } from '../../hooks/useGetDataSource';
 import {
     getTableData,
     getFilterButtons,
     getColumns,
     relocateToCard,
 } from './tableHelpers';
-import { useGetDataSource } from '../../hooks/useGetDataSource';
-import NewMessage from '../Messages/NewMessage';
 
 import './table.scss';
 
@@ -26,7 +28,7 @@ export const TableWrapper = ({ tableType }) => {
     const { totalElements } = useSelector(
         (state) => state.proposal.proposalSdcList
     );
-
+    const { loading } = useSelector((state) => state.proposal);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -61,6 +63,9 @@ export const TableWrapper = ({ tableType }) => {
                 ? 'outbox'
                 : 'sendMessage',
     });
+    if (loading) {
+        return <Spinner />;
+    }
     const filterBtn = getFilterButtons(tableType);
     const columns = getColumns(tableType);
 
@@ -91,7 +96,6 @@ export const TableWrapper = ({ tableType }) => {
                     ) : (
                         <>
                             <Table
-                                // bordered={false}
                                 columns={columns}
                                 dataSource={dataSource}
                                 className="registry-sro__table"
