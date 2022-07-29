@@ -75,3 +75,20 @@ export const getCurrentProposalOs = createAsyncThunk(
         };
     }
 );
+
+export const getPreviewCurrentProposalOc = createAsyncThunk(
+    'preview/getPreviewCurrentProposalOc',
+    async (cardId) => {
+        let result = await $api.get(
+            `request/request_sdc_standard_certification/get_request_oc_header/${cardId}`
+        );
+
+        const value = result.data.data?.requestSdcHeader;
+        return {
+            ...value,
+            dttm_created: correctlyDate(value.dttm_created),
+            dttm_updated: correctlyDate(value.dttm_updated),
+            dttm_desicion: correctlyDate(value.dttm_desicion),
+        };
+    }
+);

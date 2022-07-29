@@ -204,6 +204,7 @@ export const currentProposalTest = createSlice({
             .addCase(getCurrentProposalOs.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.isSuccess = true;
+                changeIsCardEditable(action.payload.status.id, state);
                 state.currentProposalOs = action.payload;
             })
             .addCase(getCurrentProposalOs.rejected, (state, action) => {

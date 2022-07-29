@@ -1,4 +1,3 @@
-import $api from '../../http';
 import {
     postExpertOsSdc,
     postOrganSertificationSdc,
