@@ -83,7 +83,7 @@ export const TableWrapper = ({ tableType }) => {
         if (userRole !== 'user_admin') {
             return (
                 <ButtonRegistry
-                    text="Добавить заявку"
+                    text="Создать заявку"
                     className={'btn__login'}
                     icon={<PlusOutlined />}
                     onClick={() =>

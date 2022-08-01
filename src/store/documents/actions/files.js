@@ -37,7 +37,7 @@ export const postDocumentOc = createAsyncThunk(
 
         try {
             const result = await $api.post(
-                `/request/request_oc_organ_certification/{/${payload.id}/document/add`,
+                `/request/request_oc_organ_certification/${payload.id}/document/add`,
                 documentFormData
             );
 
@@ -59,23 +59,37 @@ export const uploadFiles = createAsyncThunk(
         formData.append('uploadedFile[]', payload.uploadedFiles);
 
         try {
-            await axios.post(
-                `https://api-prof-sdc.anonamis.ru/api/request/request_sdc_standard_certification/${payload.id}/document/${payload.documentId}/file/add`,
-                formData,
-                {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem(
-                            'token'
-                        )}`,
-                        'Content-type': 'multipart/form-data',
-                    },
-                }
-            );
+            if (payload.typeRequest === 'oc') {
+                await axios.post(
+                    `https://api-prof-sdc.anonamis.ru/api/request/request_oc_organ_certification/${payload.id}/document/${payload.documentId}/file/add`,
+                    formData,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem(
+                                'token'
+                            )}`,
+                            'Content-type': 'multipart/form-data',
+                        },
+                    }
+                );
+            } else {
+                await axios.post(
+                    `https://api-prof-sdc.anonamis.ru/api/request/request_sdc_standard_certification/${payload.id}/document/${payload.documentId}/file/add`,
+                    formData,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem(
+                                'token'
+                            )}`,
+                            'Content-type': 'multipart/form-data',
+                        },
+                    }
+                );
+            }
             info('Файл успешно добавлен');
         } catch (err) {
             error('Произошла ошибка');
         }
-
         return;
     }
 );

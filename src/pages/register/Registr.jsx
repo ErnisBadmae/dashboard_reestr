@@ -17,18 +17,18 @@ const Registr = () => {
     const dispatch = useDispatch();
 
     const [isRegisterSuccess, setIsRegisterSuccess] = useState(false);
-    const [ogrn, setOgrn] = useState('');
-    const [ogrnError, setOgrnError] = useState(false);
+    //     const [ogrn, setOgrn] = useState('');
+    //     const [ogrnError, setOgrnError] = useState(false);
 
     const formHandler = (data) => {
         const registrData = {
             post: data.post,
-            lastname: data.lastname,
-            secondname: data.secondname,
+            //   lastname: data.lastname,
+            //   secondname: data.secondname,
             firstname: data.firstname,
             orgInn: data.orgInn,
-            orgOgrn: ogrn,
-            orgShortName: data.orgShortName,
+            //   orgOgrn: ogrn,
+            //   orgShortName: data.orgShortName,
             email: data.email,
             phone: data.phone,
             registrationNumber: data.registrationNumber,
@@ -116,7 +116,7 @@ const Registr = () => {
                     )}
                 </div>
 
-                <div className="card__edit__input">
+                {/* <div className="card__edit__input">
                     <p className="input__title">Фамилия</p>
                     <input
                         className="current__input card__edit__input__element"
@@ -141,9 +141,9 @@ const Registr = () => {
                                 'Фамилия должна быть на кириллице'}
                         </div>
                     )}
-                </div>
+                </div> */}
 
-                <div className="card__edit__input">
+                {/* <div className="card__edit__input">
                     <p className="input__title">Отчество</p>
                     <input
                         className="current__input card__edit__input__element"
@@ -166,7 +166,7 @@ const Registr = () => {
                                 'Отчество должно быть на кириллице'}
                         </div>
                     )}
-                </div>
+                </div> */}
 
                 <div className="card__edit__input">
                     <p className="input__title">
@@ -184,7 +184,7 @@ const Registr = () => {
                                 className="current__input card__edit__input__element"
                                 onChange={(suggestion) => {
                                     field.onChange(suggestion?.data?.inn);
-                                    setOgrn(suggestion?.data?.ogrn);
+                                    //  setOgrn(suggestion?.data?.ogrn);
                                 }}
                             />
                         )}
@@ -199,7 +199,7 @@ const Registr = () => {
                                         });
                                     }} */}
 
-                <div className="card__edit__input">
+                {/* <div className="card__edit__input">
                     <p className="input__title">ОГРН</p>
                     <input
                         className="current__input card__edit__input__element"
@@ -221,9 +221,9 @@ const Registr = () => {
                             Выберите ИНН и это поле автоматически заполнится
                         </div>
                     )}
-                </div>
+                </div> */}
 
-                <div className="card__edit__input">
+                {/* <div className="card__edit__input">
                     <p className="input__title">
                         Сокращенное название организации
                     </p>
@@ -250,7 +250,7 @@ const Registr = () => {
                                 'Сокращенное наименование должно быть на кириллице'}
                         </div>
                     )}
-                </div>
+                </div> */}
 
                 <div className="card__edit__input">
                     <p className="input__title">Должность</p>

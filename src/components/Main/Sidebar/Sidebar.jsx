@@ -14,7 +14,7 @@ function Sidebar(props) {
         {
             role: 'user_sdc',
             href: '/requests_sdc',
-            text: 'Заявления оператора СДС',
+            text: 'Заявка на соответствие',
             id: 1,
         },
         {

@@ -7,7 +7,6 @@ import {
 } from '@ant-design/icons';
 import {
     getDocumentCard,
-    getDocumentCardOc,
     uploadFiles,
     deleteFileDocument,
     saveFileDocument,
@@ -32,7 +31,7 @@ const getFileSize = (size) => {
     return `${(size / 8 / 1024).toFixed(2)} KB`;
 };
 
-function CurrentUploadDocument(props) {
+function CurrentUploadDocument({ typeRequest }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -48,8 +47,8 @@ function CurrentUploadDocument(props) {
 
     useEffect(() => {
         sdcId && dispatch(getDocumentCard({ id: sdcId, documentId }));
-        proposalOsId &&
-            dispatch(getDocumentCardOc({ id: proposalOsId, documentId }));
+        //    proposalOsId &&
+        //   dispatch(getDocumentCardOc({ id: proposalOsId, documentId }));
     }, [proposalOsId, sdcId, documentId, dispatch]);
 
     const handleCancel = () => setPreviewVisible(false);
@@ -67,30 +66,37 @@ function CurrentUploadDocument(props) {
     //     };
 
     function handleSubmit(event) {
-        sdcId &&
-            dispatch(
-                uploadFiles({
-                    id: sdcId,
-                    documentId,
-                    uploadedFiles: event.file,
-                })
-            )
-                .unwrap()
-                .then(() => {
-                    dispatch(getDocumentCard({ id: sdcId, documentId }));
-                });
-        proposalOsId &&
-            dispatch(
-                uploadFiles({
-                    id: proposalOsId,
-                    documentId,
-                    uploadedFiles: event.file,
-                })
-            )
-                .unwrap()
-                .then(() => {
-                    dispatch(getDocumentCard({ id: proposalOsId, documentId }));
-                });
+        //    sdcId &&
+        //        dispatch(
+        //            uploadFiles({
+        //                id: sdcId,
+        //                documentId,
+        //                uploadedFiles: event.file,
+        //            })
+        //        )
+        //            .unwrap()
+        //            .then(() => {
+        //                dispatch(getDocumentCard({ id: sdcId, documentId }));
+        //            });
+        //    proposalOsId &&
+        dispatch(
+            uploadFiles({
+                typeRequest,
+                id: proposalOsId,
+                documentId,
+                uploadedFiles: event.file,
+            })
+        )
+            .unwrap()
+            .then(() => {
+                dispatch(
+                    getDocumentCard({
+                        typeRequest,
+                        id: proposalOsId,
+                        documentId,
+                    })
+                );
+            });
     }
 
     return (

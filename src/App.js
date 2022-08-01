@@ -244,7 +244,9 @@ function App() {
                             </Route>
                             <Route
                                 path="/request_sdc/:sdcId/current-document/:documentId"
-                                element={<CurrentUploadDocument />}
+                                element={
+                                    <CurrentUploadDocument typeRequest="sdc" />
+                                }
                             />
                         </Route>
 
@@ -280,6 +282,12 @@ function App() {
                                         formTitle="Редактирование ОС"
                                         formType="editOc"
                                     />
+                                }
+                            />
+                            <Route
+                                path="/current_oc/:proposalOsId/current-document/:documentId"
+                                element={
+                                    <CurrentUploadDocument typeRequest="oc" />
                                 }
                             />
                         </Route>

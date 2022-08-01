@@ -21,6 +21,7 @@ const RequireAuth = (props) => {
             `/current_oc/${proposalOsId}`,
             '/new_request_oc',
             `/edit_card/${proposalOsId}`,
+            `/current_oc/${proposalOsId}/current-document/${documentId}`,
         ],
         user_admin: [
             '/declarations',
