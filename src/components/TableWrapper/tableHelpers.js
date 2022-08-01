@@ -275,6 +275,10 @@ export const relocateToCard = (record, tableType, navigate) => {
 };
 
 export const checkStatus = async (userRole, setState, navigate) => {
+    //     console.log(
+    //         userRole,
+    //         'checkStatus = async (userRole, setState, navigate) '
+    //     );
     switch (userRole) {
         case 'user_sdc':
             let res = await $api.get(
@@ -291,10 +295,10 @@ export const checkStatus = async (userRole, setState, navigate) => {
             let val = await $api.get(
                 '/request/request_oc_organ_certification/get/active_request_oc_header'
             );
-            if (val.data.data?.requestSdcHeader !== null) {
+            if (val.data.data?.requestOcHeader !== null) {
                 setState(true);
             } else {
-                navigate('/new-request-oc');
+                navigate('/new_request_oc');
             }
             break;
 

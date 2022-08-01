@@ -1,14 +1,17 @@
 import { changeStatus, changeStatusOc } from '../../store/proposal/actions';
 
+//
+
 export const getMenuItems = ({
-    role,
+    userRole,
     requestStatus,
     dispatch,
     navigate,
     id,
     requestType,
 }) => {
-    if (role !== 'user_admin') {
+    if (userRole !== 'user_admin') {
+        console.log(userRole, 'userRole');
         return [
             {
                 key: '1',
@@ -26,7 +29,7 @@ export const getMenuItems = ({
                               })
                     )
                         .unwrap()
-                        .then(() => navigate('/requests_sdc'));
+                        .then(() => navigate(-1));
                 },
             },
 
@@ -38,15 +41,15 @@ export const getMenuItems = ({
                         requestType === 'sdc'
                             ? changeStatus({
                                   id,
-                                  code: 'send_document_verified',
+                                  code: 'canceled',
                               })
                             : changeStatusOc({
                                   id,
-                                  code: 'send_document_verified',
+                                  code: 'canceled',
                               })
                     )
                         .unwrap()
-                        .then(() => navigate('/requests_sdc'));
+                        .then(() => navigate(-1));
                 },
             },
         ];
@@ -62,11 +65,11 @@ export const getMenuItems = ({
                                 requestType === 'sdc'
                                     ? changeStatus({
                                           id,
-                                          code: 'send_document_verified',
+                                          code: 'document_verified',
                                       })
                                     : changeStatusOc({
                                           id,
-                                          code: 'send_document_verified',
+                                          code: 'document_verified',
                                       })
                             );
                             navigate(-1);
@@ -83,11 +86,11 @@ export const getMenuItems = ({
                                 requestType === 'sdc'
                                     ? changeStatus({
                                           id,
-                                          code: 'send_document_verified',
+                                          code: 'returned',
                                       })
                                     : changeStatusOc({
                                           id,
-                                          code: 'send_document_verified',
+                                          code: 'returned',
                                       })
                             );
                             navigate(-1);
@@ -101,11 +104,11 @@ export const getMenuItems = ({
                                 requestType === 'sdc'
                                     ? changeStatus({
                                           id,
-                                          code: 'send_document_verified',
+                                          code: 'desicion_accepted',
                                       })
                                     : changeStatusOc({
                                           id,
-                                          code: 'send_document_verified',
+                                          code: 'desicion_accepted',
                                       })
                             );
                             navigate(-1);
@@ -119,11 +122,11 @@ export const getMenuItems = ({
                                 requestType === 'sdc'
                                     ? changeStatus({
                                           id,
-                                          code: 'send_document_verified',
+                                          code: 'desicion_rejected',
                                       })
                                     : changeStatusOc({
                                           id,
-                                          code: 'send_document_verified',
+                                          code: 'desicion_rejected',
                                       })
                             );
                             navigate(-1);
@@ -140,11 +143,11 @@ export const getMenuItems = ({
                                 requestType === 'sdc'
                                     ? changeStatus({
                                           id,
-                                          code: 'send_document_verified',
+                                          code: 'moderation',
                                       })
                                     : changeStatusOc({
                                           id,
-                                          code: 'send_document_verified',
+                                          code: 'moderation',
                                       })
                             );
                             navigate(-1);
@@ -161,11 +164,11 @@ export const getMenuItems = ({
                                 requestType === 'sdc'
                                     ? changeStatus({
                                           id,
-                                          code: 'send_document_verified',
+                                          code: 'returned',
                                       })
                                     : changeStatusOc({
                                           id,
-                                          code: 'send_document_verified',
+                                          code: 'returned',
                                       })
                             );
                             navigate(-1);
@@ -197,11 +200,11 @@ export const getMenuItems = ({
                                 requestType === 'sdc'
                                     ? changeStatus({
                                           id,
-                                          code: 'send_document_verified',
+                                          code: 'desicion_accepted',
                                       })
                                     : changeStatusOc({
                                           id,
-                                          code: 'send_document_verified',
+                                          code: 'desicion_accepted',
                                       })
                             );
                             navigate(-1);
@@ -215,11 +218,11 @@ export const getMenuItems = ({
                                 requestType === 'sdc'
                                     ? changeStatus({
                                           id,
-                                          code: 'send_document_verified',
+                                          code: 'desicion_rejected',
                                       })
                                     : changeStatusOc({
                                           id,
-                                          code: 'send_document_verified',
+                                          code: 'desicion_rejected',
                                       })
                             );
                             navigate(-1);
@@ -236,11 +239,11 @@ export const getMenuItems = ({
                                 requestType === 'sdc'
                                     ? changeStatus({
                                           id,
-                                          code: 'send_document_verified',
+                                          code: 'register_entered',
                                       })
                                     : changeStatusOc({
                                           id,
-                                          code: 'send_document_verified',
+                                          code: 'register_entered',
                                       })
                             );
                             navigate(-1);
