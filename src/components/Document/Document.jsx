@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { ButtonRegistry } from '../Buttons/button-registry/button-registry';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDocuments } from '../../store/documents/actions';
+import { getDocuments, getDocumentsOc } from '../../store/documents/actions';
 import { Form, Input, Modal } from 'antd';
 import { Select } from 'antd';
-import { postDocument } from '../../store/documents/actions';
+import { postDocument, postDocumentOc } from '../../store/documents/actions';
 import { LinkOutlined, PlusOutlined } from '@ant-design/icons';
 
 import '../CurrentCard/card-item.scss';
@@ -13,6 +13,9 @@ import '../CurrentCard/card-item.scss';
 const { Option } = Select;
 function Document(props) {
     const dispatch = useDispatch();
+
+    const { proposalOsId, sdcId } = useParams();
+    // console.log({ proposalOsId, sdcId }, 'params from document');
 
     const { isCardEditable } = useSelector((state) => state.proposalTest);
     const userRole = useSelector((state) => state.auth.user.roles);
@@ -26,26 +29,36 @@ function Document(props) {
     const [form] = Form.useForm();
 
     const { documentsContainers } = useSelector((state) => state.files);
-    const { id } = useSelector(
-        (state) => state?.proposalTest?.currentProposalSdc
-    );
 
     useEffect(() => {
-        dispatch(getDocuments(id));
-    }, [dispatch, id]);
+        proposalOsId && dispatch(getDocumentsOc({ id: proposalOsId }));
+        sdcId && dispatch(getDocuments({ id: sdcId }));
+    }, [dispatch, proposalOsId, sdcId]);
 
     const handleOk = (values) => {
         setModalTitle('Идет создание документа...');
         setConfirmLoading(true);
 
-        const data = { ...values, fileType: documentType, id };
+        const data = {
+            ...values,
+            fileType: documentType,
+            id: proposalOsId || sdcId,
+        };
 
-        dispatch(postDocument(data))
-            .unwrap()
-            .then(() => {
-                setVisible(false);
-                setConfirmLoading(false);
-            });
+        sdcId &&
+            dispatch(postDocument(data))
+                .unwrap()
+                .then(() => {
+                    setVisible(false);
+                    setConfirmLoading(false);
+                });
+        proposalOsId &&
+            dispatch(postDocumentOc(data))
+                .unwrap()
+                .then(() => {
+                    setVisible(false);
+                    setConfirmLoading(false);
+                });
     };
 
     return (
@@ -55,51 +68,52 @@ function Document(props) {
                     <strong className="strong-title">Документы</strong>
                 </div>
 
-                {isCardEditable && userRole === 'user_sdc' && (
-                    <div className="btn__edit">
-                        <ButtonRegistry
-                            text={'Добавить документ'}
-                            className={'btn__login'}
-                            icon={<PlusOutlined />}
-                            onClick={() => {
-                                setVisible(true);
-                            }}
-                        />
-                        <Modal
-                            visible={visible}
-                            title={modalTitle}
-                            okText="Сохранить"
-                            confirmLoading={confirmLoading}
-                            onCancel={() => {
-                                setVisible(false);
-                                form.resetFields();
-                            }}
-                            onOk={form.submit}
-                        >
-                            <Form
-                                form={form}
-                                onFinish={handleOk}
-                                layout="vertical"
+                {isCardEditable &&
+                    (userRole === 'user_sdc' || userRole === 'user_oc') && (
+                        <div className="btn__edit">
+                            <ButtonRegistry
+                                text={'Добавить документ'}
+                                className={'btn__login'}
+                                icon={<PlusOutlined />}
+                                onClick={() => {
+                                    setVisible(true);
+                                }}
+                            />
+                            <Modal
+                                visible={visible}
+                                title={modalTitle}
+                                okText="Сохранить"
+                                confirmLoading={confirmLoading}
+                                onCancel={() => {
+                                    setVisible(false);
+                                    form.resetFields();
+                                }}
+                                onOk={form.submit}
                             >
-                                <Form.Item
-                                    name="description"
-                                    label="Описание документа"
+                                <Form
+                                    form={form}
+                                    onFinish={handleOk}
+                                    layout="vertical"
                                 >
-                                    <Input type="options" />
-                                </Form.Item>
-                                <Select
-                                    defaultValue="1"
-                                    onChange={(value) => {
-                                        setDocumentType(value);
-                                    }}
-                                >
-                                    <Option value="1">Сертификат</Option>
-                                    <Option value="2">Изображение</Option>
-                                </Select>
-                            </Form>
-                        </Modal>
-                    </div>
-                )}
+                                    <Form.Item
+                                        name="description"
+                                        label="Описание документа"
+                                    >
+                                        <Input type="options" />
+                                    </Form.Item>
+                                    <Select
+                                        defaultValue="1"
+                                        onChange={(value) => {
+                                            setDocumentType(value);
+                                        }}
+                                    >
+                                        <Option value="1">Сертификат</Option>
+                                        <Option value="2">Изображение</Option>
+                                    </Select>
+                                </Form>
+                            </Modal>
+                        </div>
+                    )}
 
                 {documentsContainers?.length > 0 ? (
                     documentsContainers?.map((el) => {
@@ -107,7 +121,11 @@ function Document(props) {
                             <div key={el.id} className="card__field">
                                 <Link
                                     className="strong-title"
-                                    to={`/request_sdc/${id}/current-document/${el.id}`}
+                                    to={`/${
+                                        sdcId ? 'request_sdc' : 'current_oc'
+                                    }/${
+                                        proposalOsId || sdcId
+                                    }/current-document/${el.id}`}
                                 >
                                     <LinkOutlined />
 

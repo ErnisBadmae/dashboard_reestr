@@ -10,6 +10,7 @@ import {
 
     //OC
     postOcRequest,
+    changeProposalOc,
 } from '../../store/proposal/actions';
 
 export const getFormData = (formType, data) => {
@@ -192,6 +193,14 @@ export const sendData = ({
                 dispatch(postOcRequest({ formData }))
                     .unwrap()
                     .then(({ id }) => navigate(`/request_os//${id}`));
+            };
+        case 'editOc':
+            return () => {
+                dispatch(changeProposalOc({ sdcId, formData }))
+                    .unwrap()
+                    .then(() => {
+                        navigate(-1);
+                    });
             };
 
         default:

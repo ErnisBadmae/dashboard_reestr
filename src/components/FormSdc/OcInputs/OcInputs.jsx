@@ -1,10 +1,13 @@
+import { useEffect } from 'react';
 import { Controller } from 'react-hook-form';
 import InputMask from 'react-input-mask';
+import { useParams } from 'react-router-dom';
 import DatePicker, { registerLocale, setDefaultLocale } from 'react-datepicker';
 import ru from 'date-fns/locale/ru';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import moment from 'moment';
+import { getCurrentProposalOs } from '../../../store/proposal/actions';
 
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -12,13 +15,20 @@ registerLocale('ru', ru);
 setDefaultLocale('ru');
 
 export function OcInputs({ control, register, errors, formType }) {
-    const { currentOsSdcCard } = useSelector((state) => state.proposalTest);
+    const { currentProposalOs } = useSelector((state) => state.proposalTest);
 
     const [registrationDate, setRegistrationDate] = useState(
-        moment(currentOsSdcCard?.certificate_date).toDate()
+        moment(
+            currentProposalOs?.request_oc_organ_certification?.certificate_date
+        ).toDate()
     );
+    const dispatch = useDispatch();
+    const { proposalOsId } = useParams();
+    useEffect(() => {
+        dispatch(getCurrentProposalOs(proposalOsId));
+    }, [proposalOsId, dispatch]);
+
     const inputs = [
-        //удалить?
         {
             title: 'Полное наименование компании',
             name: 'fullNameCompany',
@@ -28,7 +38,9 @@ export function OcInputs({ control, register, errors, formType }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Полное наименование должно быть на кириллице',
-            defaultValue: currentOsSdcCard?.full_name_organ_certification,
+            defaultValue:
+                currentProposalOs?.request_oc_organ_certification
+                    ?.full_name_company,
         },
         {
             title: 'Полное наименование ОС',
@@ -39,7 +51,9 @@ export function OcInputs({ control, register, errors, formType }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Полное наименование должно быть на кириллице',
-            defaultValue: currentOsSdcCard?.full_name_company,
+            defaultValue:
+                currentProposalOs?.request_oc_organ_certification
+                    ?.full_name_organ_certification,
         },
         {
             title: 'Сокращенное наименование ОС',
@@ -50,7 +64,9 @@ export function OcInputs({ control, register, errors, formType }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Сокращенное наименование должно быть на кириллице',
-            defaultValue: currentOsSdcCard?.short_name_organ_certification,
+            defaultValue:
+                currentProposalOs?.request_oc_organ_certification
+                    ?.short_name_organ_certification,
         },
         {
             title: 'Номер аттестата аккредитации',
@@ -65,7 +81,9 @@ export function OcInputs({ control, register, errors, formType }) {
             mask: null,
             errorMessage:
                 'Регистрационный номер должен состоять только из цифр',
-            defaultValue: currentOsSdcCard?.certificate_number,
+            defaultValue:
+                currentProposalOs?.request_oc_organ_certification
+                    ?.certificate_number,
         },
         {
             title: 'Дата решения об аккредитации',
@@ -93,7 +111,9 @@ export function OcInputs({ control, register, errors, formType }) {
             },
             mask: null,
             errorMessage: 'Вы вводите некорректное количество цифр',
-            defaultValue: currentOsSdcCard?.decision_number,
+            defaultValue:
+                currentProposalOs?.request_oc_organ_certification
+                    ?.decision_number,
         },
         {
             title: 'Телефон',
@@ -104,7 +124,8 @@ export function OcInputs({ control, register, errors, formType }) {
             minLength: 0,
             mask: '+7 (999) 999-99-99',
             errorMessage: 'Введите корректный номер телефона',
-            defaultValue: currentOsSdcCard?.phone,
+            defaultValue:
+                currentProposalOs?.request_oc_organ_certification?.phone,
         },
         {
             title: 'ИНН',
@@ -118,7 +139,8 @@ export function OcInputs({ control, register, errors, formType }) {
             },
             mask: null,
             errorMessage: 'Ввод возможен только цифр',
-            defaultValue: currentOsSdcCard?.inn,
+            defaultValue:
+                currentProposalOs?.request_oc_organ_certification?.inn,
         },
         {
             title: 'ОГРН',
@@ -132,7 +154,8 @@ export function OcInputs({ control, register, errors, formType }) {
             },
             mask: null,
             errorMessage: 'Ввод возможен только цифр',
-            defaultValue: currentOsSdcCard?.ogrn,
+            defaultValue:
+                currentProposalOs?.request_oc_organ_certification?.ogrn,
         },
         {
             title: 'Данные руководителя',
@@ -143,7 +166,8 @@ export function OcInputs({ control, register, errors, formType }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Введите данные на кириллице',
-            defaultValue: currentOsSdcCard?.manager_name,
+            defaultValue:
+                currentProposalOs?.request_oc_organ_certification?.manager_name,
         },
         {
             title: 'Адрес компании',
@@ -154,7 +178,8 @@ export function OcInputs({ control, register, errors, formType }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Введите данные на кириллице',
-            defaultValue: currentOsSdcCard?.address,
+            defaultValue:
+                currentProposalOs?.request_oc_organ_certification?.address,
         },
         {
             title: 'Электронная почта',
@@ -166,7 +191,8 @@ export function OcInputs({ control, register, errors, formType }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Введите корректную почту',
-            defaultValue: currentOsSdcCard?.email,
+            defaultValue:
+                currentProposalOs?.request_oc_organ_certification?.email,
         },
         {
             title: 'Сайт',
@@ -177,7 +203,8 @@ export function OcInputs({ control, register, errors, formType }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Введите данные на латинице',
-            defaultValue: currentOsSdcCard?.site,
+            defaultValue:
+                currentProposalOs?.request_oc_organ_certification?.site,
         },
         {
             title: 'Область распространения',
@@ -188,121 +215,131 @@ export function OcInputs({ control, register, errors, formType }) {
             minLength: 0,
             mask: null,
             errorMessage: 'Введите данные на кириллице',
-            defaultValue: currentOsSdcCard?.area,
+            defaultValue:
+                currentProposalOs?.request_oc_organ_certification?.area,
         },
     ];
 
     return (
         <>
-            {inputs.map((inputEl) => {
-                if (inputEl.mask) {
-                    return (
-                        <div className="card__edit__input" key={inputEl.title}>
-                            <p className="input__title">{inputEl.title}</p>
+            {currentProposalOs?.request_oc_organ_certification &&
+                inputs.map((inputEl) => {
+                    if (inputEl.mask) {
+                        return (
+                            <div
+                                className="card__edit__input"
+                                key={inputEl.title}
+                            >
+                                <p className="input__title">{inputEl.title}</p>
 
-                            <Controller
-                                render={({ field }) => {
-                                    return (
-                                        <InputMask
-                                            {...field}
-                                            style={
-                                                !errors[`${inputEl.name}`]
-                                                    ? {}
-                                                    : {
-                                                          border: '1px solid red',
-                                                      }
-                                            }
-                                            className="current__input card__edit__input__element"
-                                            mask={inputEl.mask}
-                                        />
-                                    );
-                                }}
-                                control={control}
+                                <Controller
+                                    render={({ field }) => {
+                                        return (
+                                            <InputMask
+                                                {...field}
+                                                style={
+                                                    !errors[`${inputEl.name}`]
+                                                        ? {}
+                                                        : {
+                                                              border: '1px solid red',
+                                                          }
+                                                }
+                                                className="current__input card__edit__input__element"
+                                                mask={inputEl.mask}
+                                            />
+                                        );
+                                    }}
+                                    control={control}
+                                    name={inputEl.name}
+                                    defaultValue={
+                                        formType === 'editOc'
+                                            ? inputEl.defaultValue
+                                            : null
+                                    }
+                                    required={inputEl.required}
+                                    autoComplete="off"
+                                    type={inputEl.type}
+                                />
+                                {errors[`${inputEl.name}`] && (
+                                    <div className="error-message">
+                                        {errors[`${inputEl.name}`].message ||
+                                            'Вы вводите некорректное количество цифр'}
+                                    </div>
+                                )}
+                            </div>
+                        );
+                    }
+                    if (inputEl.name === 'certificateDate') {
+                        return (
+                            <div
+                                className="card__edit__input"
+                                key={inputEl.name}
+                            >
+                                <p className="input__title">{inputEl.title}</p>
+                                <div className="card__edit__input__element">
+                                    <Controller
+                                        control={control}
+                                        name={inputEl.name}
+                                        defaultValue={
+                                            formType === 'editOc'
+                                                ? inputEl.defaultValue
+                                                : null
+                                        }
+                                        render={({ field }) => (
+                                            <DatePicker
+                                                dateFormat="dd/MM/yyyy"
+                                                className="current__input date"
+                                                placeholderText="выберите дату"
+                                                onChange={(e) =>
+                                                    field.onChange(e)
+                                                }
+                                                selected={field.value}
+                                                maxDate={new Date()}
+                                                showDisabledMonthNavigation
+                                                required={inputEl.required}
+                                            />
+                                        )}
+                                    />
+                                </div>
+                            </div>
+                        );
+                    }
+                    return (
+                        <div className="card__edit__input">
+                            <p className="input__title">{inputEl.title}</p>
+                            <input
+                                className="current__input card__edit__input__element"
+                                autoComplete="off"
                                 name={inputEl.name}
+                                type="text"
+                                required
+                                autoFocus
+                                id={inputEl.name}
                                 defaultValue={
-                                    formType === 'editOs'
+                                    formType === 'editOc'
                                         ? inputEl.defaultValue
                                         : null
                                 }
-                                required={inputEl.required}
-                                autoComplete="off"
-                                type={inputEl.type}
+                                style={
+                                    !errors[`${inputEl.name}`]
+                                        ? {}
+                                        : { border: '1px solid red' }
+                                }
+                                {...register(`${inputEl.name}`, {
+                                    required: true,
+                                    pattern: inputEl.pattern,
+                                    minLength: inputEl.minLength,
+                                })}
                             />
                             {errors[`${inputEl.name}`] && (
                                 <div className="error-message">
-                                    {errors[`${inputEl.name}`].message ||
-                                        'Вы вводите некорректное количество цифр'}
+                                    {errors[`${inputEl.name}`]?.message ||
+                                        inputEl.errorMessage}
                                 </div>
                             )}
                         </div>
                     );
-                }
-                if (inputEl.name === 'certificateDate') {
-                    return (
-                        <div className="card__edit__input" key={inputEl.name}>
-                            <p className="input__title">{inputEl.title}</p>
-                            <div className="card__edit__input__element">
-                                <Controller
-                                    control={control}
-                                    name={inputEl.name}
-                                    defaultValue={
-                                        formType === 'editOs'
-                                            ? inputEl.defaultValue
-                                            : null
-                                    }
-                                    render={({ field }) => (
-                                        <DatePicker
-                                            dateFormat="dd/MM/yyyy"
-                                            className="current__input date"
-                                            placeholderText="выберите дату"
-                                            onChange={(e) => field.onChange(e)}
-                                            selected={field.value}
-                                            maxDate={new Date()}
-                                            showDisabledMonthNavigation
-                                            required={inputEl.required}
-                                        />
-                                    )}
-                                />
-                            </div>
-                        </div>
-                    );
-                }
-                return (
-                    <div className="card__edit__input">
-                        <p className="input__title">{inputEl.title}</p>
-                        <input
-                            className="current__input card__edit__input__element"
-                            autoComplete="off"
-                            name={inputEl.name}
-                            type="text"
-                            required
-                            autoFocus
-                            id={inputEl.name}
-                            defaultValue={
-                                formType === 'editOs'
-                                    ? inputEl.defaultValue
-                                    : null
-                            }
-                            style={
-                                !errors[`${inputEl.name}`]
-                                    ? {}
-                                    : { border: '1px solid red' }
-                            }
-                            {...register(`${inputEl.name}`, {
-                                required: true,
-                                pattern: inputEl.pattern,
-                                minLength: inputEl.minLength,
-                            })}
-                        />
-                        {errors[`${inputEl.name}`] && (
-                            <div className="error-message">
-                                {errors[`${inputEl.name}`]?.message ||
-                                    inputEl.errorMessage}
-                            </div>
-                        )}
-                    </div>
-                );
-            })}
+                })}
         </>
     );
 }

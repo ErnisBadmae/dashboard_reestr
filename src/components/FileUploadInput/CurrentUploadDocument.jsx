@@ -35,7 +35,7 @@ function CurrentUploadDocument(props) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { id, documentId } = useParams();
+    const { proposalOsId, sdcId, documentId } = useParams();
 
     const { currentDocument } = useSelector((state) => state.files);
     const userRole = useSelector((state) => state.auth.user.roles);
@@ -46,8 +46,10 @@ function CurrentUploadDocument(props) {
     const [previewTitle, setPreviewTitle] = useState('');
 
     useEffect(() => {
-        dispatch(getDocumentCard({ id, documentId }));
-    }, [id, documentId, dispatch]);
+        sdcId && dispatch(getDocumentCard({ id: sdcId, documentId }));
+        proposalOsId &&
+            dispatch(getDocumentCard({ id: proposalOsId, documentId }));
+    }, [proposalOsId, sdcId, documentId, dispatch]);
 
     const handleCancel = () => setPreviewVisible(false);
 
@@ -64,9 +66,30 @@ function CurrentUploadDocument(props) {
     };
 
     function handleSubmit(event) {
-        dispatch(uploadFiles({ id, documentId, uploadedFiles: event.file }))
-            .unwrap()
-            .then(() => dispatch(getDocumentCard({ id, documentId })));
+        sdcId &&
+            dispatch(
+                uploadFiles({
+                    id: sdcId,
+                    documentId,
+                    uploadedFiles: event.file,
+                })
+            )
+                .unwrap()
+                .then(() => {
+                    dispatch(getDocumentCard({ id: sdcId, documentId }));
+                });
+        proposalOsId &&
+            dispatch(
+                uploadFiles({
+                    id: proposalOsId,
+                    documentId,
+                    uploadedFiles: event.file,
+                })
+            )
+                .unwrap()
+                .then(() => {
+                    dispatch(getDocumentCard({ id: proposalOsId, documentId }));
+                });
     }
 
     return (
@@ -99,7 +122,7 @@ function CurrentUploadDocument(props) {
                                             onClick={(e) =>
                                                 dispatch(
                                                     deleteFileDocument({
-                                                        id,
+                                                        id: sdcId,
                                                         documentId,
                                                         file,
                                                     })
@@ -108,7 +131,7 @@ function CurrentUploadDocument(props) {
                                                     .then(() =>
                                                         dispatch(
                                                             getDocumentCard({
-                                                                id,
+                                                                id: sdcId,
                                                                 documentId,
                                                             })
                                                         )
@@ -125,7 +148,7 @@ function CurrentUploadDocument(props) {
                                         onClick={(e) => {
                                             dispatch(
                                                 saveFileDocument({
-                                                    id,
+                                                    id: sdcId,
                                                     documentId,
                                                     file,
                                                 })
@@ -172,7 +195,7 @@ function CurrentUploadDocument(props) {
                         type="button"
                         style={{ width: 'auto' }}
                         onClick={() => {
-                            dispatch(deleteDocument({ id, documentId }))
+                            dispatch(deleteDocument({ id: sdcId, documentId }))
                                 .unwrap()
                                 .then(() => navigate(-1));
                         }}

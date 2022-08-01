@@ -39,6 +39,7 @@ const RequireAuth = (props) => {
             `/current-request-sdc-reg/${regId}`,
             '/messages',
             `/message/${messageId}`,
+            `/current_oc/${proposalOsId}`,
             //   `/request_oc/${proposalOsId}`,
         ],
         user_sdc: [
@@ -85,11 +86,7 @@ const RequireAuth = (props) => {
 
     const isAuth = useAuth();
 
-    console.log(
-        `allowed routes: ${allowedRoutes}`,
-        `pathname: ${pathname}`,
-        `includes: ${allowedRoutes.includes(pathname)}`
-    );
+    console.log(`is route allowed: ${allowedRoutes.includes(pathname)}`);
 
     if (!isAuth) {
         return <Navigate to="/login" replace />;

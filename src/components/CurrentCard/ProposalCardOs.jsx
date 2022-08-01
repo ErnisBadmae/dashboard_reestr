@@ -2,14 +2,12 @@ import React, { useEffect } from 'react';
 import { EditOutlined, DownOutlined } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import {
-    getCurrentProposalOs,
-    changeStatusOc,
-} from '../../store/proposal/actions';
+import { getCurrentProposalOs } from '../../store/proposal/actions';
 import { ButtonRegistry } from '../Buttons/button-registry/button-registry';
 import { correctlyDate } from '../../helpers/utils';
 import Spinner from '../Spinner/Spinner';
 import { Dropdown, Menu, Space } from 'antd';
+import { getMenuItems } from '../Preview/previewHelper';
 
 import './card-item.scss';
 
@@ -128,191 +126,200 @@ function ProposalCardOs(props) {
         return <Spinner />;
     }
 
-    const getMenuItems = (role, requestStatus) => {
-        if (role !== 'user_admin') {
-            return [
-                {
-                    key: '1',
-                    label: 'Отправить заявление на рассмотрение',
-                    onClick: () => {
-                        dispatch(
-                            changeStatusOc({
-                                proposalOsId,
-                                code: 'send_document_verified',
-                            })
-                        )
-                            .unwrap()
-                            .then(() => navigate('/requests_sdc'));
-                    },
-                },
+    // const getMenuItems = (role, requestStatus) => {
+    //     if (role !== 'user_admin') {
+    //         return [
+    //             {
+    //                 key: '1',
+    //                 label: 'Отправить заявление на рассмотрение',
+    //                 onClick: () => {
+    //                     dispatch(
+    //                         changeStatusOc({
+    //                             proposalOsId,
+    //                             code: 'send_document_verified',
+    //                         })
+    //                     )
+    //                         .unwrap()
+    //                         .then(() => navigate('/requests_sdc'));
+    //                 },
+    //             },
 
-                {
-                    key: '2',
-                    label: 'Аннулировать заявление',
-                    onClick: () => {
-                        dispatch(
-                            changeStatusOc({ proposalOsId, code: 'canceled' })
-                        )
-                            .unwrap()
-                            .then(() => navigate('/requests_sdc'));
-                    },
-                },
-            ];
-        } else {
-            switch (requestStatus) {
-                case 4:
-                    return [
-                        {
-                            key: '1',
-                            label: 'Принять в работу заявление',
-                            onClick: () => {
-                                dispatch(
-                                    changeStatusOc({
-                                        proposalOsId,
-                                        code: 'document_verified',
-                                    })
-                                );
-                                navigate(-1);
-                            },
-                        },
-                    ];
-                case 5:
-                    return [
-                        {
-                            key: '1',
-                            label: 'Вернуть на доработку',
-                            onClick: () => {
-                                dispatch(
-                                    changeStatusOc({
-                                        proposalOsId,
-                                        code: 'returned',
-                                    })
-                                );
-                                navigate(-1);
-                            },
-                        },
-                        {
-                            key: '2',
-                            label: 'Принять',
-                            onClick: () => {
-                                dispatch(
-                                    changeStatusOc({
-                                        proposalOsId,
-                                        code: 'desicion_accepted',
-                                    })
-                                );
-                                navigate(-1);
-                            },
-                        },
-                        {
-                            key: '3',
-                            label: 'Отклонить',
-                            onClick: () => {
-                                dispatch(
-                                    changeStatusOc({
-                                        proposalOsId,
-                                        code: 'desicion_rejected',
-                                    })
-                                );
-                                navigate(-1);
-                            },
-                        },
-                    ];
-                case 6:
-                    return [
-                        {
-                            key: '1',
-                            label: 'Модерация',
-                            onClick: () => {
-                                dispatch(
-                                    changeStatusOc({
-                                        proposalOsId,
-                                        code: 'moderation',
-                                    })
-                                );
-                                navigate(-1);
-                            },
-                        },
-                    ];
-                case 7:
-                    return [
-                        {
-                            key: '1',
-                            label: 'Вернуть на доработку',
-                            onClick: () => {
-                                dispatch(
-                                    changeStatusOc({
-                                        proposalOsId,
-                                        code: 'returned',
-                                    })
-                                );
-                                navigate(-1);
-                            },
-                        },
-                        {
-                            key: '2',
-                            label: 'Отправить на проверку документов',
-                            onClick: () => {
-                                dispatch(
-                                    changeStatusOc({
-                                        proposalOsId,
-                                        code: 'send_document_verified',
-                                    })
-                                );
-                                navigate(-1);
-                            },
-                        },
-                        {
-                            key: '3',
-                            label: 'Принять',
-                            onClick: () => {
-                                dispatch(
-                                    changeStatusOc({
-                                        proposalOsId,
-                                        code: 'desicion_accepted',
-                                    })
-                                );
-                                navigate(-1);
-                            },
-                        },
-                        {
-                            key: '4',
-                            label: 'Отклонить',
-                            onClick: () => {
-                                dispatch(
-                                    changeStatusOc({
-                                        proposalOsId,
-                                        code: 'desicion_rejected',
-                                    })
-                                );
-                                navigate(-1);
-                            },
-                        },
-                    ];
-                case 8:
-                    return [
-                        {
-                            key: '1',
-                            label: 'Внести в реестр',
-                            onClick: () => {
-                                dispatch(
-                                    changeStatusOc({
-                                        proposalOsId,
-                                        code: 'register_entered',
-                                    })
-                                );
-                                navigate(-1);
-                            },
-                        },
-                    ];
-                default:
-                    break;
-            }
-        }
-    };
+    //             {
+    //                 key: '2',
+    //                 label: 'Аннулировать заявление',
+    //                 onClick: () => {
+    //                     dispatch(
+    //                         changeStatusOc({ proposalOsId, code: 'canceled' })
+    //                     )
+    //                         .unwrap()
+    //                         .then(() => navigate('/requests_sdc'));
+    //                 },
+    //             },
+    //         ];
+    //     } else {
+    //         switch (requestStatus) {
+    //             case 4:
+    //                 return [
+    //                     {
+    //                         key: '1',
+    //                         label: 'Принять в работу заявление',
+    //                         onClick: () => {
+    //                             dispatch(
+    //                                 changeStatusOc({
+    //                                     proposalOsId,
+    //                                     code: 'document_verified',
+    //                                 })
+    //                             );
+    //                             navigate(-1);
+    //                         },
+    //                     },
+    //                 ];
+    //             case 5:
+    //                 return [
+    //                     {
+    //                         key: '1',
+    //                         label: 'Вернуть на доработку',
+    //                         onClick: () => {
+    //                             dispatch(
+    //                                 changeStatusOc({
+    //                                     proposalOsId,
+    //                                     code: 'returned',
+    //                                 })
+    //                             );
+    //                             navigate(-1);
+    //                         },
+    //                     },
+    //                     {
+    //                         key: '2',
+    //                         label: 'Принять',
+    //                         onClick: () => {
+    //                             dispatch(
+    //                                 changeStatusOc({
+    //                                     proposalOsId,
+    //                                     code: 'desicion_accepted',
+    //                                 })
+    //                             );
+    //                             navigate(-1);
+    //                         },
+    //                     },
+    //                     {
+    //                         key: '3',
+    //                         label: 'Отклонить',
+    //                         onClick: () => {
+    //                             dispatch(
+    //                                 changeStatusOc({
+    //                                     proposalOsId,
+    //                                     code: 'desicion_rejected',
+    //                                 })
+    //                             );
+    //                             navigate(-1);
+    //                         },
+    //                     },
+    //                 ];
+    //             case 6:
+    //                 return [
+    //                     {
+    //                         key: '1',
+    //                         label: 'Модерация',
+    //                         onClick: () => {
+    //                             dispatch(
+    //                                 changeStatusOc({
+    //                                     proposalOsId,
+    //                                     code: 'moderation',
+    //                                 })
+    //                             );
+    //                             navigate(-1);
+    //                         },
+    //                     },
+    //                 ];
+    //             case 7:
+    //                 return [
+    //                     {
+    //                         key: '1',
+    //                         label: 'Вернуть на доработку',
+    //                         onClick: () => {
+    //                             dispatch(
+    //                                 changeStatusOc({
+    //                                     proposalOsId,
+    //                                     code: 'returned',
+    //                                 })
+    //                             );
+    //                             navigate(-1);
+    //                         },
+    //                     },
+    //                     {
+    //                         key: '2',
+    //                         label: 'Отправить на проверку документов',
+    //                         onClick: () => {
+    //                             dispatch(
+    //                                 changeStatusOc({
+    //                                     proposalOsId,
+    //                                     code: 'send_document_verified',
+    //                                 })
+    //                             );
+    //                             navigate(-1);
+    //                         },
+    //                     },
+    //                     {
+    //                         key: '3',
+    //                         label: 'Принять',
+    //                         onClick: () => {
+    //                             dispatch(
+    //                                 changeStatusOc({
+    //                                     proposalOsId,
+    //                                     code: 'desicion_accepted',
+    //                                 })
+    //                             );
+    //                             navigate(-1);
+    //                         },
+    //                     },
+    //                     {
+    //                         key: '4',
+    //                         label: 'Отклонить',
+    //                         onClick: () => {
+    //                             dispatch(
+    //                                 changeStatusOc({
+    //                                     proposalOsId,
+    //                                     code: 'desicion_rejected',
+    //                                 })
+    //                             );
+    //                             navigate(-1);
+    //                         },
+    //                     },
+    //                 ];
+    //             case 8:
+    //                 return [
+    //                     {
+    //                         key: '1',
+    //                         label: 'Внести в реестр',
+    //                         onClick: () => {
+    //                             dispatch(
+    //                                 changeStatusOc({
+    //                                     proposalOsId,
+    //                                     code: 'register_entered',
+    //                                 })
+    //                             );
+    //                             navigate(-1);
+    //                         },
+    //                     },
+    //                 ];
+    //             default:
+    //                 break;
+    //         }
+    //     }
+    // };
 
     const menu = (
-        <Menu items={getMenuItems(userRole, currentProposalOs?.status?.id)} />
+        <Menu
+            items={getMenuItems({
+                userRole,
+                requestStatus: currentProposalOs?.status?.id,
+                dispatch,
+                navigate,
+                id: proposalOsId,
+                requestType: 'oc',
+            })}
+        />
     );
 
     return (
@@ -344,6 +351,18 @@ function ProposalCardOs(props) {
                         </div>
                     );
                 })}
+                {isCardEditable && userRole === 'user_oc' && (
+                    <div className="btn__edit">
+                        <ButtonRegistry
+                            text={'Редактировать ОС'}
+                            icon={<EditOutlined />}
+                            className={'btn__login'}
+                            onClick={() =>
+                                navigate(`/edit_card/${proposalOsId}`)
+                            }
+                        />
+                    </div>
+                )}
             </div>
         </>
     );

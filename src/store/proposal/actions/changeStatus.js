@@ -31,12 +31,12 @@ export const changeStatusOc = createAsyncThunk(
     async (payload) => {
         try {
             let res = await $api.post(
-                `request/request_sdc_standard_certification/change_oc_header_status/${payload.id}/${payload.code}`
+                `request/request_oc_organ_certification/change_oc_header_status/${payload.id}/${payload.code}`
             );
             info('Статус заявки успешно изменен!');
             console.log(res, 'responseFromcheckstatus');
             //   debugger;
-            const value = res.data.data?.requestSdcHeader;
+            const value = res.data.data?.requestOcHeader;
             return {
                 ...value,
                 dttm_created: correctlyDate(value.dttm_created),

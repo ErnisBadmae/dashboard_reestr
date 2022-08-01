@@ -92,3 +92,30 @@ export const getPreviewCurrentProposalOc = createAsyncThunk(
         };
     }
 );
+
+//изменение заявки
+export const changeProposalOc = createAsyncThunk(
+    'changeProposalOc/editOc',
+    async (payload) => {
+        const response = await fetch(
+            `https://api-prof-sdc.anonamis.ru/api/request/request_oc_organ_certification/edit/${payload.sdcId}`,
+            {
+                method: 'PATCH',
+                body: JSON.stringify(payload.formData),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+            }
+        );
+        const jsonResponse = await response.json();
+
+        if (jsonResponse.success === true) {
+            info('Ваши данные успешно отредактированы!');
+            return jsonResponse.data.requestSdcStandardCertification;
+        } else {
+            error(`ошибка сервера: ${jsonResponse.message}`);
+            return jsonResponse;
+        }
+    }
+);

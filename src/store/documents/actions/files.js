@@ -28,6 +28,30 @@ export const postDocument = createAsyncThunk(
     }
 );
 
+export const postDocumentOc = createAsyncThunk(
+    'postDocumentOc/post',
+    async (payload) => {
+        const documentFormData = new FormData();
+        documentFormData.append('fileType', payload.fileType);
+        documentFormData.append('description', payload.description);
+
+        try {
+            const result = await $api.post(
+                `/request/request_oc_organ_certification/{/${payload.id}/document/add`,
+                documentFormData
+            );
+
+            const value =
+                result?.data?.data?.requestSdcStandardCertificationDocument;
+
+            info('Документ успешно добавлен');
+            return value;
+        } catch (error) {
+            error('Произошла ошибка');
+        }
+    }
+);
+
 export const uploadFiles = createAsyncThunk(
     'uploadFiles/upload',
     async (payload) => {
@@ -97,13 +121,26 @@ export const saveFileDocument = createAsyncThunk(
     }
 );
 
-export const getDocuments = createAsyncThunk('getDocuments/get', async (id) => {
-    const result = await $api.get(
-        `/request/request_sdc_standard_certification/${id}/documents`
-    );
+export const getDocuments = createAsyncThunk(
+    'getDocuments/get',
+    async ({ id }) => {
+        const result = await $api.get(
+            `/request/request_sdc_standard_certification/${id}/documents`
+        );
 
-    return result.data.data[0];
-});
+        return result.data.data[0];
+    }
+);
+export const getDocumentsOc = createAsyncThunk(
+    'getDocuments/get',
+    async ({ id }) => {
+        const result = await $api.get(
+            `/request/request_oc_organ_certification/${id}/documents`
+        );
+
+        return result.data.data[0];
+    }
+);
 
 export const getDocumentCard = createAsyncThunk(
     'getDocumentCard/view',

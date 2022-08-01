@@ -1,6 +1,13 @@
-import { changeStatus } from '../../store/proposal/actions';
+import { changeStatus, changeStatusOc } from '../../store/proposal/actions';
 
-export const getMenuItems = (role, requestStatus, dispatch, navigate, id) => {
+export const getMenuItems = ({
+    role,
+    requestStatus,
+    dispatch,
+    navigate,
+    id,
+    requestType,
+}) => {
     if (role !== 'user_admin') {
         return [
             {
@@ -8,7 +15,15 @@ export const getMenuItems = (role, requestStatus, dispatch, navigate, id) => {
                 label: 'Отправить заявление на рассмотрение',
                 onClick: () => {
                     dispatch(
-                        changeStatus({ id, code: 'send_document_verified' })
+                        requestType === 'sdc'
+                            ? changeStatus({
+                                  id,
+                                  code: 'send_document_verified',
+                              })
+                            : changeStatusOc({
+                                  id,
+                                  code: 'send_document_verified',
+                              })
                     )
                         .unwrap()
                         .then(() => navigate('/requests_sdc'));
@@ -19,7 +34,17 @@ export const getMenuItems = (role, requestStatus, dispatch, navigate, id) => {
                 key: '2',
                 label: 'Аннулировать заявление',
                 onClick: () => {
-                    dispatch(changeStatus({ id, code: 'canceled' }))
+                    dispatch(
+                        requestType === 'sdc'
+                            ? changeStatus({
+                                  id,
+                                  code: 'send_document_verified',
+                              })
+                            : changeStatusOc({
+                                  id,
+                                  code: 'send_document_verified',
+                              })
+                    )
                         .unwrap()
                         .then(() => navigate('/requests_sdc'));
                 },
@@ -34,10 +59,15 @@ export const getMenuItems = (role, requestStatus, dispatch, navigate, id) => {
                         label: 'Принять в работу заявление',
                         onClick: () => {
                             dispatch(
-                                changeStatus({
-                                    id,
-                                    code: 'document_verified',
-                                })
+                                requestType === 'sdc'
+                                    ? changeStatus({
+                                          id,
+                                          code: 'send_document_verified',
+                                      })
+                                    : changeStatusOc({
+                                          id,
+                                          code: 'send_document_verified',
+                                      })
                             );
                             navigate(-1);
                         },
@@ -49,7 +79,17 @@ export const getMenuItems = (role, requestStatus, dispatch, navigate, id) => {
                         key: '1',
                         label: 'Вернуть на доработку',
                         onClick: () => {
-                            dispatch(changeStatus({ id, code: 'returned' }));
+                            dispatch(
+                                requestType === 'sdc'
+                                    ? changeStatus({
+                                          id,
+                                          code: 'send_document_verified',
+                                      })
+                                    : changeStatusOc({
+                                          id,
+                                          code: 'send_document_verified',
+                                      })
+                            );
                             navigate(-1);
                         },
                     },
@@ -58,10 +98,15 @@ export const getMenuItems = (role, requestStatus, dispatch, navigate, id) => {
                         label: 'Принять',
                         onClick: () => {
                             dispatch(
-                                changeStatus({
-                                    id,
-                                    code: 'desicion_accepted',
-                                })
+                                requestType === 'sdc'
+                                    ? changeStatus({
+                                          id,
+                                          code: 'send_document_verified',
+                                      })
+                                    : changeStatusOc({
+                                          id,
+                                          code: 'send_document_verified',
+                                      })
                             );
                             navigate(-1);
                         },
@@ -71,10 +116,15 @@ export const getMenuItems = (role, requestStatus, dispatch, navigate, id) => {
                         label: 'Отклонить',
                         onClick: () => {
                             dispatch(
-                                changeStatus({
-                                    id,
-                                    code: 'desicion_rejected',
-                                })
+                                requestType === 'sdc'
+                                    ? changeStatus({
+                                          id,
+                                          code: 'send_document_verified',
+                                      })
+                                    : changeStatusOc({
+                                          id,
+                                          code: 'send_document_verified',
+                                      })
                             );
                             navigate(-1);
                         },
@@ -86,7 +136,17 @@ export const getMenuItems = (role, requestStatus, dispatch, navigate, id) => {
                         key: '1',
                         label: 'Модерация',
                         onClick: () => {
-                            dispatch(changeStatus({ id, code: 'moderation' }));
+                            dispatch(
+                                requestType === 'sdc'
+                                    ? changeStatus({
+                                          id,
+                                          code: 'send_document_verified',
+                                      })
+                                    : changeStatusOc({
+                                          id,
+                                          code: 'send_document_verified',
+                                      })
+                            );
                             navigate(-1);
                         },
                     },
@@ -97,7 +157,17 @@ export const getMenuItems = (role, requestStatus, dispatch, navigate, id) => {
                         key: '1',
                         label: 'Вернуть на доработку',
                         onClick: () => {
-                            dispatch(changeStatus({ id, code: 'returned' }));
+                            dispatch(
+                                requestType === 'sdc'
+                                    ? changeStatus({
+                                          id,
+                                          code: 'send_document_verified',
+                                      })
+                                    : changeStatusOc({
+                                          id,
+                                          code: 'send_document_verified',
+                                      })
+                            );
                             navigate(-1);
                         },
                     },
@@ -106,10 +176,15 @@ export const getMenuItems = (role, requestStatus, dispatch, navigate, id) => {
                         label: 'Отправить на проверку документов',
                         onClick: () => {
                             dispatch(
-                                changeStatus({
-                                    id,
-                                    code: 'send_document_verified',
-                                })
+                                requestType === 'sdc'
+                                    ? changeStatus({
+                                          id,
+                                          code: 'send_document_verified',
+                                      })
+                                    : changeStatusOc({
+                                          id,
+                                          code: 'send_document_verified',
+                                      })
                             );
                             navigate(-1);
                         },
@@ -119,10 +194,15 @@ export const getMenuItems = (role, requestStatus, dispatch, navigate, id) => {
                         label: 'Принять',
                         onClick: () => {
                             dispatch(
-                                changeStatus({
-                                    id,
-                                    code: 'desicion_accepted',
-                                })
+                                requestType === 'sdc'
+                                    ? changeStatus({
+                                          id,
+                                          code: 'send_document_verified',
+                                      })
+                                    : changeStatusOc({
+                                          id,
+                                          code: 'send_document_verified',
+                                      })
                             );
                             navigate(-1);
                         },
@@ -132,10 +212,15 @@ export const getMenuItems = (role, requestStatus, dispatch, navigate, id) => {
                         label: 'Отклонить',
                         onClick: () => {
                             dispatch(
-                                changeStatus({
-                                    id,
-                                    code: 'desicion_rejected',
-                                })
+                                requestType === 'sdc'
+                                    ? changeStatus({
+                                          id,
+                                          code: 'send_document_verified',
+                                      })
+                                    : changeStatusOc({
+                                          id,
+                                          code: 'send_document_verified',
+                                      })
                             );
                             navigate(-1);
                         },
@@ -148,10 +233,15 @@ export const getMenuItems = (role, requestStatus, dispatch, navigate, id) => {
                         label: 'Внести в реестр',
                         onClick: () => {
                             dispatch(
-                                changeStatus({
-                                    id,
-                                    code: 'register_entered',
-                                })
+                                requestType === 'sdc'
+                                    ? changeStatus({
+                                          id,
+                                          code: 'send_document_verified',
+                                      })
+                                    : changeStatusOc({
+                                          id,
+                                          code: 'send_document_verified',
+                                      })
                             );
                             navigate(-1);
                         },
