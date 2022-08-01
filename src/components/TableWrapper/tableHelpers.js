@@ -289,7 +289,7 @@ export const checkStatus = async (userRole, setState, navigate) => {
 
         case 'user_oc':
             let val = await $api.get(
-                '/request/request_sdc_standard_certification/get/active_request_oc_header'
+                '/request/request_oc_organ_certification/get/active_request_oc_header'
             );
             if (val.data.data?.requestSdcHeader !== null) {
                 setState(true);

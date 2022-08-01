@@ -59,7 +59,7 @@ export const uploadFiles = createAsyncThunk(
         formData.append('uploadedFile[]', payload.uploadedFiles);
 
         try {
-            const result = await axios.post(
+            await axios.post(
                 `https://api-prof-sdc.anonamis.ru/api/request/request_sdc_standard_certification/${payload.id}/document/${payload.documentId}/file/add`,
                 formData,
                 {
@@ -72,7 +72,6 @@ export const uploadFiles = createAsyncThunk(
                 }
             );
             info('Файл успешно добавлен');
-            console.log(result, 'uploadFiles');
         } catch (err) {
             error('Произошла ошибка');
         }
@@ -85,7 +84,7 @@ export const deleteFileDocument = createAsyncThunk(
     'deleteFileDocument/delete',
     async (payload) => {
         try {
-            const result = await fetch(
+            await fetch(
                 `https://api-prof-sdc.anonamis.ru/api/request/request_sdc_standard_certification/${payload.id}/document/${payload.documentId}/file/${payload.file.id}/delete`,
                 {
                     method: 'DELETE',
@@ -97,7 +96,6 @@ export const deleteFileDocument = createAsyncThunk(
                 }
             );
             info('Файл успешно удален');
-            console.log(result, 'deleteFileDocument');
         } catch (error) {
             error('Произошла ошибка');
         }
@@ -114,8 +112,6 @@ export const saveFileDocument = createAsyncThunk(
             )
 
             .then((response) => {
-                console.log(response);
-
                 fileDownload(response.data, payload.file.file_name);
             });
     }
@@ -147,6 +143,22 @@ export const getDocumentCard = createAsyncThunk(
     async (payload) => {
         const result = await $api.get(
             `/request/request_sdc_standard_certification/${payload.id}/document/${payload.documentId}`
+        );
+
+        result.data.data[0].files = result.data.data[0].files.map((file) => ({
+            ...file,
+            name: file.file_name,
+            uid: file.id,
+        }));
+        return result.data.data[0];
+    }
+);
+
+export const getDocumentCardOc = createAsyncThunk(
+    'getDocumentCardOc/view',
+    async (payload) => {
+        const result = await $api.get(
+            `/request/request_oc_organ_certification/${payload.id}/document/${payload.documentId}`
         );
 
         result.data.data[0].files = result.data.data[0].files.map((file) => ({

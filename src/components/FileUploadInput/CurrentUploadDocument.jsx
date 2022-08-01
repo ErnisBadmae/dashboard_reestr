@@ -7,6 +7,7 @@ import {
 } from '@ant-design/icons';
 import {
     getDocumentCard,
+    getDocumentCardOc,
     uploadFiles,
     deleteFileDocument,
     saveFileDocument,
@@ -19,13 +20,13 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import './currentUploadDocument.css';
 
-const getBase64 = (file) =>
-    new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = (error) => reject(error);
-    });
+// const getBase64 = (file) =>
+//     new Promise((resolve, reject) => {
+//         const reader = new FileReader();
+//         reader.readAsDataURL(file);
+//         reader.onload = () => resolve(reader.result);
+//         reader.onerror = (error) => reject(error);
+//     });
 
 const getFileSize = (size) => {
     return `${(size / 8 / 1024).toFixed(2)} KB`;
@@ -42,28 +43,28 @@ function CurrentUploadDocument(props) {
     const { isCardEditable } = useSelector((state) => state.proposalTest);
 
     const [previewVisible, setPreviewVisible] = useState(false);
-    const [previewImage, setPreviewImage] = useState('');
-    const [previewTitle, setPreviewTitle] = useState('');
+    //     const [previewImage, setPreviewImage] = useState('');
+    //     const [previewTitle, setPreviewTitle] = useState('');
 
     useEffect(() => {
         sdcId && dispatch(getDocumentCard({ id: sdcId, documentId }));
         proposalOsId &&
-            dispatch(getDocumentCard({ id: proposalOsId, documentId }));
+            dispatch(getDocumentCardOc({ id: proposalOsId, documentId }));
     }, [proposalOsId, sdcId, documentId, dispatch]);
 
     const handleCancel = () => setPreviewVisible(false);
 
-    const handlePreview = async (file) => {
-        if (!file.url && !file.preview) {
-            file.preview = await getBase64(file.originFileObj);
-        }
+    //     const handlePreview = async (file) => {
+    //         if (!file.url && !file.preview) {
+    //             file.preview = await getBase64(file.originFileObj);
+    //         }
 
-        setPreviewImage(file.url || file.preview);
-        setPreviewVisible(true);
-        setPreviewTitle(
-            file.name || file.url.substring(file.url.lastIndexOf('/') + 1)
-        );
-    };
+    //         setPreviewImage(file.url || file.preview);
+    //         setPreviewVisible(true);
+    //         setPreviewTitle(
+    //             file.name || file.url.substring(file.url.lastIndexOf('/') + 1)
+    //         );
+    //     };
 
     function handleSubmit(event) {
         sdcId &&
@@ -120,6 +121,7 @@ function CurrentUploadDocument(props) {
                                             icon={<DeleteOutlined />}
                                             target={file.uid}
                                             onClick={(e) =>
+                                                sdcId &&
                                                 dispatch(
                                                     deleteFileDocument({
                                                         id: sdcId,
@@ -167,17 +169,17 @@ function CurrentUploadDocument(props) {
                 </Upload>
                 <Modal
                     visible={previewVisible}
-                    title={previewTitle}
+                    // title={previewTitle}
                     footer={null}
                     onCancel={handleCancel}
                 >
-                    <img
+                    {/* <img
                         alt="example"
                         style={{
                             width: '100%',
                         }}
                         src={previewImage}
-                    />
+                    /> */}
                 </Modal>
             </div>
             <div className="declaration__buttons file__btns">

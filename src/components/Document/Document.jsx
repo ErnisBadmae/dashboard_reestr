@@ -15,7 +15,6 @@ function Document(props) {
     const dispatch = useDispatch();
 
     const { proposalOsId, sdcId } = useParams();
-    // console.log({ proposalOsId, sdcId }, 'params from document');
 
     const { isCardEditable } = useSelector((state) => state.proposalTest);
     const userRole = useSelector((state) => state.auth.user.roles);
